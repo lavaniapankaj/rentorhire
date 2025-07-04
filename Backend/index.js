@@ -11,6 +11,10 @@ require('./utility');
 /** enable cors to fetch api call from cross origin */
 app.use(cors());
 
+/** Body parser middleware */
+app.use(express.json()); // <-- Use this middleware to parse JSON
+app.use(express.urlencoded({ extended: true })); // <-- For URL-encoded data (optional)
+
 /**  Import database connection(Directly import the promisePool here) */
 const pool = require('./config/connection');
 
