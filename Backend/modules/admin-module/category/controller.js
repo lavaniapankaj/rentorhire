@@ -5,7 +5,7 @@ function CategoryApi() {
 
   this.Categorytest = async (req, res) => {
       try {
-          console.log("Test controller called.");
+        //   console.log("Test controller called."); this line commented by vishnu
 
           // Static test data (replace this with actual dynamic data later)
           const name = "Electronics";
