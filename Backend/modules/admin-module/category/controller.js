@@ -1,12 +1,14 @@
 // controller.js
 const pool = require('../../../config/connection');  // Correct import of the promisePool
+
+
 const util = require('util');
 const query = util.promisify(pool.query).bind(pool);
 
 
 function CategoryApi() {
 
-    /** Function method to create the category and sub-category */
+    /** Function method to create the category and sub-category Coded by Raj June 04 2025 */
     this.createCategory = async (req, res) => {
         try {
             const { name, description, add_id, edit_id, parent_category_id} = req.body;
@@ -53,19 +55,28 @@ function CategoryApi() {
         }
     };
 
+    /** Category list Coded by Raj June 04 2025 */
     this.categoryList = async (req, res) => {
         try{
-            const sql = "SELECT id, name, description, slug FROM roh_categories";
-            const [categoryList] = await pool.query(sql);
+            /** Get page and limit from query parameters (defaults if not provided) */
+            const page = parseInt(req.query.page) || 1; /** page 1 if not provided */
+            const limit = parseInt(req.query.limit) || 5; /**  5 items per page */
 
-            if(categoryList){
+            /** Calculate the offset for pagination */
+            const offset = (page - 1) * limit;
+            
+            const sql = "SELECT c.id, c.name, c.description, c.slug, c.parent_category_id, p.name AS parent_category_name FROM roh_categories c LEFT JOIN roh_categories p ON c.parent_category_id = p.id WHERE c.active = 1 LIMIT ? OFFSET ?";
+
+            const [categoryList] = await pool.query(sql, [parseInt(limit), parseInt(offset)]);
+
+            if (categoryList) {
                 return GLOBAL_SUCCESS_RESPONSE(
                     "Category data fetched.",
-                    categoryList, // Send fetched data here
+                    categoryList,
                     res
-                )
+                );
             } else {
-                return GLOBAL_ERROR_RESPONSE("Failed to insert category.", {}, res);
+                return GLOBAL_ERROR_RESPONSE("Failed to fetch category data.", {}, res);
             }
         } catch(error){
             let message = "Internal server error";
@@ -73,6 +84,7 @@ function CategoryApi() {
         }
     }
 
+    /** Details Category Coded by Raj June 04 2025 */
     this.categoryDetail = async (req, res) => {
         try {
             const { id } = req.body;    
@@ -90,6 +102,7 @@ function CategoryApi() {
         }
     };    
 
+    /** Update category Coded by Raj June 04-05 2025 */
     this.updateCategory = async (req, res) => {
         try {
             const { id, name, description, parent_category_id, edit_id } = req.body;
@@ -169,6 +182,34 @@ function CategoryApi() {
     //     }
     // };
     
+    /** Delete category Coded by Raj June 05 2025 */
+    this.deleteCategory = (req, res) => {
+        try {
+            const { id } = req.body;
+
+            /** SQL query to update the category (set active = 0 to mark it as deleted) */
+            const query = `UPDATE roh_categories SET active = 0 WHERE id = ?`;
+
+            /** Use the callback approach for handling the query */
+            pool.query(query, [id], (err, result) => {
+                if (err) {
+                    return GLOBAL_ERROR_RESPONSE("Error deleting category.", err, res);
+                }
+
+                /** If no rows were affected, it means the category ID does not exist */
+                if (result.affectedRows === 0) {
+                    return GLOBAL_ERROR_RESPONSE("No category found with the given ID", {}, res);
+                }
+
+                /** If the category was successfully updated, return a success response */
+                return GLOBAL_SUCCESS_RESPONSE("Category deleted successfully", result, res);
+            });
+
+        } catch (err) {
+            console.error("Error in Delete Category:", err);  /** Log the error for debugging */
+            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+        }
+    };
 
 }
 module.exports = new CategoryApi();
