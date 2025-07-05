@@ -10,6 +10,7 @@ require('./utility');
 
 /** enable cors to fetch api call from cross origin */
 app.use(cors());
+app.use(express.json());
 
 /**  Import database connection(Directly import the promisePool here) */
 const pool = require('./config/connection');
