@@ -12,6 +12,10 @@ require('./utility');
 app.use(cors());
 app.use(express.json());
 
+/** Body parser middleware */
+app.use(express.json()); // <-- Use this middleware to parse JSON
+app.use(express.urlencoded({ extended: true })); // <-- For URL-encoded data (optional)
+
 /**  Import database connection(Directly import the promisePool here) */
 const pool = require('./config/connection');
 
