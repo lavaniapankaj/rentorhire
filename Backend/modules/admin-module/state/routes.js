@@ -1,7 +1,7 @@
 const StateController = require("./controller");
 const {ValidateaddnewState, ValidategetallState, ValidateeditState, ValidateDeleteState} = require("./validation");
 
-/** Api for adding new states Coded by Vishnu June 03 2025 */
+/** Api for adding new states Coded by Vishnu July 03 2025 */
 app.post(
     ADMIN_NAME + "/state/add", 
     //checkLoginAuth, // Uncomment if you have authentication middleware
@@ -11,7 +11,7 @@ app.post(
     }
 );
 
-/** Api for get all states Coded by Vishnu June 04 2025 */
+/** Api for get all states Coded by Vishnu July 04 2025 */
 app.get(
     ADMIN_NAME + "/state/get", 
     //checkLoginAuth,
@@ -21,7 +21,7 @@ app.get(
     }
 );
 
-/** Api for edit states Coded by Vishnu June 04 2025 */
+/** Api for edit states Coded by Vishnu July 04 2025 */
 app.post(
     ADMIN_NAME + "/state/edit", 
     //checkLoginAuth,
@@ -32,7 +32,7 @@ app.post(
 );
 
 
-/** Api for delete states Coded by Vishnu June 04 2025 */
+/** Api for delete states Coded by Vishnu July 04 2025 */
 app.post(
     ADMIN_NAME + "/state/delete", 
     //checkLoginAuth,

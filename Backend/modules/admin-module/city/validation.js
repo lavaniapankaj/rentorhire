@@ -1,6 +1,6 @@
 const { pool } = require("../../../config/connection");
 
-/** add new city validation Coded by Vishnu June 05 2025 */
+/** add new city validation Coded by Vishnu July 05 2025 */
 const ValidateaddnewCity = (req, res, next) => {
     const { city_name, city_slug, state_id } = req.body;
 
@@ -47,7 +47,7 @@ const ValidateaddnewCity = (req, res, next) => {
     });
 };
 
-/** Get all cities validation Coded by Vishnu June 05 2025 */
+/** Get all cities validation Coded by Vishnu July 05 2025 */
 const ValidategetallCity = (req, res, next) => {
     /** Get page and limit from query parameters */
     const page = parseInt(req.query.page); /** Parse the page as an integer */
@@ -62,7 +62,7 @@ const ValidategetallCity = (req, res, next) => {
     next();
 };
 
-/** Edit city validation Coded by Vishnu June 05 2025 */
+/** Edit city validation Coded by Vishnu July 05 2025 */
 const ValidateeditCity = (req, res, next) => {
     const { city_id, city_name, city_slug, state_id } = req.body;
 
@@ -109,7 +109,7 @@ const ValidateeditCity = (req, res, next) => {
     });
 };
 
-/** Delete city validation Coded by Vishnu June 05 2025 */
+/** Delete city validation Coded by Vishnu July 05 2025 */
 const ValidateDeleteCity = (req, res, next) => {
     const { city_id } = req.body;
 

@@ -1,7 +1,7 @@
 const { pool } = require('../../../config/connection');  // Correct import of the pool
 
 function CityApi() {
-    /** Add new city to cities collection Coded by Vishnu June 05 2025 */
+    /** Add new city to cities collection Coded by Vishnu July 05 2025 */
     this.AddnewCity = (req, res) => {
         try {
             const { city_name, city_slug, state_id, add_id = 1, edit_id = 1 } = req.body;
@@ -28,7 +28,7 @@ function CityApi() {
         }
     };
 
-    /** Get all cities from cities collection Coded by Vishnu June 05 2025 */
+    /** Get all cities from cities collection Coded by Vishnu July 05 2025 */
     this.GetallCity = (req, res) => {
         try {
             /** Get page and limit from query parameters */
@@ -63,7 +63,7 @@ function CityApi() {
         }
     };
 
-    /** Edit city in cities collection Coded by Vishnu June 05 2025 */
+    /** Edit city in cities collection Coded by Vishnu July 05 2025 */
     this.EditCity = (req, res) => {
         try {
             const { city_id, city_name, city_slug, state_id } = req.body;
@@ -89,7 +89,7 @@ function CityApi() {
         }
     };
 
-    /** Delete city in cities collection Coded by Vishnu June 05 2025 */
+    /** Delete city in cities collection Coded by Vishnu July 05 2025 */
     this.DeleteCity = (req, res) => {
         try {
             const { city_id } = req.body;

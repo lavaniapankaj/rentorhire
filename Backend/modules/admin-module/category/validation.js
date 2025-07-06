@@ -1,4 +1,4 @@
-// Create Category Validation Coded by Raj June 04 2025
+// Create Category Validation Coded by Raj July 04 2025
 const validateCreateCategory = (req, res, next) => {
     console.log("validation check here, create category");
 
@@ -14,7 +14,7 @@ const validateCreateCategory = (req, res, next) => {
     next();
 };
 
-// Update Category Validation Coded by Raj June 04 2025
+// Update Category Validation Coded by Raj July 04 2025
 const validateDetailCategory = (req, res, next) => {
     console.log("validation here.");
     const { id } = req.body;
@@ -29,7 +29,7 @@ const validateDetailCategory = (req, res, next) => {
     next();
 };
 
-// Delete Category Validation Coded by Raj June 05 2025
+// Delete Category Validation Coded by Raj July 05 2025
 const validateDeleteCategory = (req, res, next) => {
     const { id } = req.body;
 
@@ -43,7 +43,7 @@ const validateDeleteCategory = (req, res, next) => {
     next();
 };
 
-/** Update validation category Coded by Raj June 04 2025 */
+/** Update validation category Coded by Raj July 04 2025 */
 const validateUpdateCategory = (req,res, next) => {
     const { id } = req.body;
 

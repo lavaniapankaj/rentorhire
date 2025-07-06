@@ -8,7 +8,7 @@ const query = util.promisify(pool.query).bind(pool);
 
 function CategoryApi() {
 
-    /** Function method to create the category and sub-category Coded by Raj June 04 2025 */
+    /** Function method to create the category and sub-category Coded by Raj July 04 2025 */
     this.createCategory = async (req, res) => {
         try {
             const { name, description, add_id, edit_id, parent_category_id} = req.body;
@@ -55,7 +55,7 @@ function CategoryApi() {
         }
     };
 
-    /** Category list Coded by Raj June 04 2025 */
+    /** Category list Coded by Raj July 04 2025 */
     this.categoryList = async (req, res) => {
         try{
             /** Get page and limit from query parameters (defaults if not provided) */
@@ -84,7 +84,7 @@ function CategoryApi() {
         }
     }
 
-    /** Details Category Coded by Raj June 04 2025 */
+    /** Details Category Coded by Raj July 04 2025 */
     this.categoryDetail = async (req, res) => {
         try {
             const { id } = req.body;    
@@ -102,7 +102,7 @@ function CategoryApi() {
         }
     };    
 
-    /** Update category Coded by Raj June 04-05 2025 */
+    /** Update category Coded by Raj July 04-06 2025 */
     this.updateCategory = async (req, res) => {
         try {
             const { id, name, description, parent_category_id, edit_id } = req.body;
@@ -119,10 +119,10 @@ function CategoryApi() {
     
             console.log("Executing query...");
     
-            // Await the result of the query
-            const result = await query(sql, [name, description, parent_category_id, edit_id, id]);
+            /** Await the result of the query */
+            const [result] = await pool.query(sql, [name, description, parent_category_id, edit_id, id]);
     
-            console.log("Query result:", result);
+            // console.log("Query result:", result);
     
             if (result.affectedRows === 0) {
                 return GLOBAL_ERROR_RESPONSE("Category not found or not updated.", {}, res);
@@ -140,76 +140,32 @@ function CategoryApi() {
         }
     };
 
-    // this.updateCategory = async (req, res) => {
-    //     try {
-    //         const {id, name, description, parent_category_id, edit_id} = req.body;
     
-    //         /** Generate slug from name */
-    //         const slug = name
-    //             .toLowerCase()
-    //             .trim()
-    //             .replace(/[^\w\s-]/g, '')
-    //             .replace(/\s+/g, '-')
-    //             .replace(/--+/g, '-');
-    
-    //         const sql = `UPDATE roh_categories SET name = ?, description = ?, parent_category_id = ?, edit_id = ? WHERE id = ?`;
-            
-    //         console.log("before executing.");
-
-    //         pool.query(sql, [name, description, parent_category_id, edit_id, id], (err, result) => {
-
-    //             console.log("err>> ", err);
-    //             console.log("result>> ", result);
-
-    //             if (err) {
-    //                 console.error("Error updating category:", err);
-    //                 return GLOBAL_ERROR_RESPONSE("Error updating category", err, res);
-    //             }
-            
-    //             if (result.affectedRows === 0) {
-    //                 return GLOBAL_ERROR_RESPONSE("Category not found or not updated.", {}, res);
-    //             }
-            
-    //             return GLOBAL_SUCCESS_RESPONSE(
-    //                 "Category updated successfully.",
-    //                 { id, name, slug, parent_category_id },
-    //                 res
-    //             );
-    //         });
-            
-    //     } catch (err) {
-    //         return GLOBAL_ERROR_RESPONSE("Internal server error.", err, res);
-    //     }
-    // };
-    
-    /** Delete category Coded by Raj June 05 2025 */
-    this.deleteCategory = (req, res) => {
+    /** Delete category Coded by Raj July 05 2025 */
+    this.deleteCategory = async (req, res) => {
         try {
             const { id } = req.body;
-
+    
             /** SQL query to update the category (set active = 0 to mark it as deleted) */
             const query = `UPDATE roh_categories SET active = 0 WHERE id = ?`;
-
-            /** Use the callback approach for handling the query */
-            pool.query(query, [id], (err, result) => {
-                if (err) {
-                    return GLOBAL_ERROR_RESPONSE("Error deleting category.", err, res);
-                }
-
-                /** If no rows were affected, it means the category ID does not exist */
-                if (result.affectedRows === 0) {
-                    return GLOBAL_ERROR_RESPONSE("No category found with the given ID", {}, res);
-                }
-
-                /** If the category was successfully updated, return a success response */
-                return GLOBAL_SUCCESS_RESPONSE("Category deleted successfully", result, res);
-            });
-
+    
+            /** Await the result of the query */
+            const [result] = await pool.query(query, [id]);
+    
+            /** If no rows were affected, it means the category ID does not exist */
+            if (result.affectedRows === 0) {
+                return GLOBAL_ERROR_RESPONSE("No category found with the given ID", {}, res);
+            }
+    
+            /** If the category was successfully updated, return a success response */
+            return GLOBAL_SUCCESS_RESPONSE("Category deleted successfully", result, res);
+    
         } catch (err) {
             console.error("Error in Delete Category:", err);  /** Log the error for debugging */
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
+    
 
 }
 module.exports = new CategoryApi();

@@ -1,6 +1,6 @@
 const pool = require("../../../config/connection");
 
-/** Add new state validation Coded by Vishnu June 04 2025 */
+/** Add new state validation Coded by Vishnu July 04 2025 */
 const ValidateaddnewState = async (req, res, next) => {
     console.log("Validation check here, add new state");
 
@@ -31,7 +31,7 @@ const ValidateaddnewState = async (req, res, next) => {
     }
 };
 
-/** Get all state validation Coded by Vishnu June 04 2025 */
+/** Get all state validation Coded by Vishnu July 04 2025 */
 const ValidategetallState = async (req, res, next) => {
     try {
         /** Get page and limit from query parameters */
@@ -67,7 +67,7 @@ const ValidategetallState = async (req, res, next) => {
     }
 };
 
-/** Edit state validation Coded by Vishnu June 04 2025 */
+/** Edit state validation Coded by Vishnu July 04 2025 */
 const ValidateeditState = async (req, res, next) => {
     console.log("Validation check here, edit state");
 
@@ -83,7 +83,7 @@ const ValidateeditState = async (req, res, next) => {
     next();
 };
 
-/** Delete state validation Coded by Vishnu June 04 2025 */
+/** Delete state validation Coded by Vishnu July 04 2025 */
 const ValidateDeleteState = async (req, res, next) => {
     console.log("Validation check here, delete state");
 

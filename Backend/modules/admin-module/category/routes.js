@@ -1,7 +1,7 @@
     const Category = require("./controller");
     const { validateCreateCategory, validateDetailCategory, validateUpdateCategory, validateDeleteCategory } = require('./validation');
 
-    /** API to create a category and sub category Coded by Raj June 04 2025 */
+    /** API to create a category and sub category Coded by Raj July 04 2025 */
     app.get(
         ADMIN_NAME + "/category/create",
         validateCreateCategory,
@@ -10,7 +10,7 @@
         }
     );
     
-    /** API to get the category list Coded by Raj June 04 2025 */
+    /** API to get the category list Coded by Raj July 04 2025 */
     app.get(
         ADMIN_NAME + "/category/list",
         (req, res, next) => {
@@ -18,7 +18,7 @@
         }
     );
 
-    /** API to get the category details by category id Coded by Raj June 04 2025*/
+    /** API to get the category details by category id Coded by Raj July 04 2025*/
     app.post(
         ADMIN_NAME + "/category/details",
         validateDetailCategory,
@@ -27,7 +27,7 @@
         }
     )
 
-    /** API to update the category data Coded by Raj June 04 2025 */
+    /** API to update the category data Coded by Raj July 04 2025 */
     app.post(
         ADMIN_NAME + "/category/update",
         validateUpdateCategory,
@@ -36,7 +36,7 @@
         }
     )
 
-    /** API to delete the category data(soft delete) Coded by Raj June 05 2025 */
+    /** API to delete the category data(soft delete) Coded by Raj July 05 2025 */
     app.get(
         ADMIN_NAME + "/category/delete",
         validateDeleteCategory,

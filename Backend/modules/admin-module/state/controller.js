@@ -1,7 +1,7 @@
 const { pool } = require('../../../config/connection');  /** Import the pool */
 
 function StateApi() {
-    /** Add new state in state collection Coded by Vishnu June 03 2025 */
+    /** Add new state in state collection Coded by Vishnu July 03 2025 */
     this.AddnewState = async (req, res) => {
         try {
             const { state_name, state_slug, add_id = 1, edit_id = 1 } = req.body;
@@ -26,7 +26,7 @@ function StateApi() {
         }
     };
 
-    /** Get all state in state collection Coded by Vishnu June 04 2025 */
+    /** Get all state in state collection Coded by Vishnu July 04 2025 */
     this.GetallState = async (req, res) => {
         try {
             /** Get page and limit from query parameters (defaults if not provided) */
@@ -55,7 +55,7 @@ function StateApi() {
         }
     };
 
-    /** Edit state in state collection Coded by Vishnu June 04 2025 */
+    /** Edit state in state collection Coded by Vishnu July 04 2025 */
     this.EditState = async (req, res) => {
         try {
             const { state_id, state_name, state_slug, add_id = 1, edit_id = 1 } = req.body;
@@ -76,7 +76,7 @@ function StateApi() {
         }
     };
 
-    /** Delete state in state collection Coded by Vishnu June 04 2025 */
+    /** Delete state in state collection Coded by Vishnu July 04 2025 */
     this.DeleteState = (req, res) => {
         try {
             const { state_id } = req.body;

@@ -2,7 +2,7 @@ const CityController = require("./controller");
 const {ValidateaddnewCity, ValidategetallCity, ValidateeditCity, ValidateDeleteCity} = require("./validation");
 
 
-/**Api for Add cities Coded by Vishnu June 05 2025 */
+/**Api for Add cities Coded by Vishnu July 05 2025 */
 app.post(
     ADMIN_NAME + "/city/add", 
     //checkLoginAuth,  
@@ -12,7 +12,7 @@ app.post(
     }
 );
 
-/** Api for get all cities Coded by Vishnu June 05 2025 */
+/** Api for get all cities Coded by Vishnu July 05 2025 */
 app.get(
     ADMIN_NAME + "/city/get", 
     //checkLoginAuth,
@@ -22,7 +22,7 @@ app.get(
     }
 );
 
-/** Api for edit cities Coded by Vishnu June 05 2025 */
+/** Api for edit cities Coded by Vishnu July 05 2025 */
 app.post(
     ADMIN_NAME + "/city/edit", 
     //checkLoginAuth,
@@ -32,7 +32,7 @@ app.post(
     }
 );
 
-/** Api for delete cities Coded by Vishnu June 05 2025 */
+/** Api for delete cities Coded by Vishnu July 05 2025 */
 app.post(
     ADMIN_NAME + "/city/delete", 
     //checkLoginAuth,
