@@ -59,8 +59,8 @@ function CategoryApi() {
     this.categoryList = async (req, res) => {
         try{
             /** Get page and limit from query parameters (defaults if not provided) */
-            const page = parseInt(req.query.page) || 1; /** page 1 if not provided */
-            const limit = parseInt(req.query.limit) || 5; /**  5 items per page */
+            const page = parseInt(req.body.page) || 1; /** page 1 if not provided */
+            const limit = parseInt(req.body.limit) || 5; /**  5 items per page */
 
             /** Calculate the offset for pagination */
             const offset = (page - 1) * limit;
@@ -70,11 +70,7 @@ function CategoryApi() {
             const [categoryList] = await pool.query(sql, [parseInt(limit), parseInt(offset)]);
 
             if (categoryList) {
-                return GLOBAL_SUCCESS_RESPONSE(
-                    "Category data fetched.",
-                    categoryList,
-                    res
-                );
+                return GLOBAL_SUCCESS_RESPONSE( "Category data fetched.", categoryList, res);
             } else {
                 return GLOBAL_ERROR_RESPONSE("Failed to fetch category data.", {}, res);
             }
@@ -115,14 +111,10 @@ function CategoryApi() {
                 .replace(/\s+/g, '-')
                 .replace(/--+/g, '-');
     
-            const sql = `UPDATE roh_categories SET name = ?, description = ?, parent_category_id = ?, edit_id = ? WHERE id = ?`;
-    
-            console.log("Executing query...");
-    
+            const sql = `UPDATE roh_categories SET name = ?, description = ?, parent_category_id = ?, edit_id = ?, edit_date = NOW()  WHERE id = ?`;
+        
             /** Await the result of the query */
             const [result] = await pool.query(sql, [name, description, parent_category_id, edit_id, id]);
-    
-            // console.log("Query result:", result);
     
             if (result.affectedRows === 0) {
                 return GLOBAL_ERROR_RESPONSE("Category not found or not updated.", {}, res);
@@ -140,14 +132,13 @@ function CategoryApi() {
         }
     };
 
-    
     /** Delete category Coded by Raj July 05 2025 */
     this.deleteCategory = async (req, res) => {
         try {
             const { id } = req.body;
     
             /** SQL query to update the category (set active = 0 to mark it as deleted) */
-            const query = `UPDATE roh_categories SET active = 0 WHERE id = ?`;
+            const query = `UPDATE roh_categories SET active = 0, edit_date = NOW()  WHERE id = ?`;
     
             /** Await the result of the query */
             const [result] = await pool.query(query, [id]);
@@ -165,7 +156,5 @@ function CategoryApi() {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
-    
-
 }
 module.exports = new CategoryApi();
