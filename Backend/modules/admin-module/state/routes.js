@@ -12,7 +12,7 @@ app.post(
 );
 
 /** Api for get all states Coded by Vishnu July 04 2025 */
-app.get(
+app.post(
     ADMIN_NAME + "/state/get", 
     //checkLoginAuth,
     ValidategetallState, /** Validation middleware */

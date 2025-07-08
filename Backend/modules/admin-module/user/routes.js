@@ -13,7 +13,7 @@ app.post(
 );
 
 /** Get all user Coded by Vishnu July 07 2025 */
-app.get(
+app.post(
     ADMIN_NAME + "/user/get", 
     //checkLoginAuth,  Uncomment if you have authentication middleware
     ValidateGetAllUsers, /** Validation middleware */

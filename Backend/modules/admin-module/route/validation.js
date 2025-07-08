@@ -46,9 +46,8 @@ const ValidateaddnewRoute = async (req, res, next) => {
 /** Get all routes validation Coded by Vishnu July 07 2025 */
 const ValidateGetAllRoutes = async (req, res, next) => {
     try {
-        const { page, limit } = req.query;
+        const { page, limit } = req.body;
 
-        /** If either is missing, send error */
         if (!page || !limit) {
             return GLOBAL_ERROR_RESPONSE("Page number and limit must be provided", {}, res);
         }
@@ -66,6 +65,7 @@ const ValidateGetAllRoutes = async (req, res, next) => {
         return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
     }
 };
+
 
 /** Edit route validation Coded by Vishnu July 07 2025 */
 const ValidateEditRoute = async (req, res, next) => {

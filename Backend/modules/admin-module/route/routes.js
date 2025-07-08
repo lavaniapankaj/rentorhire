@@ -12,7 +12,7 @@ app.post(
 );
 
 /** Get all route Coded by Vishnu July 07 2025 */
-app.get(
+app.post(
     ADMIN_NAME + "/route/get", 
     //checkLoginAuth,
     ValidateGetAllRoutes, /** Validation middleware */

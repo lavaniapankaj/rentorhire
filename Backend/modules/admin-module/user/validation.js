@@ -41,10 +41,12 @@ const ValidateaddnewUser = async (req, res, next) => {
 /** Get all users validation Coded by Vishnu July 07 2025 */
 const ValidateGetAllUsers = async (req, res, next) => {
     try {
-        const page = parseInt(req.query.page);
-        const limit = parseInt(req.query.limit);
+        const { page, limit } = req.body;
 
-        if (!page || !limit || page <= 0 || limit <= 0) {
+        const pageNum = parseInt(page);
+        const limitNum = parseInt(limit);
+
+        if (!pageNum || !limitNum || pageNum <= 0 || limitNum <= 0) {
             return GLOBAL_ERROR_RESPONSE("Page number and limit must be positive integers", {}, res);
         }
 
@@ -54,6 +56,7 @@ const ValidateGetAllUsers = async (req, res, next) => {
         return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
     }
 };
+
 
 /** Edit user validation Coded by Vishnu July 07 2025 */
 const ValidateEditUser = async (req, res, next) => {

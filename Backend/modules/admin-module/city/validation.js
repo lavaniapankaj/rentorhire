@@ -49,18 +49,18 @@ const ValidateaddnewCity = (req, res, next) => {
 
 /** Get all cities validation Coded by Vishnu July 05 2025 */
 const ValidategetallCity = (req, res, next) => {
-    /** Get page and limit from query parameters */
-    const page = parseInt(req.query.page); /** Parse the page as an integer */
-    const limit = parseInt(req.query.limit); /** Parse the limit as an integer */
+    const { page, limit } = req.body;
 
-    /** Validate if both page and limit are provided and are positive integers */
-    if (!page || page < 1 || !limit || limit < 1) {
+    const pageNum = parseInt(page);
+    const limitNum = parseInt(limit);
+
+    if (!pageNum || !limitNum || pageNum <= 0 || limitNum <= 0) {
         return GLOBAL_ERROR_RESPONSE("Page number and limit must be positive integers", {}, res);
     }
 
-    /** If validation passes, call the next middleware/controller */
     next();
 };
+
 
 /** Edit city validation Coded by Vishnu July 05 2025 */
 const ValidateeditCity = (req, res, next) => {

@@ -47,8 +47,8 @@ function RoutesApi() {
     /** Get all routes from roh_routes table Coded by Vishnu July 07 2025 */
     this.GetAllRoutes = async (req, res) => {
         try {
-            const page = parseInt(req.query.page) || 1;
-            const limit = parseInt(req.query.limit) || 5;
+            const page = parseInt(req.body.page) || 1;
+            const limit = parseInt(req.body.limit) || 5;
             const offset = (page - 1) * limit;
     
             const query = `SELECT * FROM roh_routes LIMIT ? OFFSET ?`;
@@ -66,6 +66,7 @@ function RoutesApi() {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
+    
     
     /** Edit route in roh_routes table Coded by Vishnu July 07 2025 */
     this.EditRoute = async (req, res) => {

@@ -29,31 +29,26 @@ function StateApi() {
     /** Get all state in state collection Coded by Vishnu July 04 2025 */
     this.GetallState = async (req, res) => {
         try {
-            /** Get page and limit from query parameters (defaults if not provided) */
-            const page = parseInt(req.query.page) || 1; /** page 1 if not provided */
-            const limit = parseInt(req.query.limit) || 5; /**  5 items per page */
-
-            /** Calculate the offset for pagination */
+            const page = parseInt(req.body.page) || 1;
+            const limit = parseInt(req.body.limit) || 5;
             const offset = (page - 1) * limit;
-
-            /** SQL query to fetch states with pagination */
+    
             const query = `
                 SELECT * FROM roh_states WHERE active = 1 LIMIT ? OFFSET ?
             `;
-
-            /** Execute the query to get the paginated states */
+    
             pool.query(query, [limit, offset], (err, result) => {
                 if (err) {
                     return GLOBAL_ERROR_RESPONSE("Error getting states", err, res);
                 }
-
-                /** Return paginated results */
+    
                 return GLOBAL_SUCCESS_RESPONSE("States fetched successfully", result, res);
             });
         } catch (err) {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
+    
 
     /** Edit state in state collection Coded by Vishnu July 04 2025 */
     this.EditState = async (req, res) => {
