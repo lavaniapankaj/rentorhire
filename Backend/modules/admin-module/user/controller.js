@@ -4,28 +4,63 @@ function UsersApi() {
     /** Add new user in roh_users table Coded by Vishnu July 06 2025 */
     this.AddnewUser = async (req, res) => {
         try {
-            const { user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, add_id = 1, edit_id = 1 } = req.body;
-
-            /** If validation passes, proceed with inserting the new user */
-            const query = `
-                INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, add_id, edit_id, active)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            `;
-
-            /** Proceed with inserting the user into the database */
-            pool.execute(query, [user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, add_id, edit_id, 1], (err, result) => {
-                if (err) {
-                    return GLOBAL_ERROR_RESPONSE("Error saving user", err, res);
-                }
-
-                return GLOBAL_SUCCESS_RESPONSE("User added successfully", { id: result.insertId }, res);
-            });
-
+          const {
+            user_name,
+            first_name,
+            last_name,
+            email,
+            phone_number,
+            password_hash,
+            user_role_id,
+            profile_picture_url,
+            address_1,
+            landmark,
+            state,
+            city,
+            pincode,
+            add_id = 1,
+            edit_id = 1
+          } = req.body;
+      
+          const query = `
+            INSERT INTO roh_users (
+              user_name, first_name, last_name, email, phone_number, password_hash,
+              user_role_id, profile_picture_url, address_1, landmark, state, city,
+              pincode, add_id, edit_id, active
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          `;
+      
+          const values = [
+            user_name,
+            first_name,
+            last_name,
+            email,
+            phone_number,
+            password_hash,
+            user_role_id,
+            profile_picture_url,
+            address_1,
+            landmark,
+            state,
+            city,
+            pincode,
+            add_id,
+            edit_id,
+            1
+          ];
+      
+          pool.execute(query, values, (err, result) => {
+            if (err) return GLOBAL_ERROR_RESPONSE("Error saving user", err, res);
+            return GLOBAL_SUCCESS_RESPONSE("User added successfully", { id: result.insertId }, res);
+          });
+      
         } catch (err) {
-            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+          return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
-
+      
+    
     /** Get all users in roh_users table Coded by Vishnu July 07 2025 */
     this.GetAllUsers = async (req, res) => {
         try {
@@ -85,21 +120,52 @@ function UsersApi() {
                 email,
                 phone_number,
                 user_role_id,
-                password_hash, 
+                password_hash,
+                profile_picture_url,
+                address_1,
+                landmark,
+                state,
+                city,
+                pincode,
                 edit_id = 1
             } = req.body;
     
-            /** Build dynamic SQL parts */
-            let query = `
+            const query = `
                 UPDATE roh_users 
-                SET first_name = ?, last_name = ?, email = ?, phone_number = ?, user_role_id = ?,password_hash = ?, edit_id = ?, active = ?
+                SET first_name = ?, 
+                    last_name = ?, 
+                    email = ?, 
+                    phone_number = ?, 
+                    user_role_id = ?, 
+                    password_hash = ?, 
+                    profile_picture_url = ?,
+                    address_1 = ?, 
+                    landmark = ?, 
+                    state = ?, 
+                    city = ?, 
+                    pincode = ?, 
+                    edit_id = ?, 
+                    active = ?
+                WHERE user_id = ?
             `;
-            const params = [first_name, last_name, email, phone_number, user_role_id,password_hash, edit_id, 1];
     
-            
-            /** Final WHERE clause */
-            query += ` WHERE user_id = ?`;
-            params.push(user_id);
+            const params = [
+                first_name,
+                last_name,
+                email,
+                phone_number,
+                user_role_id,
+                password_hash,
+                profile_picture_url,
+                address_1,
+                landmark,
+                state,
+                city,
+                pincode,
+                edit_id,
+                1, /** active */
+                user_id
+            ];
     
             pool.query(query, params, (err, result) => {
                 if (err) {
@@ -112,6 +178,8 @@ function UsersApi() {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
+    
+    
     
     /** Delete user in roh_users table Coded by Vishnu July 07 2025 */
     this.DeleteUser = async (req, res) => {

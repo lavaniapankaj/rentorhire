@@ -3,10 +3,38 @@ const pool = require("../../../config/connection");
 /** Add new user validation Coded by Vishnu July 07 2025 */
 const ValidateaddnewUser = async (req, res, next) => {
     try {
-        const { user_name, email, password_hash } = req.body;
+        const { user_name, email, password_hash, phone_number, address_1 } = req.body;
 
-        if (!user_name || !email || !password_hash) {
-            return GLOBAL_ERROR_RESPONSE("Username, email, and password are required", {}, res);
+        if (!user_name) {
+            return GLOBAL_ERROR_RESPONSE("User Name is required", {}, res);
+        }
+
+        if (!email) {
+            return GLOBAL_ERROR_RESPONSE("Email is required", {}, res);
+        }
+
+        if (!password_hash) {
+            return GLOBAL_ERROR_RESPONSE("Password is required", {}, res);
+        }
+
+        if (password_hash.length < 8) {
+            return GLOBAL_ERROR_RESPONSE("Password must be at least 8 characters", {}, res);
+        }
+
+        if (!phone_number) {
+            return GLOBAL_ERROR_RESPONSE("Phone Number is required", {}, res);
+        }
+
+        if (phone_number.length !== 10) {
+            return GLOBAL_ERROR_RESPONSE("Phone Number must be 10 digits", {}, res);
+        }
+
+        if (password_hash.length < 8) {
+            return GLOBAL_ERROR_RESPONSE("Password must be at least 8 characters", {}, res);
+        }
+
+        if (!address_1) {
+            return GLOBAL_ERROR_RESPONSE("Address is required", {}, res);
         }
 
         const connection = pool.promise ? pool.promise() : pool;
