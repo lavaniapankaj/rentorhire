@@ -29,19 +29,19 @@ function UsersApi() {
     /** Get all users in roh_users table Coded by Vishnu July 07 2025 */
     this.GetAllUsers = async (req, res) => {
         try {
-            const page = parseInt(req.query.page);
-            const limit = parseInt(req.query.limit);
+            const page = parseInt(req.body.page) || 1;
+            const limit = parseInt(req.body.limit) || 10;
             const offset = (page - 1) * limit;
     
             const connection = pool.promise();
     
-            /** Total count */
+            // Total count
             const [countResult] = await connection.execute(`SELECT COUNT(*) as total FROM roh_users`);
             const total = countResult[0].total;
             const totalPages = Math.ceil(total / limit);
     
-            /** If no records at all */
-            if (total === 0) {
+            // If no users at all
+            if (total === 0 || page > totalPages) {
                 return GLOBAL_SUCCESS_RESPONSE("No users found", {
                     users: [],
                     page,
@@ -51,18 +51,7 @@ function UsersApi() {
                 }, res);
             }
     
-            /** If requested page is beyond range */
-            if (page > totalPages) {
-                return GLOBAL_SUCCESS_RESPONSE("No users found", {
-                    users: [],
-                    page,
-                    limit,
-                    total,
-                    totalPages
-                }, res);
-            }
-    
-            /** Fetch paginated users */
+            // Paginated fetch
             const [users] = await connection.execute(
                 `
                 SELECT user_id, user_name, first_name, last_name, email, phone_number, user_role_id, add_id, edit_id, active
@@ -84,7 +73,7 @@ function UsersApi() {
             console.error("GetAllUsers error:", err);
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
-    };
+    };    
 
     /** Update user in roh_users table Coded by Vishnu July 07 2025 */
     this.UpdateUser = async (req, res) => {

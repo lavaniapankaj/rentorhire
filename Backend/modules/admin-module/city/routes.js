@@ -15,7 +15,7 @@ app.post(
 );
 
 /** Api for get all cities Coded by Vishnu July 05 2025 */
-app.get(
+app.post(
     ADMIN_NAME + "/city/get", 
     //checkLoginAuth,
     authMiddleware,

@@ -34,11 +34,9 @@ const ValidateaddnewState = async (req, res, next) => {
 /** Get all state validation Coded by Vishnu July 04 2025 */
 const ValidategetallState = async (req, res, next) => {
     try {
-        /** Get page and limit from query parameters */
-        const page = parseInt(req.query.page);
-        const limit = parseInt(req.query.limit);
+        const page = parseInt(req.body.page);
+        const limit = parseInt(req.body.limit);
 
-        /** Validate page and limit */
         if (!page || page < 1) {
             return GLOBAL_ERROR_RESPONSE("Page number must be a positive integer", {}, res);
         }
@@ -47,25 +45,21 @@ const ValidategetallState = async (req, res, next) => {
             return GLOBAL_ERROR_RESPONSE("Limit must be a positive integer", {}, res);
         }
 
-        /** SQL query to check if there are any active states */
-        const query = `
-            SELECT * FROM roh_states WHERE active = 1
-        `;
-        
-        /** Execute the query to check if states exist */
-        const [result] = await pool.query(query);
+        const connection = pool.promise ? pool.promise() : pool;
+        const [result] = await connection.query(`SELECT 1 FROM roh_states WHERE active = 1 LIMIT 1`);
 
-        /** If no states are found, return an error response */
         if (result.length === 0) {
             return GLOBAL_ERROR_RESPONSE("No active states found", {}, res);
         }
 
-        /** If everything is okay, proceed to the next middleware/controller */
         next();
     } catch (err) {
-        return GLOBAL_ERROR_RESPONSE("Error validating states", err, res);
+        console.error("Validation error in ValidategetallState:", err);
+        return GLOBAL_ERROR_RESPONSE("Error validating states", { error: err.message || err }, res);
     }
 };
+
+
 
 /** Edit state validation Coded by Vishnu July 04 2025 */
 const ValidateeditState = async (req, res, next) => {

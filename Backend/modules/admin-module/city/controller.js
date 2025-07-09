@@ -28,35 +28,31 @@ function CityApi() {
     /** Get all cities from cities collection Coded by Vishnu July 05 2025 */
     this.GetallCity = (req, res) => {
         try {
-            /** Get page and limit from query parameters */
-            const page = parseInt(req.body.page);  /** Parse the page as an integer */
-            const limit = parseInt(req.body.limit);  /** Parse the limit as an integer */
-
-            /** Calculate the offset for pagination */
+            const page = parseInt(req.body.page) || 1;
+            const limit = parseInt(req.body.limit) || 10;
             const offset = (page - 1) * limit;
-
-            /** SQL query to fetch cities with pagination */
-            const query = `SELECT * FROM roh_cities WHERE active = 1 LIMIT ? OFFSET ?`;
-
-            /** Execute the query to get the paginated cities */
+    
+            const query = `
+                SELECT * FROM roh_cities WHERE active = 1 LIMIT ? OFFSET ?
+            `;
+    
             pool.query(query, [limit, offset], (err, result) => {
                 if (err) {
                     return GLOBAL_ERROR_RESPONSE("Error getting cities", err, res);
                 }
-
-                /** Check if no cities are found */
+    
                 if (result.length === 0) {
                     return GLOBAL_ERROR_RESPONSE("No active cities found", {}, res);
                 }
-
-                /** Return paginated results */
+    
                 return GLOBAL_SUCCESS_RESPONSE("Cities fetched successfully", result, res);
             });
         } catch (err) {
-            console.error("Error in GetallCity:", err);  /** Log the error for debugging */
+            console.error("Error in GetallCity:", err);
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
+    
 
     /** Edit city in cities collection Coded by Vishnu July 05 2025 */
     this.EditCity = (req, res) => {
