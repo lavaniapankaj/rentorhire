@@ -1,11 +1,12 @@
-const UserController = require("./controller");
+const authMiddleware = require('../../../middleware/authMiddleware');
 const {ValidateaddnewUser, ValidateGetAllUsers, ValidateEditUser,ValidateDeleteUser, ValidateViewUser } = require("./validation");
+const UserController = require("./controller");
 
 
 /** Api for adding new user Coded by Vishnu July 06 2025 */
 app.post(
-    ADMIN_NAME + "/user/create", 
-    //checkLoginAuth, // Uncomment if you have authentication middleware
+    ADMIN_NAME + "/user/create",
+    authMiddleware,
     ValidateaddnewUser, /** Validation middleware */
     (req, res, next) => {
         UserController.AddnewUser(req, res, next); /** Call the controller after validation */
@@ -14,8 +15,8 @@ app.post(
 
 /** Get all user Coded by Vishnu July 07 2025 */
 app.get(
-    ADMIN_NAME + "/user/get", 
-    //checkLoginAuth,  Uncomment if you have authentication middleware
+    ADMIN_NAME + "/user/get",
+    authMiddleware,
     ValidateGetAllUsers, /** Validation middleware */
     (req, res, next) => {
         UserController.GetAllUsers(req, res, next); /** Call the controller */
@@ -24,8 +25,8 @@ app.get(
 
 /** Edit user Coded by Vishnu July 07 2025 */
 app.post(
-    ADMIN_NAME + "/user/edit", 
-    //checkLoginAuth,  Uncomment if you have authentication middleware
+    ADMIN_NAME + "/user/edit",
+    authMiddleware,
     ValidateEditUser, /** Validation middleware */
     (req, res, next) => {
         UserController.UpdateUser(req, res, next); /** Call the controller */
@@ -34,8 +35,8 @@ app.post(
 
 /** Delete user Coded by Vishnu July 07 2025 */
 app.post(
-    ADMIN_NAME + "/user/delete", 
-    //checkLoginAuth,  Uncomment if you have authentication middleware
+    ADMIN_NAME + "/user/delete",
+    authMiddleware,
     ValidateDeleteUser, /** Validation middleware */
     (req, res, next) => {
         UserController.DeleteUser(req, res, next); /** Call the controller */
@@ -45,7 +46,7 @@ app.post(
 /** View user details Coded by Vishnu July 07 2025 */
 app.get(
     ADMIN_NAME + "/user/view", 
-    //checkLoginAuth,  Uncomment if you have authentication middleware
+    authMiddleware,
     ValidateViewUser, /** Validation middleware */
     (req, res, next) => {
         UserController.ViewUser(req, res, next); /** Call the controller */

@@ -7,10 +7,7 @@ function CityApi() {
             const { city_name, city_slug, state_id, add_id = 1, edit_id = 1 } = req.body;
 
             /** SQL query to add a new city */
-            const query = `
-                INSERT INTO roh_cities (city_name, city_slug, state_id, add_id, edit_id, active)
-                VALUES (?, ?, ?, ?, ?, ?)
-            `;
+            const query = `INSERT INTO roh_cities (city_name, city_slug, state_id, add_id, edit_id, active) VALUES (?, ?, ?, ?, ?, ?)`;
 
             /** Proceed with inserting the city into the database */
             pool.execute(query, [city_name, city_slug, state_id, add_id, edit_id, 1], (err, result) => {
@@ -32,16 +29,14 @@ function CityApi() {
     this.GetallCity = (req, res) => {
         try {
             /** Get page and limit from query parameters */
-            const page = parseInt(req.query.page);  /** Parse the page as an integer */
-            const limit = parseInt(req.query.limit);  /** Parse the limit as an integer */
+            const page = parseInt(req.body.page);  /** Parse the page as an integer */
+            const limit = parseInt(req.body.limit);  /** Parse the limit as an integer */
 
             /** Calculate the offset for pagination */
             const offset = (page - 1) * limit;
 
             /** SQL query to fetch cities with pagination */
-            const query = `
-                SELECT * FROM roh_cities WHERE active = 1 LIMIT ? OFFSET ?
-            `;
+            const query = `SELECT * FROM roh_cities WHERE active = 1 LIMIT ? OFFSET ?`;
 
             /** Execute the query to get the paginated cities */
             pool.query(query, [limit, offset], (err, result) => {
@@ -69,9 +64,7 @@ function CityApi() {
             const { city_id, city_name, city_slug, state_id } = req.body;
 
             /** SQL query to update the city */
-            const query = `
-                UPDATE roh_cities SET city_name = ?, city_slug = ?, state_id = ? WHERE city_id = ?
-            `;
+            const query = `UPDATE roh_cities SET city_name = ?, city_slug = ?, state_id = ? WHERE city_id = ?`;
 
             /** Proceed with updating the city in the database */
             pool.query(query, [city_name, city_slug, state_id, city_id], (err, result) => {
@@ -95,9 +88,7 @@ function CityApi() {
             const { city_id } = req.body;
 
             /** SQL query to update the city (set active = 0 to mark it as deleted) */
-            const query = `
-                UPDATE roh_cities SET active = 0 WHERE city_id = ?
-            `;
+            const query = `UPDATE roh_cities SET active = 0 WHERE city_id = ?`;
 
             /** Proceed with deleting the city in the database */
             pool.query(query, [city_id], (err, result) => {

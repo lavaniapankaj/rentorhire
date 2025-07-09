@@ -1,11 +1,13 @@
-const CityController = require("./controller");
+const authMiddleware = require('../../../middleware/authMiddleware');
 const {ValidateaddnewCity, ValidategetallCity, ValidateeditCity, ValidateDeleteCity} = require("./validation");
+const CityController = require("./controller");
 
 
 /**Api for Add cities Coded by Vishnu July 05 2025 */
 app.post(
     ADMIN_NAME + "/city/add", 
-    //checkLoginAuth,  
+    //checkLoginAuth,
+    authMiddleware,  
     ValidateaddnewCity, /** Validation middleware */
     (req, res, next) => {
         CityController.AddnewCity(req, res, next);  /** Call the controller */
@@ -16,6 +18,7 @@ app.post(
 app.get(
     ADMIN_NAME + "/city/get", 
     //checkLoginAuth,
+    authMiddleware,
     ValidategetallCity, /** Validation middleware */
     (req, res, next) => {
         CityController.GetallCity(req, res, next); /** Call the controller */
@@ -26,6 +29,7 @@ app.get(
 app.post(
     ADMIN_NAME + "/city/edit", 
     //checkLoginAuth,
+    authMiddleware,
     ValidateeditCity, /** Validation middleware */
     (req, res, next) => {
         CityController.EditCity(req, res, next);/** Call the controller */
@@ -36,6 +40,7 @@ app.post(
 app.post(
     ADMIN_NAME + "/city/delete", 
     //checkLoginAuth,
+    authMiddleware,
     ValidateDeleteCity, /** Validation middleware */
     (req, res, next) => {
         CityController.DeleteCity(req, res, next);/** Call the controller */

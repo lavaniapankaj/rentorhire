@@ -1,10 +1,11 @@
-const StateController = require("./controller");
+const authMiddleware = require('../../../middleware/authMiddleware');
 const {ValidateaddnewState, ValidategetallState, ValidateeditState, ValidateDeleteState} = require("./validation");
+const StateController = require("./controller");
 
 /** Api for adding new states Coded by Vishnu July 03 2025 */
 app.post(
     ADMIN_NAME + "/state/add", 
-    //checkLoginAuth, // Uncomment if you have authentication middleware
+    authMiddleware,
     ValidateaddnewState, /** Validation middleware */
     (req, res, next) => {
         StateController.AddnewState(req, res, next); /** Call the controller after validation */
@@ -14,7 +15,7 @@ app.post(
 /** Api for get all states Coded by Vishnu July 04 2025 */
 app.get(
     ADMIN_NAME + "/state/get", 
-    //checkLoginAuth,
+    authMiddleware,
     ValidategetallState, /** Validation middleware */
     (req, res, next) => {
         StateController.GetallState(req, res, next);/** Call the controller after validation */
@@ -24,7 +25,7 @@ app.get(
 /** Api for edit states Coded by Vishnu July 04 2025 */
 app.post(
     ADMIN_NAME + "/state/edit", 
-    //checkLoginAuth,
+    authMiddleware,
     ValidateeditState, /** Validation middleware */
     (req, res, next) => {
         StateController.EditState(req, res, next);/** Call the controller after validation */
@@ -35,7 +36,7 @@ app.post(
 /** Api for delete states Coded by Vishnu July 04 2025 */
 app.post(
     ADMIN_NAME + "/state/delete", 
-    //checkLoginAuth,
+    authMiddleware,
     ValidateDeleteState, /** Validation middleware */
     (req, res, next) => {
         StateController.DeleteState(req, res, next);/** Call the controller after validation */

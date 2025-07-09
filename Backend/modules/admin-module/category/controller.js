@@ -1,10 +1,5 @@
 // controller.js
-const pool = require('../../../config/connection');  // Correct import of the promisePool
-
-
-const util = require('util');
-const query = util.promisify(pool.query).bind(pool);
-
+const pool = require('../../../config/connection');
 
 function CategoryApi() {
 

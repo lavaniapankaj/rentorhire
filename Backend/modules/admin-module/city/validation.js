@@ -50,8 +50,8 @@ const ValidateaddnewCity = (req, res, next) => {
 /** Get all cities validation Coded by Vishnu July 05 2025 */
 const ValidategetallCity = (req, res, next) => {
     /** Get page and limit from query parameters */
-    const page = parseInt(req.query.page); /** Parse the page as an integer */
-    const limit = parseInt(req.query.limit); /** Parse the limit as an integer */
+    const page = parseInt(req.body.page); /** Parse the page as an integer */
+    const limit = parseInt(req.body.limit); /** Parse the limit as an integer */
 
     /** Validate if both page and limit are provided and are positive integers */
     if (!page || page < 1 || !limit || limit < 1) {
