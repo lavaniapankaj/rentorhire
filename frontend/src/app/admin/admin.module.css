@@ -1,0 +1,166 @@
+.container {
+    padding: 30px;
+    width: 100%;
+  }
+  
+  .heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .intro {
+    margin-bottom: 30px;
+  }
+  
+  .section {
+    margin-top: 40px;
+  }
+  
+  .cardGrid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+  }
+  
+  .card {
+    background: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .card strong {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .activityList {
+    margin-top: 15px;
+    padding-left: 20px;
+  }
+  
+  .activityList li {
+    margin-bottom: 5px;
+  }
+  
+
+  /** header section css */
+  .header {
+    background: #333;
+    color: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .brand {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .brand h2 {
+    margin: 0;
+  }
+  
+  .profileIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  /** footer section css */
+  .footer {
+    background: #333;
+    color: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    /* margin-top: 40px; */
+  }
+  
+  .footer a {
+    color: #ccc;
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
+
+  /** User section css */
+  /* === Container for the form box === */
+.adminUserAddFormContainer {
+  max-width: 750px;
+  margin: 30px auto;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* === One row with two equal-width inputs === */
+.adminUserAddFormRow {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+/* === Half-width fields for side-by-side layout === */
+.adminUserAddFormGroupHalf {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === Common form field spacing === */
+.adminUserAddFormGroup {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === Labels === */
+.adminUserAddFormGroup label,
+.adminUserAddFormGroupHalf label {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+/* === Inputs and Select dropdown === */
+.adminUserAddFormGroup input,
+.adminUserAddFormGroup select,
+.adminUserAddFormGroupHalf input {
+  padding: 6px 10px;
+  font-size: 13px;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+/* === Submit button === */
+.adminUserAddSubmitBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.adminUserAddSubmitBtn:hover {
+  background-color: #444;
+}
+  
