@@ -80,12 +80,12 @@ export default function ListUserPage() {
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>Error:- {error}</p>;
   }
 
   return (
     <div>
-      <h2>List User Page</h2>
+      <h2>List User Page </h2>
       <p>This is the page to show all users.</p>
 
       {/* Filter Section */}
