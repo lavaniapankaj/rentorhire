@@ -1,9 +1,0 @@
-{
-  "/_not-found/page": "app/_not-found/page.js",
-  "/admin/page": "app/admin/page.js",
-  "/admin/user/page": "app/admin/user/page.js",
-  "/admin/category/page": "app/admin/category/page.js",
-  "/admin/user/add/page": "app/admin/user/add/page.js",
-  "/admin/user/list/page": "app/admin/user/list/page.js",
-  "/admin/category/list/page": "app/admin/category/list/page.js"
-}
