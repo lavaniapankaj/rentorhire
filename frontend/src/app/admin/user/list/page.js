@@ -19,7 +19,7 @@ export default function ListUserPage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:8080/admin/user/get', {
+        const response = await fetch('http://localhost:8080/adminrohpnl/user/get', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

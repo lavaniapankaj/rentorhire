@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 08, 2025 at 06:28 PM
+-- Generation Time: Jul 11, 2025 at 06:12 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -186,6 +186,11 @@ CREATE TABLE `roh_users` (
   `password_hash` varchar(255) NOT NULL,
   `user_role_id` int(11) NOT NULL,
   `profile_picture_url` varchar(255) DEFAULT NULL,
+  `address_1` varchar(100) NOT NULL,
+  `landmark` varchar(100) NOT NULL,
+  `state` varchar(100) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `pincode` int(11) NOT NULL,
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
   `active` tinyint(1) DEFAULT 1,
@@ -197,10 +202,18 @@ CREATE TABLE `roh_users` (
 -- Dumping data for table `roh_users`
 --
 
-INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `email`, `phone_number`, `password_hash`, `user_role_id`, `profile_picture_url`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(7, 'raj_t', 'Raj', 'T', 'rajtailor9694@gmail.com ', '1234567890', 'raj@rentorhire', 4, NULL, 1, 1, 1, '2025-07-08 15:49:59', '2025-07-08 15:49:59'),
-(8, 'vishnu_v', 'Vishnu', 'V', 'ecmascript.php@gmail.com', '1234567890', 'vishnu@rentorhire', 4, NULL, 1, 1, 1, '2025-07-08 15:51:06', '2025-07-08 15:51:06'),
-(9, 'naveen_v', 'Naveen', 'V', 'naveen@gmail.com', '1234567890', 'naveen@rentorhire', 5, NULL, 1, 1, 1, '2025-07-08 15:51:44', '2025-07-08 15:51:44');
+INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `email`, `phone_number`, `password_hash`, `user_role_id`, `profile_picture_url`, `address_1`, `landmark`, `state`, `city`, `pincode`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
+(7, 'raj_t', 'Raj', 'T', 'rajtailor9694@gmail.com ', '1234567890', 'raj@rentorhire', 4, 'http://localhost:3000/admin', 'Jaipur Address 4', 'Test landmark address 4', 'Rajasthan 4', 'Jaipur 4', 302009, 1, 1, 1, '2025-07-08 15:49:59', '2025-07-09 17:12:30'),
+(8, 'vishnu_v', 'Vishnu', 'V', 'ecmascript.php@gmail.com', '1234567890', 'vishnu@rentorhire', 4, 'http://localhost:3000/admin', 'Jaipur Address 3', 'Test landmark address 3', 'Rajasthan 3', 'Jaipur 3', 302011, 1, 1, 1, '2025-07-08 15:51:06', '2025-07-09 17:12:25'),
+(9, 'naveen_v', 'Naveen', 'V', 'naveen@gmail.com', '1234567890', 'naveen@rentorhire', 5, 'http://localhost:3000/admin', 'Jaipur Address 2', 'Test landmark address 2', 'Rajasthan 2', 'Jaipur 2', 302012, 1, 1, 1, '2025-07-08 15:51:44', '2025-07-09 17:12:21'),
+(10, 'naveen_v_1', 'Amit Kumar', 'Sharma', 'amit.sharma@example.com', '9876543210', '3423423423', 2, 'https://example.com/profile.jpg', '123 Main Street', 'Near City Park', 'Delhi', 'New Delhi', 110001, 1, 1, 0, '2025-07-09 17:10:51', '2025-07-10 18:34:32'),
+(11, 'naveen_v_12', 'Naveen', 'V', 'naveen@gmailjpr.com2', '1234567890', 'naveen@rentorhire', 5, 'http://localhost:3000/admin', 'Jaipur Address', 'Test landmark address', 'Rajasthan', 'Jaipur', 302021, 1, 1, 1, '2025-07-09 18:29:51', '2025-07-09 18:29:51'),
+(12, 'cuponyd', 'Conan', 'Golden', 'kuqalumo@mailinator.com', '9876543210', 'Pa$$w0rd!', 5, 'image.jpg', '435 Green Second Court', 'Anim nihil ea ex del', 'Quo labore vel sed e', 'Quis labore adipisic', 324224, 1, 1, 1, '2025-07-09 18:45:10', '2025-07-09 18:45:10'),
+(13, 'naveen_v_123', 'Naveen', 'V', 'naveen@gmailjpr.com23', '1234567890', 'naveen@rentorhire', 5, 'http://localhost:3000/admin', 'Jaipur Address', 'Test landmark address', 'Rajasthan', 'Jaipur', 302021, 1, 1, 1, '2025-07-09 18:45:38', '2025-07-09 18:45:38'),
+(14, 'tywycaxy', 'Abraham', 'Marquez', 'mevyvi@mailinator.com', '9876543234', 'Pa$$w0rd!', 7, 'http://localhost:3000/admin', '61 Oak Parkway', 'Labore fugit assume', 'Voluptate dolor culp', 'Laborum Non quae qu', 10911, 1, 1, 1, '2025-07-09 18:47:45', '2025-07-09 18:47:45'),
+(15, 'tywycaxy2', 'Abraham', 'Marquez', 'mevyvi@mailinator.com2', '9876543234', 'Pa$$w0rd!', 7, 'http://localhost:3000/admin', '61 Oak Parkway', 'Labore fugit assume', 'Voluptate dolor culp', 'Laborum Non quae qu', 10911, 1, 1, 1, '2025-07-09 18:59:56', '2025-07-09 18:59:56'),
+(16, 'tomanecyj', 'Morgan', 'Justice', 'viniguzo@mailinator.com', '5889875482', 'Pa$$w0rd!', 5, 'http://localhost:3000/admin', '392 Hague Parkway', 'Fuga Tempor exercit', 'Necessitatibus verit', 'Consequatur voluptat', 234234, 1, 1, 1, '2025-07-09 19:11:44', '2025-07-09 19:11:44'),
+(17, 'bobobeno', 'Irma', 'Rivera', 'munewumofy@mailinator.com', '4334534544', 'Pa$$w0rd!', 6, 'http://localhost:3000/admin', '279 South White Hague Boulevard', 'Dignissimos dolorum ', 'Et quia voluptas cor', 'Non corrupti nostru', 44, 1, 1, 1, '2025-07-09 19:12:23', '2025-07-09 19:12:23');
 
 --
 -- Indexes for dumped tables
@@ -282,7 +295,7 @@ ALTER TABLE `roh_states`
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
