@@ -68,11 +68,35 @@ function UsersApi() {
             const limit = parseInt(req.body.limit) || 10;
             const offset = (page - 1) * limit;
     
+            // Capture filter parameters
+            const userName = req.body.user_name || '';
+            const userRoleId = req.body.user_role_id || '';
+            const active = req.body.active !== undefined ? req.body.active : '';  // Empty string means no filter
+    
             const connection = pool.promise();
     
-            // Total count
-            const [countResult] = await connection.execute(`SELECT COUNT(*) as total FROM roh_users`);
-            const total = countResult[0].total;
+            // Fetch all users without pagination first
+            let query = `SELECT user_id, user_name, first_name, last_name, email, phone_number, user_role_id, add_id, edit_id, active FROM roh_users WHERE 1=1`;
+            let queryParams = [];
+    
+            if (userName) {
+                query += ' AND user_name LIKE ?';
+                queryParams.push(`%${userName}%`);
+            }
+            if (userRoleId) {
+                query += ' AND user_role_id = ?';
+                queryParams.push(userRoleId);
+            }
+            if (active !== '') {
+                query += ' AND active = ?';
+                queryParams.push(active);
+            }
+    
+            // Get all users that match the filters
+            const [allUsers] = await connection.execute(query, queryParams);
+    
+            // Total count of filtered users
+            const total = allUsers.length;
             const totalPages = Math.ceil(total / limit);
     
             // If no users at all
@@ -86,18 +110,11 @@ function UsersApi() {
                 }, res);
             }
     
-            // Paginated fetch
-            const [users] = await connection.execute(
-                `
-                SELECT user_id, user_name, first_name, last_name, email, phone_number, user_role_id, add_id, edit_id, active
-                FROM roh_users
-                LIMIT ? OFFSET ?
-                `,
-                [limit, offset]
-            );
+            // Now paginate the filtered results
+            const paginatedUsers = allUsers.slice(offset, offset + limit);
     
             return GLOBAL_SUCCESS_RESPONSE("Users fetched successfully", {
-                users,
+                users: paginatedUsers,
                 page,
                 limit,
                 total,
@@ -108,7 +125,9 @@ function UsersApi() {
             console.error("GetAllUsers error:", err);
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
-    };    
+    };
+    
+      
 
     /** Update user in roh_users table Coded by Vishnu July 07 2025 */
     this.UpdateUser = async (req, res) => {

@@ -17,9 +17,9 @@ app.post(
 );
 
 /** Get all user Coded by Vishnu July 07 2025 */
-app.get(
+app.post(
     ADMIN_NAME + "/user/get",
-    authMiddleware,
+    // authMiddleware,
     ValidateGetAllUsers, /** Validation middleware */
     (req, res, next) => {
         UserController.GetAllUsers(req, res, next); /** Call the controller */
