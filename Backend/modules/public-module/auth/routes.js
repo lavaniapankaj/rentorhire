@@ -1,5 +1,5 @@
 const AuthController = require("./controller");
-const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin} = require("./validation");
+const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin} = require("./validation");
 
 
 /** Api for register user Coded by Raj July 07 2025 */
@@ -30,5 +30,14 @@ app.post(
     validateUserLogin,
     (req, res, next) => {
         AuthController.userLogin(req, res, next); /** Calling the controller */
+    }
+);
+
+/** Api to login the admin - Coded by Raj July 10 2025 */
+app.post(
+    "/admin/login",
+    validateAdminUserLogin,
+    (req, res, next) => {
+        AuthController.adminUserLogin(req, res, next); /** Calling the controller */
     }
 );

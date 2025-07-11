@@ -136,8 +136,7 @@ const validateUserLogin = (req, res, next) => {
     }
 
     /** Check if email exists */
-    const checkEmailQuery = `SELECT * FROM roh_users WHERE email = ? AND active = 1 LIMIT 1`;
-
+    const checkEmailQuery = `SELECT email, user_role_id FROM roh_users WHERE email = ? AND active = 1 LIMIT 1`;
     pool.query(checkEmailQuery, [email], (err, emailResult) => {
         if (err) {
             return GLOBAL_ERROR_RESPONSE("Error checking for duplicate email.", err, res);
@@ -145,11 +144,46 @@ const validateUserLogin = (req, res, next) => {
 
         if (emailResult.length > 0) {
             /** If email exists */
-            next();
+            if (emailResult[0].user_role_id == 6) {
+                next();
+            } else {
+                return GLOBAL_ERROR_RESPONSE("You are not allowed to access.", {}, res);
+            }
         } else {
             return GLOBAL_ERROR_RESPONSE("Invalid email address.", {}, res);
         }
     });
 };
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin};
+/** Admin login validation - Coded by Raj - July 10 2025 */
+const validateAdminUserLogin = (req, res, next) => {
+    const { email, password } = req.body;
+    /** Validate required fields */
+    if (!email) {
+        return GLOBAL_ERROR_RESPONSE("Email can't be empty.", {}, res);
+    }
+    if (!password) {
+        return GLOBAL_ERROR_RESPONSE("Password can't be empty.", {}, res);
+    }
+
+    /** Check if email exists */
+    const checkEmailQuery = `SELECT email, user_role_id FROM roh_users WHERE email = ? AND active = 1 LIMIT 1`;
+    pool.query(checkEmailQuery, [email], (err, emailResult) => {
+        if (err) {
+            return GLOBAL_ERROR_RESPONSE("Error checking for duplicate email.", err, res);
+        }
+
+        if (emailResult.length > 0) {
+            /** If email exists */
+            if (emailResult[0].user_role_id == 4) {
+                next();
+            } else {
+                return GLOBAL_ERROR_RESPONSE("You are not allowed to access.", {}, res);
+            }
+        } else {
+            return GLOBAL_ERROR_RESPONSE("Invalid email address.", {}, res);
+        }
+    });
+};
+
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin};

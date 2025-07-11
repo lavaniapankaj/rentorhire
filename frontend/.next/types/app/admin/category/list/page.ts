@@ -1,4 +1,4 @@
-// File: /Applications/vishnu/mern/In-house/rentorhire/frontend/src/app/admin/category/list/page.js
+// File: D:\Projects_Raj\Pankaj\RentOrHire\rentorhire\frontend\src\app\admin\category\list\page.js
 import * as entry from '../../../../../../src/app/admin/category/list/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

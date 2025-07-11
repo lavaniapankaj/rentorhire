@@ -94,12 +94,11 @@ function authApi() {
 
     /** Function method to login the user - Coded by Raj July 09 2025 */
     this.userLogin = async (req, res) => {
-
         try {
             const {email, password} = req.body;
 
             /* Query the user from 'roh_users' by email */
-            const [rows] = await pool.query('SELECT * FROM roh_users WHERE email = ?', [email]);
+            const [rows] = await pool.query('SELECT email, password_hash, user_role_id FROM roh_users WHERE email = ?', [email]);
 
             if (rows.length == 0) {
                 return res.status(401).json({ message: 'Invalid email or password.' });
@@ -115,7 +114,53 @@ function authApi() {
 
             /* Generate JWT */
             const token = jwt.sign(
-                { id: user.id, email: user.email, role: user.user_role_id },
+                { id: user.id, email: user.email},
+                // JWT_SECRET,
+                process.env.JWT_SECRET,
+                { expiresIn: '1h' }
+            );
+
+            /* Respond with success */
+            return res.status(200).json({
+                message: 'Login successful.',
+                token,
+                user: {
+                    id: user.id,
+                    userName: user.user_name,
+                    email: user.email,
+                    firstName: user.first_name,
+                    lastName: user.last_name,
+                }
+            });
+        } catch (error) {
+            console.error('Login error:', error);
+            return res.status(500).json({ message: 'Internal Server error' });
+        }
+    };
+
+    /** Function method to login the admin users - Coded by Raj July 10 2025 */
+    this.adminUserLogin = async (req, res) => {
+        try {
+            const {email, password} = req.body;
+
+            /* Query the user from 'roh_users' by email */
+            const [rows] = await pool.query('SELECT email, password_hash, user_role_id FROM roh_users WHERE email = ?', [email]);
+
+            if (rows.length == 0) {
+                return res.status(401).json({ message: 'Invalid email or password.' });
+            }
+
+            const user = rows[0];
+
+            /* Compare the password with the stored hash */
+            const isMatch = await bcrypt.compare(password, user.password_hash);
+            if (!isMatch) {
+                return res.status(401).json({ message: 'Invalid email or password.' });
+            }
+
+            /* Generate JWT */
+            const token = jwt.sign(
+                { id: user.id, email: user.email},
                 // JWT_SECRET,
                 process.env.JWT_SECRET,
                 { expiresIn: '1h' }
