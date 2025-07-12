@@ -1,4 +1,4 @@
-import styles from '../admin/page.module.css'
+import styles from '../adminrohpnl/page.module.css'
 
 export default function userAuth() {
   return (

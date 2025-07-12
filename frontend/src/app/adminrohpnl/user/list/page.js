@@ -19,7 +19,7 @@ export default function ListUserPage() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:8080/adminrohpnl/user/get', {
+        const response = await fetch('http://localhost:8080/api/adminrohpnl/user/get', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export default function ListUserPage() {
   }
 
   if (error) {
-    return <p>Error:- {error}</p>;
+    return <p>Error: {error}</p>;
   }
 
   return (

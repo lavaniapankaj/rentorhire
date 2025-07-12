@@ -1,7 +1,7 @@
 /** Create the global variables/constants here in this file */
 require("dotenv").config();
 
-ADMIN_NAME = "/adminrohpnl";
+ADMIN_NAME = "/api/adminrohpnl";
 
 WEBSITE_ROOT_PATH = process.cwd() + "/";
 WEBSITE_ADMIN_FULL_PATH = WEBSITE_ROOT_PATH + "modules/admin-module/";

@@ -14,17 +14,17 @@ export default function Sidebar() {
         
         {/* Users Menu with Submenu */}
         <li onMouseEnter={toggleUsersMenu} onMouseLeave={toggleUsersMenu}>
-          <a href="/admin/user/list" style={{ cursor: 'pointer' }}>Users</a>
+          <a href="/adminrohpnl/user/list" style={{ cursor: 'pointer' }}>Users</a>
           {isUsersOpen && (
             <ul style={{ listStyle: 'none', paddingLeft: '20px' }}>
-              <li><a href="/admin/user/list">All Users</a></li>
-              <li><a href="/admin/user/add">Add New User</a></li>
+              <li><a href="/adminrohpnl/user/list">All Users</a></li>
+              <li><a href="/adminrohpnl/user/add">Add New User</a></li>
             </ul>
           )}
         </li>
 
         {/* Other menu items */}
-        <li><a href="/admin/category">Categories</a></li>
+        <li><a href="/adminrohpnl/category">Categories</a></li>
         <li><a href="#">Settings</a></li>
       </ul>
     </aside>

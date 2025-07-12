@@ -35,7 +35,7 @@ app.post(
 
 /** Api to login the admin - Coded by Raj July 10 2025 */
 app.post(
-    "/admin/login",
+    "/adminrohpnl/login",
     validateAdminUserLogin,
     (req, res, next) => {
         AuthController.adminUserLogin(req, res, next); /** Calling the controller */
