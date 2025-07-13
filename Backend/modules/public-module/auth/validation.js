@@ -139,7 +139,7 @@ const validateUserLogin = (req, res, next) => {
     const checkEmailQuery = `SELECT email, user_role_id FROM roh_users WHERE email = ? AND active = 1 LIMIT 1`;
     pool.query(checkEmailQuery, [email], (err, emailResult) => {
         if (err) {
-            return GLOBAL_ERROR_RESPONSE("Error checking for duplicate email.", err, res);
+            return GLOBAL_ERROR_RESPONSE("Error in admin login.", err, res);
         }
 
         if (emailResult.length > 0) {
@@ -170,7 +170,7 @@ const validateAdminUserLogin = (req, res, next) => {
     const checkEmailQuery = `SELECT email, user_role_id FROM roh_users WHERE email = ? AND active = 1 LIMIT 1`;
     pool.query(checkEmailQuery, [email], (err, emailResult) => {
         if (err) {
-            return GLOBAL_ERROR_RESPONSE("Error checking for duplicate email.", err, res);
+            return GLOBAL_ERROR_RESPONSE("Error in admin login.", err, res);
         }
 
         if (emailResult.length > 0) {
