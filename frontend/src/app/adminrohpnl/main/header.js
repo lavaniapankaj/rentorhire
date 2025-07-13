@@ -6,7 +6,7 @@ import profilePic from './pankaj-img-1.webp'
 export default function Header() {
   return (
     <header className={styles.header}>
-      <Link href="/admin" className={styles.brand}>
+      <Link href="/adminrohpnl" className={styles.brand}>
         <h2>RentOrHire</h2>
       </Link>
 

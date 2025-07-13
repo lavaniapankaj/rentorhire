@@ -42,7 +42,7 @@ export default function AddUserPage() {
       phone_number: form.phone_number,
       password_hash: form.password_hash,
       user_role_id: parseInt(form.user_role),
-      profile_picture_url: 'http://localhost:3000/admin', /** Static for now */
+      profile_picture_url: 'http://localhost:3000/adminrohpnl', /** Static for now */
       address_1: form.address_1,
       landmark: form.landmark,
       state: form.state,
@@ -53,7 +53,7 @@ export default function AddUserPage() {
     }
 
     try {
-      const res = await fetch('http://localhost:8080/admin/user/create', {
+      const res = await fetch('http://localhost:8080/api/adminrohpnl/user/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
