@@ -13,7 +13,7 @@ function authApi() {
             const { userName, firstName, lastName, email, phone, password, address_1, landmark, city, state, pincode } = req.body;
             
             const active = 1;
-            const user_role_id = 2;
+            const user_role_id = 3; /** Need to use the role id for the user(buyer or service user.) */
             const profile_picture_url = "";
 
             let passwordHash;
@@ -22,7 +22,6 @@ function authApi() {
             } catch (err) {
                 return GLOBAL_ERROR_RESPONSE("Error hashing password.", err, res);
             }
-
 
             /** SQL query to insert data into the users table */
             const sql = `INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, active, address_1, landmark, state, city, pincode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -39,7 +38,6 @@ function authApi() {
             } else {
                 return GLOBAL_ERROR_RESPONSE("Failed to register user.", {}, res);
             }
-
         } catch (err) {
             let message = "Internal server error";
             /** MySQL errors like duplicate entries for user */
@@ -56,7 +54,7 @@ function authApi() {
             const { userName, firstName, lastName, email, phone, password, address_1, landmark, city, state, pincode } = req.body;
             
             const active = 1;
-            const user_role_id = 3;
+            const user_role_id = 2; /** Need to use the role id for the service provider. */
             const profile_picture_url = "";
 
             let passwordHash;
@@ -144,7 +142,7 @@ function authApi() {
             const {email, password} = req.body;
 
             /* Query the user from 'roh_users' by email */
-            const [rows] = await pool.query('SELECT email, password_hash, user_role_id FROM roh_users WHERE email = ?', [email]);
+            const [rows] = await pool.query('SELECT email, password_hash, user_role_id, user_name, first_name, last_name FROM roh_users WHERE email = ?', [email]);
 
             if (rows.length == 0) {
                 return res.status(401).json({ message: 'Invalid email or password.' });
@@ -176,10 +174,10 @@ function authApi() {
                     email: user.email,
                     firstName: user.first_name,
                     lastName: user.last_name,
+                    role_id: user.user_role_id
                 }
             });
         } catch (error) {
-            console.error('Login error:', error);
             return res.status(500).json({ message: 'Internal Server error' });
         }
     };

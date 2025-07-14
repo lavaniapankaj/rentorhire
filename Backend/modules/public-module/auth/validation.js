@@ -143,7 +143,7 @@ const validateUserLogin = (req, res, next) => {
         }
 
         if (emailResult.length > 0) {
-            /** If email exists */
+            /** If email exists and the user is not Super admin */
             if (emailResult[0].user_role_id == 6) {
                 next();
             } else {
@@ -158,6 +158,7 @@ const validateUserLogin = (req, res, next) => {
 /** Admin login validation - Coded by Raj - July 10 2025 */
 const validateAdminUserLogin = (req, res, next) => {
     const { email, password } = req.body;
+
     /** Validate required fields */
     if (!email) {
         return GLOBAL_ERROR_RESPONSE("Email can't be empty.", {}, res);
@@ -174,8 +175,8 @@ const validateAdminUserLogin = (req, res, next) => {
         }
 
         if (emailResult.length > 0) {
-            /** If email exists */
-            if (emailResult[0].user_role_id == 4) {
+            /** If email exists and the user role is Superadmin */
+            if (emailResult[0].user_role_id == 1) {
                 next();
             } else {
                 return GLOBAL_ERROR_RESPONSE("You are not allowed to access.", {}, res);

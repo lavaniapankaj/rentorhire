@@ -36,7 +36,6 @@ export default function ListUserPage() {
         }
 
         const data = await response.json();
-        console.log('API Response:', data);
 
         setUsers(data.data.users || []);
         setTotalPages(data.data.totalPages || 1);

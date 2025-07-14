@@ -1,6 +1,24 @@
-import styles from './admin.module.css'
+'use client';
+import styles from './admin.module.css';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function AdminDashboard() {
+
+  /** Admin login tkoen check - Coded by Raj - July 13 2025 */
+  const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const authUserData = localStorage.getItem('authUser');
+    const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
+    
+    if (!token || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
+      // Redirect to the login page or handle the redirect logic here
+      router.push('/auth/admin');
+    }
+  }, []); 
+  /** Admin login tkoen check - Coded by Raj - July 13 2025 END */
+
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>Welcome, Admin</h2>
