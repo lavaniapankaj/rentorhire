@@ -1,167 +1,323 @@
+/* Container */
 .container {
-    padding: 30px;
-    width: 100%;
-  }
-  
-  .heading {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .intro {
-    margin-bottom: 30px;
-  }
-  
-  .section {
-    margin-top: 40px;
-  }
-  
-  .cardGrid {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 15px;
-  }
-  
-  .card {
-    background: #f7f7f7;
-    padding: 20px;
-    border-radius: 10px;
-    width: 200px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  }
-  
-  .card strong {
-    font-size: 22px;
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .activityList {
-    margin-top: 15px;
-    padding-left: 20px;
-  }
-  
-  .activityList li {
-    margin-bottom: 5px;
-  }
-  
+  padding: 30px;
+  width: 100%;
+}
 
-  /** header section css */
-  .header {
-    background: #333;
-    color: #fff;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .brand {
-    text-decoration: none;
-    color: #fff;
-  }
-  
-  .brand h2 {
-    margin: 0;
-  }
-  
-  .profileIcon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-  }
+/* Heading */
+.heading {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
 
-  /** footer section css */
-  .footer {
-    background: #333;
-    color: #fff;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    /* margin-top: 40px; */
-  }
-  
-  .footer a {
-    color: #ccc;
-    text-decoration: none;
-  }
-  
-  .footer a:hover {
-    text-decoration: underline;
-  }
-  
+/* Intro Section */
+.intro {
+  margin-bottom: 30px;
+}
 
-  /** User section css */
-  /* === Container for the form box === */
-.adminUserAddFormContainer {
-  max-width: 750px;
-  margin: 30px auto;
-  background-color: #fff;
-  padding: 25px;
+/* Section Spacing */
+.section {
+  margin-top: 40px;
+}
+
+/* Card Grid */
+.cardGrid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+/* Card */
+.card {
+  background: #f7f7f7;
+  padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  width: 200px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
-/* === One row with two equal-width inputs === */
-.adminUserAddFormRow {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 10px;
+/* Card Title */
+.card strong {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 5px;
 }
 
-/* === Half-width fields for side-by-side layout === */
-.adminUserAddFormGroupHalf {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+/* Activity List */
+.activityList {
+  margin-top: 15px;
+  padding-left: 20px;
 }
 
-/* === Common form field spacing === */
-.adminUserAddFormGroup {
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
+.activityList li {
+  margin-bottom: 5px;
 }
 
-/* === Labels === */
-.adminUserAddFormGroup label,
-.adminUserAddFormGroupHalf label {
-  font-weight: 600;
-  font-size: 13px;
-  margin-bottom: 4px;
-}
-
-/* === Inputs and Select dropdown === */
-.adminUserAddFormGroup input,
-.adminUserAddFormGroup select,
-.adminUserAddFormGroupHalf input {
-  padding: 6px 10px;
-  font-size: 13px;
-  height: 32px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fff;
-}
-
-/* === Submit button === */
-.adminUserAddSubmitBtn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #333;
+/* Header */
+.header {
+  background: #333;
   color: #fff;
-  border: none;
-  border-radius: 6px;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Header Brand */
+.brand {
+  text-decoration: none;
+  color: #fff;
+}
+
+.brand h2 {
+  margin: 0;
+}
+
+/* Profile Icon */
+.profileIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
   cursor: pointer;
+}
+
+/* Footer */
+.footer {
+  background: #333;
+  color: #fff;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 14px;
 }
 
-.adminUserAddSubmitBtn:hover {
-  background-color: #444;
+.footer a {
+  color: #ccc;
+  text-decoration: none;
 }
-  
 
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* User List */
+.rohpnl_wrapper {
+  padding: 20px;
+}
+
+.rohpnl_heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.rohpnl_filterBox {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.rohpnl_filterForm {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.rohpnl_filterField {
+  display: flex;
+  flex-direction: column;
+}
+
+.rohpnl_input,
+.rohpnl_select {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.rohpnl_filterActions {
+  align-self: flex-end;
+}
+
+.rohpnl_btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.rohpnl_btn--primary {
+  background-color: #0070f3;
+  color: white;
+}
+
+.rohpnl_btn--secondary {
+  background-color: #eaeaea;
+}
+
+.rohpnl_tableContainer {
+  overflow-x: auto;
+}
+
+.rohpnl_table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.rohpnl_table th,
+.rohpnl_table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.rohpnl_pagination {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.rohpnl_pageInfo {
+  font-weight: bold;
+}
+
+.rohpnl_loadingText {
+  margin-left: 10px;
+  font-style: italic;
+  color: #666;
+}
+
+.rohpnl_noData {
+  margin-top: 10px;
+  color: #888;
+}
+
+/** Pop Up */
+/* Modal Content */
+.modalContent {
+  padding: 20px;
+  width: 600px;  /* Increased width to make space for the form */
+  max-height: 500px;  /* Set a max height to keep the form compact */
+  overflow-y: auto;  /* Allow scroll only if needed */
+  background-color: white;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+}
+
+/* Modal Animation */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Form Container */
+.adminUserAddFormContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;  /* Reduced gap between form elements */
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+/* Label Styling */
+.adminUserAddFormGroup label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Input Fields */
+.adminUserAddFormGroup input,
+.adminUserAddFormGroup select {
+  width: 100%;
+  padding: 8px;  /* Reduced padding */
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+  height: 35px;  /* Reduced height */
+}
+
+/* For Half Width Fields */
+.adminUserAddFormRow {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* For Half Width Input Groups */
+.adminUserAddFormGroupHalf {
+  flex: 1 1 48%;  /* Keep the fields side by side with proper spacing */
+}
+
+/* Button Styling */
+.adminUserAddSubmitBtn,
+.cancelButton {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.adminUserAddSubmitBtn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.adminUserAddSubmitBtn:hover {
+  background-color: #45a049;
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: white;
+  margin-top: 10px;
+}
+
+.cancelButton:hover {
+  background-color: #d32f2f;
+}
+
+/* Flexbox layout for modal close button */
+.modalCloseButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 20px;
+  color: #333;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.modalCloseButton:hover {
+  color: #eaeaea;
+}
+
+/* Responsiveness */
+@media (max-width: 600px) {
+  .adminUserAddFormRow {
+    flex-direction: column;
+  }
+
+  .adminUserAddFormGroupHalf {
+    flex: 1 1 100%;
+  }
+
+  .modalContent {
+    width: 90%;
+  }
+}

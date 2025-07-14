@@ -113,6 +113,32 @@ function roleApi() {
             return GLOBAL_ERROR_RESPONSE("Internal server error.", err, res);
         }
     };
+
+    /** Get all roles and ID from roles collection Coded by Vishnu July 12 2025 */
+    this.getRoles = (req, res) => {
+        try {
+            /** SQL query to fetch roles */
+            const query = `SELECT id, name FROM roh_roles WHERE active = 1`;
+
+            /** Execute the query to get the roles */
+            pool.query(query, (err, result) => {
+                if (err) {
+                    return GLOBAL_ERROR_RESPONSE("Error getting roles.", err, res);
+                }
+
+                /** Check if no roles are found */
+                if (result.length === 0) {
+                    return GLOBAL_ERROR_RESPONSE("No active roles found.", {}, res);
+                }
+
+                /** Return the roles */
+                return GLOBAL_SUCCESS_RESPONSE("Roles fetched successfully.", result, res);
+            });
+        } catch (err) {
+            console.error("Error in getching roles:", err);  /** Log the error for debugging */
+            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+        }
+    };
 }
 
 module.exports = new roleApi();

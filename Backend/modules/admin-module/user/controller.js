@@ -80,9 +80,19 @@ function UsersApi() {
             let queryParams = [];
     
             if (userName) {
-                query += ' AND user_name LIKE ?';
-                queryParams.push(`%${userName}%`);
+                query += `
+                  AND (
+                    user_name LIKE ?
+                    OR first_name LIKE ?
+                    OR last_name LIKE ?
+                    OR email LIKE ?
+                    OR phone_number LIKE ?
+                  )
+                `;
+                const likeValue = `%${userName}%`;
+                queryParams.push(likeValue, likeValue, likeValue, likeValue, likeValue);
             }
+            
             if (userRoleId) {
                 query += ' AND user_role_id = ?';
                 queryParams.push(userRoleId);

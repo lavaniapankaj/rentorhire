@@ -20,18 +20,14 @@ export default function Sidebar() {
   }
 
   return (
-    <aside style={{ width: '200px', background: '#eee', padding: '10px' }}>
+    <aside style={{ width: '250px', background: '#eee', padding: '10px' }}>
       <ul style={{ listStyle: 'none', padding: 0 }}>
         
-        {/* Users Menu with Submenu */}
-        <li onMouseEnter={toggleUsersMenu} onMouseLeave={toggleUsersMenu}>
-          <a href="/adminrohpnl/user/list" style={{ cursor: 'pointer' }}>Users</a>
-          {isUsersOpen && (
-            <ul style={{ listStyle: 'none', paddingLeft: '20px' }}>
-              <li><a href="/adminrohpnl/user/list">All Users</a></li>
-              <li><a href="/adminrohpnl/user/add">Add New User</a></li>
-            </ul>
-          )}
+        {/* Users Menu Item */}
+        <li>
+          <a href="/adminrohpnl/user/list" style={{ display: 'block', padding: '5px', textDecoration: 'none' }}>
+            Users
+          </a>
         </li>
 
         {/* Other menu items */}
@@ -44,7 +40,23 @@ export default function Sidebar() {
             Logout
           </button>
         </li>
+        {/* Categories Link */}
+        {/* <li>
+          <a
+            href="/adminrohpnl/category/list" // Link to the new category list page
+            style={{ display: 'block', padding: '5px', textDecoration: 'none' }}
+          >
+            Category List
+          </a>
+        </li> */}
+
+        {/* Settings Menu Item */}
+        {/* <li>
+          <a href="#" style={{ display: 'block', padding: '5px', textDecoration: 'none' }}>
+            Settings
+          </a>
+        </li> */}
       </ul>
     </aside>
-  )
+  );
 }
