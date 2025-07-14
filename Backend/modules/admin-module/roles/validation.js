@@ -112,5 +112,11 @@ const validateDeleteRole = (req, res, next) => {
     });
 };
 
+/** Get all roles and IDs validation - Coded by Vishnu - July 12 2025 */
+const validateGetRoles = (req, res, next) => {
+    /** If validation passes, proceed to the next middleware/controller */
+    next();
+};
 
-module.exports = { validateAddRole, validateGetRole, validateUpdateRole, validateDeleteRole};
+
+module.exports = { validateAddRole, validateGetRole, validateUpdateRole, validateDeleteRole, validateGetRoles};

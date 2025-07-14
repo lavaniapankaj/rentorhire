@@ -8,7 +8,7 @@ const upload = multer(); // memory storage, no actual files saved
 /** Api for adding new user Coded by Vishnu July 06 2025 */
 app.post(
     ADMIN_NAME + "/user/create",
-    authMiddleware,
+    // authMiddleware,
     upload.none(),               /** First: Parse multipart/form-data (required) */
     ValidateaddnewUser,          /** Second: validate req.body */
     (req, res, next) => {

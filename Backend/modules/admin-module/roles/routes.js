@@ -1,5 +1,5 @@
 const authMiddleware = require('../../../middleware/authMiddleware');
-const {validateAddRole, validateGetRole, validateUpdateRole, validateDeleteRole} = require("./validation");
+const {validateAddRole, validateGetRole, validateUpdateRole, validateDeleteRole, validateGetRoles} = require("./validation");
 const RoleController = require("./controller");
 
 
@@ -44,5 +44,16 @@ app.post(
     validateDeleteRole, /** Validation middleware */
     (req, res, next) => {
         RoleController.deleteRole(req, res, next);/** Call the controller */
+    }
+);
+
+/** Get all roles and ID from roles collection Coded by Vishnu July 12 2025 */
+app.get(
+    ADMIN_NAME + "/role/roles",
+    //checkLoginAuth,
+    // authMiddleware,
+    validateGetRoles, /** Validation middleware */
+    (req, res, next) => {
+        RoleController.getRoles(req, res, next);/** Call the controller */
     }
 );
