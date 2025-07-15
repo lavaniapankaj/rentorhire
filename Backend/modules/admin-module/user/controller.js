@@ -185,7 +185,7 @@ function UsersApi() {
     /** View user details in roh_users table Coded by Vishnu July 07 2025 */
     this.ViewUser = async (req, res) => {
         try {
-            const { user_id } = req.body;
+            const { user_id } = req.body;  // Get user_id from the request body
     
             const query = `SELECT * FROM roh_users WHERE user_id = ?`;
     

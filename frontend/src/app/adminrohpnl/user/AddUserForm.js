@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
-import styles from '../../admin.module.css';
+import styles from '../admin.module.css';
+import bcrypt from 'bcryptjs';
+
 
 const initialFormState = {
   first_name: '',
@@ -54,13 +56,17 @@ export default function AddUserForm({ onSuccess, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Hash the password before submitting
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(form.password_hash, salt);
+
     const payload = {
       user_name: form.user_name,
       first_name: form.first_name,
       last_name: form.last_name,
       email: form.email,
       phone_number: form.phone_number,
-      password_hash: form.password_hash,
+      password_hash: hashedPassword, // Hashed password
       user_role_id: parseInt(form.user_role),
       profile_picture_url: 'http://localhost:3000/adminrohpnl',
       address_1: form.address_1,

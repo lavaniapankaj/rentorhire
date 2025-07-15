@@ -29,7 +29,7 @@ app.post(
 /** Edit user Coded by Vishnu July 07 2025 */
 app.post(
     ADMIN_NAME + "/user/edit",
-    authMiddleware,
+    // authMiddleware,
     ValidateEditUser, /** Validation middleware */
     (req, res, next) => {
         UserController.UpdateUser(req, res, next); /** Call the controller */
@@ -39,7 +39,7 @@ app.post(
 /** Delete user Coded by Vishnu July 07 2025 */
 app.post(
     ADMIN_NAME + "/user/delete",
-    authMiddleware,
+    // authMiddleware,
     ValidateDeleteUser, /** Validation middleware */
     (req, res, next) => {
         UserController.DeleteUser(req, res, next); /** Call the controller */
@@ -47,11 +47,12 @@ app.post(
 );
 
 /** View user details Coded by Vishnu July 07 2025 */
-app.get(
-    ADMIN_NAME + "/user/view", 
-    authMiddleware,
-    ValidateViewUser, /** Validation middleware */
+app.post(
+    ADMIN_NAME + "/user/view", // Change GET to POST
+    // authMiddleware, // Use your authentication middleware if needed
+    ValidateViewUser,  // Your validation middleware
     (req, res, next) => {
-        UserController.ViewUser(req, res, next); /** Call the controller */
+        UserController.ViewUser(req, res, next); // Call the controller
     }
 );
+

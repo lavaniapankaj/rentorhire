@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '../../admin.module.css'
 import { jwtDecode } from 'jwt-decode'; 
-import AddUserForm from './AddUserForm';
+// import AddUserForm from './AddUserForm';
+import AddUserForm from '../AddUserForm';
 
 export default function ListUserPage() {
   const [users, setUsers] = useState([]);
