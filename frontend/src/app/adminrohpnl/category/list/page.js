@@ -6,62 +6,64 @@ export default function ListCategoryPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  // const [totalPages, setTotalPages] = useState(1);
-  const [limit] = useState(4);
-
-  // // Filter state
-  // const [filters, setFilters] = useState({
-  //   user_name: '',
-  //   user_role_id: '',
-  //   active: '',
-  // });
+  const [totalPages, setTotalPages] = useState(1);
+  const [limit] = useState(3);
 
   useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const authUserData = localStorage.getItem('authUser');
+    const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
+    
+    if (!token || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
+      // Redirect to the login page or handle the redirect logic here
+      router.push('/auth/admin');
+    }
+
     const fetchCategories = async () => {
       try {
         const response = await fetch('http://localhost:8080/api/adminrohpnl/category/list', {
-          method: 'GET',
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({
             page: currentPage,
-            limit: limit
-            // ...filters, // Include filters in the request
+            limit,
+            // ...filters,
           }),
         });
 
-        console.log("response>>> ", response);
-
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error(`Failed to fetch data: ${response.status}`);
         }
-
+  
         const data = await response.json();
-
-        setCategories(data.data.users || []);
+        setCategories(data.data.category || []);
         setTotalPages(data.data.totalPages || 1);
       } catch (error) {
+        console.error("Error fetching categories:", error);
         setError(error.message);
       } finally {
         setLoading(false);
       }
     };
+  
     fetchCategories();
-  // }, [currentPage, limit, filters]); // Run again if currentPage or filters change
-  }, [currentPage, limit]); // Run again if currentPage or filters change
+  }, [currentPage, limit]);
 
-  // const handleNextPage = () => {
-  //   if (currentPage < totalPages) {
-  //     setCurrentPage(currentPage + 1);
-  //   }
-  // };
 
-  // const handlePrevPage = () => {
-  //   if (currentPage > 1) {
-  //     setCurrentPage(currentPage - 1);
-  //   }
-  // };
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   // const handleFilterChange = (e) => {
   //   const { name, value } = e.target;
@@ -127,7 +129,7 @@ export default function ListCategoryPage() {
           <tbody>
             {categories.map((category, index) => (
               <tr key={index}>
-                <td>{index}</td>
+                <td>{(currentPage - 1) * limit + index + 1}</td>
                 <td>{category.name}</td>
                 <td>{category.name}</td>
                 <td>{category.active === 1 ? 'Active' : 'Inactive'}</td>
@@ -142,13 +144,9 @@ export default function ListCategoryPage() {
 
       {/* Pagination Section */}
       <div style={{ marginTop: '20px' }}>
-        {/* <button onClick={handlePrevPage} disabled={currentPage === 1}>Previous</button> */}
-        {/* <button disabled={currentPage === 1}>Previous</button> */}
-        <button>Previous</button>
-        {/* <span> Page {currentPage} of {totalPages} </span> */}
-        <span> Page 1 of 10 </span>
-        {/* <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button> */}
-        <button disabled={1 === 1}>Next</button>
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>Previous</button>
+        <span> Page {currentPage} of {totalPages} </span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next</button>
       </div>
     </div>
   );

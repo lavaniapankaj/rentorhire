@@ -4,51 +4,11 @@ function UsersApi() {
     /** Add new user in roh_users table Coded by Vishnu July 06 2025 */
     this.AddnewUser = async (req, res) => {
         try {
-          const {
-            user_name,
-            first_name,
-            last_name,
-            email,
-            phone_number,
-            password_hash,
-            user_role_id,
-            profile_picture_url,
-            address_1,
-            landmark,
-            state,
-            city,
-            pincode,
-            add_id = 1,
-            edit_id = 1
-          } = req.body;
+          const { user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id = 1, edit_id = 1 } = req.body;
       
-          const query = `
-            INSERT INTO roh_users (
-              user_name, first_name, last_name, email, phone_number, password_hash,
-              user_role_id, profile_picture_url, address_1, landmark, state, city,
-              pincode, add_id, edit_id, active
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-          `;
+          const query = `INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id, edit_id, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
       
-          const values = [
-            user_name,
-            first_name,
-            last_name,
-            email,
-            phone_number,
-            password_hash,
-            user_role_id,
-            profile_picture_url,
-            address_1,
-            landmark,
-            state,
-            city,
-            pincode,
-            add_id,
-            edit_id,
-            1
-          ];
+          const values = [user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id, edit_id, 1];
       
           pool.execute(query, values, (err, result) => {
             if (err) return GLOBAL_ERROR_RESPONSE("Error saving user", err, res);
@@ -80,15 +40,7 @@ function UsersApi() {
             let queryParams = [];
     
             if (userName) {
-                query += `
-                  AND (
-                    user_name LIKE ?
-                    OR first_name LIKE ?
-                    OR last_name LIKE ?
-                    OR email LIKE ?
-                    OR phone_number LIKE ?
-                  )
-                `;
+                query += ` AND (user_name LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR phone_number LIKE ?)`;
                 const likeValue = `%${userName}%`;
                 queryParams.push(likeValue, likeValue, likeValue, likeValue, likeValue);
             }
@@ -137,8 +89,6 @@ function UsersApi() {
         }
     };
     
-      
-
     /** Update user in roh_users table Coded by Vishnu July 07 2025 */
     this.UpdateUser = async (req, res) => {
         try {
@@ -208,8 +158,6 @@ function UsersApi() {
         }
     };
     
-    
-    
     /** Delete user in roh_users table Coded by Vishnu July 07 2025 */
     this.DeleteUser = async (req, res) => {
         try {
@@ -257,11 +205,6 @@ function UsersApi() {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
-    
-    
-    
-    
-    
 }
 
 module.exports = new UsersApi();

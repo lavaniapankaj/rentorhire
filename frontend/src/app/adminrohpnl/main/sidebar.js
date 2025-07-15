@@ -30,8 +30,16 @@ export default function Sidebar() {
           </a>
         </li>
 
-        {/* Other menu items */}
-        <li><a href="/adminrohpnl/category">Categories</a></li>
+        {/* Categories Link */}
+        <li>
+          <a
+            href="/adminrohpnl/category/list" // Link to the new category list page
+            style={{ display: 'block', padding: '5px', textDecoration: 'none' }}
+          >
+            Category
+          </a>
+        </li>
+
         <li><a href="#">Settings</a></li>
 
         {/* Logout Button */}
@@ -40,16 +48,6 @@ export default function Sidebar() {
             Logout
           </button>
         </li>
-        {/* Categories Link */}
-        {/* <li>
-          <a
-            href="/adminrohpnl/category/list" // Link to the new category list page
-            style={{ display: 'block', padding: '5px', textDecoration: 'none' }}
-          >
-            Category List
-          </a>
-        </li> */}
-
         {/* Settings Menu Item */}
         {/* <li>
           <a href="#" style={{ display: 'block', padding: '5px', textDecoration: 'none' }}>

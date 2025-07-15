@@ -1,23 +1,38 @@
 'use client';
 import styles from './admin.module.css';
+import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function AdminDashboard() {
 
-  /** Admin login tkoen check - Coded by Raj - July 13 2025 */
+  /** Admin login token check - Coded by Raj - July 15 2025 */
   const router = useRouter();
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     const authUserData = localStorage.getItem('authUser');
     const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
     
-    if (!token || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
-      // Redirect to the login page or handle the redirect logic here
+    let isTokenExpired = false;
+
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const currentTime = Date.now() / 1000; // in seconds
+        if (decodedToken.exp < currentTime) {
+          isTokenExpired = true;
+        }
+      } catch (err) {
+        isTokenExpired = true;
+      }
+    }
+
+    if (!token || isTokenExpired || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
+      // Redirect to the login page
       router.push('/auth/admin');
     }
   }, []); 
-  /** Admin login tkoen check - Coded by Raj - July 13 2025 END */
+  /** Admin login token check - Coded by Raj - July 15 2025 END */
 
   return (
     <div className={styles.container}>

@@ -60,15 +60,35 @@ function CategoryApi() {
             /** Calculate the offset for pagination */
             const offset = (page - 1) * limit;
             
-            const sql = "SELECT c.id, c.name, c.description, c.slug, c.parent_category_id, p.name AS parent_category_name FROM roh_categories c LEFT JOIN roh_categories p ON c.parent_category_id = p.id WHERE c.active = 1 LIMIT ? OFFSET ?";
+            const sql = "SELECT c.id, c.name, c.description, c.slug, c.parent_category_id, p.name AS parent_category_name FROM roh_categories c LEFT JOIN roh_categories p ON c.parent_category_id = p.id WHERE c.active = 1";
 
-            const [categoryList] = await pool.query(sql, [parseInt(limit), parseInt(offset)]);
+            const [categoryList] = await pool.query(sql);
+            
+            // Total count of filtered categories
+            const total = categoryList.length;
+            const totalPages = Math.ceil(total / limit);
 
-            if (categoryList) {
-                return GLOBAL_SUCCESS_RESPONSE( "Category data fetched.", categoryList, res);
-            } else {
-                return GLOBAL_ERROR_RESPONSE("Failed to fetch category data.", {}, res);
+            // If no categories at all
+            if (total == 0 || page > totalPages) {
+                return GLOBAL_SUCCESS_RESPONSE("No categories found.", {
+                    categoryList: [],
+                    page,
+                    limit,
+                    total,
+                    totalPages
+                }, res);
             }
+    
+            // Now paginate the filtered results
+            const paginatedCategories = categoryList.slice(offset, offset + limit);
+    
+            return GLOBAL_SUCCESS_RESPONSE("Categories fetched successfully", {
+                category: paginatedCategories,
+                page,
+                limit,
+                total,
+                totalPages,
+            }, res);
         } catch(error){
             let message = "Internal server error";
             return GLOBAL_ERROR_RESPONSE(message, error, res);

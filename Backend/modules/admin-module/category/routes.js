@@ -1,6 +1,6 @@
     const Category = require("./controller");
     const authMiddleware = require('../../../middleware/authMiddleware');
-    const { validateCreateCategory, validateDetailCategory, validateUpdateCategory, validateDeleteCategory } = require('./validation');
+    const {validateGetCategory, validateCreateCategory, validateDetailCategory, validateUpdateCategory, validateDeleteCategory } = require('./validation');
 
     /** API to create a category and sub category Coded by Raj July 04 2025 */
     app.get(
@@ -13,9 +13,10 @@
     );
     
     /** API to get the category list Coded by Raj July 04 2025 */
-    app.get(
+    app.post(
         ADMIN_NAME + "/category/list",
         authMiddleware,
+        validateGetCategory,
         (req, res, next) => {
             Category.categoryList(req, res, next);
         }

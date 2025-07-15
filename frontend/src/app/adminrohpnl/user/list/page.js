@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '../../admin.module.css'
+import { jwtDecode } from 'jwt-decode'; 
 import AddUserForm from './AddUserForm';
 
 export default function ListUserPage() {
@@ -12,6 +14,8 @@ export default function ListUserPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(5);
+  const router = useRouter();
+
 
   // Filters used in API call
   const [filters, setFilters] = useState({
@@ -38,6 +42,30 @@ export default function ListUserPage() {
 
   // Fetch Users
   useEffect(() => {
+
+    const token = localStorage.getItem('authToken');
+    const authUserData = localStorage.getItem('authUser');
+    const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
+    
+    let isTokenExpired = false;
+
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const currentTime = Date.now() / 1000; // in seconds
+        if (decodedToken.exp < currentTime) {
+          isTokenExpired = true;
+        }
+      } catch (err) {
+        isTokenExpired = true;
+      }
+    }
+
+    if (!token || isTokenExpired || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
+      // Redirect to the login page
+      router.push('/auth/admin');
+    }
+
     const fetchUsers = async () => {
       if (!initialLoad) setLoading(true);
       try {
@@ -45,6 +73,7 @@ export default function ListUserPage() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({
             page: currentPage,
@@ -135,25 +164,11 @@ export default function ListUserPage() {
         <form onSubmit={handleSearch} className={styles.rohpnl_filterForm} id="rohpnl_filterForm">
           <div className={styles.rohpnl_filterField} id="rohpnl_filterField">
             <label>User Info:</label>
-            <input
-              type="text"
-              id="user_name"
-              name="user_name"
-              value={searchForm.user_name}
-              onChange={handleSearchFormChange}
-              className={styles.filterInput} 
-            />
+            <input type="text" id="user_name" name="user_name" value={searchForm.user_name} onChange={handleSearchFormChange} className={styles.filterInput}/>
           </div>
-  
           <div className={styles.rohpnl_filterField} id="rohpnl_filterField">
             <label>User Role:</label>
-            <select
-              id="user_role_id"
-              name="user_role_id"
-              value={searchForm.user_role_id}
-              onChange={handleSearchFormChange}
-              className={styles.filterSelect}
-            >
+            <select id="user_role_id" name="user_role_id" value={searchForm.user_role_id} onChange={handleSearchFormChange} className={styles.filterSelect}>
               <option value="">All Roles</option>
               {roles.map((role) => (
                 <option key={role.id} value={role.id}>
@@ -165,13 +180,7 @@ export default function ListUserPage() {
   
           <div className={styles.rohpnl_filterField} id="rohpnl_filterField">
             <label>Status:</label>
-            <select
-              id="active"
-              name="active"
-              value={searchForm.active}
-              onChange={handleSearchFormChange}
-              className={styles.filterSelect}
-            >
+            <select id="active" name="active" value={searchForm.active} onChange={handleSearchFormChange} className={styles.filterSelect}>
               <option value="">All</option>
               <option value="1">Active</option>
               <option value="0">Inactive</option>
