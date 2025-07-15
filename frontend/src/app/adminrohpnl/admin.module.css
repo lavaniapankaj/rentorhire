@@ -321,3 +321,221 @@
     width: 90%;
   }
 }
+
+
+/* =========================
+   Modal Overlay (Background)
+========================= */
+.roh_modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* dark backdrop */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* =========================
+   Scrollable Popup Form
+========================= */
+.roh_edituser_form {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;         /* Limit height */
+  overflow-y: auto;         /* Enable scroll */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  z-index: 1001;
+  position: relative;
+  scrollbar-width: thin;
+}
+
+/* =========================
+   Input Groups & Layout
+========================= */
+.roh_edituser_form_group {
+  margin-bottom: 1.2rem;
+}
+
+.roh_edituser_form_row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.roh_edituser_form_group_half {
+  width: 48%;
+}
+
+/* =========================
+   Inputs & Labels
+========================= */
+.roh_edituser_input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+.roh_edituser_input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.roh_edituser_form label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+/* =========================
+   Buttons
+========================= */
+.roh_edituser_form_actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.roh_edituser_submit_btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.roh_edituser_submit_btn:hover {
+  background-color: #0056b3;
+}
+
+.roh_edituser_cancel_btn {
+  background-color: #ccc;
+  color: #333;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.roh_edituser_cancel_btn:hover {
+  background-color: #bbb;
+}
+
+/* =========================
+   Scrollbar Styling (Optional)
+========================= */
+.roh_edituser_form::-webkit-scrollbar {
+  width: 6px;
+}
+
+.roh_edituser_form::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.roh_edituser_form::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 10px;
+}
+
+.roh_edituser_form::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/** View User Details */
+/* Modal Overlay */
+.roh_modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Container */
+.roh_viewuser_modal {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Close Button (X) */
+.modalCloseButton {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Close Button Hover */
+.modalCloseButton:hover {
+  color: #e74c3c;
+}
+
+/* View Details */
+.viewuser_details {
+  margin-top: 20px;
+}
+
+.viewuser_details p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Close Button (bottom) */
+.roh_close_btn {
+  margin-top: 25px;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.roh_close_btn:hover {
+  background-color: #2980b9;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+

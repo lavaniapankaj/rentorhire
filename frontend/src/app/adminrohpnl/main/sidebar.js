@@ -25,7 +25,7 @@ export default function Sidebar() {
         
         {/* Users Menu Item */}
         <li>
-          <a href="/adminrohpnl/user/list" style={{ display: 'block', padding: '5px', textDecoration: 'none' }}>
+          <a href="/adminrohpnl/user/" style={{ display: 'block', padding: '5px', textDecoration: 'none' }}>
             Users
           </a>
         </li>
