@@ -19,6 +19,16 @@ export default function ListUserPage() {
   const [editUser, setEditUser] = useState(null);
   const router = useRouter(); 
 
+  // const token = localStorage.getItem('authToken');
+  // const authUserData = localStorage.getItem('authUser');
+  // const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
+  // console.log(token, parsedAuthUserData);
+  // if (!token || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
+  //   // Redirect to the login page or handle the redirect logic here
+  //   router.push('/auth/admin');
+  // }
+
+
   const [filters, setFilters] = useState({
     user_name: '',
     user_role_id: '',
