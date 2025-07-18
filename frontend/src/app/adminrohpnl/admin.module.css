@@ -539,3 +539,12 @@
   }
 }
 
+/** Role Add error message */
+.errorMessage {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+

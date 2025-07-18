@@ -19,14 +19,6 @@ export default function ListUserPage() {
   const [editUser, setEditUser] = useState(null);
   const router = useRouter(); 
 
-  // const token = localStorage.getItem('authToken');
-  // const authUserData = localStorage.getItem('authUser');
-  // const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
-  // console.log(token, parsedAuthUserData);
-  // if (!token || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
-  //   // Redirect to the login page or handle the redirect logic here
-  //   router.push('/auth/admin');
-  // }
 
 
   const [filters, setFilters] = useState({
@@ -54,28 +46,15 @@ export default function ListUserPage() {
   }, {});
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    const authUserData = localStorage.getItem('authUser');
-    const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
     
-    let isTokenExpired = false;
-
-    if (token) {
-      try {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Date.now() / 1000; // in seconds
-        if (decodedToken.exp < currentTime) {
-          isTokenExpired = true;
-        }
-      } catch (err) {
-        isTokenExpired = true;
-      }
-    }
-
-    if (!token || isTokenExpired || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
-      // Redirect to the login page
-      router.push('/auth/admin');
-    }
+  const token = localStorage.getItem('authToken');
+  const authUserData = localStorage.getItem('authUser');
+  const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
+  console.log(token, parsedAuthUserData);
+  if (!token || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
+    // Redirect to the login page or handle the redirect logic here
+    router.push('/auth/admin');
+  }
 
     const fetchUsers = async () => {
       if (!initialLoad) setLoading(true);

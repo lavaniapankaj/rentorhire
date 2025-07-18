@@ -15,46 +15,126 @@ export default function Sidebar() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('authUser');
 
-    // redirect the user to the login page after logout
+    // Redirect the user to the login page after logout
     router.push('/auth/admin');
   }
 
   return (
-    <aside style={{ width: '250px', background: '#eee', padding: '10px' }}>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        
-        {/* Users Menu Item */}
-        <li>
-          <a href="/adminrohpnl/user/" style={{ display: 'block', padding: '5px', textDecoration: 'none' }}>
-            Users
+    <aside style={sidebarStyles}>
+      <ul style={menuListStyles}>
+        {/* Dashboard Menu Item */}
+        <li style={menuItemStyles}>
+          <a href="/adminrohpnl" style={linkStyles}>
+            Dashboard
           </a>
         </li>
 
         {/* Categories Link */}
-        <li>
-          <a
-            href="/adminrohpnl/category/list" // Link to the new category list page
-            style={{ display: 'block', padding: '5px', textDecoration: 'none' }}
-          >
-            Category
+        <li style={menuItemStyles}>
+          <a href="/adminrohpnl/category/list" style={linkStyles}>
+            Categories
           </a>
         </li>
 
-        <li><a href="#">Settings</a></li>
+        {/* Products Link */}
+        <li style={menuItemStyles}>
+          <a href="#" style={linkStyles}>
+            Products
+          </a>
+        </li>
+
+        {/* Users Menu Item */}
+        <li style={menuItemStyles}>
+          <a href="/adminrohpnl/user/" style={linkStyles}>
+            Users
+          </a>
+        </li>
+
+        {/* Role Link */}
+        <li style={menuItemStyles}>
+          <a href="/adminrohpnl/role/" style={linkStyles}>
+            Roles
+          </a>
+        </li>
+
+        {/* Route Link */}
+        <li style={menuItemStyles}>
+          <a href="#" style={linkStyles}>
+            Routes
+          </a>
+        </li>
+
+        {/* State& & City Link */}
+        <li style={menuItemStyles}>
+          <a href="#" style={linkStyles}>
+            State & City
+          </a>
+        </li>
+
+        {/* Settings Link */}
+        <li style={menuItemStyles}>
+          <a href="#" style={linkStyles}>
+            Settings
+          </a>
+        </li>
 
         {/* Logout Button */}
-        <li>
-          <button onClick={handleLogout} style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '10px 20px', cursor: 'pointer', marginTop: '20px', width: '100%', textAlign: 'center' }}>
+        <li style={menuItemStyles}>
+          <button 
+            onClick={handleLogout} 
+            style={logoutButtonStyles}
+          >
             Logout
           </button>
         </li>
-        {/* Settings Menu Item */}
-        {/* <li>
-          <a href="#" style={{ display: 'block', padding: '5px', textDecoration: 'none' }}>
-            Settings
-          </a>
-        </li> */}
       </ul>
     </aside>
   );
 }
+
+// Styles for Sidebar and Menu
+const sidebarStyles = {
+  width: '250px',
+  background: '#2c3e50',
+  color: 'white',
+  padding: '20px',
+  boxSizing: 'border-box',
+  fontFamily: 'Arial, sans-serif',
+  height: 'auto',
+};
+
+const menuListStyles = {
+  listStyle: 'none',
+  padding: 0,
+  margin: 0,
+};
+
+const menuItemStyles = {
+  marginBottom: '15px',
+};
+
+const linkStyles = {
+  display: 'block',
+  padding: '12px 15px',
+  textDecoration: 'none',
+  color: 'white',
+  backgroundColor: '#34495e',
+  borderRadius: '5px',
+  transition: 'background-color 0.3s ease',
+};
+
+const logoutButtonStyles = {
+  backgroundColor: '#e74c3c',
+  color: 'white',
+  border: 'none',
+  padding: '10px 20px',
+  cursor: 'pointer',
+  width: '100%',
+  borderRadius: '5px',
+  transition: 'background-color 0.3s ease',
+};
+
+const hoverEffect = {
+  backgroundColor: '#16a085',
+};
+

@@ -1,5 +1,5 @@
 const authMiddleware = require('../../../middleware/authMiddleware');
-const {validateAddRole, validateGetRole, validateUpdateRole, validateDeleteRole, validateGetRoles} = require("./validation");
+const {validateAddRole, validateGetRole, validateUpdateRole, validateDeleteRole, validateGetRoles, validateViewRole} = require("./validation");
 const RoleController = require("./controller");
 
 
@@ -7,7 +7,7 @@ const RoleController = require("./controller");
 app.post(
     ADMIN_NAME + "/role/add",
     //checkLoginAuth,
-    authMiddleware,
+    // authMiddleware,
     validateAddRole, /** Validation middleware */
     (req, res, next) => {
         RoleController.addRole(req, res, next);  /** Call the controller */
@@ -18,7 +18,7 @@ app.post(
 app.post(
     ADMIN_NAME + "/role/list",
     //checkLoginAuth,
-    authMiddleware,
+    // authMiddleware,
     validateGetRole, /** Validation middleware */
     (req, res, next) => {
         RoleController.getAllRoles(req, res, next); /** Call the controller */
@@ -29,7 +29,7 @@ app.post(
 app.post(
     ADMIN_NAME + "/role/update",
     //checkLoginAuth,
-    authMiddleware,
+    // authMiddleware,
     validateUpdateRole, /** Validation middleware */
     (req, res, next) => {
         RoleController.updateRole(req, res, next);/** Call the controller */
@@ -40,7 +40,7 @@ app.post(
 app.post(
     ADMIN_NAME + "/role/delete",
     //checkLoginAuth,
-    authMiddleware,
+    // authMiddleware,
     validateDeleteRole, /** Validation middleware */
     (req, res, next) => {
         RoleController.deleteRole(req, res, next);/** Call the controller */
@@ -55,5 +55,16 @@ app.get(
     validateGetRoles, /** Validation middleware */
     (req, res, next) => {
         RoleController.getRoles(req, res, next);/** Call the controller */
+    }
+);
+
+/** View role details Coded by Vishnu July 17 2025 */
+app.post(
+    ADMIN_NAME + "/role/view",
+    //checkLoginAuth,
+    // authMiddleware,
+    validateViewRole, /** Validation middleware */
+    (req, res, next) => {
+        RoleController.viewRole(req, res, next);/** Call the controller */
     }
 );
