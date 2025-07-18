@@ -1,17 +1,16 @@
-'use client'
+'use client';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import styles from '../admin.module.css';
 import AddRoleForm from './AddRoleForm';
+import EditRoleForm from './EditRoleForm';
 
 export default function ListUserPage() {
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [limit] = useState(20); // Set limit to 20 roles per page
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-
-  const router = useRouter();
+  const [limit] = useState(20);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedRoleId, setSelectedRoleId] = useState(null);
 
   // Fetch Roles List
   const fetchRoles = async () => {
@@ -23,7 +22,7 @@ export default function ListUserPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          page: 1,  // No pagination, just fetch the first 20 roles
+          page: 1,
           limit: limit,
         }),
       });
@@ -31,9 +30,6 @@ export default function ListUserPage() {
       if (!res.ok) throw new Error('Failed to fetch roles');
 
       const data = await res.json();
-      console.log(data);  // Log the full response to see the structure
-
-      // Access roles from data.data (adjust if API response structure differs)
       setRoles(data.data || []);
     } catch (err) {
       setError(err.message);
@@ -43,68 +39,84 @@ export default function ListUserPage() {
   };
 
   useEffect(() => {
-    fetchRoles(); // Fetch roles on component mount
+    fetchRoles();
   }, [limit]);
 
-  const openAddNewRoleModal = () => {
-    setIsModalOpen(true); // Open the modal
-  };
+  // Handlers
+  const openAddModal = () => setIsAddModalOpen(true);
+  const closeAddModal = () => setIsAddModalOpen(false);
 
-  const closeModal = () => {
-    setIsModalOpen(false); // Close the modal
+  const openEditModal = (roleId) => {
+    setSelectedRoleId(roleId);
+    setIsEditModalOpen(true);
+  };
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedRoleId(null);
   };
 
   if (loading) return <p>Loading roles...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className={styles.rohpnl_wrapper} id="rohpnl_wrapper">
-      <div>
-        <button className={styles.rohpnl_addnewrole} id="rohpnl_addrolebtn" onClick={openAddNewRoleModal}>
-          Add Role
-        </button>
-      </div>
-      <h2 className={styles.rohpnl_heading} id="rohpnl_heading">Roles List</h2>
+    <div style={{ padding: '30px' }}>
+      <button onClick={openAddModal} style={{ padding: '8px 16px', marginBottom: '20px' }}>
+        Add Role
+      </button>
 
-      {/* Role List */}
-      <div className={styles.rohpnl_tableContainer} id="rohpnl_tableContainer">
-        {roles.length > 0 ? (
-          <table className={styles.rohpnl_table} id="rohpnl_table">
-            <thead>
-              <tr>
-                <th>Role ID</th>
-                <th>Role Name</th>
-                <th>Status</th>
-                <th>Action</th>
+      <h2>Roles List</h2>
+
+      {roles.length > 0 ? (
+        <table border="1" cellPadding="10" style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr>
+              <th>Role ID</th>
+              <th>Role Name</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {roles.map((role) => (
+              <tr key={role.id}>
+                <td>{role.id}</td>
+                <td>{role.name}</td>
+                <td>{role.active === 1 ? 'Active' : 'Inactive'}</td>
+                <td>
+                  <button onClick={() => openEditModal(role.id)}>Edit</button>
+                  {' | '}
+                  <button onClick={() => alert('In Progress.......')}>Delete</button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {roles.map((role, index) => (
-                <tr key={index}>
-                  <td>{role.id}</td>
-                  <td>{role.name}</td>
-                  <td>{role.active === 1 ? 'Active' : 'Inactive'}</td>
-                  <td>Edit | Delete</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p className={styles.rohpnl_noData} id="rohpnl_noData">No roles available</p>
-        )}
-      </div>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No roles available.</p>
+      )}
 
-      {/* Modal for Add New Role */}
-      {isModalOpen && (
-        <AddRoleForm 
-          onClose={closeModal} 
+      {/* Add Role Modal */}
+      {isAddModalOpen && (
+        <AddRoleForm
+          onClose={closeAddModal}
           onSuccess={() => {
-            setIsModalOpen(false);
+            closeAddModal();
             fetchRoles();
-          }} 
+          }}
         />
       )}
 
+      {/* Edit Role Modal */}
+      {isEditModalOpen && selectedRoleId && (
+        <EditRoleForm
+          roleId={selectedRoleId}
+          onClose={closeEditModal}
+          onSuccess={() => {
+            closeEditModal();
+            fetchRoles();
+          }}
+        />
+      )}
     </div>
   );
 }
