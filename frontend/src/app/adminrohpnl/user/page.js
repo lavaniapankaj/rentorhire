@@ -356,8 +356,8 @@ export default function ListUserPage() {
 
       {/* Edit User Modal */}
       {isEditModalOpen && editUser && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
+        <div className={styles.modalOverlayedit}>
+          <div className={styles.modalContentedit}>
             <button className={styles.modalCloseButton} onClick={closeEditModal}>×</button>
             <EditUserForm
               user={editUser}

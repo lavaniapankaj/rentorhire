@@ -202,7 +202,7 @@
 /* Modal Content */
 .modalContent {
   padding: 20px;
-  width: 600px;  /* Increased width to make space for the form */
+  width: 750px;  /* Increased width to make space for the form */
   max-height: 500px;  /* Set a max height to keep the form compact */
   overflow-y: auto;  /* Allow scroll only if needed */
   background-color: white;
@@ -210,6 +210,44 @@
   position: relative;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease;
+}
+
+.modalContentedit {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 750px;  /* Increased width to make space for the form */
+  max-height: 500px;  /* Set a max height to keep the form compact */
+  position: relative;
+  z-index: 1001;
+}
+
+
+.modalOverlayedit {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* dark semi-transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* dark semi-transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 /* Modal Animation */
