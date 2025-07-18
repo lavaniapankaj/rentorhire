@@ -1,5 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { jwtDecode } from 'jwt-decode';
 
 export default function ListCategoryPage() {
   const [categories, setCategories] = useState([]);
@@ -8,14 +10,34 @@ export default function ListCategoryPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit] = useState(3);
+  const router = useRouter();
+  
+  const [filters, setFilters] = useState({
+    category_name: '',
+    // active: '',
+  });
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     const authUserData = localStorage.getItem('authUser');
     const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
     
-    if (!token || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
-      // Redirect to the login page or handle the redirect logic here
+    let isTokenExpired = false;
+
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const currentTime = Date.now() / 1000; // in seconds
+        if (decodedToken.exp < currentTime) {
+          isTokenExpired = true;
+        }
+      } catch (err) {
+        isTokenExpired = true;
+      }
+    }
+
+    if (!token || isTokenExpired || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
+      // Redirect to the login page
       router.push('/auth/admin');
     }
 
@@ -30,7 +52,7 @@ export default function ListCategoryPage() {
           body: JSON.stringify({
             page: currentPage,
             limit,
-            // ...filters,
+            ...filters,
           }),
         });
 
@@ -50,7 +72,7 @@ export default function ListCategoryPage() {
     };
   
     fetchCategories();
-  }, [currentPage, limit]);
+  }, [currentPage, filters]);
 
 
   const handleNextPage = () => {
@@ -73,10 +95,10 @@ export default function ListCategoryPage() {
   //   }));
   // };
 
-  // const handleSearch = (e) => {
-  //   e.preventDefault(); // Prevent form submission
-  //   setCurrentPage(1); // Reset to page 1 when search is clicked
-  // };
+  const handleSearch = (e) => {
+    e.preventDefault(); // Prevent form submission
+    setCurrentPage(1); // Reset to page 1 when search is clicked
+  };
 
   // if (loading) {
   //   return <p>Loading...</p>;
@@ -94,22 +116,20 @@ export default function ListCategoryPage() {
       {/* Filter Section */}
       <div>
         <h3>Search Category</h3>
-        {/* <form onSubmit={handleSearch}> */}
-        <form>
+        <form onSubmit={handleSearch}>
           <label>
             Category Name:
-            {/* <input type="text" name="user_name" value={filters.user_name} onChange={handleFilterChange} /> */}
-            <input type="text" name="category_name" />
+            {/* <input type="text" name="category_name" value={filters.category_name} onChange={handleFilterChange} /> */}
+            <input type="text" name="category_name" value={filters.category_name} />
           </label>
-          <label>
+          {/* <label>
             Active:
-            {/* <select name="active" value={filters.active} onChange={handleFilterChange}> */}
-            <select name="active">
+            <select name="active" value={filters.active} onChange={handleFilterChange}>
               <option value="">All</option>
               <option value="1">Active</option>
               <option value="0">Inactive</option>
             </select>
-          </label>
+          </label> */}
           <button type="submit">Search</button>
         </form>
       </div>

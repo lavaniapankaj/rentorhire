@@ -60,10 +60,21 @@ function CategoryApi() {
             /** Calculate the offset for pagination */
             const offset = (page - 1) * limit;
             
-            const sql = "SELECT c.id, c.name, c.description, c.slug, c.parent_category_id, p.name AS parent_category_name FROM roh_categories c LEFT JOIN roh_categories p ON c.parent_category_id = p.id WHERE c.active = 1";
+            // Capture filter parameters
+            const categoryName = req.body.category_name || '';
 
-            const [categoryList] = await pool.query(sql);
-            
+            var sql = "SELECT c.id, c.name, c.description, c.slug, c.parent_category_id, p.name AS parent_category_name FROM roh_categories c LEFT JOIN roh_categories p ON c.parent_category_id = p.id WHERE c.active = 1";
+
+            let queryParams = [];
+
+            if (categoryName) {
+            sql += ` AND c.name LIKE ?`;
+            queryParams.push(`%${categoryName}%`);
+            }
+
+            // const [categoryList] = await pool.query(sql);
+            const [categoryList] = await pool.query(sql, queryParams);
+
             // Total count of filtered categories
             const total = categoryList.length;
             const totalPages = Math.ceil(total / limit);
@@ -91,6 +102,7 @@ function CategoryApi() {
             }, res);
         } catch(error){
             let message = "Internal server error";
+            console.log("error>>> ", error);
             return GLOBAL_ERROR_RESPONSE(message, error, res);
         }
     }

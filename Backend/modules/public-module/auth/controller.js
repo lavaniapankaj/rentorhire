@@ -142,7 +142,7 @@ function authApi() {
             const {email, password} = req.body;
 
             /* Query the user from 'roh_users' by email */
-            const [rows] = await pool.query('SELECT email, password_hash, user_role_id, user_name, first_name, last_name FROM roh_users WHERE email = ?', [email]);
+            const [rows] = await pool.query('SELECT user_id, email, password_hash, user_role_id, user_name, first_name, last_name FROM roh_users WHERE email = ?', [email]);
 
             if (rows.length == 0) {
                 return res.status(401).json({ message: 'Invalid email or password.' });
@@ -158,7 +158,7 @@ function authApi() {
 
             /* Generate JWT */
             const token = jwt.sign(
-                { id: user.id, email: user.email},
+                { id: user.user_id, email: user.email},
                 // JWT_SECRET,
                 process.env.JWT_SECRET,
                 { expiresIn: '1h' }
@@ -169,7 +169,7 @@ function authApi() {
                 message: 'Login successful.',
                 token,
                 user: {
-                    id: user.id,
+                    id: user.user_id,
                     userName: user.user_name,
                     email: user.email,
                     firstName: user.first_name,
