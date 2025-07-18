@@ -118,5 +118,11 @@ const validateGetRoles = (req, res, next) => {
     next();
 };
 
+/** View role details validation - Coded by Vishnu - July 17 2025 */
+const validateViewRole = (req, res, next) => {
+    /** If validation passes, proceed to the next middleware/controller */
+    next();
+};
 
-module.exports = { validateAddRole, validateGetRole, validateUpdateRole, validateDeleteRole, validateGetRoles};
+
+module.exports = { validateAddRole, validateGetRole, validateUpdateRole, validateDeleteRole, validateGetRoles, validateViewRole};

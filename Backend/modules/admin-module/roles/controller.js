@@ -38,7 +38,7 @@ function roleApi() {
 
             /** SQL query to fetch roles with pagination */
             const query = `
-                SELECT id, name FROM roh_roles WHERE active = 1 LIMIT ? OFFSET ?
+                SELECT id, name, active FROM roh_roles WHERE active = 1 LIMIT ? OFFSET ?
             `;
 
             /** Execute the query to get the paginated roles */
@@ -134,6 +134,31 @@ function roleApi() {
                 /** Return the roles */
                 return GLOBAL_SUCCESS_RESPONSE("Roles fetched successfully.", result, res);
             });
+        } catch (err) {
+            console.error("Error in getching roles:", err);  /** Log the error for debugging */
+            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+        }
+    };
+
+    /** View role details Coded by Vishnu July 17 2025 */
+    this.viewRole = (req, res) => {
+        try {
+            const { role_id } = req.body;
+
+            const query = `SELECT * FROM roh_roles WHERE id = ?`;
+
+            pool.query(query, [role_id], (err, result) => {
+                if (err) {
+                    return GLOBAL_ERROR_RESPONSE("Error getting role details.", err, res);
+                }
+
+                if (result.length === 0) {
+                    return GLOBAL_ERROR_RESPONSE("Role not found.", {}, res);
+                }
+
+                return GLOBAL_SUCCESS_RESPONSE("Role details fetched successfully.", result, res);
+            });
+
         } catch (err) {
             console.error("Error in getching roles:", err);  /** Log the error for debugging */
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
