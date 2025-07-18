@@ -12,7 +12,6 @@ export default function ListUserPage() {
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
   const router = useRouter();
-  
 
   // Fetch Roles List
   const fetchRoles = async () => {
@@ -97,16 +96,15 @@ export default function ListUserPage() {
 
       {/* Modal for Add New Role */}
       {isModalOpen && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <button className={styles.modalCloseButton} onClick={closeModal}>×</button>
-            <AddRoleForm onClose={closeModal} onSuccess={() => {
-              setIsModalOpen(false); // Close modal after success
-              fetchRoles(); // Refresh the role list after successful add
-            }} />
-          </div>
-        </div>
+        <AddRoleForm 
+          onClose={closeModal} 
+          onSuccess={() => {
+            setIsModalOpen(false);
+            fetchRoles();
+          }} 
+        />
       )}
+
     </div>
   );
 }
