@@ -31,7 +31,7 @@ export default function Sidebar() {
 
         {/* Categories Link */}
         <li style={menuItemStyles}>
-          <a href="/adminrohpnl/category/list" style={linkStyles}>
+          <a href="/adminrohpnl/category/" style={linkStyles}>
             Categories
           </a>
         </li>

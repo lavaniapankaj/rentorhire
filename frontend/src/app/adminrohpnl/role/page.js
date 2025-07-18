@@ -12,6 +12,7 @@ export default function ListUserPage() {
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
   const router = useRouter();
+  
 
   // Fetch Roles List
   const fetchRoles = async () => {
