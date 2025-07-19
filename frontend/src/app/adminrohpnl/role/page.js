@@ -33,7 +33,7 @@ export default function RoleListPage() {
       });
 
       const data = await res.json();
-      setRoles(data.data || []);
+      setRoleRoles(data.data || []);
     } catch (err) {
       setRoleError(err.message);
     } finally {
