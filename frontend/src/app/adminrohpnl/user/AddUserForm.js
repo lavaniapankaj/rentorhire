@@ -25,7 +25,7 @@ export default function AddUserForm({ onSuccess, onClose }) {
   const token = localStorage.getItem('authToken');
   const fetchedOnce = useRef(false); // ✅ used to prevent double call
 
-  // ✅ Fetch roles only once
+  // ✅ Fetch roles on component mount
   useEffect(() => {
     if (fetchedOnce.current) return;
     fetchedOnce.current = true;
@@ -34,9 +34,13 @@ export default function AddUserForm({ onSuccess, onClose }) {
       try {
         const res = await fetch('http://localhost:8080/api/adminrohpnl/role/roles');
         const data = await res.json();
+        /** recode = 0 is used for the token error */
+        if(data.rcode == 0){
+          router.push('/auth/admin');
+        }
 
         if (res.ok && data.status && Array.isArray(data.data)) {
-          setRoles(data.data);
+          setRoles(data.data); // ✅ store role array
         } else {
           console.error('Failed to fetch roles:', data);
         }

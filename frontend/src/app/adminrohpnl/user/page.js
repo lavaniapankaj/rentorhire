@@ -75,6 +75,10 @@ export default function ListUserPage() {
         if (!res.ok) throw new Error('Failed to fetch users');
 
         const data = await res.json();
+        /** recode = 0 is used for the token error */
+        if(data.rcode == 0){
+          router.push('/auth/admin');
+        }
         setUsers(data.data.users || []);
         setTotalPages(data.data.totalPages || 1);
       } catch (err) {
@@ -94,6 +98,10 @@ export default function ListUserPage() {
         const res = await fetch('http://localhost:8080/api/adminrohpnl/role/roles');
         if (!res.ok) throw new Error('Failed to fetch roles');
         const data = await res.json();
+        /** recode = 0 is used for the token error */
+        if(data.rcode == 0){
+          router.push('/auth/admin');
+        }
         setRoles(data.data || []);
       } catch (err) {
         console.error('Role fetch error:', err);
@@ -143,6 +151,10 @@ export default function ListUserPage() {
       if (!res.ok) throw new Error('Failed to fetch user details');
 
       const data = await res.json();
+      /** recode = 0 is used for the token error */
+      if(data.rcode == 0){
+        router.push('/auth/admin');
+      }
       const userData = data.data[0];
       setEditUser(userData);
       setIsEditModalOpen(true);
@@ -172,6 +184,12 @@ export default function ListUserPage() {
         body: JSON.stringify({ user_id }),
       });
 
+      const data = await res.json();
+      /** recode = 0 is used for the token error */
+      if(data.rcode == 0){
+        router.push('/auth/admin');
+      }
+
       if (!res.ok) throw new Error('Failed to delete user');
 
       alert('User deleted successfully');
@@ -196,6 +214,10 @@ export default function ListUserPage() {
       });
       if (!res.ok) throw new Error('Failed to fetch user details');
       const data = await res.json();
+      /** recode = 0 is used for the token error */
+      if(data.rcode == 0){
+        router.push('/auth/admin');
+      }
       const userData = data.data[0];
       setViewUser(userData);
       setIsViewModalOpen(true);

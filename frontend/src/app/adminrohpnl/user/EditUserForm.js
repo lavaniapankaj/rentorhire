@@ -30,6 +30,10 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
         try {
           const res = await fetch('http://localhost:8080/api/adminrohpnl/role/roles');
           const data = await res.json();
+          /** recode = 0 is used for the token error */
+          if(data.rcode == 0){
+            router.push('/auth/admin');
+          }
 
           if (res.ok && data.status && Array.isArray(data.data)) {
             setFetchedRoles(data.data);
@@ -106,7 +110,11 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
       });
   
       const data = await res.json();
-  
+      /** recode = 0 is used for the token error */
+      if(data.rcode == 0){
+        router.push('/auth/admin');
+      }
+
       if (!res.ok || data.status === false) {
         // Show error message from API response
         setErrorMessage(data.message || 'Failed to update user');

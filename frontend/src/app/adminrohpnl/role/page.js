@@ -32,10 +32,8 @@ export default function RoleListPage() {
         }),
       });
 
-      if (!res.ok) throw new Error('Failed to fetch roles');
-
       const data = await res.json();
-      setRoleRoles(data.data || []);
+      setRoles(data.data || []);
     } catch (err) {
       setRoleError(err.message);
     } finally {
