@@ -37,9 +37,13 @@ function roleApi() {
             const offset = (page - 1) * limit;
 
             /** SQL query to fetch roles with pagination */
+            // const query = `
+            //     SELECT id, name, active FROM roh_roles WHERE active = 1 LIMIT ? OFFSET ?
+            // `;
+
             const query = `
-                SELECT id, name, active FROM roh_roles WHERE active = 1 LIMIT ? OFFSET ?
-            `;
+            SELECT id, name, active FROM roh_roles LIMIT ? OFFSET ?
+        `;
 
             /** Execute the query to get the paginated roles */
             pool.query(query, [limit, offset], (err, result) => {

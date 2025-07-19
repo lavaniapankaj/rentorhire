@@ -19,6 +19,8 @@ export default function ListUserPage() {
   const [editUser, setEditUser] = useState(null);
   const router = useRouter(); 
 
+  
+
   const [filters, setFilters] = useState({
     user_name: '',
     user_role_id: '',
@@ -42,9 +44,9 @@ export default function ListUserPage() {
     map[role.id] = role.name;
     return map;
   }, {});
-  
-  const token = localStorage.getItem('authToken');
+
   useEffect(() => {
+    const token = localStorage.getItem('authToken');
     
   // const authUserData = localStorage.getItem('authUser');
   // const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
@@ -127,6 +129,7 @@ export default function ListUserPage() {
   const closeModal = () => setIsModalOpen(false);
 
   const openEditModal = async (user) => {
+    const token = localStorage.getItem('authToken');
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/user/view', {
         method: 'POST',
@@ -158,6 +161,7 @@ export default function ListUserPage() {
     const confirmDelete = window.confirm("Are you sure you want to delete this user?");
     if (!confirmDelete) return;
 
+    const token = localStorage.getItem('authToken');
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/user/delete', {
         method: 'POST',
@@ -180,6 +184,7 @@ export default function ListUserPage() {
 
   // NEW: Open View Modal & fetch user details
   const openViewModal = async (user) => {
+    const token = localStorage.getItem('authToken');
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/user/view', {
         method: 'POST',

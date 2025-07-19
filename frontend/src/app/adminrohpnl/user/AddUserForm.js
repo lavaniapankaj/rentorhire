@@ -1,8 +1,7 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from '../admin.module.css';
 import bcrypt from 'bcryptjs';
-
 
 const initialFormState = {
   first_name: '',
@@ -22,18 +21,22 @@ const initialFormState = {
 
 export default function AddUserForm({ onSuccess, onClose }) {
   const [form, setForm] = useState(initialFormState);
-  const [roles, setRoles] = useState([]); // ⬅️ for dynamic roles
+  const [roles, setRoles] = useState([]);
   const token = localStorage.getItem('authToken');
+  const fetchedOnce = useRef(false); // ✅ used to prevent double call
 
-  // ✅ Fetch roles on component mount
+  // ✅ Fetch roles only once
   useEffect(() => {
+    if (fetchedOnce.current) return;
+    fetchedOnce.current = true;
+
     const fetchRoles = async () => {
       try {
         const res = await fetch('http://localhost:8080/api/adminrohpnl/role/roles');
         const data = await res.json();
 
         if (res.ok && data.status && Array.isArray(data.data)) {
-          setRoles(data.data); // ✅ store role array
+          setRoles(data.data);
         } else {
           console.error('Failed to fetch roles:', data);
         }
@@ -57,7 +60,6 @@ export default function AddUserForm({ onSuccess, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Hash the password before submitting
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(form.password_hash, salt);
 
@@ -67,7 +69,7 @@ export default function AddUserForm({ onSuccess, onClose }) {
       last_name: form.last_name,
       email: form.email,
       phone_number: form.phone_number,
-      password_hash: hashedPassword, // Hashed password
+      password_hash: hashedPassword,
       user_role_id: parseInt(form.user_role),
       profile_picture_url: 'http://localhost:3000/adminrohpnl',
       address_1: form.address_1,
@@ -85,7 +87,7 @@ export default function AddUserForm({ onSuccess, onClose }) {
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
-         },
+        },
         body: JSON.stringify(payload)
       });
 
@@ -100,7 +102,6 @@ export default function AddUserForm({ onSuccess, onClose }) {
       setForm(initialFormState);
       if (onSuccess) onSuccess();
       if (onClose) onClose();
-
     } catch (err) {
       console.error('❌ API Error:', err);
       alert('Server error');
@@ -171,7 +172,7 @@ export default function AddUserForm({ onSuccess, onClose }) {
           />
         </div>
 
-        {/* Dynamic User Role */}
+        {/* Dynamic Role Dropdown */}
         <div className={styles.adminUserAddFormGroup}>
           <label htmlFor="user_role">USER ROLE</label>
           <select name="user_role" value={form.user_role} onChange={handleChange}>

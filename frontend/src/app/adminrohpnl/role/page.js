@@ -3,72 +3,107 @@ import { useState, useEffect } from 'react';
 import AddRoleForm from './AddRoleForm';
 import EditRoleForm from './EditRoleForm';
 
-export default function ListUserPage() {
-  const [roles, setRoles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [limit] = useState(20);
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedRoleId, setSelectedRoleId] = useState(null);
+export default function RoleListPage() {
+  const [role_roles, setRoleRoles] = useState([]);
+  const [role_loading, setRoleLoading] = useState(true);
+  const [role_error, setRoleError] = useState(null);
+  const [role_limit] = useState(20);
 
-  // Fetch Roles List
-  const token = localStorage.getItem('authToken');
-  const fetchRoles = async () => {
-    setLoading(true);
+  const [role_isAddModalOpen, setRoleIsAddModalOpen] = useState(false);
+  const [role_isEditModalOpen, setRoleIsEditModalOpen] = useState(false);
+  const [role_selectedRoleId, setRoleSelectedRoleId] = useState(null);
+
+  const role_editId = 1; // Static for now, can be dynamic if needed
+
+  const role_fetchRoles = async () => {
+    setRoleLoading(true);
+    const token = localStorage.getItem('authToken');
+
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/role/list', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           page: 1,
-          limit: limit,
+          limit: role_limit,
         }),
       });
 
       if (!res.ok) throw new Error('Failed to fetch roles');
 
       const data = await res.json();
-      setRoles(data.data || []);
+      setRoleRoles(data.data || []);
     } catch (err) {
-      setError(err.message);
+      setRoleError(err.message);
     } finally {
-      setLoading(false);
+      setRoleLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchRoles();
-  }, [limit]);
+    role_fetchRoles();
+  }, [role_limit]);
 
-  // Handlers
-  const openAddModal = () => setIsAddModalOpen(true);
-  const closeAddModal = () => setIsAddModalOpen(false);
+  const role_openAddModal = () => setRoleIsAddModalOpen(true);
+  const role_closeAddModal = () => setRoleIsAddModalOpen(false);
 
-  const openEditModal = (roleId) => {
-    setSelectedRoleId(roleId);
-    setIsEditModalOpen(true);
+  const role_openEditModal = (roleId) => {
+    setRoleSelectedRoleId(roleId);
+    setRoleIsEditModalOpen(true);
   };
-  const closeEditModal = () => {
-    setIsEditModalOpen(false);
-    setSelectedRoleId(null);
+  const role_closeEditModal = () => {
+    setRoleIsEditModalOpen(false);
+    setRoleSelectedRoleId(null);
   };
 
-  if (loading) return <p>Loading roles...</p>;
-  if (error) return <p>Error: {error}</p>;
+  const role_handleDelete = async (roleId) => {
+    const confirmDelete = confirm('Are you sure you want to delete this role?');
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem('authToken');
+
+    try {
+      const res = await fetch('http://localhost:8080/api/adminrohpnl/role/delete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          role_id: roleId,
+          edit_id: role_editId,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.status) {
+        alert(data.message || 'Failed to delete role');
+        return;
+      }
+
+      alert('Role deleted successfully');
+      role_fetchRoles();
+    } catch (err) {
+      alert('Error deleting role: ' + err.message);
+    }
+  };
+
+  if (role_loading) return <p>Loading roles...</p>;
+  if (role_error) return <p>Error: {role_error}</p>;
 
   return (
     <div style={{ padding: '30px' }}>
-      <button onClick={openAddModal} style={{ padding: '8px 16px', marginBottom: '20px' }}>
+      <button onClick={role_openAddModal} style={{ padding: '8px 16px', marginBottom: '20px' }}>
         Add Role
       </button>
 
       <h2>Roles List</h2>
 
-      {roles.length > 0 ? (
+      {role_roles.length > 0 ? (
         <table border="1" cellPadding="10" style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr>
@@ -79,15 +114,15 @@ export default function ListUserPage() {
             </tr>
           </thead>
           <tbody>
-            {roles.map((role) => (
+            {role_roles.map((role) => (
               <tr key={role.id}>
                 <td>{role.id}</td>
                 <td>{role.name}</td>
                 <td>{role.active === 1 ? 'Active' : 'Inactive'}</td>
                 <td>
-                  <button onClick={() => openEditModal(role.id)}>Edit</button>
+                  <button onClick={() => role_openEditModal(role.id)}>Edit</button>
                   {' | '}
-                  <button onClick={() => alert('In Progress.......')}>Delete</button>
+                  <button onClick={() => role_handleDelete(role.id)}>Delete</button>
                 </td>
               </tr>
             ))}
@@ -97,25 +132,23 @@ export default function ListUserPage() {
         <p>No roles available.</p>
       )}
 
-      {/* Add Role Modal */}
-      {isAddModalOpen && (
+      {role_isAddModalOpen && (
         <AddRoleForm
-          onClose={closeAddModal}
+          onClose={role_closeAddModal}
           onSuccess={() => {
-            closeAddModal();
-            fetchRoles();
+            role_closeAddModal();
+            role_fetchRoles();
           }}
         />
       )}
 
-      {/* Edit Role Modal */}
-      {isEditModalOpen && selectedRoleId && (
+      {role_isEditModalOpen && role_selectedRoleId && (
         <EditRoleForm
-          roleId={selectedRoleId}
-          onClose={closeEditModal}
+          roleId={role_selectedRoleId}
+          onClose={role_closeEditModal}
           onSuccess={() => {
-            closeEditModal();
-            fetchRoles();
+            role_closeEditModal();
+            role_fetchRoles();
           }}
         />
       )}

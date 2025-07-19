@@ -54,7 +54,8 @@ const validateUpdateRole = (req, res, next) => {
     }
 
     /** SQL query to check if the role exists in the roh_roles table */
-    const roleCheckQuery = `SELECT id FROM roh_roles WHERE id = ? AND active = 1`;
+    // const roleCheckQuery = `SELECT id FROM roh_roles WHERE id = ? AND active = 1`;
+    const roleCheckQuery = `SELECT id FROM roh_roles`;
 
     /** Step 1: Check if the role exists */
     pool.query(roleCheckQuery, [id], (err, result) => {

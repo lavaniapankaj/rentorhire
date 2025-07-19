@@ -40,7 +40,7 @@ app.post(
 app.post(
     ADMIN_NAME + "/role/delete",
     //checkLoginAuth,
-    authMiddleware,
+    // authMiddleware,
     validateDeleteRole, /** Validation middleware */
     (req, res, next) => {
         RoleController.deleteRole(req, res, next);/** Call the controller */

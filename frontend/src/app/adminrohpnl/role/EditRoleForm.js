@@ -1,31 +1,34 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function EditRoleForm({ roleId, onClose, onSuccess }) {
   const [roleName, setRoleName] = useState('');
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const editId = 2; // Static editor ID
-
   const token = localStorage.getItem('authToken');
 
-  // Fetch role details
+  const hasFetched = useRef(false); // ✅ prevents duplicate fetch
+
   useEffect(() => {
+    if (hasFetched.current) return;
+    hasFetched.current = true;
+
     const fetchRole = async () => {
       try {
         const res = await fetch('http://localhost:8080/api/adminrohpnl/role/view', {
           method: 'POST',
-          headers: { 
+          headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ role_id: roleId }),
         });
-        const data = await res.json();
 
+        const data = await res.json();
         if (!res.ok || !data.status) throw new Error(data.message || 'Failed to fetch role');
 
-        setRoleName(data.data[0].name || '');
+        setRoleName(data.data[0]?.name || '');
       } catch (err) {
         setErrorMessage(err.message);
       } finally {
@@ -34,9 +37,8 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
     };
 
     fetchRole();
-  }, [roleId]);
+  }, [roleId, token]);
 
-  // Submit updated role
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
@@ -44,9 +46,9 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/role/update', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           id: roleId,
@@ -107,7 +109,7 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
   );
 }
 
-// ✅ Modal styles scoped
+// ✅ Modal styles (scoped)
 const modalStyles = `
 .editrole_roh_overlay {
   position: fixed;
