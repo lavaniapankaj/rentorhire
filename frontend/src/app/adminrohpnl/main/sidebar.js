@@ -15,6 +15,9 @@ export default function Sidebar() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('authUser');
 
+    document.cookie = 'authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    document.cookie = 'authUser=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+
     // Redirect the user to the login page after logout
     router.push('/auth/admin');
   }
@@ -31,7 +34,7 @@ export default function Sidebar() {
 
         {/* Categories Link */}
         <li style={menuItemStyles}>
-          <a href="/adminrohpnl/category/list" style={linkStyles}>
+          <a href="/adminrohpnl/category/" style={linkStyles}>
             Categories
           </a>
         </li>

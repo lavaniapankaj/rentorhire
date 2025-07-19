@@ -7,7 +7,7 @@ const RoleController = require("./controller");
 app.post(
     ADMIN_NAME + "/role/add",
     //checkLoginAuth,
-    // authMiddleware,
+    authMiddleware,
     validateAddRole, /** Validation middleware */
     (req, res, next) => {
         RoleController.addRole(req, res, next);  /** Call the controller */
@@ -18,7 +18,7 @@ app.post(
 app.post(
     ADMIN_NAME + "/role/list",
     //checkLoginAuth,
-    // authMiddleware,
+    authMiddleware,
     validateGetRole, /** Validation middleware */
     (req, res, next) => {
         RoleController.getAllRoles(req, res, next); /** Call the controller */
@@ -29,7 +29,7 @@ app.post(
 app.post(
     ADMIN_NAME + "/role/update",
     //checkLoginAuth,
-    // authMiddleware,
+    authMiddleware,
     validateUpdateRole, /** Validation middleware */
     (req, res, next) => {
         RoleController.updateRole(req, res, next);/** Call the controller */
@@ -40,7 +40,7 @@ app.post(
 app.post(
     ADMIN_NAME + "/role/delete",
     //checkLoginAuth,
-    // authMiddleware,
+    authMiddleware,
     validateDeleteRole, /** Validation middleware */
     (req, res, next) => {
         RoleController.deleteRole(req, res, next);/** Call the controller */
@@ -51,7 +51,7 @@ app.post(
 app.get(
     ADMIN_NAME + "/role/roles",
     //checkLoginAuth,
-    // authMiddleware,
+    authMiddleware,
     validateGetRoles, /** Validation middleware */
     (req, res, next) => {
         RoleController.getRoles(req, res, next);/** Call the controller */
@@ -62,7 +62,7 @@ app.get(
 app.post(
     ADMIN_NAME + "/role/view",
     //checkLoginAuth,
-    // authMiddleware,
+    authMiddleware,
     validateViewRole, /** Validation middleware */
     (req, res, next) => {
         RoleController.viewRole(req, res, next);/** Call the controller */

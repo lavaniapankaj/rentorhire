@@ -24,27 +24,27 @@ export default function ListCategoryPage() {
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    const authUserData = localStorage.getItem('authUser');
-    const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
+    // const authUserData = localStorage.getItem('authUser');
+    // const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
     
-    let isTokenExpired = false;
+    // let isTokenExpired = false;
 
-    if (token) {
-      try {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Date.now() / 1000; // in seconds
-        if (decodedToken.exp < currentTime) {
-          isTokenExpired = true;
-        }
-      } catch (err) {
-        isTokenExpired = true;
-      }
-    }
+    // if (token) {
+    //   try {
+    //     const decodedToken = jwtDecode(token);
+    //     const currentTime = Date.now() / 1000; // in seconds
+    //     if (decodedToken.exp < currentTime) {
+    //       isTokenExpired = true;
+    //     }
+    //   } catch (err) {
+    //     isTokenExpired = true;
+    //   }
+    // }
 
-    if (!token || isTokenExpired || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
-      // Redirect to the login page
-      router.push('/auth/admin');
-    }
+    // if (!token || isTokenExpired || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
+    //   // Redirect to the login page
+    //   router.push('/auth/admin');
+    // }
 
     const fetchCategories = async () => {
       try {
@@ -61,9 +61,15 @@ export default function ListCategoryPage() {
           }),
         });
 
-        if (!response.ok) {
-          throw new Error(`Failed to fetch data: ${response.status}`);
+        console.log("response>> ", response);
+        console.log('test');
+        if(response.rcode == 0){
+          router.push('/auth/admin');
         }
+
+        // if (!response.ok) {
+        //   throw new Error(`Failed to fetch data: ${response.status}`);
+        // }
   
         const data = await response.json();
         setCategories(data.data.category || []);

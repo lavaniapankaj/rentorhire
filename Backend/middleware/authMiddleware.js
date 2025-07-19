@@ -8,7 +8,7 @@ const authMiddleware = (req, res, next) => {
   const token = authHeader && authHeader.split(' ')[1]; /* "Bearer token" */
 
   if (!token) {
-    return res.status(401).json({ message: 'Access denied. No token provided.' });
+    return res.status(200).json({ message: 'Access denied. No token provided.', success: false, rcode: 0 });
   }
 
   try {
@@ -22,7 +22,7 @@ const authMiddleware = (req, res, next) => {
     next();
   } catch (err) {
     console.error('JWT verification error:', err.message);
-    return res.status(403).json({ message: 'Invalid or expired token.' });
+    return res.status(200).json({ message: 'Invalid or expired token.', success: false, rcode: 0 });
   }
 };
 

@@ -19,8 +19,6 @@ export default function ListUserPage() {
   const [editUser, setEditUser] = useState(null);
   const router = useRouter(); 
 
-
-
   const [filters, setFilters] = useState({
     user_name: '',
     user_role_id: '',
@@ -44,17 +42,17 @@ export default function ListUserPage() {
     map[role.id] = role.name;
     return map;
   }, {});
-
+  
+  const token = localStorage.getItem('authToken');
   useEffect(() => {
     
-  const token = localStorage.getItem('authToken');
-  const authUserData = localStorage.getItem('authUser');
-  const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
-  console.log(token, parsedAuthUserData);
-  if (!token || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
-    // Redirect to the login page or handle the redirect logic here
-    router.push('/auth/admin');
-  }
+  // const authUserData = localStorage.getItem('authUser');
+  // const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
+  // console.log(token, parsedAuthUserData);
+  // if (!token || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
+  //   // Redirect to the login page or handle the redirect logic here
+  //   router.push('/auth/admin');
+  // }
 
     const fetchUsers = async () => {
       if (!initialLoad) setLoading(true);
@@ -177,8 +175,6 @@ export default function ListUserPage() {
       alert('An error occurred while deleting the user.');
     }
   };
-
-  //Test Comment
 
   // NEW: Open View Modal & fetch user details
   const openViewModal = async (user) => {
