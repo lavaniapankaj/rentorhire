@@ -1,86 +1,176 @@
-'use client'
+'use client';
 import { useState } from 'react';
-import styles from '../admin.module.css';
 
 export default function AddRoleForm({ onClose, onSuccess }) {
   const [roleName, setRoleName] = useState('');
-  const [status, setStatus] = useState(1); // Default active status
-  const [addId] = useState(1); // Static value for add_id (adjust if dynamic)
-  const [eddId] = useState(1); // Static value for edd_id (adjust if dynamic)
-  
-  const [errorMessage, setErrorMessage] = useState(''); // State for error message
+  const [status, setStatus] = useState(1);
+  const [addId] = useState(1);
+  const [eddId] = useState(1);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleRoleNameChange = (e) => {
-    setRoleName(e.target.value);
-  };
-
-  const handleStatusChange = (e) => {
-    setStatus(e.target.value);
-  };
+  const handleRoleNameChange = (e) => setRoleName(e.target.value);
+  const handleStatusChange = (e) => setStatus(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage(''); // Clear any previous error message
+    setErrorMessage('');
 
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/role/add', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: roleName,
           active: status,
-          add_id: addId,  // Send add_id as part of the request
-          edd_id: eddId,  // Send edd_id as part of the request
+          add_id: addId,
+          edd_id: eddId,
         }),
       });
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || 'Failed to add role'); // Show the message from the API
+      const data = await res.json();
+
+      if (!res.ok || !data.status) {
+        throw new Error(data.message || 'Failed to add role');
       }
 
-      onSuccess(); // Call the success callback to close modal and refresh roles
+      onSuccess(); // Success
     } catch (err) {
-      setErrorMessage(err.message); // Show error message from API or other errors
+      setErrorMessage(err.message);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.addRoleForm}>
-      <h3>Add New Role</h3>
+    <div className="addrole_roh_modalOverlay">
+      <div className="addrole_roh_modalContent">
+        <button onClick={onClose} className="addrole_roh_closeButton">×</button>
+        <form onSubmit={handleSubmit}>
+          <h3 className="addrole_roh_heading">Add New Role</h3>
 
-      <div className={styles.formField}>
-        <label htmlFor="roleName">Role Name</label>
-        <input
-          type="text"
-          id="roleName"
-          value={roleName}
-          onChange={handleRoleNameChange}
-          required
-        />
+          <div className="addrole_roh_formField">
+            <label htmlFor="roleName" className="addrole_roh_label">Role Name</label>
+            <input
+              type="text"
+              id="roleName"
+              value={roleName}
+              onChange={handleRoleNameChange}
+              required
+              className="addrole_roh_input"
+            />
+          </div>
+
+          <div className="addrole_roh_formField">
+            <label htmlFor="status" className="addrole_roh_label">Status</label>
+            <select
+              id="status"
+              value={status}
+              onChange={handleStatusChange}
+              className="addrole_roh_select"
+            >
+              <option value={1}>Active</option>
+              <option value={0}>Inactive</option>
+            </select>
+          </div>
+
+          {errorMessage && (
+            <div className="addrole_roh_errorMessage">
+              <p>{errorMessage}</p>
+            </div>
+          )}
+
+          <div className="addrole_roh_formActions">
+            <button type="submit" className="addrole_roh_button addrole_roh_saveButton">Save</button>
+            <button type="button" onClick={onClose} className="addrole_roh_button addrole_roh_cancelButton">Cancel</button>
+          </div>
+        </form>
       </div>
 
-      <div className={styles.formField}>
-        <label>Status</label>
-        <select value={status} onChange={handleStatusChange}>
-          <option value={1}>Active</option>
-          <option value={0}>Inactive</option>
-        </select>
-      </div>
+      <style jsx>{`
+        .addrole_roh_modalOverlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+        }
 
-      {/* Show error message if there is one */}
-      {errorMessage && (
-        <div className={styles.errorMessage}>
-          <p>{errorMessage}</p>
-        </div>
-      )}
+        .addrole_roh_modalContent {
+          background: #fff;
+          padding: 30px;
+          border-radius: 8px;
+          width: 400px;
+          position: relative;
+          z-index: 10000;
+          box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
 
-      <div className={styles.formActions}>
-        <button type="submit" className={styles.submitBtn}>Save</button>
-        <button type="button" className={styles.cancelBtn} onClick={onClose}>Cancel</button>
-      </div>
-    </form>
+        .addrole_roh_closeButton {
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          font-size: 20px;
+          background: none;
+          border: none;
+          cursor: pointer;
+        }
+
+        .addrole_roh_heading {
+          margin-bottom: 20px;
+          font-weight: bold;
+          font-size: 18px;
+        }
+
+        .addrole_roh_formField {
+          margin-bottom: 15px;
+        }
+
+        .addrole_roh_label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: 500;
+        }
+
+        .addrole_roh_input,
+        .addrole_roh_select {
+          width: 100%;
+          padding: 8px;
+          font-size: 14px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+
+        .addrole_roh_errorMessage {
+          color: red;
+          margin-bottom: 10px;
+        }
+
+        .addrole_roh_formActions {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .addrole_roh_button {
+          padding: 8px 16px;
+          border-radius: 4px;
+          border: none;
+          font-weight: 500;
+          cursor: pointer;
+        }
+
+        .addrole_roh_saveButton {
+          background-color: #4CAF50;
+          color: white;
+        }
+
+        .addrole_roh_cancelButton {
+          background-color: #f44336;
+          color: white;
+        }
+      `}</style>
+    </div>
   );
 }

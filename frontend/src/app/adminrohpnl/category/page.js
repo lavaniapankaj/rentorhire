@@ -14,13 +14,11 @@ export default function ListCategoryPage() {
   
   const [filters, setFilters] = useState({
     category_name: '',
-    // active: '',
   });
 
   const [searchForm, setSearchForm] = useState({
     category_name: '',
   });
-  
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -98,52 +96,39 @@ export default function ListCategoryPage() {
     }
   };
 
-  // const handleFilterChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFilters((prevFilters) => ({
-  //     ...prevFilters,
-  //     [name]: value,
-  //   }));
-  // };
-
+  // Handling input change for search
   const handleSearchFormChange = (e) => {
-    console.log("handel from change>> ");
     const { name, value } = e.target;
     setSearchForm((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value, // Update category_name
     }));
   };
 
+  // Handling form submit (Search)
   const handleSearch = (e) => {
-    console.log("handleSearch called.>>");
-    console.log("searchForm>>> ", searchForm);
     e.preventDefault(); // Prevent form submission
-    // setFilters(searchForm);
-    setFilters({ ...searchForm });
+    setFilters({ ...searchForm });  // Set filters to searchForm
     setCurrentPage(1); // Reset to page 1 when search is clicked
   };
 
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
-
-  // if (error) {
-  //   return <p>Error: {error}</p>;
-  // }
-
   return (
     <div>
-      <h2>Category </h2>
+      <h2>Category</h2>
       <p>This is the page to list all categories.</p>
-      {/* Filter Section */}
+      
+      {/* Search Form */}
       <div>
         <h3>Search Category</h3>
         <form onSubmit={handleSearch}>
           <label>
             Category Name:
-            <input type="text" name="category_name" value={filters.category_name} onChange={handleSearchFormChange} />
-            {/* <input type="text" name="category_name" value={searchForm.category_name} /> */}
+            <input 
+              type="text" 
+              name="category_name" 
+              value={searchForm.category_name} // Ensure value is tied to state
+              onChange={handleSearchFormChange} // Ensure onChange is tied to function
+            />
           </label>
           <button type="submit">Search</button>
         </form>
@@ -166,9 +151,12 @@ export default function ListCategoryPage() {
               <tr key={index}>
                 <td>{(currentPage - 1) * limit + index + 1}</td>
                 <td>{category.name}</td>
-                <td>{category.name}</td>
+                <td>{category.parent_category_name}</td>
                 <td>{category.active === 1 ? 'Active' : 'Inactive'}</td>
-                <td>{category.active === 1 ? 'Active' : 'Inactive'}</td>
+                <td>
+                  <button>Edit</button>
+                  <button>Delete</button>
+                </td>
               </tr>
             ))}
           </tbody>

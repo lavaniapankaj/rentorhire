@@ -352,21 +352,17 @@ export default function ListUserPage() {
 
       {/* Edit User Modal */}
       {isEditModalOpen && editUser && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <button className={styles.modalCloseButton} onClick={closeEditModal}>×</button>
-            <EditUserForm
-              user={editUser}
-              roles={roles}
-              onClose={closeEditModal}
-              onSuccess={() => {
-                setFilters((prev) => ({ ...prev })); /** refresh */
-                closeEditModal(); /** modal close */
-              }}
-            />
-          </div>
-        </div>
+        <EditUserForm
+          user={editUser}
+          roles={roles}
+          onClose={closeEditModal}
+          onSuccess={() => {
+            setFilters((prev) => ({ ...prev }));
+            closeEditModal();
+          }}
+        />
       )}
+
 
       {/* View User Modal */}
       {isViewModalOpen && viewUser && (
