@@ -22,28 +22,6 @@ export default function ListCategoryPage() {
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    // const authUserData = localStorage.getItem('authUser');
-    // const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
-    
-    // let isTokenExpired = false;
-
-    // if (token) {
-    //   try {
-    //     const decodedToken = jwtDecode(token);
-    //     const currentTime = Date.now() / 1000; // in seconds
-    //     if (decodedToken.exp < currentTime) {
-    //       isTokenExpired = true;
-    //     }
-    //   } catch (err) {
-    //     isTokenExpired = true;
-    //   }
-    // }
-
-    // if (!token || isTokenExpired || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
-    //   // Redirect to the login page
-    //   router.push('/auth/admin');
-    // }
-
     const fetchCategories = async () => {
       try {
         const response = await fetch('http://localhost:8080/api/adminrohpnl/category/list', {
@@ -59,17 +37,12 @@ export default function ListCategoryPage() {
           }),
         });
 
-        console.log("response>> ", response);
-        console.log('test');
-        if(response.rcode == 0){
+        const data = await response.json();
+        /** recode = 0 is used for the token error */
+        if(data.rcode == 0){
           router.push('/auth/admin');
         }
-
-        // if (!response.ok) {
-        //   throw new Error(`Failed to fetch data: ${response.status}`);
-        // }
   
-        const data = await response.json();
         setCategories(data.data.category || []);
         setTotalPages(data.data.totalPages || 1);
       } catch (error) {

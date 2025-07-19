@@ -24,15 +24,19 @@ export default function AddUserForm({ onSuccess, onClose }) {
   const [form, setForm] = useState(initialFormState);
   const [roles, setRoles] = useState([]); // ⬅️ for dynamic roles
 
-  // ✅ Fetch roles on component mount
+  // Fetch roles on component mount
   useEffect(() => {
     const fetchRoles = async () => {
       try {
         const res = await fetch('http://localhost:8080/api/adminrohpnl/role/roles');
         const data = await res.json();
+        /** recode = 0 is used for the token error */
+        if(data.rcode == 0){
+          router.push('/auth/admin');
+        }
 
         if (res.ok && data.status && Array.isArray(data.data)) {
-          setRoles(data.data); // ✅ store role array
+          setRoles(data.data); // store role array
         } else {
           console.error('Failed to fetch roles:', data);
         }

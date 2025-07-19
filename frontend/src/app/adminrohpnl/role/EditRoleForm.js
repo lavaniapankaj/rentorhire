@@ -16,9 +16,12 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ role_id: roleId }),
         });
+  
         const data = await res.json();
-
-        if (!res.ok || !data.status) throw new Error(data.message || 'Failed to fetch role');
+        /** recode = 0 is used for the token error */
+        if(data.rcode == 0){
+          router.push('/auth/admin');
+        }
 
         setRoleName(data.data[0].name || '');
       } catch (err) {

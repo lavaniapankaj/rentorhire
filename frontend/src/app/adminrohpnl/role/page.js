@@ -27,9 +27,12 @@ export default function ListUserPage() {
         }),
       });
 
-      if (!res.ok) throw new Error('Failed to fetch roles');
-
       const data = await res.json();
+      /** recode = 0 is used for the token error */
+      if(data.rcode == 0){
+        router.push('/auth/admin');
+      }
+      
       setRoles(data.data || []);
     } catch (err) {
       setError(err.message);
