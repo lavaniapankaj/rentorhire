@@ -161,7 +161,7 @@ function authApi() {
                 { id: user.user_id, email: user.email},
                 // JWT_SECRET,
                 process.env.JWT_SECRET,
-                { expiresIn: '1h' }
+                { expiresIn: '5h' }
             );
 
             /* Respond with success */

@@ -140,6 +140,7 @@ export default function ListUserPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ user_id: user.user_id }),
       });
@@ -174,6 +175,7 @@ export default function ListUserPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({ user_id }),
       });
@@ -199,7 +201,10 @@ export default function ListUserPage() {
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/user/view', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+         },
         body: JSON.stringify({ user_id: user.user_id }),
       });
       if (!res.ok) throw new Error('Failed to fetch user details');

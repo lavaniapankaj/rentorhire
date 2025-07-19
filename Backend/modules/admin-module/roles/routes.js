@@ -51,7 +51,7 @@ app.post(
 app.get(
     ADMIN_NAME + "/role/roles",
     //checkLoginAuth,
-    authMiddleware,
+    // authMiddleware,
     validateGetRoles, /** Validation middleware */
     (req, res, next) => {
         RoleController.getRoles(req, res, next);/** Call the controller */
