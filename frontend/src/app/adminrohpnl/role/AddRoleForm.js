@@ -11,6 +11,7 @@ export default function AddRoleForm({ onClose, onSuccess }) {
   const handleRoleNameChange = (e) => setRoleName(e.target.value);
   const handleStatusChange = (e) => setStatus(e.target.value);
 
+  const token = localStorage.getItem('authToken');
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
@@ -18,7 +19,10 @@ export default function AddRoleForm({ onClose, onSuccess }) {
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/role/add', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
           name: roleName,
           active: status,

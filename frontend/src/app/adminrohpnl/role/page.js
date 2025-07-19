@@ -13,6 +13,7 @@ export default function ListUserPage() {
   const [selectedRoleId, setSelectedRoleId] = useState(null);
 
   // Fetch Roles List
+  const token = localStorage.getItem('authToken');
   const fetchRoles = async () => {
     setLoading(true);
     try {
@@ -20,6 +21,7 @@ export default function ListUserPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           page: 1,

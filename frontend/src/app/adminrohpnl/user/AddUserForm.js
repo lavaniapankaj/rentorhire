@@ -23,6 +23,7 @@ const initialFormState = {
 export default function AddUserForm({ onSuccess, onClose }) {
   const [form, setForm] = useState(initialFormState);
   const [roles, setRoles] = useState([]); // ⬅️ for dynamic roles
+  const token = localStorage.getItem('authToken');
 
   // ✅ Fetch roles on component mount
   useEffect(() => {
@@ -81,7 +82,10 @@ export default function AddUserForm({ onSuccess, onClose }) {
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/user/create', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+         },
         body: JSON.stringify(payload)
       });
 

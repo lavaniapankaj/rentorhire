@@ -7,13 +7,18 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
   const [errorMessage, setErrorMessage] = useState('');
   const editId = 2; // Static editor ID
 
+  const token = localStorage.getItem('authToken');
+
   // Fetch role details
   useEffect(() => {
     const fetchRole = async () => {
       try {
         const res = await fetch('http://localhost:8080/api/adminrohpnl/role/view', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify({ role_id: roleId }),
         });
         const data = await res.json();
@@ -39,7 +44,10 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/role/update', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
           id: roleId,
           name: roleName,
