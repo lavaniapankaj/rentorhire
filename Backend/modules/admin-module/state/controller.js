@@ -4,7 +4,7 @@ function StateApi() {
     /** Add new state in state collection Coded by Vishnu July 03 2025 */
     this.AddnewState = async (req, res) => {
         try {
-            const { state_name, state_slug, add_id = 1, edit_id = 1 } = req.body;
+            const { state_name, state_slug, add_id, edit_id } = req.body;
 
             /** If validation passes, proceed with inserting the new state */
             const query = `
@@ -29,27 +29,75 @@ function StateApi() {
     /** Get all state in state collection Coded by Vishnu July 04 2025 */
     this.GetallState = async (req, res) => {
         try {
-            const page = parseInt(req.body.page) || 1;
-            const limit = parseInt(req.body.limit) || 5;
-            const offset = (page - 1) * limit;
-    
-            const query = `
-                SELECT * FROM roh_states WHERE active = 1 LIMIT ? OFFSET ?
+          const page = parseInt(req.body.page) || 1;
+          const limit = parseInt(req.body.limit) || 5;
+          const offset = (page - 1) * limit;
+          const search = req.body.search || '';
+          const status = req.body.status; // "active", "inactive" ya undefined
+      
+          let activeCondition = '';
+          let params = [];
+      
+          // Search clause for state_name
+          const searchClause = `%${search}%`;
+      
+          if (status === 'active') {
+            activeCondition = 'AND active = 1';
+          } else if (status === 'inactive') {
+            activeCondition = 'AND active = 0';
+          } else {
+            activeCondition = ''; // No condition
+          }
+      
+          // Total count query
+          const countQuery = `
+            SELECT COUNT(*) AS totalCount FROM roh_states
+            WHERE state_name LIKE ? ${activeCondition}
+          `;
+      
+          params.push(searchClause);
+      
+          // Condition for active or inactive
+          if (status === 'active') {
+            params.push(); // no extra param, condition fixed as active=1
+          } else if (status === 'inactive') {
+            params.push(); // same as above
+          }
+      
+          pool.query(countQuery, [searchClause], (countErr, countResult) => {
+            if (countErr) {
+              return GLOBAL_ERROR_RESPONSE("Error counting states", countErr, res);
+            }
+      
+            const totalCount = countResult[0].totalCount;
+            const totalPages = Math.ceil(totalCount / limit);
+      
+            const dataQuery = `
+              SELECT * FROM roh_states
+              WHERE state_name LIKE ? ${activeCondition}
+              LIMIT ? OFFSET ?
             `;
-    
-            pool.query(query, [limit, offset], (err, result) => {
-                if (err) {
-                    return GLOBAL_ERROR_RESPONSE("Error getting states", err, res);
-                }
-    
-                return GLOBAL_SUCCESS_RESPONSE("States fetched successfully", result, res);
+      
+            pool.query(dataQuery, [searchClause, limit, offset], (dataErr, dataResult) => {
+              if (dataErr) {
+                return GLOBAL_ERROR_RESPONSE("Error getting states", dataErr, res);
+              }
+      
+              return res.status(200).json({
+                status: true,
+                message: "States fetched successfully",
+                data: dataResult,
+                totalCount: totalCount,
+                totalPages: totalPages,
+                currentPage: page,
+              });
             });
+          });
         } catch (err) {
-            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+          return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
-    
-
+      
     /** Edit state in state collection Coded by Vishnu July 04 2025 */
     this.EditState = async (req, res) => {
         try {

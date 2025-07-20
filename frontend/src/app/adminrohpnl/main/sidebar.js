@@ -69,7 +69,7 @@ export default function Sidebar() {
 
         {/* State& & City Link */}
         <li style={menuItemStyles}>
-          <a href="#" style={linkStyles}>
+          <a href="/adminrohpnl/state-city/" style={linkStyles}>
             State & City
           </a>
         </li>
