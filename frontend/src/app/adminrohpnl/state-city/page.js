@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import AddStateForm from './AddStateForm';
+import EditStateForm from './EditStateForm';
 
 export default function StateCityPage() {
   const [activeTab, setActiveTab] = useState('states');
@@ -18,6 +19,10 @@ export default function StateCityPage() {
   const [statusFilter, setStatusFilter] = useState('all'); // 'all', 'active', 'inactive'
 
   const [isAddStateOpen, setIsAddStateOpen] = useState(false);
+  const [isEditStateOpen, setIsEditStateOpen] = useState(false); // For editing
+  const [stateIdToEdit, setStateIdToEdit] = useState(null); // Store the state ID to edit
+
+  const [editStateError, setEditStateError] = useState(null); // Error for edit state form
 
   const limit = 5;
 
@@ -108,13 +113,52 @@ export default function StateCityPage() {
     setCurrentPage(1);
   };
 
-  // Called after a new state is added successfully
   const handleStateAdded = () => {
     setIsAddStateOpen(false);
     setCurrentPage(1);
     setSearchTerm('');
     setSearchInput('');
     setStatusFilter('all');
+  };
+
+  // Open EditStateForm with the selected state
+  const handleEditState = async (state_id) => {
+    setStateIdToEdit(state_id);
+    setIsEditStateOpen(true); // Open the edit modal
+  };
+
+  // Function to handle updating the state after editing
+  const handleStateUpdated = async (updatedState) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      const res = await fetch('http://localhost:8080/api/adminrohpnl/state/edit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedState),
+      });
+
+      if (!res.ok) throw new Error('Failed to update state');
+
+      const data = await res.json();
+      if (data.status) {
+        // Close the modal and refresh the state list
+        setIsEditStateOpen(false);
+        setCurrentPage(1); // Reset to page 1
+        setSearchTerm('');
+        setSearchInput('');
+        setStatusFilter('all');
+        setEditStateError(null); // Reset error
+      } else {
+        // Show API error
+        setEditStateError(data.message || 'Failed to update state');
+      }
+    } catch (error) {
+      console.error('Error updating state:', error);
+      setEditStateError('An error occurred while updating the state.');
+    }
   };
 
   return (
@@ -188,6 +232,7 @@ export default function StateCityPage() {
                     <th>State Name</th>
                     <th>State Slug</th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -198,6 +243,9 @@ export default function StateCityPage() {
                         <td>{state.state_name}</td>
                         <td>{state.state_slug}</td>
                         <td>{state.active === 1 ? 'Active' : 'Inactive'}</td>
+                        <td>
+                          <button onClick={() => handleEditState(state.state_id)}>Edit</button> | <button>Delete</button>
+                        </td>
                       </tr>
                     ))
                   ) : (
@@ -249,6 +297,16 @@ export default function StateCityPage() {
         <AddStateForm
           onClose={() => setIsAddStateOpen(false)}
           onStateAdded={handleStateAdded}
+        />
+      )}
+
+      {/* EditStateForm Modal */}
+      {isEditStateOpen && (
+        <EditStateForm
+          state_id={stateIdToEdit}
+          onClose={() => setIsEditStateOpen(false)}
+          onStateUpdated={handleStateUpdated}
+          error={editStateError}  // Pass error message to the form
         />
       )}
     </div>
