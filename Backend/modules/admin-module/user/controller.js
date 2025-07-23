@@ -4,7 +4,7 @@ function UsersApi() {
     /** Add new user in roh_users table Coded by Vishnu July 06 2025 */
     this.AddnewUser = async (req, res) => {
         try {
-          const { user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id = 1, edit_id = 1 } = req.body;
+          const { user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id, edit_id } = req.body;
       
           const query = `INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id, edit_id, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
       

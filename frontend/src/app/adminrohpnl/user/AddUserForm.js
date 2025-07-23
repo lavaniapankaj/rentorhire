@@ -22,7 +22,12 @@ const initialFormState = {
 export default function AddUserForm({ onSuccess, onClose }) {
   const [form, setForm] = useState(initialFormState);
   const [roles, setRoles] = useState([]);
+
   const token = localStorage.getItem('authToken');
+  const admindtl = localStorage.getItem('authUser');
+  const authUser = JSON.parse(admindtl);
+  const authid = authUser.id;
+
   const fetchedOnce = useRef(false); // ✅ used to prevent double call
 
   // ✅ Fetch roles on component mount
@@ -81,8 +86,8 @@ export default function AddUserForm({ onSuccess, onClose }) {
       state: form.state,
       city: form.city,
       pincode: parseInt(form.pincode),
-      add_id: 1,
-      edit_id: 1
+      add_id: authid,
+      edit_id: 0,
     };
 
     try {
@@ -99,7 +104,7 @@ export default function AddUserForm({ onSuccess, onClose }) {
       alert(data?.message || 'Unknown response');
 
       if (!res.ok || data.status === false) {
-        console.error('Backend Error:', data);
+        // console.error('Backend Error:', data);
         return;
       }
 
@@ -107,7 +112,7 @@ export default function AddUserForm({ onSuccess, onClose }) {
       if (onSuccess) onSuccess();
       if (onClose) onClose();
     } catch (err) {
-      console.error('❌ API Error:', err);
+      console.error('API Error:', err);
       alert('Server error');
     }
   };

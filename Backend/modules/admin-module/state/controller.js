@@ -101,7 +101,7 @@ function StateApi() {
     /** Edit state in state collection Coded by Vishnu July 04 2025 */
     this.EditState = async (req, res) => {
       try {
-          const { state_id, state_name, state_slug, add_id = 1, edit_id = 1 } = req.body;
+          const { state_id, state_name, state_slug, edit_id } = req.body;
   
           // Check if the slug already exists for a different state
           const checkSlugQuery = `
@@ -117,12 +117,14 @@ function StateApi() {
                   return GLOBAL_ERROR_RESPONSE("Slug already exists for another state", null, res);
               }
   
-              // Don't update the `active` field
+              // Only update name, slug, and edit_id
               const updateQuery = `
-                  UPDATE roh_states SET state_name = ?, state_slug = ?, add_id = ?, edit_id = ? WHERE state_id = ?
+                  UPDATE roh_states 
+                  SET state_name = ?, state_slug = ?, edit_id = ? 
+                  WHERE state_id = ?
               `;
   
-              pool.query(updateQuery, [state_name, state_slug, add_id, edit_id, state_id], (err, result) => {
+              pool.query(updateQuery, [state_name, state_slug, edit_id, state_id], (err, result) => {
                   if (err) {
                       return GLOBAL_ERROR_RESPONSE("Error updating state", err, res);
                   }
@@ -133,6 +135,7 @@ function StateApi() {
           return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
       }
   };
+  
   
   
 

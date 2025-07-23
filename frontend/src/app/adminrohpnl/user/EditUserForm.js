@@ -22,7 +22,11 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
 
   const [fetchedRoles, setFetchedRoles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+
   const token = localStorage.getItem('authToken');
+  const admindtl = localStorage.getItem('authUser');
+  const authUser = JSON.parse(admindtl);
+  const authid = authUser.id;
 
   useEffect(() => {
     if (!initialRoles || initialRoles.length === 0) {
@@ -67,6 +71,7 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
       state: user.state,
       city: user.city,
       pincode: user.pincode,
+      edit_id: authid,
     });
   }, [user]);
 

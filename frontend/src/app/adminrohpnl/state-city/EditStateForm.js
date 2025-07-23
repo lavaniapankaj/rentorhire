@@ -47,10 +47,16 @@ export default function EditStateForm({ state_id, onClose, onStateUpdated, error
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const authUser = localStorage.getItem('authUser');
+    const parsedUser = authUser ? JSON.parse(authUser) : null;
+    const editId = parsedUser?.id || null;
+    
     const updatedState = {
       state_name: stateName,
       state_slug: stateSlug,
       state_id: state_id,
+      edit_id: editId, // <-- Add this line
+
     };
 
     setErrorMessage('');
