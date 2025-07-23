@@ -113,17 +113,16 @@ function StateApi() {
                   return GLOBAL_ERROR_RESPONSE("Error checking for existing slug", err, res);
               }
   
-              // If a result is returned, it means the slug is already used by another state
               if (result.length > 0) {
                   return GLOBAL_ERROR_RESPONSE("Slug already exists for another state", null, res);
               }
   
-              // If the slug is not already in use, proceed with updating the state
+              // Don't update the `active` field
               const updateQuery = `
-                  UPDATE roh_states SET state_name = ?, state_slug = ?, add_id = ?, edit_id = ?, active = ? WHERE state_id = ?
+                  UPDATE roh_states SET state_name = ?, state_slug = ?, add_id = ?, edit_id = ? WHERE state_id = ?
               `;
   
-              pool.query(updateQuery, [state_name, state_slug, add_id, edit_id, 1, state_id], (err, result) => {
+              pool.query(updateQuery, [state_name, state_slug, add_id, edit_id, state_id], (err, result) => {
                   if (err) {
                       return GLOBAL_ERROR_RESPONSE("Error updating state", err, res);
                   }
@@ -134,6 +133,7 @@ function StateApi() {
           return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
       }
   };
+  
   
 
     /** Delete state in state collection Coded by Vishnu July 04 2025 */
