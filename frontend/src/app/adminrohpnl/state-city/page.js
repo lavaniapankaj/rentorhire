@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 import AddStateForm from './AddStateForm';
 import EditStateForm from './EditStateForm';
+import CityList from './CityList'; // ✅ import CityList component
 
 export default function StateCityPage() {
   const [activeTab, setActiveTab] = useState('states');
   const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -15,7 +15,6 @@ export default function StateCityPage() {
 
   const [searchInput, setSearchInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-
   const [statusFilter, setStatusFilter] = useState('all');
 
   const [isAddStateOpen, setIsAddStateOpen] = useState(false);
@@ -25,12 +24,12 @@ export default function StateCityPage() {
 
   const limit = 5;
 
-  // ✅ Fetch States (reusable function)
+  // Fetch States
   const fetchStates = async (page = currentPage) => {
     if (activeTab !== 'states') return;
-
     setLoading(true);
     const token = localStorage.getItem('authToken');
+
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/state/get', {
         method: 'POST',
@@ -38,12 +37,7 @@ export default function StateCityPage() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          page,
-          limit,
-          search: searchTerm,
-          status: statusFilter,
-        }),
+        body: JSON.stringify({ page, limit, search: searchTerm, status: statusFilter }),
       });
 
       if (!res.ok) throw new Error('Failed to fetch states');
@@ -68,16 +62,6 @@ export default function StateCityPage() {
   useEffect(() => {
     fetchStates();
   }, [currentPage, activeTab, searchTerm, statusFilter]);
-
-  useEffect(() => {
-    if (activeTab === 'cities') {
-      setCities([
-        { id: 1, name: 'Los Angeles' },
-        { id: 2, name: 'Houston' },
-        { id: 3, name: 'Chicago' },
-      ]);
-    }
-  }, [activeTab]);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -122,7 +106,6 @@ export default function StateCityPage() {
     setIsEditStateOpen(true);
   };
 
-  // ✅ Update + refresh current page only
   const handleStateUpdated = async (updatedState) => {
     try {
       const token = localStorage.getItem('authToken');
@@ -141,7 +124,7 @@ export default function StateCityPage() {
       if (data.status) {
         setIsEditStateOpen(false);
         setEditStateError(null);
-        await fetchStates(currentPage); // ✅ Refresh current page only
+        await fetchStates(currentPage);
         return { success: true };
       } else {
         return { error: data.message || 'Failed to update state' };
@@ -152,11 +135,8 @@ export default function StateCityPage() {
     }
   };
 
-  // ✅ Delete state with confirmation and refresh
   const handleDeleteState = async (state_id) => {
-    if (!window.confirm('Are you sure you want to delete this state?')) {
-      return;
-    }
+    if (!window.confirm('Are you sure you want to delete this state?')) return;
 
     setLoading(true);
     const token = localStorage.getItem('authToken');
@@ -176,7 +156,6 @@ export default function StateCityPage() {
       const data = await res.json();
 
       if (data.status) {
-        // Refresh current page data after delete
         await fetchStates(currentPage);
       } else {
         alert(data.message || 'Failed to delete state');
@@ -208,6 +187,7 @@ export default function StateCityPage() {
         </button>
       </div>
 
+      {/* === STATES TAB === */}
       {activeTab === 'states' && (
         <div className="rohstate_container">
           <h2>States</h2>
@@ -272,7 +252,7 @@ export default function StateCityPage() {
                           <button onClick={() => handleEditState(state.state_id)}>Edit</button> |{' '}
                           <button
                             onClick={() => handleDeleteState(state.state_id)}
-                            disabled={loading || state.active !== 1}  // disable if loading or inactive
+                            disabled={loading || state.active !== 1}
                             title={state.active !== 1 ? "Inactive state can't be deleted" : "Delete state"}
                           >
                             Delete
@@ -304,18 +284,8 @@ export default function StateCityPage() {
         </div>
       )}
 
-      {activeTab === 'cities' && (
-        <div className="rohcity_container">
-          <h2>Cities</h2>
-          <ul className="rohcity_list">
-            {cities.map((city) => (
-              <li key={city.id} className="rohcity_item">
-                {city.name}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* === CITIES TAB === */}
+      {activeTab === 'cities' && <CityList />} {/* ✅ Updated */}
 
       {isAddStateOpen && <AddStateForm onClose={() => setIsAddStateOpen(false)} onStateAdded={handleStateAdded} />}
 

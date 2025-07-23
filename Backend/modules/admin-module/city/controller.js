@@ -28,30 +28,69 @@ function CityApi() {
     /** Get all cities from cities collection Coded by Vishnu July 05 2025 */
     this.GetallCity = (req, res) => {
         try {
-            const page = parseInt(req.body.page) || 1;
-            const limit = parseInt(req.body.limit) || 10;
-            const offset = (page - 1) * limit;
-    
-            const query = `
-                SELECT * FROM roh_cities WHERE active = 1 LIMIT ? OFFSET ?
-            `;
-    
-            pool.query(query, [limit, offset], (err, result) => {
-                if (err) {
-                    return GLOBAL_ERROR_RESPONSE("Error getting cities", err, res);
-                }
-    
-                if (result.length === 0) {
-                    return GLOBAL_ERROR_RESPONSE("No active cities found", {}, res);
-                }
-    
-                return GLOBAL_SUCCESS_RESPONSE("Cities fetched successfully", result, res);
+          const page = parseInt(req.body.page) || 1;
+          const limit = parseInt(req.body.limit) || 10;
+          const offset = (page - 1) * limit;
+          const search = req.body.search || '';
+          const status = req.body.status; // Can be '1', '0', or 'all'
+      
+          let whereClause = `WHERE 1=1`;
+          const queryParams = [];
+      
+          if (status === '1' || status === '0') {
+            whereClause += ` AND active = ?`;
+            queryParams.push(status);
+          }
+      
+          if (search && search.trim() !== '') {
+            whereClause += ` AND city_name LIKE ?`;
+            queryParams.push(`%${search.trim()}%`);
+          }
+      
+          const mainQuery = `
+            SELECT * FROM roh_cities
+            ${whereClause}
+            ORDER BY city_id DESC
+            LIMIT ? OFFSET ?
+          `;
+      
+          const countQuery = `
+            SELECT COUNT(*) AS totalCount FROM roh_cities
+            ${whereClause}
+          `;
+      
+          // Add pagination params
+          queryParams.push(limit, offset);
+      
+          // First get total count
+          pool.query(countQuery, queryParams.slice(0, queryParams.length - 2), (err, countResult) => {
+            if (err) {
+              return GLOBAL_ERROR_RESPONSE("Error counting cities", err, res);
+            }
+      
+            const totalCount = countResult[0]?.totalCount || 0;
+            const totalPages = Math.ceil(totalCount / limit);
+      
+            // Then fetch actual data
+            pool.query(mainQuery, queryParams, (err, dataResult) => {
+              if (err) {
+                return GLOBAL_ERROR_RESPONSE("Error fetching cities", err, res);
+              }
+      
+              return GLOBAL_SUCCESS_RESPONSE("Cities fetched successfully", {
+                data: dataResult,
+                currentPage: page,
+                totalPages,
+                totalCount
+              }, res);
             });
+          });
         } catch (err) {
-            console.error("Error in GetallCity:", err);
-            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+          console.error("Error in GetallCity:", err);
+          return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
-    };
+      };
+      
     
 
     /** Edit city in cities collection Coded by Vishnu July 05 2025 */
