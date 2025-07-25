@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jul 14, 2025 at 04:08 PM
--- Server version: 5.7.24
--- PHP Version: 8.3.1
+-- Host: localhost
+-- Generation Time: Jul 25, 2025 at 03:25 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,15 +30,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `roh_categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text,
+  `description` text DEFAULT NULL,
   `slug` varchar(255) NOT NULL,
   `parent_category_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT '1',
+  `active` tinyint(1) DEFAULT 1,
   `add_id` bigint(11) DEFAULT NULL,
   `edit_id` bigint(11) DEFAULT NULL,
-  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `edit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `edit_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `roh_categories`
@@ -66,28 +66,116 @@ CREATE TABLE `roh_cities` (
   `state_id` int(11) NOT NULL,
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT '1',
-  `add_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `edit_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `active` tinyint(1) DEFAULT 1,
+  `add_date` datetime DEFAULT current_timestamp(),
+  `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `roh_cities`
 --
 
 INSERT INTO `roh_cities` (`city_id`, `city_name`, `city_slug`, `state_id`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(16, 'Mumbai', 'mumbai', 31, 1, 1, 1, '2025-07-08 21:02:41', '2025-07-08 21:02:41'),
-(17, 'Pune', 'pune', 31, 1, 1, 1, '2025-07-08 21:02:53', '2025-07-08 21:02:53'),
-(18, 'Lucknow', 'lucknow', 32, 1, 1, 1, '2025-07-08 21:03:09', '2025-07-08 21:03:09'),
-(19, 'Varanasi', 'varanasi', 32, 1, 1, 1, '2025-07-08 21:03:19', '2025-07-08 21:03:19'),
-(20, 'Chennai', 'chennai', 33, 1, 1, 1, '2025-07-08 21:03:29', '2025-07-08 21:03:29'),
-(21, 'Coimbatore', 'coimbatore', 33, 1, 1, 1, '2025-07-08 21:03:45', '2025-07-08 21:03:45'),
-(22, 'Jaipur', 'jaipur', 34, 1, 1, 1, '2025-07-08 21:04:06', '2025-07-08 21:04:06'),
-(23, 'Udaipur', 'udaipur', 34, 1, 1, 1, '2025-07-08 21:04:20', '2025-07-08 21:04:20'),
-(24, 'Kolkata', 'kolkata', 35, 1, 1, 1, '2025-07-08 21:04:35', '2025-07-08 21:04:35'),
-(25, 'Darjeeling', 'darjeeling', 35, 1, 1, 1, '2025-07-08 21:04:45', '2025-07-08 21:04:45'),
-(26, 'Ahmedabad', 'ahmedabad', 36, 1, 1, 1, '2025-07-08 21:05:39', '2025-07-08 21:05:39'),
-(27, 'Surat', 'surat', 36, 1, 1, 1, '2025-07-08 21:05:48', '2025-07-08 21:05:48');
+(1, 'Hyderabad', 'hyderabad', 1, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(2, 'Visakhapatnam', 'visakhapatnam', 1, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(3, 'Guwahati', 'guwahati', 2, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(4, 'Dibrugarh', 'dibrugarh', 2, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(5, 'Gaya', 'gaya', 3, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(6, 'Patna', 'patna', 3, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(7, 'Raipur', 'raipur', 4, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(8, 'Bilaspur', 'bilaspur', 4, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(9, 'Panaji', 'panaji', 5, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(10, 'Mapusa', 'mapusa', 5, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(11, 'Ahmedabad', 'ahmedabad', 6, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(12, 'Surat', 'surat', 6, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(13, 'Chandigarh', 'chandigarh', 7, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(14, 'Faridabad', 'faridabad', 7, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(15, 'Shimla', 'shimla', 8, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(16, 'Kullu', 'kullu', 8, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(17, 'Ranchi', 'ranchi', 9, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(18, 'Jamshedpur', 'jamshedpur', 9, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(19, 'Bangalore', 'bangalore', 10, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(20, 'Mysore', 'mysore', 10, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(21, 'Thiruvananthapuram', 'thiruvananthapuram', 11, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(22, 'Kochi', 'kochi', 11, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(23, 'Indore', 'indore', 12, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(24, 'Bhopal', 'bhopal', 12, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(25, 'Mumbai', 'mumbai', 13, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(26, 'Pune', 'pune', 13, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(27, 'Nagpur', 'nagpur', 14, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(28, 'Nashik', 'nashik', 14, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(29, 'Imphal', 'imphal', 15, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(30, 'Churachandpur', 'churachandpur', 15, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(31, 'Shillong', 'shillong', 16, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(32, 'Tura', 'tura', 16, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(33, 'Aizawl', 'aizawl', 17, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(34, 'Lunglei', 'lunglei', 17, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(35, 'Kohima', 'kohima', 18, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(36, 'Dimapur', 'dimapur', 18, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(37, 'Bhubaneswar', 'bhubaneswar', 19, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(38, 'Cuttack', 'cuttack', 19, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(39, 'Ludhiana', 'ludhiana', 20, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(40, 'Amritsar', 'amritsar', 20, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(41, 'Jaipur', 'jaipur', 21, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(42, 'Udaipur', 'udaipur', 21, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(43, 'Gangtok', 'gangtok', 22, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(44, 'Namchi', 'namchi', 22, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(45, 'Chennai', 'chennai', 23, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(46, 'Coimbatore', 'coimbatore', 23, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(47, 'Hyderabad', 'hyderabad', 24, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(48, 'Warangal', 'warangal', 24, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(49, 'Agartala', 'agartala', 25, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(50, 'Dhalai', 'dhalai', 25, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(51, 'Lucknow', 'lucknow', 26, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(52, 'Kanpur', 'kanpur', 26, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(53, 'Dehradun', 'dehradun', 27, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(54, 'Haridwar', 'haridwar', 27, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(55, 'Kolkata', 'kolkata', 28, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(56, 'Howrah', 'howrah', 28, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(57, 'Port Blair', 'port-blair', 29, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(58, 'Dwarka', 'dwarka', 30, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(59, 'Silvassa', 'silvassa', 31, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(60, 'Kavaratti', 'kavaratti', 32, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(61, 'New Delhi', 'new-delhi', 33, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(62, 'Puducherry', 'puducherry', 34, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(63, 'Vijayawada', 'vijayawada', 1, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(64, 'Kochi', 'kochi', 11, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(65, 'Vadodara', 'vadodara', 6, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(66, 'Bhubaneshwar', 'bhubaneswar', 19, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(67, 'Bihar Sharif', 'bihar-sharif', 3, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(68, 'Surat', 'surat', 6, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(69, 'Ranchi', 'ranchi', 9, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(70, 'Bhopal', 'bhopal', 12, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(71, 'Raipur', 'raipur', 4, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(72, 'Nagpur', 'nagpur', 14, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(73, 'Mysore', 'mysore', 10, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(74, 'Jamshedpur', 'jamshedpur', 9, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(75, 'Pune', 'pune', 13, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(76, 'Chandigarh', 'chandigarh', 7, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(77, 'Tiruchirappalli', 'tiruchirappalli', 23, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(78, 'Meerut', 'meerut', 26, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(79, 'Kochi', 'kochi', 11, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(80, 'Dhanbad', 'dhanbad', 9, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(81, 'Jalandhar', 'jalandhar', 20, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(82, 'Patiala', 'patiala', 20, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(83, 'Pondicherry', 'pondicherry', 34, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(84, 'Vellore', 'vellore', 23, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(85, 'Noida', 'noida', 26, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(86, 'Tirunelveli', 'tirunelveli', 23, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(87, 'Aurangabad', 'aurangabad', 13, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(88, 'Erode', 'erode', 23, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(89, 'Bhubaneshwar', 'bhubaneswar', 19, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(90, 'Rajkot', 'rajkot', 6, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(91, 'Bhopal', 'bhopal', 12, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(92, 'Mangalore', 'mangalore', 10, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(93, 'Jammu', 'jammu', 8, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(94, 'Karnal', 'karnal', 7, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(95, 'Rajahmundry', 'rajahmundry', 1, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(96, 'Ambala', 'ambala', 7, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(97, 'Agra', 'agra', 26, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(98, 'Gurgaon', 'gurgaon', 26, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(99, 'Kochi', 'kochi', 11, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(100, 'Vishakhapatnam', 'vishakhapatnam', 1, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25');
 
 -- --------------------------------------------------------
 
@@ -98,12 +186,12 @@ INSERT INTO `roh_cities` (`city_id`, `city_name`, `city_slug`, `state_id`, `add_
 CREATE TABLE `roh_roles` (
   `id` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT '1',
+  `active` tinyint(4) NOT NULL DEFAULT 1,
   `add_id` bigint(20) DEFAULT NULL,
   `edit_id` bigint(20) DEFAULT NULL,
-  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `edit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `edit_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `roh_roles`
@@ -127,10 +215,10 @@ CREATE TABLE `roh_routes` (
   `group_name` varchar(100) DEFAULT NULL,
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT '1',
-  `add_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `edit_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `active` tinyint(1) DEFAULT 1,
+  `add_date` datetime DEFAULT current_timestamp(),
+  `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `roh_routes`
@@ -151,22 +239,50 @@ CREATE TABLE `roh_states` (
   `state_slug` varchar(150) NOT NULL,
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT '1',
-  `add_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `edit_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `active` tinyint(1) DEFAULT 1,
+  `add_date` datetime DEFAULT current_timestamp(),
+  `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `roh_states`
 --
 
 INSERT INTO `roh_states` (`state_id`, `state_name`, `state_slug`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(31, 'Maharashtra', 'maharashtra', 1, 1, 1, '2025-07-08 20:55:42', '2025-07-08 20:55:42'),
-(32, 'Uttar Pradesh', 'uttar-pradesh', 1, 1, 1, '2025-07-08 20:56:10', '2025-07-08 20:56:10'),
-(33, 'Tamil Nadu', 'tamil-nadu', 1, 1, 1, '2025-07-08 21:00:31', '2025-07-08 21:00:31'),
-(34, 'Rajasthan', 'rajasthan', 1, 1, 1, '2025-07-08 21:01:34', '2025-07-08 21:01:34'),
-(35, 'West Bengal', 'west-bengal', 1, 1, 1, '2025-07-08 21:01:53', '2025-07-08 21:01:53'),
-(36, 'Gujarat', 'gujarat', 1, 1, 1, '2025-07-08 21:05:25', '2025-07-08 21:05:25');
+(1, 'Andhra Pradesh', 'andhra-pradesh', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(2, 'Arunachal Pradesh', 'arunachal-pradesh', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(3, 'Assam', 'assam', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(4, 'Bihar', 'bihar', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(5, 'Chhattisgarh', 'chhattisgarh', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(6, 'Goa', 'goa', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(7, 'Gujarat', 'gujarat', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(8, 'Haryana', 'haryana', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(9, 'Himachal Pradesh', 'himachal-pradesh', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(10, 'Jharkhand', 'jharkhand', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(11, 'Karnataka', 'karnataka', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(12, 'Kerala', 'kerala', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(13, 'Madhya Pradesh', 'madhya-pradesh', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(14, 'Maharashtra', 'maharashtra', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(15, 'Manipur', 'manipur', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(16, 'Meghalaya', 'meghalaya', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(17, 'Mizoram', 'mizoram', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(18, 'Nagaland', 'nagaland', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(19, 'Odisha', 'odisha', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(20, 'Punjab', 'punjab', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(21, 'Rajasthan', 'rajasthan', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(22, 'Sikkim', 'sikkim', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(23, 'Tamil Nadu', 'tamil-nadu', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(24, 'Telangana', 'telangana', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(25, 'Tripura', 'tripura', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(26, 'Uttar Pradesh', 'uttar-pradesh', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(27, 'Uttarakhand', 'uttarakhand', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(28, 'West Bengal', 'west-bengal', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(29, 'Andaman and Nicobar Islands', 'andaman-and-nicobar-islands', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(30, 'Chandigarh', 'chandigarh', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(31, 'Dadra and Nagar Haveli and Daman and Diu', 'dadra-and-nagar-haveli-and-daman-and-diu', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(32, 'Lakshadweep', 'lakshadweep', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(33, 'Delhi', 'delhi', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(34, 'Puducherry', 'puducherry', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11');
 
 -- --------------------------------------------------------
 
@@ -191,17 +307,17 @@ CREATE TABLE `roh_users` (
   `pincode` int(11) DEFAULT NULL,
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT '1',
-  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `edit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `active` tinyint(1) DEFAULT 1,
+  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `edit_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `roh_users`
 --
 
 INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `email`, `phone_number`, `password_hash`, `user_role_id`, `profile_picture_url`, `address_1`, `landmark`, `state`, `city`, `pincode`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$YhI9dGj19YmLXSNgvxKUceXULmW74mEN0xjqE/Catk/Rz4eiS0Tz.', 1, '', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, NULL, 1, '2025-07-13 11:26:08', '2025-07-13 11:26:30'),
+(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$wGWAgsJHo9Stun6IWAKnAej445jMMH0XgEUeQnZRqZCw1JxLvyO16', 1, '', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 123, 1, '2025-07-13 11:26:08', '2025-07-19 13:16:41'),
 (2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$iMm05yN3cv8uFqD.ZxxMi.N4pgIXJ5LsHLaEJhPs6/EcVYjAXEoHW', 2, '', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, NULL, 1, '2025-07-13 11:27:31', '2025-07-13 11:27:31');
 
 --
@@ -260,7 +376,7 @@ ALTER TABLE `roh_categories`
 -- AUTO_INCREMENT for table `roh_cities`
 --
 ALTER TABLE `roh_cities`
-  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
@@ -278,7 +394,7 @@ ALTER TABLE `roh_routes`
 -- AUTO_INCREMENT for table `roh_states`
 --
 ALTER TABLE `roh_states`
-  MODIFY `state_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `state_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `roh_users`

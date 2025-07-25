@@ -59,8 +59,6 @@ const ValidategetallState = async (req, res, next) => {
     }
 };
 
-
-
 /** Edit state validation Coded by Vishnu July 04 2025 */
 const ValidateeditState = async (req, res, next) => {
     console.log("Validation check here, edit state");
@@ -109,4 +107,12 @@ const ValidateSingleState = async (req, res, next) => {
     next();
 };
 
-module.exports = { ValidateaddnewState, ValidategetallState, ValidateeditState, ValidateDeleteState, ValidateSingleState };
+/** Get all Active state id & name validation Coded by Vishnu July 24 2025 */
+const ValidateAllActiveState = async (req, res, next) => {
+    console.log("Validation check here, get single state");
+
+    /** If validation passes, call the next middleware/controller */
+    next();
+};
+
+module.exports = { ValidateaddnewState, ValidategetallState, ValidateeditState, ValidateDeleteState, ValidateSingleState, ValidateAllActiveState };

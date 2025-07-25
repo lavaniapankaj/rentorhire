@@ -134,10 +134,7 @@ function StateApi() {
       } catch (err) {
           return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
       }
-  };
-  
-  
-  
+    };
 
     /** Delete state in state collection Coded by Vishnu July 04 2025 */
     this.DeleteState = (req, res) => {
@@ -182,6 +179,23 @@ function StateApi() {
                     return GLOBAL_ERROR_RESPONSE("Error getting state", err, res);
                 }
                 return GLOBAL_SUCCESS_RESPONSE("State fetched successfully", result, res);
+            });
+        } catch (err) {
+            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+        }
+    };
+
+    /** get all state id and state name  collection Coded by Vishnu July 24 2025 */
+    this.GetAllActiveState = async (req, res) => {
+        try {
+            const query = `
+                SELECT state_id, state_name FROM roh_states WHERE active = 1
+            `;
+            pool.query(query, (err, result) => {
+                if (err) {
+                    return GLOBAL_ERROR_RESPONSE("Error getting states", err, res);
+                }
+                return GLOBAL_SUCCESS_RESPONSE("States fetched successfully", result, res);
             });
         } catch (err) {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);

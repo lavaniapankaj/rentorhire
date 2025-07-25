@@ -73,8 +73,11 @@ const ValidateeditCity = (req, res, next) => {
 
     /** SQL query to check if the state_id exists in the roh_states table */
     const stateCheckQuery = `
-        SELECT * FROM roh_states WHERE state_id = ? AND active = 1
-    `;
+        SELECT * FROM roh_states WHERE state_id = ?`;
+
+    // const stateCheckQuery = `
+    //     SELECT * FROM roh_states WHERE state_id = ? AND active = 1
+    // `;
 
     /** Proceed with checking if the state_id exists in roh_states */
     pool.query(stateCheckQuery, [state_id], (err, result) => {
@@ -89,8 +92,10 @@ const ValidateeditCity = (req, res, next) => {
 
         /** SQL query to check if the city_id exists in the roh_cities table */
         const cityCheckQuery = `
-            SELECT * FROM roh_cities WHERE city_id = ? AND active = 1
-        `;
+            SELECT * FROM roh_cities WHERE city_id = ?`;
+        // const cityCheckQuery = `
+        //     SELECT * FROM roh_cities WHERE city_id = ? AND active = 1
+        // `;
 
         /** Proceed with checking if the city_id exists in roh_cities */
         pool.query(cityCheckQuery, [city_id], (err, result) => {
@@ -139,5 +144,38 @@ const ValidateDeleteCity = (req, res, next) => {
     });
 };
 
+/** get single city all details Coded by Vishnu July 24 2025 */
+const ValidategetsingleCity = (req, res, next) => {
+    const { city_id } = req.body;
 
-module.exports = { ValidateaddnewCity, ValidategetallCity, ValidateeditCity, ValidateDeleteCity};
+    /** Validate required fields */
+    if (!city_id) {
+        return GLOBAL_ERROR_RESPONSE("City ID is required", {}, res);
+    }
+
+    /** SQL query to check if the city_id exists in the roh_cities table */
+    const cityCheckQuery = `
+        SELECT * FROM roh_cities WHERE city_id = ?`;
+
+    //     const cityCheckQuery = `
+    //     SELECT * FROM roh_cities WHERE city_id = ? AND active = 1
+    // `;
+
+    /** Proceed with checking if the city_id exists and is active in roh_cities */
+    pool.query(cityCheckQuery, [city_id], (err, result) => {
+        if (err) {
+            return GLOBAL_ERROR_RESPONSE("Error checking city ID", err, res);
+        }
+
+        /** If no matching city is found, return an error */
+        if (result.length === 0) {
+            return GLOBAL_ERROR_RESPONSE("Invalid City ID. The city ID does not exist or is inactive.", {}, res);
+        }
+
+        /** If all validations pass, proceed to the next middleware/controller */
+        next();
+    });
+};
+
+
+module.exports = { ValidateaddnewCity, ValidategetallCity, ValidateeditCity, ValidateDeleteCity, ValidategetsingleCity};

@@ -4,7 +4,7 @@ function CityApi() {
     /** Add new city to cities collection Coded by Vishnu July 05 2025 */
     this.AddnewCity = (req, res) => {
         try {
-            const { city_name, city_slug, state_id, add_id = 1, edit_id = 1 } = req.body;
+            const { city_name, city_slug, state_id, add_id , edit_id = 0 } = req.body;
 
             /** SQL query to add a new city */
             const query = `INSERT INTO roh_cities (city_name, city_slug, state_id, add_id, edit_id, active) VALUES (?, ?, ?, ?, ?, ?)`;
@@ -89,33 +89,48 @@ function CityApi() {
           console.error("Error in GetallCity:", err);
           return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
-      };
-      
+    };
     
-
     /** Edit city in cities collection Coded by Vishnu July 05 2025 */
     this.EditCity = (req, res) => {
         try {
-            const { city_id, city_name, city_slug, state_id } = req.body;
-
-            /** SQL query to update the city */
-            const query = `UPDATE roh_cities SET city_name = ?, city_slug = ?, state_id = ? WHERE city_id = ?`;
-
-            /** Proceed with updating the city in the database */
-            pool.query(query, [city_name, city_slug, state_id, city_id], (err, result) => {
-                if (err) {
-                    return GLOBAL_ERROR_RESPONSE("Error updating city", err, res);
-                }
-
-                /** If successful, return the updated city */
-                return GLOBAL_SUCCESS_RESPONSE("City updated successfully", result, res);
+          const { city_id, city_name, city_slug, edit_id, state_id } = req.body;
+      
+          // Check for duplicate city_slug except current city_id
+          const checkSlugQuery = `SELECT city_id FROM roh_cities WHERE city_slug = ? AND city_id != ?`;
+      
+          pool.query(checkSlugQuery, [city_slug, city_id], (err, results) => {
+            if (err) {
+              return GLOBAL_ERROR_RESPONSE("Error checking duplicate slug", err, res);
+            }
+      
+            if (results.length > 0) {
+              // Duplicate slug found — send status 200 but with error message & status: false
+              return res.status(200).json({
+                status: false,
+                message: "City slug already exists. Please choose another.",
+                error: "Duplicate slug",
+              });
+            }
+      
+            // No duplicate found, proceed to update
+            const updateQuery = `UPDATE roh_cities SET city_name = ?, city_slug = ?, edit_id = ?, state_id = ? WHERE city_id = ?`;
+      
+            pool.query(updateQuery, [city_name, city_slug, edit_id, state_id, city_id], (err, result) => {
+              if (err) {
+                return GLOBAL_ERROR_RESPONSE("Error updating city", err, res);
+              }
+      
+              return GLOBAL_SUCCESS_RESPONSE("City updated successfully", result, res);
             });
-
+          });
         } catch (err) {
-            console.error("Error in EditCity:", err);  /** Log the error for debugging */
-            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+          console.error("Error in EditCity:", err);
+          return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
-    };
+      };
+      
+    
 
     /** Delete city in cities collection Coded by Vishnu July 05 2025 */
     this.DeleteCity = (req, res) => {
@@ -142,6 +157,36 @@ function CityApi() {
 
         } catch (err) {
             console.error("Error in DeleteCity:", err);  /** Log the error for debugging */
+            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+        }
+    };
+
+    /** get single city all details Coded by Vishnu July 24 2025 */
+    this.GetSingleCity = (req, res) => {
+        try {
+            const { city_id } = req.body;
+
+            /** SQL query to fetch the city details */
+            const query = `SELECT * FROM roh_cities WHERE city_id = ?`;
+            // const query = `SELECT * FROM roh_cities WHERE city_id = ? AND active = 1`;
+
+            /** Proceed with fetching the city details from the database */
+            pool.query(query, [city_id], (err, result) => {
+                if (err) {
+                    return GLOBAL_ERROR_RESPONSE("Error fetching city details", err, res);
+                }
+
+                /** If no matching city is found, return an error */
+                if (result.length === 0) {
+                    return GLOBAL_ERROR_RESPONSE("Invalid City ID. The city ID does not exist or is inactive.", {}, res);
+                }
+
+                /** If the city was successfully fetched, return a success response */
+                return GLOBAL_SUCCESS_RESPONSE("City details fetched successfully", result, res);
+            });
+
+        } catch (err) {
+            console.error("Error in GetSingleCity:", err);  /** Log the error for debugging */
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
