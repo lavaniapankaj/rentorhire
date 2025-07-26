@@ -204,38 +204,42 @@ export default function CityList() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div>
       <h2>City List</h2>
 
-      <div style={{ marginBottom: '15px' }}>
-        <button onClick={() => setIsModalOpen(true)}>Add New City</button>
+      <div style={{ marginBottom: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        {/* Filter and Add New City Button side by side */}
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <form onSubmit={handleSearch} style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <input
+              type="text"
+              placeholder="Search city..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              style={{ padding: '6px', minWidth: 200 }}
+            />
+            <button type="submit">Search</button>
+            <button type="button" onClick={handleClearSearch}>Clear</button>
+
+            <select value={statusFilter} onChange={handleStatusChange}>
+              <option value="all">All</option>
+              <option value="1">Active</option>
+              <option value="0">Inactive</option>
+            </select>
+          </form>
+        </div>
+        {/* Add New City button */}
+        <button onClick={() => setIsModalOpen(true)} style={{ padding: '6px 12px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '4px' }}>
+          Add New City
+        </button>
       </div>
-
-      <form onSubmit={handleSearch} style={{ marginBottom: '15px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-        <input
-          type="text"
-          placeholder="Search city..."
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-          style={{ padding: '6px', minWidth: 200 }}
-        />
-        <button type="submit">Search</button>
-        <button type="button" onClick={handleClearSearch}>Clear</button>
-
-        <select value={statusFilter} onChange={handleStatusChange}>
-          <option value="all">All</option>
-          <option value="1">Active</option>
-          <option value="0">Inactive</option>
-        </select>
-      </form>
 
       {loading ? (
         <p>Loading cities...</p>
-      ) : cities.length === 0 ? (
-        <p>No cities found.</p>
       ) : (
         <>
           <table border="1" cellPadding="8" style={{ width: '100%', borderCollapse: 'collapse' }}>
+            {/* Table Headers always visible */}
             <thead style={{ backgroundColor: '#f0f0f0' }}>
               <tr>
                 <th>ID</th>
@@ -247,23 +251,29 @@ export default function CityList() {
               </tr>
             </thead>
             <tbody>
-              {cities.map((city) => (
-                <tr key={city.city_id}>
-                  <td>{city.city_id}</td>
-                  <td>{city.city_name}</td>
-                  <td>{city.city_slug}</td>
-                  <td>{city.active === 1 ? 'Active' : 'Inactive'}</td>
-                  <td>{stateMap[city.state_id] || city.state_id}</td>
-                  <td>
-                    <button onClick={() => handleEdit(city.city_id)}>Edit</button> | 
-                    <button 
-                      onClick={() => handleDelete(city.city_id, city.active)} 
-                      disabled={city.active === 0}>
-                      Delete
-                    </button>
-                  </td>
+              {cities.length === 0 ? (
+                <tr>
+                  <td colSpan="6" style={{ textAlign: 'center' }}>No cities found.</td>
                 </tr>
-              ))}
+              ) : (
+                cities.map((city) => (
+                  <tr key={city.city_id}>
+                    <td>{city.city_id}</td>
+                    <td>{city.city_name}</td>
+                    <td>{city.city_slug}</td>
+                    <td>{city.active === 1 ? 'Active' : 'Inactive'}</td>
+                    <td>{stateMap[city.state_id] || city.state_id}</td>
+                    <td>
+                      <button onClick={() => handleEdit(city.city_id)}>Edit</button> | 
+                      <button 
+                        onClick={() => handleDelete(city.city_id, city.active)} 
+                        disabled={city.active === 0}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
 

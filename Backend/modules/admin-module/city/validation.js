@@ -10,9 +10,11 @@ const ValidateaddnewCity = (req, res, next) => {
     }
 
     /** SQL query to check if the city_slug already exists */
+    // const checkSlugQuery = `
+    //     SELECT * FROM roh_cities WHERE city_slug = ? AND active = 1`;
+    
     const checkSlugQuery = `
-        SELECT * FROM roh_cities WHERE city_slug = ? AND active = 1
-    `;
+        SELECT * FROM roh_cities WHERE city_slug = ?`;
 
     /** Execute the query to check if the slug already exists */
     pool.query(checkSlugQuery, [city_slug], (err, result) => {

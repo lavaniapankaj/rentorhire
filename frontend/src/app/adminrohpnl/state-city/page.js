@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import AddStateForm from './AddStateForm';
 import EditStateForm from './EditStateForm';
-import CityList from './CityList'; // ✅ import CityList component
+import CityList from './CityList'; // import CityList component
 
 export default function StateCityPage() {
   const [activeTab, setActiveTab] = useState('states');
@@ -231,6 +231,7 @@ export default function StateCityPage() {
           ) : (
             <>
               <table className="rohstate_table" border="1" cellPadding="8" style={{ width: '100%', borderCollapse: 'collapse' }}>
+                {/* Table Headers remain fixed */}
                 <thead style={{ backgroundColor: '#f0f0f0' }}>
                   <tr>
                     <th>State ID</th>
@@ -285,7 +286,7 @@ export default function StateCityPage() {
       )}
 
       {/* === CITIES TAB === */}
-      {activeTab === 'cities' && <CityList />} {/* ✅ Updated */}
+      {activeTab === 'cities' && <CityList />}
 
       {isAddStateOpen && <AddStateForm onClose={() => setIsAddStateOpen(false)} onStateAdded={handleStateAdded} />}
 
