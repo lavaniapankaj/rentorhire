@@ -98,9 +98,9 @@ const ValidateEditUser = async (req, res, next) => {
         if (!email) {
             return GLOBAL_ERROR_RESPONSE("Email is required", {}, res);
         }
-        if (!password_hash) {
-            return GLOBAL_ERROR_RESPONSE("Password is required", {}, res);
-        }
+        // if (!password_hash) {
+        //     return GLOBAL_ERROR_RESPONSE("Password is required", {}, res);
+        // }
 
         const connection = pool.promise ? pool.promise() : pool;
 

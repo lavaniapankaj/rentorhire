@@ -1,4 +1,5 @@
 const { pool } = require('../../../config/connection');  /** Import the pool */
+const bcrypt = require('bcryptjs');
 
 function UsersApi() {
     /** Add new user in roh_users table Coded by Vishnu July 06 2025 */
@@ -106,26 +107,16 @@ function UsersApi() {
                 state,
                 city,
                 pincode,
-                edit_id = 1
+                edit_id,
             } = req.body;
     
-            const query = `
-                UPDATE roh_users 
-                SET first_name = ?, 
-                    last_name = ?, 
-                    email = ?, 
-                    phone_number = ?, 
-                    user_role_id = ?, 
-                    password_hash = ?, 
-                    profile_picture_url = ?,
-                    address_1 = ?, 
-                    landmark = ?, 
-                    state = ?, 
-                    city = ?, 
-                    pincode = ?, 
-                    edit_id = ?, 
-                    active = ?
-                WHERE user_id = ?
+            let query = `
+                UPDATE roh_users SET
+                    first_name = ?,
+                    last_name = ?,
+                    email = ?,
+                    phone_number = ?,
+                    user_role_id = ?,
             `;
     
             const params = [
@@ -134,7 +125,31 @@ function UsersApi() {
                 email,
                 phone_number,
                 user_role_id,
-                password_hash,
+            ];
+    
+            /** Hash password if provided and valid */
+            if (password_hash && password_hash.trim() !== "") {
+                if (password_hash.length < 8) {
+                    return GLOBAL_ERROR_RESPONSE("Password must be at least 8 characters long", null, res);
+                }
+    
+                const hashedPassword = await bcrypt.hash(password_hash.trim(), 10); /** Salt rounds = 10 */
+                query += `password_hash = ?, `;
+                params.push(hashedPassword);
+            }
+    
+            query += `
+                profile_picture_url = ?,
+                address_1 = ?,
+                landmark = ?,
+                state = ?,
+                city = ?,
+                pincode = ?,
+                edit_id = ?
+                WHERE user_id = ?
+            `;
+    
+            params.push(
                 profile_picture_url,
                 address_1,
                 landmark,
@@ -142,9 +157,8 @@ function UsersApi() {
                 city,
                 pincode,
                 edit_id,
-                1, /** active */
                 user_id
-            ];
+            );
     
             pool.query(query, params, (err, result) => {
                 if (err) {
@@ -157,6 +171,7 @@ function UsersApi() {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
+    
     
     /** Delete user in roh_users table Coded by Vishnu July 07 2025 */
     this.DeleteUser = async (req, res) => {

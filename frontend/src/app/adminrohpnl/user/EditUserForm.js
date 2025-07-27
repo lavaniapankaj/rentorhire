@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import bcrypt from 'bcryptjs';
 import styles from '../admin.module.css';
 
 export default function EditUserForm({ user, onClose, roles: initialRoles, onSuccess }) {
@@ -34,8 +33,7 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
         try {
           const res = await fetch('http://localhost:8080/api/adminrohpnl/role/roles');
           const data = await res.json();
-          /** recode = 0 is used for the token error */
-          if(data.rcode == 0){
+          if (data.rcode == 0) {
             router.push('/auth/admin');
           }
 
@@ -88,22 +86,16 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
     if (file) {
       setFormData((prev) => ({
         ...prev,
-        profile_picture_url: URL.createObjectURL(file), // Preview only
+        profile_picture_url: URL.createObjectURL(file),
       }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    if (formData.password_hash.trim().length < 8) {
-      alert('Password must be at least 8 characters long');
-      return;
-    }
-  
+
     const updatedData = { ...formData };
-    updatedData.password_hash = bcrypt.hashSync(formData.password_hash.trim(), 10);
-  
+
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/user/edit', {
         method: 'POST',
@@ -113,32 +105,28 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
         },
         body: JSON.stringify(updatedData),
       });
-  
+
       const data = await res.json();
-      /** recode = 0 is used for the token error */
-      if(data.rcode == 0){
+      if (data.rcode == 0) {
         router.push('/auth/admin');
       }
 
       if (!res.ok || data.status === false) {
-        // Show error message from API response
         setErrorMessage(data.message || 'Failed to update user');
       } else {
-        onSuccess(); // 👈 Refresh + close modal
+        onSuccess();
         alert('User updated successfully');
       }
     } catch (err) {
-      // Handle fetch errors
       console.error('Error updating user:', err);
       setErrorMessage('An unexpected error occurred. Please try again later.');
     }
   };
-  
 
   return (
     <div className={styles.roh_modal_overlay}>
       <form className={styles.roh_edituser_form} onSubmit={handleSubmit}>
-        {/* Username (non-editable) */}
+        {/* Username */}
         <div className={styles.roh_edituser_form_group}>
           <label htmlFor="user_name">Username</label>
           <input
@@ -246,7 +234,7 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
             onChange={handleChange}
             className={styles.roh_edituser_input}
           />
-          <small>Password must be at least 8 characters</small>
+          <small>Leave blank if you do not want to change the password</small>
         </div>
 
         {/* Error Message */}
