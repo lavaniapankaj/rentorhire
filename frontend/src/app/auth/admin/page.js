@@ -7,6 +7,7 @@ export default function AdminLoginPage() {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // state to toggle password visibility
 
     useEffect(() => {
       localStorage.clear(); /* removes all keys from localStorage */
@@ -54,11 +55,44 @@ export default function AdminLoginPage() {
             <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom: '1rem' }}>
                     <label htmlFor="email" style={{ display: 'block', marginBottom: '0.5rem' }}> Email: </label>
-                    <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ width: '100%', padding: '0.5rem' }}/>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      name="email" 
+                      value={email} 
+                      onChange={(e) => setEmail(e.target.value)} 
+                      style={{ width: '100%', padding: '0.5rem' }} 
+                      autoComplete="off" 
+                    />
                 </div>
                 <div style={{ marginBottom: '1rem' }}>
                     <label htmlFor="password" style={{ display: 'block', marginBottom: '0.5rem' }}> Password: </label>
-                    <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{ width: '100%', padding: '0.5rem' }}/>
+                    <div style={{ position: 'relative' }}>
+                        <input 
+                          type={showPassword ? "text" : "password"} // Toggle between text and password
+                          id="password" 
+                          name="password" 
+                          value={password} 
+                          onChange={(e) => setPassword(e.target.value)} 
+                          style={{ width: '100%', padding: '0.5rem' }} 
+                          autoComplete="off" 
+                        />
+                        <button 
+                          type="button" 
+                          onClick={() => setShowPassword(prev => !prev)} 
+                          style={{ 
+                            position: 'absolute', 
+                            right: '10px', 
+                            top: '50%', 
+                            transform: 'translateY(-50%)', 
+                            background: 'none', 
+                            border: 'none', 
+                            cursor: 'pointer'
+                          }}
+                        >
+                          {showPassword ? 'Hide' : 'Show'}
+                        </button>
+                    </div>
                 </div>
                 <button type="submit" style={{ padding: '0.5rem 1rem' }}> Login </button>
             </form>
