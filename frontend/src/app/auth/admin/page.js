@@ -58,11 +58,13 @@ export default function AdminLoginPage() {
           <form onSubmit={handleSubmit} style={styles.form}>
             <h3 style={styles.signinTitle}>Signin</h3>
             <div style={styles.inputGroup}>
-              <input type="email"
+            <input
+                type="email"
                 placeholder="Enter Username ..."
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="off"
                 style={styles.input}
               />
             </div>
