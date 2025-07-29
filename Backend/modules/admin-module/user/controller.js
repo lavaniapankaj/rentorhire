@@ -1,25 +1,96 @@
 const { pool } = require('../../../config/connection');  /** Import the pool */
 const bcrypt = require('bcryptjs');
+const path = require('path');
 
 function UsersApi() {
     /** Add new user in roh_users table Coded by Vishnu July 06 2025 */
     this.AddnewUser = async (req, res) => {
         try {
-          const { user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id, edit_id } = req.body;
-      
-          const query = `INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id, edit_id, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-      
-          const values = [user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id, edit_id, 1];
-      
-          pool.execute(query, values, (err, result) => {
-            if (err) return GLOBAL_ERROR_RESPONSE("Error saving user", err, res);
-            return GLOBAL_SUCCESS_RESPONSE("User added successfully", { id: result.insertId }, res);
-          });
-      
+            const { 
+                user_name, 
+                first_name, 
+                last_name, 
+                email, 
+                phone_number, 
+                password_hash, 
+                user_role_id, 
+                profile_picture_url, 
+                address_1, 
+                landmark, 
+                state, 
+                city, 
+                pincode, 
+                add_id, 
+                edit_id 
+            } = req.body;
+    
+    
+            /** If the user hasn't uploaded an image, set profile_picture_url to null */
+            let profileImageName = null;
+            let profileImagePath = null;
+            let profileImageType = null;
+    
+            if (profile_picture_url) {
+                /** If the profile_picture_url is provided, process it */
+                const fileExtension = path.extname(profile_picture_url); /** e.g. '.webp', '.jpg' */
+                profileImageName = profile_picture_url;  /** File name from request */
+                profileImagePath = `media/users/profile/`;
+                profileImageType = fileExtension.slice(1);  /** Remove the dot (e.g. 'webp', 'jpg') */
+    
+            }
+    
+            /** Insert the image into the media gallery table only if an image is uploaded */
+            if (profileImageName) {
+                const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
+                const mediaValues = [profileImageName, profileImagePath, profileImageType, 1];
+                
+                pool.execute(mediaQuery, mediaValues, (err, mediaResult) => {
+                    if (err) {
+                        console.error('Error inserting into media gallery:', err);
+                        return GLOBAL_ERROR_RESPONSE("Error saving image to media gallery", err, res);
+                    }
+    
+    
+                    /** Now insert the user data into the 'roh_users' table, using the media gallery id for the profile picture URL */
+                    const userQuery = `INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id, edit_id, active) 
+                                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    
+                    const userValues = [user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, mediaResult.insertId, address_1, landmark, state, city, pincode, add_id, edit_id, 1];
+    
+                    pool.execute(userQuery, userValues, (err, result) => {
+                        if (err) {
+                            console.error('Error inserting user:', err);
+                            return GLOBAL_ERROR_RESPONSE("Error saving user", err, res);
+                        }
+    
+                        return GLOBAL_SUCCESS_RESPONSE("User added successfully", { id: result.insertId }, res);
+                    });
+                });
+            } else {
+                /** If no image is uploaded, insert the user data without the profile picture */
+                const userQuery = `INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id, edit_id, active) 
+                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    
+                const userValues = [user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, null, address_1, landmark, state, city, pincode, add_id, edit_id, 1];
+    
+                pool.execute(userQuery, userValues, (err, result) => {
+                    if (err) {
+                        console.error('Error inserting user:', err);
+                        return GLOBAL_ERROR_RESPONSE("Error saving user", err, res);
+                    }
+    
+                    return GLOBAL_SUCCESS_RESPONSE("User added successfully", { id: result.insertId }, res);
+                });
+            }
+    
         } catch (err) {
-          return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+            console.error('Unexpected error:', err);
+            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
+    
+    
+      
       
     
     /** Get all users in roh_users table Coded by Vishnu July 07 2025 */

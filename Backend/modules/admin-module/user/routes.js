@@ -3,18 +3,64 @@ const {ValidateaddnewUser, ValidateGetAllUsers, ValidateEditUser,ValidateDeleteU
 const UserController = require("./controller");
 
 const multer = require('multer');
-const upload = multer(); // memory storage, no actual files saved
+const path = require('path');
+const fs = require('fs');
 
-/** Api for adding new user Coded by Vishnu July 06 2025 */
-app.post(
-    ADMIN_NAME + "/user/create",
-    authMiddleware,
-    upload.none(),               /** First: Parse multipart/form-data (required) */
-    ValidateaddnewUser,          /** Second: validate req.body */
-    (req, res, next) => {
-        UserController.AddnewUser(req, res, next); 
+// Set storage engine for multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Set the path to the frontend directory
+    const uploadPath = path.join(__dirname, '../../../../frontend/src/app/media/users/profile/');
+    
+    // Ensure the folder exists
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
     }
+    
+    cb(null, uploadPath); // Save to this path
+  },
+  filename: (req, file, cb) => {
+    const originalName = file.originalname; // Original filename (e.g., pankaj-img-1.webp)
+    const fileExtension = path.extname(originalName); // Extract the file extension (.webp)
+    const fileNameWithoutExt = path.basename(originalName, fileExtension); // Extract filename without extension (e.g., pankaj-img-1)
+
+    let newFileName = originalName; // Default to the original name
+    let counter = 1;
+
+    // Check if the file already exists in the folder
+    while (fs.existsSync(path.join(__dirname, '../../../../frontend/src/app/media/users/profile', newFileName))) {
+      // If it exists, append the counter (e.g., pankaj-img-1-1.webp, pankaj-img-1-2.webp)
+      newFileName = `${fileNameWithoutExt}-${counter}${fileExtension}`;
+      counter++;
+    }
+
+    // Save the file with the unique name
+    cb(null, newFileName);
+  }
+});
+
+// Initialize multer with storage configuration
+const upload = multer({ storage: storage });
+
+/** API for adding new user - Coded by Vishnu July 06, 2025 */
+app.post(
+  ADMIN_NAME + "/user/create",
+  authMiddleware,                           // Authenticate the user
+  upload.single('profile_picture_file'),    // Handle the file upload (single file with 'profile_picture_file' field)
+  ValidateaddnewUser,                      // Validate other form fields
+  (req, res, next) => {
+    if (req.file) {
+      req.body.profile_picture_url = req.file.filename; // Set file name to request body
+    } else {
+      //return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    // Proceed with adding the new user
+    UserController.AddnewUser(req, res, next);
+  }
 );
+
+
 
 /** Get all user Coded by Vishnu July 07 2025 */
 app.post(

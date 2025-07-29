@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 25, 2025 at 03:25 PM
+-- Generation Time: Jul 29, 2025 at 08:39 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -171,11 +171,37 @@ INSERT INTO `roh_cities` (`city_id`, `city_name`, `city_slug`, `state_id`, `add_
 (93, 'Jammu', 'jammu', 8, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
 (94, 'Karnal', 'karnal', 7, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
 (95, 'Rajahmundry', 'rajahmundry', 1, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
-(96, 'Ambala', 'ambala', 7, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(96, 'Ambala', 'ambala', 7, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 23:40:34'),
 (97, 'Agra', 'agra', 26, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
 (98, 'Gurgaon', 'gurgaon', 26, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
 (99, 'Kochi', 'kochi', 11, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
-(100, 'Vishakhapatnam', 'vishakhapatnam', 1, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25');
+(100, 'Vishakhapatnam', 'vishakhapatnam', 1, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
+(101, 'Demo', 'demo', 1, 1, 1, 0, '2025-07-26 00:17:20', '2025-07-26 01:18:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roh_media_gallery`
+--
+
+CREATE TABLE `roh_media_gallery` (
+  `id` int(11) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
+  `file_type` varchar(50) DEFAULT NULL,
+  `active` tinyint(1) DEFAULT 1,
+  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `edit_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `roh_media_gallery`
+--
+
+INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `active`, `add_date`, `edit_date`) VALUES
+(1, 'pankaj-img-1.webp', 'media/users/profile/', 'webp', 1, '2025-07-29 18:19:15', '2025-07-29 18:19:15'),
+(2, 'vishnu-roh-admin.jpeg', 'media/users/profile/', 'jpeg', 1, '2025-07-29 18:32:46', '2025-07-29 18:32:46'),
+(3, 'raj-rog-admin.jpeg', 'media/users/profile/', 'jpeg', 1, '2025-07-29 18:38:25', '2025-07-29 18:38:25');
 
 -- --------------------------------------------------------
 
@@ -198,8 +224,15 @@ CREATE TABLE `roh_roles` (
 --
 
 INSERT INTO `roh_roles` (`id`, `name`, `active`, `add_id`, `edit_id`, `add_date`, `edit_date`) VALUES
-(1, 'Super Admin', 1, 1, 1, '2025-07-08 15:46:30', '2025-07-08 15:46:30'),
-(2, 'Service Provider', 1, 1, 1, '2025-07-08 15:46:55', '2025-07-08 15:46:55');
+(1, 'Super Admin', 1, 1, 1, '2025-07-08 15:46:30', '2025-07-19 18:01:50'),
+(2, 'Service Provider', 1, 1, 1, '2025-07-08 15:46:55', '2025-07-08 15:46:55'),
+(3, 'Customer', 1, 1, 1, '2025-07-17 18:41:10', '2025-07-17 18:41:10'),
+(4, 'Moderator', 1, 1, 1, '2025-07-17 18:55:07', '2025-07-17 18:55:07'),
+(11, 'Wyoming Perkins', 0, 1, 2, '2025-07-19 18:15:16', '2025-07-19 18:43:49'),
+(12, 'Moderator 1', 0, 1, 1, '2025-07-19 18:44:05', '2025-07-19 18:44:19'),
+(13, 'demo11', 0, 1, 1, '2025-07-19 19:50:03', '2025-07-19 19:50:13'),
+(14, 'Demo 22', 1, 1, 1, '2025-07-23 17:55:18', '2025-07-23 17:57:30'),
+(24, 'Demo', 0, 1, 1, '2025-07-27 09:43:24', '2025-07-27 09:58:56');
 
 -- --------------------------------------------------------
 
@@ -282,7 +315,8 @@ INSERT INTO `roh_states` (`state_id`, `state_name`, `state_slug`, `add_id`, `edi
 (31, 'Dadra and Nagar Haveli and Daman and Diu', 'dadra-and-nagar-haveli-and-daman-and-diu', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
 (32, 'Lakshadweep', 'lakshadweep', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
 (33, 'Delhi', 'delhi', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
-(34, 'Puducherry', 'puducherry', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11');
+(34, 'Puducherry', 'puducherry', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(35, 'Demo', 'demo', 1, 0, 0, '2025-07-26 22:34:15', '2025-07-26 22:34:31');
 
 -- --------------------------------------------------------
 
@@ -317,8 +351,11 @@ CREATE TABLE `roh_users` (
 --
 
 INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `email`, `phone_number`, `password_hash`, `user_role_id`, `profile_picture_url`, `address_1`, `landmark`, `state`, `city`, `pincode`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$wGWAgsJHo9Stun6IWAKnAej445jMMH0XgEUeQnZRqZCw1JxLvyO16', 1, '', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 123, 1, '2025-07-13 11:26:08', '2025-07-19 13:16:41'),
-(2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$iMm05yN3cv8uFqD.ZxxMi.N4pgIXJ5LsHLaEJhPs6/EcVYjAXEoHW', 2, '', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, NULL, 1, '2025-07-13 11:27:31', '2025-07-13 11:27:31');
+(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$xdm/c.8Yh4o9VBQnAqvZW.GImjKMS3tYM/YMIJDsTRqv5YkQyKUcC', 1, 'http://localhost:3000/', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, 1, 1, 1, '2025-07-13 11:26:08', '2025-07-17 17:17:29'),
+(2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$VswYxyPGRuYuU/1IFkMS1uAgYybZCvHIwhb93CFUtmyHUZyddYFf.', 2, 'http://localhost:3000/', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, 1, 1, 1, '2025-07-13 11:27:31', '2025-07-15 18:58:19'),
+(18, 'lavaniapankaj', 'Pankaj ', 'Verma', 'lavaniapankaj@gmail.com', '9876543210', '$2b$10$fwpmVvn/RVr3d/cbedmo8eTTxBebn0XhKtfXQt4dHk32IkBZFw8bG', 1, '1', '13th Street', '47 W 13th St, New York, NY 10011, USA', 'New York', 'CT', 10011, 1, 0, 1, '2025-07-29 18:19:15', '2025-07-29 18:19:15'),
+(19, 'ecmascript', 'Vishnu', 'Kumawat', 'ecmascript.php@gmail.com', '9783457008', '$2b$10$bVzM.eJjjhU7boZzNEE8aul7iycXabXaDmIuQAB9CXMTfDLP/v8hC', 1, '2', 'Stuyvesant 14th St & 1st Ave ', '238 1st Ave, New York, NY 10009, USA', 'New York', 'CT', 10009, 1, 0, 1, '2025-07-29 18:32:46', '2025-07-29 18:32:46'),
+(20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 1, '3', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, 1, 0, 1, '2025-07-29 18:38:25', '2025-07-29 18:38:25');
 
 --
 -- Indexes for dumped tables
@@ -336,6 +373,12 @@ ALTER TABLE `roh_categories`
 --
 ALTER TABLE `roh_cities`
   ADD PRIMARY KEY (`city_id`);
+
+--
+-- Indexes for table `roh_media_gallery`
+--
+ALTER TABLE `roh_media_gallery`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `roh_roles`
@@ -376,13 +419,19 @@ ALTER TABLE `roh_categories`
 -- AUTO_INCREMENT for table `roh_cities`
 --
 ALTER TABLE `roh_cities`
-  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+
+--
+-- AUTO_INCREMENT for table `roh_media_gallery`
+--
+ALTER TABLE `roh_media_gallery`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
 --
 ALTER TABLE `roh_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `roh_routes`
@@ -394,13 +443,13 @@ ALTER TABLE `roh_routes`
 -- AUTO_INCREMENT for table `roh_states`
 --
 ALTER TABLE `roh_states`
-  MODIFY `state_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `state_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
