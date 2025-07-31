@@ -90,9 +90,6 @@ function UsersApi() {
     };
     
     
-      
-      
-    
     /** Get all users in roh_users table Coded by Vishnu July 07 2025 */
     this.GetAllUsers = async (req, res) => {
         try {
