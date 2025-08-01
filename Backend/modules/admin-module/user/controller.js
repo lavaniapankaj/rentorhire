@@ -60,7 +60,8 @@ function UsersApi() {
                     pool.execute(userQuery, userValues, (err, result) => {
                         if (err) {
                             console.error('Error inserting user:', err);
-                            return GLOBAL_ERROR_RESPONSE("Error saving user", err, res);
+                            // return GLOBAL_ERROR_RESPONSE("Error saving user", err, res);
+                            return GLOBAL_ERROR_RESPONSE("Please check your inputs values", err, res);
                         }
     
                         return GLOBAL_SUCCESS_RESPONSE("User added successfully", { id: result.insertId }, res);
@@ -76,7 +77,8 @@ function UsersApi() {
                 pool.execute(userQuery, userValues, (err, result) => {
                     if (err) {
                         console.error('Error inserting user:', err);
-                        return GLOBAL_ERROR_RESPONSE("Error saving user", err, res);
+                        // return GLOBAL_ERROR_RESPONSE("Error saving user", err, res);
+                        return GLOBAL_ERROR_RESPONSE("Please check your inputs values", err, res);
                     }
     
                     return GLOBAL_SUCCESS_RESPONSE("User added successfully", { id: result.insertId }, res);
@@ -169,7 +171,7 @@ function UsersApi() {
                 phone_number,
                 user_role_id,
                 password_hash,
-                profile_picture_url,
+                profile_picture_url,  /** Existing profile picture (could be null or the current ID) */
                 address_1,
                 landmark,
                 state,
@@ -177,7 +179,7 @@ function UsersApi() {
                 pincode,
                 edit_id,
             } = req.body;
-    
+
             let query = `
                 UPDATE roh_users SET
                     first_name = ?,
@@ -186,7 +188,7 @@ function UsersApi() {
                     phone_number = ?,
                     user_role_id = ?,
             `;
-    
+
             const params = [
                 first_name,
                 last_name,
@@ -194,18 +196,37 @@ function UsersApi() {
                 phone_number,
                 user_role_id,
             ];
-    
+
             /** Hash password if provided and valid */
             if (password_hash && password_hash.trim() !== "") {
                 if (password_hash.length < 8) {
                     return GLOBAL_ERROR_RESPONSE("Password must be at least 8 characters long", null, res);
                 }
-    
+
                 const hashedPassword = await bcrypt.hash(password_hash.trim(), 10); /** Salt rounds = 10 */
                 query += `password_hash = ?, `;
                 params.push(hashedPassword);
             }
-    
+
+            let updatedProfilePictureUrl = profile_picture_url; /** Default to the existing ID if no new file */
+
+
+            /** Handling the profile picture URL update */
+            if (req.file) {
+                /** If a new file is uploaded, save it in media gallery */
+                const fileExtension = path.extname(req.file.filename);
+
+                const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
+                const mediaValues = [req.file.filename, `media/users/profile/`, fileExtension.slice(1), 1];
+
+                /** Use promise-based query (this is where the fix happens) */
+                const [mediaResult] = await pool.promise().query(mediaQuery, mediaValues);
+
+                /** Save the media ID in profile_picture_url */
+                updatedProfilePictureUrl = mediaResult.insertId;
+            }
+
+            /** Final update query to the users table */
             query += `
                 profile_picture_url = ?,
                 address_1 = ?,
@@ -216,9 +237,9 @@ function UsersApi() {
                 edit_id = ?
                 WHERE user_id = ?
             `;
-    
+
             params.push(
-                profile_picture_url,
+                updatedProfilePictureUrl,  /** Updated media ID or existing ID */
                 address_1,
                 landmark,
                 state,
@@ -227,19 +248,18 @@ function UsersApi() {
                 edit_id,
                 user_id
             );
-    
-            pool.query(query, params, (err, result) => {
-                if (err) {
-                    return GLOBAL_ERROR_RESPONSE("Error updating user", err, res);
-                }
-                return GLOBAL_SUCCESS_RESPONSE("User updated successfully", result, res);
-            });
-    
+
+
+            const result = await pool.promise().query(query, params); /** Use promise-based query here */
+
+            return GLOBAL_SUCCESS_RESPONSE("User updated successfully", result, res);
+
         } catch (err) {
+            console.error('Unexpected error:', err);
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
-    
+
     
     /** Delete user in roh_users table Coded by Vishnu July 07 2025 */
     this.DeleteUser = async (req, res) => {

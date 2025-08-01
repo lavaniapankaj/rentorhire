@@ -6,7 +6,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Set storage engine for multer
+/** Set storage engine for multer */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Set the path to the frontend directory
@@ -39,23 +39,23 @@ const storage = multer.diskStorage({
   }
 });
 
-// Initialize multer with storage configuration
+/** Initialize multer with storage configuration */
 const upload = multer({ storage: storage });
 
 /** API for adding new user - Coded by Vishnu July 06, 2025 */
 app.post(
   ADMIN_NAME + "/user/create",
-  authMiddleware,                           // Authenticate the user
-  upload.single('profile_picture_file'),    // Handle the file upload (single file with 'profile_picture_file' field)
-  ValidateaddnewUser,                      // Validate other form fields
+  authMiddleware,                           /** Authenticate the user */
+  upload.single('profile_picture_file'),    /** Handle the file upload (single file with 'profile_picture_file' field) */
+  ValidateaddnewUser,                      /** Validation middleware */
   (req, res, next) => {
     if (req.file) {
-      req.body.profile_picture_url = req.file.filename; // Set file name to request body
+      req.body.profile_picture_url = req.file.filename; /** Set file name to request body */
     } else {
       //return res.status(400).json({ message: "No file uploaded" });
     }
 
-    // Proceed with adding the new user
+    /** Proceed with adding the new user */
     UserController.AddnewUser(req, res, next);
   }
 );
@@ -74,13 +74,17 @@ app.post(
 
 /** Edit user Coded by Vishnu July 07 2025 */
 app.post(
-    ADMIN_NAME + "/user/edit",
-    authMiddleware,
-    ValidateEditUser, /** Validation middleware */
-    (req, res, next) => {
-        UserController.UpdateUser(req, res, next); /** Call the controller */
-    }
+  ADMIN_NAME + "/user/edit",
+  authMiddleware,
+  upload.single('profile_picture_file'), /** Handle file upload for profile picture */
+  ValidateEditUser,  /** Validation middleware */
+  (req, res, next) => {
+    /** The file handling logic for the profile picture is handled inside the controller */
+    UserController.UpdateUser(req, res, next);  /** Call the controller */
+  }
 );
+
+
 
 /** Delete user Coded by Vishnu July 07 2025 */
 app.post(

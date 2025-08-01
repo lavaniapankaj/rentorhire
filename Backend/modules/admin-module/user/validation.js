@@ -3,7 +3,7 @@ const pool = require("../../../config/connection");
 /** Add new user validation Coded by Vishnu July 07 2025 */
 const ValidateaddnewUser = async (req, res, next) => {
     try {
-        const { user_name, email, password_hash, phone_number, address_1 } = req.body;
+        const { user_name, email, password_hash, phone_number, address_1, pincode } = req.body;
 
         if (!user_name) {
             return GLOBAL_ERROR_RESPONSE("User Name is required", {}, res);
@@ -35,6 +35,10 @@ const ValidateaddnewUser = async (req, res, next) => {
 
         if (!address_1) {
             return GLOBAL_ERROR_RESPONSE("Address is required", {}, res);
+        }
+
+        if (!pincode) {
+            return GLOBAL_ERROR_RESPONSE("Pincode is required", {}, res);
         }
 
         const connection = pool.promise ? pool.promise() : pool;

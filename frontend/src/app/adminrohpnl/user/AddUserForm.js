@@ -145,27 +145,33 @@ export default function AddUserForm({ onSuccess, onClose }) {
 
         {/* Other Fields */}
         {[
-          'user_name',
-          'email',
-          'phone_number',
-          'password_hash',
-          'address_1',
-          'landmark',
-          'state',
-          'city',
-          'pincode'
-        ].map((field) => (
-          <div key={field} className={styles.adminUserAddFormGroup}>
-            <label htmlFor={field}>{field.replaceAll('_', ' ').toUpperCase()}</label>
-            <input
-              type={field.includes('password') ? 'password' : 'text'}
-              id={field}
-              name={field}
-              value={form[field]}
-              onChange={handleChange}
-            />
-          </div>
-        ))}
+        'user_name',
+        'email',
+        'phone_number',
+        'password_hash',
+        'address_1',
+        'landmark',
+        'state',
+        'city',
+        'pincode'
+      ].map((field) => (
+        <div key={field} className={styles.adminUserAddFormGroup}>
+          <label htmlFor={field}>{field.replaceAll('_', ' ').toUpperCase()}</label>
+          <input
+            type={
+              field.includes('password') ? 'password' :
+              field === 'pincode' ? 'number' : 'text'
+            }
+            id={field}
+            name={field}
+            value={form[field]}
+            onChange={handleChange}
+            min={field === 'pincode' ? 10000 : undefined}  /** Ensure pincode is at least a 5-digit number */
+            max={field === 'pincode' ? 999999 : undefined}  /** Ensure pincode does not exceed 6 digits */
+          />
+        </div>
+      ))}
+
 
         {/* Profile Picture */}
         <div className={styles.adminUserAddFormGroup}>

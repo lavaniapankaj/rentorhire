@@ -91,37 +91,48 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const updatedData = { ...formData };
+  const formDataObj = new FormData();
+  
+  // Append all the form fields (except file)
+  Object.keys(formData).forEach((key) => {
+    formDataObj.append(key, formData[key]);
+  });
 
-    try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/user/edit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(updatedData),
-      });
+  // If a new profile picture is uploaded, append it to the form data
+  const profilePictureFile = document.getElementById('profile_picture_file').files[0];
+  if (profilePictureFile) {
+    formDataObj.append('profile_picture_file', profilePictureFile);
+  }
 
-      const data = await res.json();
-      if (data.rcode == 0) {
-        router.push('/auth/admin');
-      }
+  try {
+    const res = await fetch('http://localhost:8080/api/adminrohpnl/user/edit', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: formDataObj, // Send the FormData with the file
+    });
 
-      if (!res.ok || data.status === false) {
-        setErrorMessage(data.message || 'Failed to update user');
-      } else {
-        onSuccess();
-        alert('User updated successfully');
-      }
-    } catch (err) {
-      console.error('Error updating user:', err);
-      setErrorMessage('An unexpected error occurred. Please try again later.');
+    const data = await res.json();
+    if (data.rcode === 0) {
+      router.push('/auth/admin');
     }
-  };
+
+    if (!res.ok || data.status === false) {
+      setErrorMessage(data.message || 'Failed to update user');
+    } else {
+      onSuccess();
+      alert('User updated successfully');
+    }
+  } catch (err) {
+    console.error('Error updating user:', err);
+    setErrorMessage('An unexpected error occurred. Please try again later.');
+  }
+};
+
 
   return (
     <div className={styles.roh_modal_overlay}>
@@ -167,26 +178,31 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
 
         {/* Common fields */}
         {[
-          'email',
-          'phone_number',
-          'address_1',
-          'landmark',
-          'state',
-          'city',
-          'pincode',
-        ].map((field) => (
-          <div key={field} className={styles.roh_edituser_form_group}>
-            <label htmlFor={field}>{field.replaceAll('_', ' ').toUpperCase()}</label>
-            <input
-              type="text"
-              id={field}
-              name={field}
-              value={formData[field]}
-              onChange={handleChange}
-              className={styles.roh_edituser_input}
-            />
-          </div>
-        ))}
+        'email',
+        'phone_number',
+        'address_1',
+        'landmark',
+        'state',
+        'city',
+        'pincode',
+      ].map((field) => (
+        <div key={field} className={styles.roh_edituser_form_group}>
+          <label htmlFor={field}>{field.replaceAll('_', ' ').toUpperCase()}</label>
+          <input
+            type={
+              field === 'pincode' ? 'number' : 'text'  /** Set type to 'number' for pincode */
+            }
+            id={field}
+            name={field}
+            value={formData[field]}
+            onChange={handleChange}
+            className={styles.roh_edituser_input}
+            min={field === 'pincode' ? 10000 : undefined}  /** Minimum value for pincode (5-digit) */
+            max={field === 'pincode' ? 999999 : undefined}  /** Maximum value for pincode (6-digit) */
+          />
+        </div>
+      ))}
+
 
         {/* Profile Picture Upload */}
         <div className={styles.roh_edituser_form_group}>
