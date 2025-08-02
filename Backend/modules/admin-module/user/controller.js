@@ -34,7 +34,7 @@ function UsersApi() {
                 /** If the profile_picture_url is provided, process it */
                 const fileExtension = path.extname(profile_picture_url); /** e.g. '.webp', '.jpg' */
                 profileImageName = profile_picture_url;  /** File name from request */
-                profileImagePath = `media/users/profile/`;
+                profileImagePath = `/media/users/profile/`;
                 profileImageType = fileExtension.slice(1);  /** Remove the dot (e.g. 'webp', 'jpg') */
     
             }
@@ -217,7 +217,7 @@ function UsersApi() {
                 const fileExtension = path.extname(req.file.filename);
 
                 const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
-                const mediaValues = [req.file.filename, `media/users/profile/`, fileExtension.slice(1), 1];
+                const mediaValues = [req.file.filename, `/media/users/profile/`, fileExtension.slice(1), 1];
 
                 /** Use promise-based query (this is where the fix happens) */
                 const [mediaResult] = await pool.promise().query(mediaQuery, mediaValues);
@@ -288,26 +288,29 @@ function UsersApi() {
     /** View user details in roh_users table Coded by Vishnu July 07 2025 */
     this.ViewUser = async (req, res) => {
         try {
-            const { user_id } = req.body;  // Get user_id from the request body
-    
-            const query = `SELECT * FROM roh_users WHERE user_id = ?`;
-    
+            const { user_id } = req.body;  /** Get user_id from the request body */
+
+            /** Query to fetch user details along with profile picture from the roh_media_gallery table */
+            const query = `SELECT u.*, m.file_name, m.file_path FROM roh_users u LEFT JOIN roh_media_gallery m ON u.profile_picture_url = m.id WHERE u.user_id = ?`;
+
             pool.query(query, [user_id], (err, result) => {
                 if (err) {
                     return GLOBAL_ERROR_RESPONSE("Error fetching user details", err, res);
                 }
-    
+
                 if (result.length === 0) {
                     return GLOBAL_ERROR_RESPONSE("User not found", {}, res);
                 }
-    
+
                 return GLOBAL_SUCCESS_RESPONSE("User details fetched successfully", result, res);
             });
-    
+
         } catch (err) {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
+
 }
 
 module.exports = new UsersApi();
+

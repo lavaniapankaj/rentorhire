@@ -10,7 +10,7 @@ const fs = require('fs');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Set the path to the frontend directory
-    const uploadPath = path.join(__dirname, '../../../../frontend/src/app/media/users/profile/');
+    const uploadPath = path.join(__dirname, '../../../../frontend/public/media/users/profile/');
     
     // Ensure the folder exists
     if (!fs.existsSync(uploadPath)) {
@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
     let counter = 1;
 
     // Check if the file already exists in the folder
-    while (fs.existsSync(path.join(__dirname, '../../../../frontend/src/app/media/users/profile', newFileName))) {
+    while (fs.existsSync(path.join(__dirname, '../../../../frontend/public/media/users/profile', newFileName))) {
       // If it exists, append the counter (e.g., pankaj-img-1-1.webp, pankaj-img-1-2.webp)
       newFileName = `${fileNameWithoutExt}-${counter}${fileExtension}`;
       counter++;
@@ -105,4 +105,3 @@ app.post(
         UserController.ViewUser(req, res, next); // Call the controller
     }
 );
-

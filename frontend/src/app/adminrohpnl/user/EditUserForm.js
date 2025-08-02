@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import styles from '../admin.module.css';
 
 export default function EditUserForm({ user, onClose, roles: initialRoles, onSuccess }) {
@@ -17,7 +17,19 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
     state: user.state,
     city: user.city,
     pincode: user.pincode,
+    file_name: user.file_name || '',
+    file_path: user.file_path || '',
   });
+
+  const imageToShow = useMemo(() => {
+    return (formData.file_path && formData.file_name && formData.file_path !== '/nullnull' && formData.file_name !== '/nullnull')
+      ? `${formData.file_path}${formData.file_name}`
+      : '/media/users/profile/dummy-profile-img.jpg';
+  }, [formData.file_path, formData.file_name]);
+
+  useEffect(() => {
+    // console.log('imageToShow:', imageToShow);
+  }, [imageToShow]);
 
   const [fetchedRoles, setFetchedRoles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
@@ -33,7 +45,7 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
         try {
           const res = await fetch('http://localhost:8080/api/adminrohpnl/role/roles');
           const data = await res.json();
-          if (data.rcode == 0) {
+          if (data.rcode === 0) {
             router.push('/auth/admin');
           }
 
@@ -70,6 +82,8 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
       city: user.city,
       pincode: user.pincode,
       edit_id: authid,
+      file_name: user.file_name || '',
+      file_path: user.file_path || '',
     });
   }, [user]);
 
@@ -91,53 +105,48 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
     }
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const formDataObj = new FormData();
-  
-  // Append all the form fields (except file)
-  Object.keys(formData).forEach((key) => {
-    formDataObj.append(key, formData[key]);
-  });
-
-  // If a new profile picture is uploaded, append it to the form data
-  const profilePictureFile = document.getElementById('profile_picture_file').files[0];
-  if (profilePictureFile) {
-    formDataObj.append('profile_picture_file', profilePictureFile);
-  }
-
-  try {
-    const res = await fetch('http://localhost:8080/api/adminrohpnl/user/edit', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      },
-      body: formDataObj, // Send the FormData with the file
+    const formDataObj = new FormData();
+    Object.keys(formData).forEach((key) => {
+      formDataObj.append(key, formData[key]);
     });
 
-    const data = await res.json();
-    if (data.rcode === 0) {
-      router.push('/auth/admin');
+    const profilePictureFile = document.getElementById('profile_picture_file').files[0];
+    if (profilePictureFile) {
+      formDataObj.append('profile_picture_file', profilePictureFile);
     }
 
-    if (!res.ok || data.status === false) {
-      setErrorMessage(data.message || 'Failed to update user');
-    } else {
-      onSuccess();
-      alert('User updated successfully');
-    }
-  } catch (err) {
-    console.error('Error updating user:', err);
-    setErrorMessage('An unexpected error occurred. Please try again later.');
-  }
-};
+    try {
+      const res = await fetch('http://localhost:8080/api/adminrohpnl/user/edit', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formDataObj,
+      });
 
+      const data = await res.json();
+      if (data.rcode === 0) {
+        router.push('/auth/admin');
+      }
+
+      if (!res.ok || data.status === false) {
+        setErrorMessage(data.message || 'Failed to update user');
+      } else {
+        onSuccess();
+        alert('User updated successfully');
+      }
+    } catch (err) {
+      console.error('Error updating user:', err);
+      setErrorMessage('An unexpected error occurred. Please try again later.');
+    }
+  };
 
   return (
     <div className={styles.roh_modal_overlay}>
       <form className={styles.roh_edituser_form} onSubmit={handleSubmit}>
-        {/* Username */}
         <div className={styles.roh_edituser_form_group}>
           <label htmlFor="user_name">Username</label>
           <input
@@ -150,7 +159,6 @@ const handleSubmit = async (e) => {
           />
         </div>
 
-        {/* First and Last Name */}
         <div className={styles.roh_edituser_form_row}>
           <div className={`${styles.roh_edituser_form_group} ${styles.roh_edituser_form_group_half}`}>
             <label htmlFor="first_name">First Name</label>
@@ -176,35 +184,30 @@ const handleSubmit = async (e) => {
           </div>
         </div>
 
-        {/* Common fields */}
         {[
-        'email',
-        'phone_number',
-        'address_1',
-        'landmark',
-        'state',
-        'city',
-        'pincode',
-      ].map((field) => (
-        <div key={field} className={styles.roh_edituser_form_group}>
-          <label htmlFor={field}>{field.replaceAll('_', ' ').toUpperCase()}</label>
-          <input
-            type={
-              field === 'pincode' ? 'number' : 'text'  /** Set type to 'number' for pincode */
-            }
-            id={field}
-            name={field}
-            value={formData[field]}
-            onChange={handleChange}
-            className={styles.roh_edituser_input}
-            min={field === 'pincode' ? 10000 : undefined}  /** Minimum value for pincode (5-digit) */
-            max={field === 'pincode' ? 999999 : undefined}  /** Maximum value for pincode (6-digit) */
-          />
-        </div>
-      ))}
+          'email',
+          'phone_number',
+          'address_1',
+          'landmark',
+          'state',
+          'city',
+          'pincode',
+        ].map((field) => (
+          <div key={field} className={styles.roh_edituser_form_group}>
+            <label htmlFor={field}>{field.replaceAll('_', ' ').toUpperCase()}</label>
+            <input
+              type={field === 'pincode' ? 'number' : 'text'}
+              id={field}
+              name={field}
+              value={formData[field]}
+              onChange={handleChange}
+              className={styles.roh_edituser_input}
+              min={field === 'pincode' ? 10000 : undefined}
+              max={field === 'pincode' ? 999999 : undefined}
+            />
+          </div>
+        ))}
 
-
-        {/* Profile Picture Upload */}
         <div className={styles.roh_edituser_form_group}>
           <label htmlFor="profile_picture_file">Profile Picture</label>
           <input
@@ -217,7 +220,16 @@ const handleSubmit = async (e) => {
           />
         </div>
 
-        {/* Role Dropdown */}
+        <div className={styles.roh_edituser_form_group}>
+          <label>Current Profile Picture:</label>
+          <img
+            src={imageToShow}
+            alt="Profile"
+            className={styles.roh_profile_picture}
+            style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+          />
+        </div>
+
         <div className={styles.roh_edituser_form_group}>
           <label htmlFor="user_role_id">User Role</label>
           <select
@@ -239,7 +251,6 @@ const handleSubmit = async (e) => {
           </select>
         </div>
 
-        {/* Password */}
         <div className={styles.roh_edituser_form_group}>
           <label htmlFor="password_hash">Password</label>
           <input
@@ -253,14 +264,12 @@ const handleSubmit = async (e) => {
           <small>Leave blank if you do not want to change the password</small>
         </div>
 
-        {/* Error Message */}
         {errorMessage && (
           <div className={styles.error_message}>
             <p>{errorMessage}</p>
           </div>
         )}
 
-        {/* Buttons */}
         <div className={styles.roh_edituser_form_actions}>
           <button type="submit" className={styles.roh_edituser_submit_btn}>
             Update User
