@@ -43,7 +43,7 @@ app.post(
 );
 
 /** View route details Coded by Vishnu July 07 2025 */
-app.get(
+app.post(
     ADMIN_NAME + "/route/view", 
     authMiddleware,
     ValidateViewRoute, /** Validation middleware */

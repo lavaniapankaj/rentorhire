@@ -3,7 +3,7 @@
     const {validateGetCategory, validateCreateCategory, validateDetailCategory, validateUpdateCategory, validateDeleteCategory } = require('./validation');
 
     /** API to create a category and sub category Coded by Raj July 04 2025 */
-    app.get(
+    app.post(
         ADMIN_NAME + "/category/create",
         authMiddleware,
         validateCreateCategory,
@@ -19,6 +19,16 @@
         validateGetCategory,
         (req, res, next) => {
             Category.categoryList(req, res, next);
+        }
+    );
+
+    /** API to get the parent category list for dropdowns Coded by Raj July 27 2025 */
+    app.get(
+        ADMIN_NAME + "/category/getParent",
+        authMiddleware,
+        // validateGetCategory,
+        (req, res, next) => {
+            Category.parentCategoryDropdown(req, res, next);
         }
     );
 
@@ -43,7 +53,7 @@
     )
 
     /** API to delete the category data(soft delete) Coded by Raj July 05 2025 */
-    app.get(
+    app.post(
         ADMIN_NAME + "/category/delete",
         authMiddleware,
         validateDeleteCategory,

@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 /** Admin login - Coded by Raj - July 11 2025 */
 export default function AdminLoginPage() {
@@ -9,7 +10,24 @@ export default function AdminLoginPage() {
     const [password, setPassword] = useState('');
 
     useEffect(() => {
-      localStorage.clear(); /* removes all keys from localStorage */
+      
+      /** Checking for the token and redirecting on the dashboard if the token is not expired */
+      const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+      };
+      
+      const token = getCookie('authToken');
+      if(token){
+        const decodedToken = jwtDecode(token);
+        const currentTime = Date.now() / 1000;
+      
+        if (decodedToken.exp > currentTime) {
+          // localStorage.clear();
+          router.push('/adminrohpnl');
+        }
+      } 
     }, []); 
 
     const handleSubmit = async (e) => {

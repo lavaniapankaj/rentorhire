@@ -47,15 +47,6 @@ export default function ListUserPage() {
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    
-  // const authUserData = localStorage.getItem('authUser');
-  // const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
-  // console.log(token, parsedAuthUserData);
-  // if (!token || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
-  //   // Redirect to the login page or handle the redirect logic here
-  //   router.push('/auth/admin');
-  // }
-
     const fetchUsers = async () => {
       if (!initialLoad) setLoading(true);
       try {
@@ -231,6 +222,12 @@ export default function ListUserPage() {
     setViewUser(null);
   };
 
+  // Close the edit model and show the updated list of category
+  // const closeEditModal = () => {
+  //   setIsEditModalOpen(false);
+  //   setEditUser(null);
+  // };
+
   if (initialLoad && loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -366,15 +363,9 @@ export default function ListUserPage() {
 
       {/* Add New User Modal */}
       {isModalOpen && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', justifyContent: 'center',
-          alignItems: 'center', zIndex: 1000
-        }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
           <div className={styles.modalContent}>
-            <button 
-              className={styles.modalCloseButton}
-              onClick={closeModal}>
+            <button className={styles.modalCloseButton} onClick={closeModal}>
               ×
             </button>
             <AddUserForm onClose={closeModal} onSuccess={() => { setIsModalOpen(false); }} />
@@ -384,17 +375,11 @@ export default function ListUserPage() {
 
       {/* Edit User Modal */}
       {isEditModalOpen && editUser && (
-        <EditUserForm
-          user={editUser}
-          roles={roles}
-          onClose={closeEditModal}
-          onSuccess={() => {
-            setFilters((prev) => ({ ...prev }));
+        <EditUserForm user={editUser} roles={roles} onClose={closeEditModal} onSuccess={() => { setFilters((prev) => ({ ...prev }));
             closeEditModal();
           }}
         />
       )}
-
 
       {/* View User Modal */}
       {isViewModalOpen && viewUser && (

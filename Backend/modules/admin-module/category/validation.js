@@ -1,8 +1,9 @@
 // Create Category Validation Coded by Raj July 04 2025
 const validateCreateCategory = (req, res, next) => {
-    console.log("validation check here, create category");
 
-    const { name } = req.body;
+    console.log("req.body>> ", req.body);
+    
+    const { name  } = req.body;
 
     if (!name || typeof name !== 'string' || name.trim() === '') {
         return res.status(400).json({

@@ -50,23 +50,41 @@ function RoutesApi() {
             const page = parseInt(req.body.page) || 1;
             const limit = parseInt(req.body.limit) || 5;
             const offset = (page - 1) * limit;
-    
-            const query = `SELECT * FROM roh_routes LIMIT ? OFFSET ?`;
-    
-            const connection = pool.promise ? pool.promise() : pool;
-            const [rows] = await connection.execute(query, [limit, offset]);
-    
-            if (rows.length === 0) {
-                return GLOBAL_ERROR_RESPONSE("No routes found", {}, res);
-            }
-    
-            return GLOBAL_SUCCESS_RESPONSE("Routes fetched successfully", rows, res);
-    
+        
+            const sql = `SELECT * FROM roh_routes WHERE active = 1`;
+        
+            pool.query(sql, (error, results) => {
+                if (error) {
+                    return GLOBAL_ERROR_RESPONSE("Internal server error", error, res);
+                }
+        
+                const total = results.length;
+                const totalPages = Math.ceil(total / limit);
+        
+                if (total === 0 || page > totalPages) {
+                    return GLOBAL_SUCCESS_RESPONSE("No routes found.", {
+                        routesList: [],
+                        page,
+                        limit,
+                        total,
+                        totalPages
+                    }, res);
+                }
+        
+                const paginatedRoutes = results.slice(offset, offset + limit);
+        
+                return GLOBAL_SUCCESS_RESPONSE("Routes fetched successfully", {
+                    routes: paginatedRoutes,
+                    page,
+                    limit,
+                    total,
+                    totalPages,
+                }, res);
+            });
         } catch (err) {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
-    
     
     /** Edit route in roh_routes table Coded by Vishnu July 07 2025 */
     this.EditRoute = async (req, res) => {
@@ -134,19 +152,13 @@ function RoutesApi() {
                     return GLOBAL_ERROR_RESPONSE("Route not found", {}, res);
                 }
     
-                return GLOBAL_SUCCESS_RESPONSE("Route details fetched successfully", result, res);
+                return GLOBAL_SUCCESS_RESPONSE("Route details fetched successfully", result[0], res);
             });
     
         } catch (err) {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
-    
-
-
-    
-    
-    
 }
 
 module.exports = new RoutesApi();
