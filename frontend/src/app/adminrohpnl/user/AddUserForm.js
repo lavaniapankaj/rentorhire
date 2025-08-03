@@ -22,7 +22,12 @@ const initialFormState = {
 export default function AddUserForm({ onSuccess, onClose }) {
   const [form, setForm] = useState(initialFormState);
   const [roles, setRoles] = useState([]);
+
   const token = localStorage.getItem('authToken');
+  const admindtl = localStorage.getItem('authUser');
+  const authUser = JSON.parse(admindtl);
+  const authid = authUser.id;
+
   const fetchedOnce = useRef(false); // ✅ used to prevent double call
 
   // ✅ Fetch roles on component mount
@@ -63,54 +68,52 @@ export default function AddUserForm({ onSuccess, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(form.password_hash, salt);
-
-    const payload = {
-      user_name: form.user_name,
-      first_name: form.first_name,
-      last_name: form.last_name,
-      email: form.email,
-      phone_number: form.phone_number,
-      password_hash: hashedPassword,
-      user_role_id: parseInt(form.user_role),
-      profile_picture_url: 'http://localhost:3000/adminrohpnl',
-      address_1: form.address_1,
-      landmark: form.landmark,
-      state: form.state,
-      city: form.city,
-      pincode: parseInt(form.pincode),
-      add_id: 1,
-      edit_id: 1
-    };
-
+  
+    const payload = new FormData();
+    payload.append('user_name', form.user_name);
+    payload.append('first_name', form.first_name);
+    payload.append('last_name', form.last_name);
+    payload.append('email', form.email);
+    payload.append('phone_number', form.phone_number);
+    payload.append('password_hash', hashedPassword);
+    payload.append('user_role_id', parseInt(form.user_role));
+    payload.append('profile_picture_file', form.profile_picture_file); // Add file to FormData
+    payload.append('address_1', form.address_1);
+    payload.append('landmark', form.landmark);
+    payload.append('state', form.state);
+    payload.append('city', form.city);
+    payload.append('pincode', parseInt(form.pincode));
+    payload.append('add_id', authid);
+    payload.append('edit_id', 0);
+  
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/user/create', {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}` // No Content-Type here, FormData sets it automatically
         },
-        body: JSON.stringify(payload)
+        body: payload
       });
-
+  
       const data = await res.json();
       alert(data?.message || 'Unknown response');
-
+  
       if (!res.ok || data.status === false) {
-        console.error('Backend Error:', data);
         return;
       }
-
+  
       setForm(initialFormState);
       if (onSuccess) onSuccess();
       if (onClose) onClose();
     } catch (err) {
-      console.error('❌ API Error:', err);
+      console.error('API Error:', err);
       alert('Server error');
     }
   };
+  
 
   return (
     <>
@@ -142,27 +145,33 @@ export default function AddUserForm({ onSuccess, onClose }) {
 
         {/* Other Fields */}
         {[
-          'user_name',
-          'email',
-          'phone_number',
-          'password_hash',
-          'address_1',
-          'landmark',
-          'state',
-          'city',
-          'pincode'
-        ].map((field) => (
-          <div key={field} className={styles.adminUserAddFormGroup}>
-            <label htmlFor={field}>{field.replaceAll('_', ' ').toUpperCase()}</label>
-            <input
-              type={field.includes('password') ? 'password' : 'text'}
-              id={field}
-              name={field}
-              value={form[field]}
-              onChange={handleChange}
-            />
-          </div>
-        ))}
+        'user_name',
+        'email',
+        'phone_number',
+        'password_hash',
+        'address_1',
+        'landmark',
+        'state',
+        'city',
+        'pincode'
+      ].map((field) => (
+        <div key={field} className={styles.adminUserAddFormGroup}>
+          <label htmlFor={field}>{field.replaceAll('_', ' ').toUpperCase()}</label>
+          <input
+            type={
+              field.includes('password') ? 'password' :
+              field === 'pincode' ? 'number' : 'text'
+            }
+            id={field}
+            name={field}
+            value={form[field]}
+            onChange={handleChange}
+            min={field === 'pincode' ? 10000 : undefined}  /** Ensure pincode is at least a 5-digit number */
+            max={field === 'pincode' ? 999999 : undefined}  /** Ensure pincode does not exceed 6 digits */
+          />
+        </div>
+      ))}
+
 
         {/* Profile Picture */}
         <div className={styles.adminUserAddFormGroup}>

@@ -100,23 +100,40 @@ function StateApi() {
       
     /** Edit state in state collection Coded by Vishnu July 04 2025 */
     this.EditState = async (req, res) => {
-        try {
-            const { state_id, state_name, state_slug, add_id = 1, edit_id = 1 } = req.body;
-
-            /** Update the state */
-            const query = `
-                UPDATE roh_states SET state_name = ?, state_slug = ?, add_id = ?, edit_id = ?, active = ? WHERE state_id = ?
-            `;
-
-            pool.query(query, [state_name, state_slug, add_id, edit_id, 1, state_id], (err, result) => {
-                if (err) {
-                    return GLOBAL_ERROR_RESPONSE("Error updating state", err, res);
-                }
-                return GLOBAL_SUCCESS_RESPONSE("State updated successfully", result, res);
-            });
-        } catch (err) {
-            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
-        }
+      try {
+          const { state_id, state_name, state_slug, edit_id } = req.body;
+  
+          // Check if the slug already exists for a different state
+          const checkSlugQuery = `
+              SELECT state_id FROM roh_states WHERE state_slug = ? AND state_id != ?
+          `;
+          
+          pool.query(checkSlugQuery, [state_slug, state_id], (err, result) => {
+              if (err) {
+                  return GLOBAL_ERROR_RESPONSE("Error checking for existing slug", err, res);
+              }
+  
+              if (result.length > 0) {
+                  return GLOBAL_ERROR_RESPONSE("Slug already exists for another state", null, res);
+              }
+  
+              // Only update name, slug, and edit_id
+              const updateQuery = `
+                  UPDATE roh_states 
+                  SET state_name = ?, state_slug = ?, edit_id = ? 
+                  WHERE state_id = ?
+              `;
+  
+              pool.query(updateQuery, [state_name, state_slug, edit_id, state_id], (err, result) => {
+                  if (err) {
+                      return GLOBAL_ERROR_RESPONSE("Error updating state", err, res);
+                  }
+                  return GLOBAL_SUCCESS_RESPONSE("State updated successfully", result, res);
+              });
+          });
+      } catch (err) {
+          return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+      }
     };
 
     /** Delete state in state collection Coded by Vishnu July 04 2025 */
@@ -146,6 +163,41 @@ function StateApi() {
 
         } catch (err) {
             console.error("Error in DeleteState:", err);  /** Log the error for debugging */
+            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+        }
+    };
+
+    /** Get state in state collection Coded by Vishnu July 22 2025 */
+    this.GetSingleState = async (req, res) => {
+        try {
+            const { state_id } = req.body;
+            const query = `
+                SELECT * FROM roh_states WHERE state_id = ?
+            `;
+            pool.query(query, [state_id], (err, result) => {
+                if (err) {
+                    return GLOBAL_ERROR_RESPONSE("Error getting state", err, res);
+                }
+                return GLOBAL_SUCCESS_RESPONSE("State fetched successfully", result, res);
+            });
+        } catch (err) {
+            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+        }
+    };
+
+    /** get all state id and state name  collection Coded by Vishnu July 24 2025 */
+    this.GetAllActiveState = async (req, res) => {
+        try {
+            const query = `
+                SELECT state_id, state_name FROM roh_states WHERE active = 1
+            `;
+            pool.query(query, (err, result) => {
+                if (err) {
+                    return GLOBAL_ERROR_RESPONSE("Error getting states", err, res);
+                }
+                return GLOBAL_SUCCESS_RESPONSE("States fetched successfully", result, res);
+            });
+        } catch (err) {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };

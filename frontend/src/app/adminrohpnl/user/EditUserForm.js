@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import bcrypt from 'bcryptjs';
+import { useState, useEffect, useMemo } from 'react';
 import styles from '../admin.module.css';
 
 export default function EditUserForm({ user, onClose, roles: initialRoles, onSuccess }) {
@@ -18,11 +17,27 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
     state: user.state,
     city: user.city,
     pincode: user.pincode,
+    file_name: user.file_name || '',
+    file_path: user.file_path || '',
   });
+
+  const imageToShow = useMemo(() => {
+    return (formData.file_path && formData.file_name && formData.file_path !== '/nullnull' && formData.file_name !== '/nullnull')
+      ? `${formData.file_path}${formData.file_name}`
+      : '/media/users/profile/dummy-profile-img.jpg';
+  }, [formData.file_path, formData.file_name]);
+
+  useEffect(() => {
+    // console.log('imageToShow:', imageToShow);
+  }, [imageToShow]);
 
   const [fetchedRoles, setFetchedRoles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
+
   const token = localStorage.getItem('authToken');
+  const admindtl = localStorage.getItem('authUser');
+  const authUser = JSON.parse(admindtl);
+  const authid = authUser.id;
 
   useEffect(() => {
     if (!initialRoles || initialRoles.length === 0) {
@@ -30,8 +45,7 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
         try {
           const res = await fetch('http://localhost:8080/api/adminrohpnl/role/roles');
           const data = await res.json();
-          /** recode = 0 is used for the token error */
-          if(data.rcode == 0){
+          if (data.rcode === 0) {
             router.push('/auth/admin');
           }
 
@@ -67,6 +81,9 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
       state: user.state,
       city: user.city,
       pincode: user.pincode,
+      edit_id: authid,
+      file_name: user.file_name || '',
+      file_path: user.file_path || '',
     });
   }, [user]);
 
@@ -83,57 +100,53 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
     if (file) {
       setFormData((prev) => ({
         ...prev,
-        profile_picture_url: URL.createObjectURL(file), // Preview only
+        profile_picture_url: URL.createObjectURL(file),
       }));
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    if (formData.password_hash.trim().length < 8) {
-      alert('Password must be at least 8 characters long');
-      return;
+
+    const formDataObj = new FormData();
+    Object.keys(formData).forEach((key) => {
+      formDataObj.append(key, formData[key]);
+    });
+
+    const profilePictureFile = document.getElementById('profile_picture_file').files[0];
+    if (profilePictureFile) {
+      formDataObj.append('profile_picture_file', profilePictureFile);
     }
-  
-    const updatedData = { ...formData };
-    updatedData.password_hash = bcrypt.hashSync(formData.password_hash.trim(), 10);
-  
+
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/user/edit', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(updatedData),
+        body: formDataObj,
       });
-  
+
       const data = await res.json();
-      /** recode = 0 is used for the token error */
-      if(data.rcode == 0){
+      if (data.rcode === 0) {
         router.push('/auth/admin');
       }
 
       if (!res.ok || data.status === false) {
-        // Show error message from API response
         setErrorMessage(data.message || 'Failed to update user');
       } else {
-        onSuccess(); // 👈 Refresh + close modal
+        onSuccess();
         alert('User updated successfully');
       }
     } catch (err) {
-      // Handle fetch errors
       console.error('Error updating user:', err);
       setErrorMessage('An unexpected error occurred. Please try again later.');
     }
   };
-  
 
   return (
     <div className={styles.roh_modal_overlay}>
       <form className={styles.roh_edituser_form} onSubmit={handleSubmit}>
-        {/* Username (non-editable) */}
         <div className={styles.roh_edituser_form_group}>
           <label htmlFor="user_name">Username</label>
           <input
@@ -146,7 +159,6 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
           />
         </div>
 
-        {/* First and Last Name */}
         <div className={styles.roh_edituser_form_row}>
           <div className={`${styles.roh_edituser_form_group} ${styles.roh_edituser_form_group_half}`}>
             <label htmlFor="first_name">First Name</label>
@@ -172,7 +184,6 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
           </div>
         </div>
 
-        {/* Common fields */}
         {[
           'email',
           'phone_number',
@@ -185,17 +196,18 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
           <div key={field} className={styles.roh_edituser_form_group}>
             <label htmlFor={field}>{field.replaceAll('_', ' ').toUpperCase()}</label>
             <input
-              type="text"
+              type={field === 'pincode' ? 'number' : 'text'}
               id={field}
               name={field}
               value={formData[field]}
               onChange={handleChange}
               className={styles.roh_edituser_input}
+              min={field === 'pincode' ? 10000 : undefined}
+              max={field === 'pincode' ? 999999 : undefined}
             />
           </div>
         ))}
 
-        {/* Profile Picture Upload */}
         <div className={styles.roh_edituser_form_group}>
           <label htmlFor="profile_picture_file">Profile Picture</label>
           <input
@@ -208,7 +220,16 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
           />
         </div>
 
-        {/* Role Dropdown */}
+        <div className={styles.roh_edituser_form_group}>
+          <label>Current Profile Picture:</label>
+          <img
+            src={imageToShow}
+            alt="Profile"
+            className={styles.roh_profile_picture}
+            style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+          />
+        </div>
+
         <div className={styles.roh_edituser_form_group}>
           <label htmlFor="user_role_id">User Role</label>
           <select
@@ -230,7 +251,6 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
           </select>
         </div>
 
-        {/* Password */}
         <div className={styles.roh_edituser_form_group}>
           <label htmlFor="password_hash">Password</label>
           <input
@@ -241,17 +261,15 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
             onChange={handleChange}
             className={styles.roh_edituser_input}
           />
-          <small>Password must be at least 8 characters</small>
+          <small>Leave blank if you do not want to change the password</small>
         </div>
 
-        {/* Error Message */}
         {errorMessage && (
           <div className={styles.error_message}>
             <p>{errorMessage}</p>
           </div>
         )}
 
-        {/* Buttons */}
         <div className={styles.roh_edituser_form_actions}>
           <button type="submit" className={styles.roh_edituser_submit_btn}>
             Update User

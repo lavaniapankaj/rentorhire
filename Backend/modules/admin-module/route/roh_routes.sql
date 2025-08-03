@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jul 07, 2025 at 07:29 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: localhost:3306
+-- Generation Time: Aug 03, 2025 at 06:30 PM
+-- Server version: 5.7.24
+-- PHP Version: 8.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,15 +30,25 @@ SET time_zone = "+00:00";
 CREATE TABLE `roh_routes` (
   `id` int(11) NOT NULL,
   `route_name` varchar(255) NOT NULL,
-  `access_type` varchar(100) DEFAULT NULL,
-  `route_type` varchar(100) DEFAULT NULL,
+  `access_type` tinyint(4) DEFAULT '1' COMMENT '1 = View, 2 = All',
+  `route_type` tinyint(4) DEFAULT '3' COMMENT '1 = Admin, 2 = User, 3 = Public',
   `group_name` varchar(100) DEFAULT NULL,
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT 1,
-  `add_date` datetime DEFAULT current_timestamp(),
-  `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(4) DEFAULT '1',
+  `add_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `roh_routes`
+--
+
+INSERT INTO `roh_routes` (`id`, `route_name`, `access_type`, `route_type`, `group_name`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
+(1, 'route/create', 1, 2, '2', 1, 1, 1, '2025-07-08 21:32:01', '2025-08-03 23:59:17'),
+(2, 'role/create', 2, 1, '2', 1, 1, 1, '2025-07-08 21:32:01', '2025-08-03 23:59:21'),
+(3, 'Test', 2, 1, '3', 1, 1, 1, '2025-08-03 16:09:09', '2025-08-03 23:59:24'),
+(4, 'Test 2', 1, 2, '1', 1, 1, 1, '2025-08-03 16:11:56', '2025-08-03 23:59:28');
 
 --
 -- Indexes for dumped tables
@@ -58,7 +68,7 @@ ALTER TABLE `roh_routes`
 -- AUTO_INCREMENT for table `roh_routes`
 --
 ALTER TABLE `roh_routes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

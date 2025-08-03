@@ -130,7 +130,6 @@ export default function ListRoutePage() {
 
       setCurrentPage(1);
       alert('Route deleted successfully.');
-      setFilters({ ...filters }); // trigger refresh with current filters
     } catch (err) {
       console.error('Delete error:', err);
       alert('An error occurred while deleting the route.');

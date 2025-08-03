@@ -1,5 +1,5 @@
 const authMiddleware = require('../../../middleware/authMiddleware');
-const {ValidateaddnewCity, ValidategetallCity, ValidateeditCity, ValidateDeleteCity} = require("./validation");
+const {ValidateaddnewCity, ValidategetallCity, ValidateeditCity, ValidateDeleteCity, ValidategetsingleCity} = require("./validation");
 const CityController = require("./controller");
 
 
@@ -44,5 +44,16 @@ app.post(
     ValidateDeleteCity, /** Validation middleware */
     (req, res, next) => {
         CityController.DeleteCity(req, res, next);/** Call the controller */
+    }
+);
+
+/*** get single city all details Coded by Vishnu July 24 2025 */
+app.post(
+    ADMIN_NAME + "/city/getsingle", 
+    //checkLoginAuth,
+    authMiddleware,
+    ValidategetsingleCity, /** Validation middleware */
+    (req, res, next) => {
+        CityController.GetSingleCity(req, res, next);/** Call the controller */
     }
 );

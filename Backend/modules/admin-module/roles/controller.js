@@ -5,13 +5,13 @@ function roleApi() {
     /** Add new role to roles collection Coded by Raj July 06 2025 */
     this.addRole = (req, res) => {
         try {
-            const { name, add_id = 1, edit_id = 1} = req.body;
+            const { name, active, add_id, edit_id=0} = req.body;
 
             /** SQL query to add a new role */
-            const query = `INSERT INTO roh_roles (name, add_id, edit_id) VALUES (?, ?, ?)`;
+            const query = `INSERT INTO roh_roles (name, active, add_id, edit_id) VALUES (?,?, ?, ?)`;
 
             /** Proceed with inserting the role into the database */
-            pool.execute(query, [name, add_id, edit_id], (err, result) => {
+            pool.execute(query, [name,active, add_id, edit_id], (err, result) => {
                 if (err) {
                     return GLOBAL_ERROR_RESPONSE("Error saving role.", err, res);
                 }

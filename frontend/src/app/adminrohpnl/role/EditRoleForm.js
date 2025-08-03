@@ -5,10 +5,9 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
   const [roleName, setRoleName] = useState('');
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-  const editId = 2; // Static editor ID
   const token = localStorage.getItem('authToken');
 
-  const hasFetched = useRef(false); // ✅ prevents duplicate fetch
+  const hasFetched = useRef(false); // prevents duplicate fetch
 
   useEffect(() => {
     if (hasFetched.current) return;
@@ -43,6 +42,10 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
     e.preventDefault();
     setErrorMessage('');
 
+    const admindtl = localStorage.getItem('authUser');
+    const authUser = JSON.parse(admindtl);
+    const authid = authUser.id;
+
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/role/update', {
         method: 'POST',
@@ -53,7 +56,7 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
         body: JSON.stringify({
           id: roleId,
           name: roleName,
-          edit_id: editId,
+          edit_id: authid,
         }),
       });
 

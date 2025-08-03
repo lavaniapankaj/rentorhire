@@ -4,14 +4,15 @@ import { useState } from 'react';
 export default function AddRoleForm({ onClose, onSuccess }) {
   const [roleName, setRoleName] = useState('');
   const [status, setStatus] = useState(1);
-  const [addId] = useState(1);
-  const [eddId] = useState(1);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleRoleNameChange = (e) => setRoleName(e.target.value);
   const handleStatusChange = (e) => setStatus(e.target.value);
 
   const token = localStorage.getItem('authToken');
+  const admindtl = localStorage.getItem('authUser');
+  const authUser = JSON.parse(admindtl);
+  const authid = authUser.id;
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
@@ -26,8 +27,8 @@ export default function AddRoleForm({ onClose, onSuccess }) {
         body: JSON.stringify({
           name: roleName,
           active: status,
-          add_id: addId,
-          edd_id: eddId,
+          add_id: authid,
+          edd_id: 0,
         }),
       });
 

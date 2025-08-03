@@ -42,3 +42,10 @@
    ```bash
    npm install jwt-simple bcryptjs
    ```
+
+6. **Media Upload:**
+   For Media upload, install the required packages:
+
+   ```bash
+   npm install multer
+   ```

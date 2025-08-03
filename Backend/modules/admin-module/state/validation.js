@@ -59,8 +59,6 @@ const ValidategetallState = async (req, res, next) => {
     }
 };
 
-
-
 /** Edit state validation Coded by Vishnu July 04 2025 */
 const ValidateeditState = async (req, res, next) => {
     console.log("Validation check here, edit state");
@@ -93,4 +91,28 @@ const ValidateDeleteState = async (req, res, next) => {
     next();
 };
 
-module.exports = { ValidateaddnewState, ValidategetallState, ValidateeditState, ValidateDeleteState };
+/** Get single state validation Coded by Vishnu July 22 2025 */
+const ValidateSingleState = async (req, res, next) => {
+    console.log("Validation check here, get single state");
+
+    /** Destructure the state_id from the request body */
+    const { state_id } = req.body;
+
+    /** Validate if state_id is provided */
+    if (!state_id) {
+        return GLOBAL_ERROR_RESPONSE("State ID is required", {}, res);
+    }
+
+    /** If validation passes, call the next middleware/controller */
+    next();
+};
+
+/** Get all Active state id & name validation Coded by Vishnu July 24 2025 */
+const ValidateAllActiveState = async (req, res, next) => {
+    console.log("Validation check here, get single state");
+
+    /** If validation passes, call the next middleware/controller */
+    next();
+};
+
+module.exports = { ValidateaddnewState, ValidategetallState, ValidateeditState, ValidateDeleteState, ValidateSingleState, ValidateAllActiveState };

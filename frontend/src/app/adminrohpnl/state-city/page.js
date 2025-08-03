@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import AddStateForm from './AddStateForm';
+import EditStateForm from './EditStateForm';
+import CityList from './CityList'; // import CityList component
 
 export default function StateCityPage() {
   const [activeTab, setActiveTab] = useState('states');
   const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -14,70 +15,54 @@ export default function StateCityPage() {
 
   const [searchInput, setSearchInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-
-  const [statusFilter, setStatusFilter] = useState('all'); // 'all', 'active', 'inactive'
+  const [statusFilter, setStatusFilter] = useState('all');
 
   const [isAddStateOpen, setIsAddStateOpen] = useState(false);
+  const [isEditStateOpen, setIsEditStateOpen] = useState(false);
+  const [stateIdToEdit, setStateIdToEdit] = useState(null);
+  const [editStateError, setEditStateError] = useState(null);
 
   const limit = 5;
 
-  // Fetch states function
-  useEffect(() => {
+  // Fetch States
+  const fetchStates = async (page = currentPage) => {
     if (activeTab !== 'states') return;
+    setLoading(true);
+    const token = localStorage.getItem('authToken');
 
-    const fetchStates = async () => {
-      setLoading(true);
-      const token = localStorage.getItem('authToken');
-      try {
-        const res = await fetch('http://localhost:8080/api/adminrohpnl/state/get', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            page: currentPage,
-            limit: limit,
-            search: searchTerm,
-            status: statusFilter,
-          }),
-        });
+    try {
+      const res = await fetch('http://localhost:8080/api/adminrohpnl/state/get', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ page, limit, search: searchTerm, status: statusFilter }),
+      });
 
-        if (!res.ok) throw new Error('Failed to fetch states');
+      if (!res.ok) throw new Error('Failed to fetch states');
 
-        const data = await res.json();
-
-        if (data.status) {
-          setStates(data.data || []);
-          setTotalPages(data.totalPages || Math.ceil(data.totalCount / limit) || 1);
-        } else {
-          setStates([]);
-          setTotalPages(1);
-        }
-      } catch (error) {
-        console.error('Error fetching states:', error);
+      const data = await res.json();
+      if (data.status) {
+        setStates(data.data || []);
+        setTotalPages(data.totalPages || Math.ceil(data.totalCount / limit) || 1);
+      } else {
         setStates([]);
         setTotalPages(1);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error('Error fetching states:', error);
+      setStates([]);
+      setTotalPages(1);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchStates();
   }, [currentPage, activeTab, searchTerm, statusFilter]);
 
-  // Fetch cities (dummy data)
-  useEffect(() => {
-    if (activeTab === 'cities') {
-      setCities([
-        { id: 1, name: 'Los Angeles' },
-        { id: 2, name: 'Houston' },
-        { id: 3, name: 'Chicago' },
-      ]);
-    }
-  }, [activeTab]);
-
-  // Handlers
   const handleTabClick = (tab) => {
     setActiveTab(tab);
     setCurrentPage(1);
@@ -108,13 +93,79 @@ export default function StateCityPage() {
     setCurrentPage(1);
   };
 
-  // Called after a new state is added successfully
   const handleStateAdded = () => {
     setIsAddStateOpen(false);
     setCurrentPage(1);
     setSearchTerm('');
     setSearchInput('');
     setStatusFilter('all');
+  };
+
+  const handleEditState = async (state_id) => {
+    setStateIdToEdit(state_id);
+    setIsEditStateOpen(true);
+  };
+
+  const handleStateUpdated = async (updatedState) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      const res = await fetch('http://localhost:8080/api/adminrohpnl/state/edit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedState),
+      });
+
+      if (!res.ok) throw new Error('Failed to update state');
+
+      const data = await res.json();
+      if (data.status) {
+        setIsEditStateOpen(false);
+        setEditStateError(null);
+        await fetchStates(currentPage);
+        return { success: true };
+      } else {
+        return { error: data.message || 'Failed to update state' };
+      }
+    } catch (error) {
+      console.error('Error updating state:', error);
+      return { error: 'An error occurred while updating the state.' };
+    }
+  };
+
+  const handleDeleteState = async (state_id) => {
+    if (!window.confirm('Are you sure you want to delete this state?')) return;
+
+    setLoading(true);
+    const token = localStorage.getItem('authToken');
+
+    try {
+      const res = await fetch('http://localhost:8080/api/adminrohpnl/state/delete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ state_id }),
+      });
+
+      if (!res.ok) throw new Error('Failed to delete state');
+
+      const data = await res.json();
+
+      if (data.status) {
+        await fetchStates(currentPage);
+      } else {
+        alert(data.message || 'Failed to delete state');
+      }
+    } catch (error) {
+      console.error('Error deleting state:', error);
+      alert('An error occurred while deleting the state.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -136,14 +187,16 @@ export default function StateCityPage() {
         </button>
       </div>
 
-      {/* STATES TAB */}
+      {/* === STATES TAB === */}
       {activeTab === 'states' && (
         <div className="rohstate_container">
           <h2>States</h2>
 
           <div style={{ marginBottom: 20, display: 'flex', gap: '10px', alignItems: 'center' }}>
-            {/* Search Form */}
-            <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+            <form
+              onSubmit={handleSearchSubmit}
+              style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}
+            >
               <input
                 type="text"
                 value={searchInput}
@@ -151,24 +204,20 @@ export default function StateCityPage() {
                 placeholder="Search by state name"
                 style={{ padding: 8, minWidth: 200 }}
               />
-              <button type="submit" style={{ padding: '8px 16px' }}>Search</button>
-              <button
-                type="button"
-                onClick={handleClearSearch}
-                style={{ padding: '8px 16px' }}
-              >
+              <button type="submit" style={{ padding: '8px 16px' }}>
+                Search
+              </button>
+              <button type="button" onClick={handleClearSearch} style={{ padding: '8px 16px' }}>
                 Clear
               </button>
             </form>
 
-            {/* Status Filter */}
             <select value={statusFilter} onChange={handleStatusChange} style={{ padding: 8, minWidth: 120 }}>
               <option value="all">All Status</option>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
 
-            {/* Add New State Button */}
             <button
               onClick={() => setIsAddStateOpen(true)}
               style={{ marginLeft: 'auto', padding: '8px 20px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: 4 }}
@@ -182,12 +231,14 @@ export default function StateCityPage() {
           ) : (
             <>
               <table className="rohstate_table" border="1" cellPadding="8" style={{ width: '100%', borderCollapse: 'collapse' }}>
+                {/* Table Headers remain fixed */}
                 <thead style={{ backgroundColor: '#f0f0f0' }}>
                   <tr>
                     <th>State ID</th>
                     <th>State Name</th>
                     <th>State Slug</th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -198,30 +249,34 @@ export default function StateCityPage() {
                         <td>{state.state_name}</td>
                         <td>{state.state_slug}</td>
                         <td>{state.active === 1 ? 'Active' : 'Inactive'}</td>
+                        <td>
+                          <button onClick={() => handleEditState(state.state_id)}>Edit</button> |{' '}
+                          <button
+                            onClick={() => handleDeleteState(state.state_id)}
+                            disabled={loading || state.active !== 1}
+                            title={state.active !== 1 ? "Inactive state can't be deleted" : "Delete state"}
+                          >
+                            Delete
+                          </button>
+                        </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="4" style={{ textAlign: 'center' }}>No states found.</td>
+                      <td colSpan="5" style={{ textAlign: 'center' }}>
+                        No states found.
+                      </td>
                     </tr>
                   )}
                 </tbody>
               </table>
 
               <div className="rohstate_pagination" style={{ marginTop: 15, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 15 }}>
-                <button
-                  onClick={handlePrevPage}
-                  disabled={currentPage === 1 || loading}
-                  style={{ padding: '8px 16px' }}
-                >
+                <button onClick={handlePrevPage} disabled={currentPage === 1 || loading} style={{ padding: '8px 16px' }}>
                   Previous
                 </button>
                 <span>{`Page ${currentPage} of ${totalPages}`}</span>
-                <button
-                  onClick={handleNextPage}
-                  disabled={currentPage === totalPages || loading}
-                  style={{ padding: '8px 16px' }}
-                >
+                <button onClick={handleNextPage} disabled={currentPage === totalPages || loading} style={{ padding: '8px 16px' }}>
                   Next
                 </button>
               </div>
@@ -230,25 +285,21 @@ export default function StateCityPage() {
         </div>
       )}
 
-      {/* CITIES TAB */}
-      {activeTab === 'cities' && (
-        <div className="rohcity_container">
-          <h2>Cities</h2>
-          <ul className="rohcity_list">
-            {cities.map((city) => (
-              <li key={city.id} className="rohcity_item">
-                {city.name}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* === CITIES TAB === */}
+      {activeTab === 'cities' && <CityList />}
 
-      {/* AddStateForm Modal */}
-      {isAddStateOpen && (
-        <AddStateForm
-          onClose={() => setIsAddStateOpen(false)}
-          onStateAdded={handleStateAdded}
+      {isAddStateOpen && <AddStateForm onClose={() => setIsAddStateOpen(false)} onStateAdded={handleStateAdded} />}
+
+      {isEditStateOpen && (
+        <EditStateForm
+          key={stateIdToEdit}
+          state_id={stateIdToEdit}
+          onClose={() => {
+            setIsEditStateOpen(false);
+            setEditStateError(null);
+          }}
+          onStateUpdated={handleStateUpdated}
+          error={editStateError}
         />
       )}
     </div>
