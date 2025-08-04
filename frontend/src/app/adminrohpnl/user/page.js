@@ -15,7 +15,7 @@ export default function ListUserPage() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit] = useState(1);
+  const [limit] = useState(5);
   const [editUser, setEditUser] = useState(null);
   const router = useRouter();
 

@@ -95,44 +95,71 @@ function UsersApi() {
     /** Get all users in roh_users table Coded by Vishnu July 07 2025 */
     this.GetAllUsers = async (req, res) => {
         try {
-            const page = parseInt(req.body.page) || 1;
-            const limit = parseInt(req.body.limit) || 10;
+            const page = parseInt(req.body.page) || 1; // Default to page 1
+            const limit = parseInt(req.body.limit) || 10; // Default limit 10
             const offset = (page - 1) * limit;
-    
+
             // Capture filter parameters
             const userName = req.body.user_name || '';
             const userRoleId = req.body.user_role_id || '';
-            const active = req.body.active !== undefined ? req.body.active : '';  // Empty string means no filter
-    
+            const active = req.body.active !== undefined ? req.body.active : ''; // Empty string means no filter
+
             const connection = pool.promise();
-    
-            // Fetch all users without pagination first
+
+            // Modified query to include pagination directly
             let query = `SELECT user_id, user_name, first_name, last_name, email, phone_number, user_role_id, add_id, edit_id, active FROM roh_users WHERE 1=1`;
             let queryParams = [];
-    
+
             if (userName) {
                 query += ` AND (user_name LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR phone_number LIKE ?)`;
                 const likeValue = `%${userName}%`;
                 queryParams.push(likeValue, likeValue, likeValue, likeValue, likeValue);
             }
-            
+
             if (userRoleId) {
                 query += ' AND user_role_id = ?';
                 queryParams.push(userRoleId);
             }
+
             if (active !== '') {
                 query += ' AND active = ?';
                 queryParams.push(active);
             }
-    
-            // Get all users that match the filters
-            const [allUsers] = await connection.execute(query, queryParams);
-    
-            // Total count of filtered users
-            const total = allUsers.length;
+
+            // Adding pagination to query (LIMIT and OFFSET)
+            query += ' LIMIT ? OFFSET ?';
+            queryParams.push(limit, offset);
+
+            // Execute query with pagination
+            const [paginatedUsers] = await connection.execute(query, queryParams);
+            // console.log('Paginated users:', paginatedUsers);
+
+            // To get the total count for pagination, do a second query for count
+            let countQuery = `SELECT COUNT(*) AS total FROM roh_users WHERE 1=1`;
+            let countQueryParams = [];
+            
+            // Adding filters to count query
+            if (userName) {
+                countQuery += ` AND (user_name LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR email LIKE ? OR phone_number LIKE ?)`;
+                countQueryParams.push(likeValue, likeValue, likeValue, likeValue, likeValue);
+            }
+
+            if (userRoleId) {
+                countQuery += ' AND user_role_id = ?';
+                countQueryParams.push(userRoleId);
+            }
+
+            if (active !== '') {
+                countQuery += ' AND active = ?';
+                countQueryParams.push(active);
+            }
+
+            // Get total count of filtered users
+            const [totalResult] = await connection.execute(countQuery, countQueryParams);
+            const total = totalResult[0].total;
             const totalPages = Math.ceil(total / limit);
-    
-            // If no users at all
+
+            // If no users at all or if page exceeds total pages
             if (total === 0 || page > totalPages) {
                 return GLOBAL_SUCCESS_RESPONSE("No users found", {
                     users: [],
@@ -142,10 +169,7 @@ function UsersApi() {
                     totalPages
                 }, res);
             }
-    
-            // Now paginate the filtered results
-            const paginatedUsers = allUsers.slice(offset, offset + limit);
-    
+
             return GLOBAL_SUCCESS_RESPONSE("Users fetched successfully", {
                 users: paginatedUsers,
                 page,
@@ -153,7 +177,7 @@ function UsersApi() {
                 total,
                 totalPages,
             }, res);
-    
+
         } catch (err) {
             console.error("GetAllUsers error:", err);
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
