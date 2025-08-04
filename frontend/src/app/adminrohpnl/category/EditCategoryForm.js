@@ -104,6 +104,8 @@ export default function EditCategoryForm({ category, onClose, onSuccess }) {
   return (
     <div className={styles.roh_modal_overlay}>
       <form className={styles.roh_edituser_form} onSubmit={handleSubmit}>
+      <button className={styles.modalCloseButton} onClick={onClose}> × </button>
+        <h2>Update Category</h2>
         <div className={styles.roh_edituser_form_group}>
           <label htmlFor="name">Category Name</label>
           <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} className={styles.roh_edituser_input} required/>
