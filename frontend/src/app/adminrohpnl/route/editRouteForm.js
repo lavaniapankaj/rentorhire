@@ -7,7 +7,7 @@ export default function EditRouteForm({ route, routeGroup, onClose, onSuccess })
     route_name: "",
     access_type: "",
     route_type: "",
-    group_name: "",
+    group_name: "", // Keep as empty initially
   });
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -21,14 +21,16 @@ export default function EditRouteForm({ route, routeGroup, onClose, onSuccess })
     }));
   };
 
-  useEffect(() => {        
+  useEffect(() => {
+    if (route) {
       setFormData({
         route_name: route.route_name || '',
         access_type: route.access_type || '',
         route_type: route.route_type || '',
-        group_name: group_name || '',
+        group_name: route.group_name || '', // Ensure group_name is correctly assigned from route
       });
-  }, [route, routeGroup]);
+    }
+  }, [route, routeGroup]); // Track both route and routeGroup
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +44,6 @@ export default function EditRouteForm({ route, routeGroup, onClose, onSuccess })
       group_name: formData.group_name,
     };
 
-    // return;
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/route/edit', {
         method: 'POST',
@@ -75,50 +76,49 @@ export default function EditRouteForm({ route, routeGroup, onClose, onSuccess })
 
   return (
     <>
-        <h2 className="admin-cat-title">Update Route</h2>
-        <form className={styles.admin_cat_form}>
-            <div className={styles.admin_cat_group}>
-                <label htmlFor="route_name">Route Name <span className={styles.admin_cat_required}>*</span></label>
-                <input type="text" id="route_name" name="route_name" value={formData.route_name} onChange={handleChange}/>
-            </div>
+      <h2 className="admin-cat-title">Update Route</h2>
+      <form className={styles.admin_cat_form}>
+        <div className={styles.admin_cat_group}>
+          <label htmlFor="route_name">Route Name <span className={styles.admin_cat_required}>*</span></label>
+          <input type="text" id="route_name" name="route_name" value={formData.route_name} onChange={handleChange} />
+        </div>
 
-            <div className={styles.admin_cat_group}>
-                <label htmlFor="route_type">Route Type</label>
-                <select id="route_type" name="route_type" value={formData.route_type} onChange={handleChange}>
-                    <option value="">Select route type</option>
-                    <option value="1">Admin</option>
-                    <option value="2">User</option>
-                    <option value="3">Public</option>
-                </select>
-            </div>
+        <div className={styles.admin_cat_group}>
+          <label htmlFor="route_type">Route Type</label>
+          <select id="route_type" name="route_type" value={formData.route_type} onChange={handleChange}>
+            <option value="">Select route type</option>
+            <option value="1">Admin</option>
+            <option value="2">User</option>
+            <option value="3">Public</option>
+          </select>
+        </div>
 
-            <div className={styles.admin_cat_group}>
-                <label htmlFor="access_type">Access Type</label>
-                <select id="access_type" name="access_type" value={formData.access_type} onChange={handleChange}>
-                    <option value="">Select access type</option>
-                    <option value="1">View</option>
-                    <option value="2">All</option>
-                </select>
-            </div>
+        <div className={styles.admin_cat_group}>
+          <label htmlFor="access_type">Access Type</label>
+          <select id="access_type" name="access_type" value={formData.access_type} onChange={handleChange}>
+            <option value="">Select access type</option>
+            <option value="1">View</option>
+            <option value="2">All</option>
+          </select>
+        </div>
 
-            <div className={styles.admin_cat_group}>
-                <label htmlFor="group_name">Route Group</label>
-                <select id="group_name" name="group_name" value={formData.group_name} onChange={handleChange}>
-                    <option value="">Select Route Group</option>
-                    {routeGroup.map((group) => (
-                        <option key={group.id} value={group.id}>
-                            {group.groupName}
-                        </option>
-                    ))}
-                </select>
-            </div>
+        <div className={styles.admin_cat_group}>
+          <label htmlFor="group_name">Route Group</label>
+          <select id="group_name" name="group_name" value={formData.group_name} onChange={handleChange}>
+            <option value="">Select Route Group</option>
+            {routeGroup && routeGroup.map((group) => (
+              <option key={group.id} value={group.id}>
+                {group.groupName}
+              </option>
+            ))}
+          </select>
+        </div>
 
-
-            <div className={styles.admin_cat_actions}>
-                <button type="submit" className={`${styles['admin-cat-btn']} ${styles['admin-cat-btn-primary']}`} onClick={handleSubmit}> Update </button>
-                <button type="button" className={`${styles['admin-cat-btn']} ${styles['admin-cat-btn-secondary']}`} onClick={onClose}> Cancel</button>
-            </div>
-        </form>
-        </>
+        <div className={styles.admin_cat_actions}>
+          <button type="submit" className={`${styles['admin-cat-btn']} ${styles['admin-cat-btn-primary']}`} onClick={handleSubmit}> Update </button>
+          <button type="button" className={`${styles['admin-cat-btn']} ${styles['admin-cat-btn-secondary']}`} onClick={onClose}> Cancel</button>
+        </div>
+      </form>
+    </>
   );
 }

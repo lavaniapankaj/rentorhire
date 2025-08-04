@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 29, 2025 at 08:39 PM
+-- Generation Time: Aug 04, 2025 at 08:22 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -45,7 +45,7 @@ CREATE TABLE `roh_categories` (
 --
 
 INSERT INTO `roh_categories` (`id`, `name`, `description`, `slug`, `parent_category_id`, `active`, `add_id`, `edit_id`, `add_date`, `edit_date`) VALUES
-(18, 'Electronics', 'Gadgets and devices for communication, work, and entertainment including phones, laptops, headphones, and smart accessories', 'electronics', NULL, 1, 1, 1, '2025-07-08 15:38:36', '2025-07-08 15:38:36'),
+(18, 'Electronics', 'Gadgets and devices for communication, work, and entertainment including phones, laptops, headphones, and smart accessories', 'electronics', NULL, 1, 1, 1, '2025-07-08 15:38:36', '2025-08-04 16:01:37'),
 (19, 'Mobile Phones', 'Gadgets and devices for communication, work, and entertainment including phones, laptops, headphones, and smart accessories', 'mobile-phones', 18, 1, 1, 1, '2025-07-08 15:39:13', '2025-07-08 15:39:13'),
 (22, 'Laptops', 'Gadgets and devices for communication, work, and entertainment including phones, laptops, headphones, and smart accessories', 'laptops', 18, 1, 1, 1, '2025-07-08 15:39:46', '2025-07-08 15:39:55'),
 (23, 'Accessories', 'Gadgets and devices for communication, work, and entertainment including phones, laptops, headphones, and smart accessories', 'accessories', 18, 1, 1, 1, '2025-07-08 15:40:09', '2025-07-08 15:40:23'),
@@ -199,9 +199,20 @@ CREATE TABLE `roh_media_gallery` (
 --
 
 INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `active`, `add_date`, `edit_date`) VALUES
-(1, 'pankaj-img-1.webp', 'media/users/profile/', 'webp', 1, '2025-07-29 18:19:15', '2025-07-29 18:19:15'),
-(2, 'vishnu-roh-admin.jpeg', 'media/users/profile/', 'jpeg', 1, '2025-07-29 18:32:46', '2025-07-29 18:32:46'),
-(3, 'raj-rog-admin.jpeg', 'media/users/profile/', 'jpeg', 1, '2025-07-29 18:38:25', '2025-07-29 18:38:25');
+(1, 'pankaj-img-1.webp', '/media/users/profile/', 'webp', 1, '2025-07-29 18:19:15', '2025-08-02 16:12:58'),
+(2, 'vishnu-roh-admin.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-07-29 18:32:46', '2025-08-02 16:13:01'),
+(3, 'raj-roh-admin.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-07-29 18:38:25', '2025-08-02 16:13:05'),
+(15, 'rentorhire-logo.png', '/media/users/profile/', 'png', 1, '2025-08-01 16:35:55', '2025-08-02 16:13:08'),
+(16, 'vishnu-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:09:48', '2025-08-02 16:13:10'),
+(17, 'vishnu-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:13:08', '2025-08-02 16:13:13'),
+(18, 'vishnu-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:16:35', '2025-08-02 16:13:15'),
+(19, 'vishnu-2-1.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:16:49', '2025-08-02 16:13:21'),
+(20, 'vishnu-2-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:18:25', '2025-08-02 16:13:18'),
+(21, 'vishnu-2-3.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:20:00', '2025-08-02 16:13:24'),
+(22, 'pankaj-img-1-1.webp', '/media/users/profile/', 'webp', 1, '2025-08-01 17:31:33', '2025-08-02 16:13:27'),
+(23, 'vishnu-2-4.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:44:07', '2025-08-02 16:13:29'),
+(24, 'vishnu.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-02 18:12:39', '2025-08-02 18:12:39'),
+(25, 'pankaj-img-1-2.webp', '/media/users/profile/', 'webp', 1, '2025-08-02 18:13:29', '2025-08-02 18:13:29');
 
 -- --------------------------------------------------------
 
@@ -243,12 +254,12 @@ INSERT INTO `roh_roles` (`id`, `name`, `active`, `add_id`, `edit_id`, `add_date`
 CREATE TABLE `roh_routes` (
   `id` int(11) NOT NULL,
   `route_name` varchar(255) NOT NULL,
-  `access_type` varchar(100) DEFAULT NULL,
-  `route_type` varchar(100) DEFAULT NULL,
+  `access_type` tinyint(4) DEFAULT 1 COMMENT '1 = View, 2 = All',
+  `route_type` tinyint(4) DEFAULT 3 COMMENT '1 = Admin, 2 = User, 3 = Public',
   `group_name` varchar(100) DEFAULT NULL,
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT 1,
+  `active` tinyint(4) DEFAULT 1,
   `add_date` datetime DEFAULT current_timestamp(),
   `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -258,7 +269,10 @@ CREATE TABLE `roh_routes` (
 --
 
 INSERT INTO `roh_routes` (`id`, `route_name`, `access_type`, `route_type`, `group_name`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(12, 'route/create', 'admin', 'user', 'Route Create', 1, 1, 1, '2025-07-08 21:32:01', '2025-07-08 21:32:01');
+(1, 'route/create', 1, 2, '2', 1, 1, 1, '2025-07-08 21:32:01', '2025-08-03 23:59:17'),
+(2, 'role/create', 2, 1, '2', 1, 1, 1, '2025-07-08 21:32:01', '2025-08-03 23:59:21'),
+(3, 'Test', 2, 1, '3', 1, 1, 1, '2025-08-03 16:09:09', '2025-08-03 23:59:24'),
+(4, 'Test 2', 1, 2, '1', 1, 1, 1, '2025-08-03 16:11:56', '2025-08-04 23:21:58');
 
 -- --------------------------------------------------------
 
@@ -351,11 +365,14 @@ CREATE TABLE `roh_users` (
 --
 
 INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `email`, `phone_number`, `password_hash`, `user_role_id`, `profile_picture_url`, `address_1`, `landmark`, `state`, `city`, `pincode`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$xdm/c.8Yh4o9VBQnAqvZW.GImjKMS3tYM/YMIJDsTRqv5YkQyKUcC', 1, 'http://localhost:3000/', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, 1, 1, 1, '2025-07-13 11:26:08', '2025-07-17 17:17:29'),
-(2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$VswYxyPGRuYuU/1IFkMS1uAgYybZCvHIwhb93CFUtmyHUZyddYFf.', 2, 'http://localhost:3000/', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, 1, 1, 1, '2025-07-13 11:27:31', '2025-07-15 18:58:19'),
+(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$xdm/c.8Yh4o9VBQnAqvZW.GImjKMS3tYM/YMIJDsTRqv5YkQyKUcC', 1, '25', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, 1, 1, 1, '2025-07-13 11:26:08', '2025-08-02 18:13:29'),
+(2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$VswYxyPGRuYuU/1IFkMS1uAgYybZCvHIwhb93CFUtmyHUZyddYFf.', 2, '', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, 1, 1, 1, '2025-07-13 11:27:31', '2025-07-31 17:01:44'),
 (18, 'lavaniapankaj', 'Pankaj ', 'Verma', 'lavaniapankaj@gmail.com', '9876543210', '$2b$10$fwpmVvn/RVr3d/cbedmo8eTTxBebn0XhKtfXQt4dHk32IkBZFw8bG', 1, '1', '13th Street', '47 W 13th St, New York, NY 10011, USA', 'New York', 'CT', 10011, 1, 0, 1, '2025-07-29 18:19:15', '2025-07-29 18:19:15'),
 (19, 'ecmascript', 'Vishnu', 'Kumawat', 'ecmascript.php@gmail.com', '9783457008', '$2b$10$bVzM.eJjjhU7boZzNEE8aul7iycXabXaDmIuQAB9CXMTfDLP/v8hC', 1, '2', 'Stuyvesant 14th St & 1st Ave ', '238 1st Ave, New York, NY 10009, USA', 'New York', 'CT', 10009, 1, 0, 1, '2025-07-29 18:32:46', '2025-07-29 18:32:46'),
-(20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 1, '3', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, 1, 0, 1, '2025-07-29 18:38:25', '2025-07-29 18:38:25');
+(20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 1, '3', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, 1, 0, 1, '2025-07-29 18:38:25', '2025-07-29 18:38:25'),
+(21, 'lejys', 'Tamara', 'Vinson', 'hufasowub@mailinator.com', '2147493968', '$2b$10$OeJlzsg9JtvZCTRFE5G9Z.2MPAatKidY4FOXWV4Gub46jVuC1hoXW', 4, '21', '99 New Street', 'Recusandae Vel nisi', 'Quia dolore odit et ', 'Maxime deserunt aliq', 1213232, 19, 19, 1, '2025-08-01 16:35:55', '2025-08-01 17:32:59'),
+(22, 'bobad', 'Martina', 'Hinton', 'cynocyca@mailinator.com', '5812511339', '$2b$10$pGma3ytDn.nk9/4wmJlb0OMoQfFTkSW5/g4LVR1HIiJVsXKEbsjHK', 3, NULL, '77 South White Old Extension', 'Quisquam ullam rerum', 'Repellendus Quia al', 'Consectetur sint la', 111111, 19, 0, 1, '2025-08-01 17:35:17', '2025-08-01 17:35:17'),
+(23, 'vorivipoci', 'Sandra', 'Gallagher', 'quvipira@mailinator.com', '1085223343', '$2b$10$DM0f9IF1b4Qetg9/lbdrjeo9YHSi1ZYS3n6uZ9unslDNkS9p3yIHm', 3, '23', '88 East Old Freeway', 'Occaecat consequuntu', 'Accusantium ullamco', 'Nihil molestiae qui', 19001, 19, 19, 0, '2025-08-01 17:43:25', '2025-08-01 18:06:14');
 
 --
 -- Indexes for dumped tables
@@ -425,7 +442,7 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
@@ -437,7 +454,7 @@ ALTER TABLE `roh_roles`
 -- AUTO_INCREMENT for table `roh_routes`
 --
 ALTER TABLE `roh_routes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `roh_states`
@@ -449,7 +466,7 @@ ALTER TABLE `roh_states`
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

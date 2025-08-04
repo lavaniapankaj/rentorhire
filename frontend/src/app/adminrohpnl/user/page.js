@@ -15,7 +15,7 @@ export default function ListUserPage() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit] = useState(1);
+  const [limit] = useState(5);
   const [editUser, setEditUser] = useState(null);
   const router = useRouter();
 
@@ -178,142 +178,149 @@ export default function ListUserPage() {
   };
 
   return (
-    <div className={styles.rohpnl_wrapper} id="rohpnl_wrapper">
-      {/* Header & Filter UI (always visible) */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-        <h2 className={styles.rohpnl_heading}>All Users</h2>
-        <button onClick={openModal} style={{ padding: '8px 16px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: 4 }}>
-          Add New User
-        </button>
-      </div>
-
-      <div style={{ marginBottom: 30 }}>
-        <form onSubmit={handleSearch} style={{ display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'flex-end' }}>
-          <div>
-            <label>User Info:</label><br />
-            <input
-              type="text"
-              name="user_name"
-              value={searchForm.user_name}
-              onChange={handleSearchFormChange}
-              style={{ padding: 6, width: 200 }}
-              autoComplete="off"
-              autoFocus
-            />
-          </div>
-          <div>
-            <label>User Role:</label><br />
-            <select
-              name="user_role_id"
-              value={searchForm.user_role_id}
-              onChange={handleSearchFormChange}
-              style={{ padding: 6, width: 200 }}
-            >
-              <option value="">All Roles</option>
-              {roles.map((role) => (
-                <option key={role.id} value={role.id}>{role.name}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label>Status:</label><br />
-            <select
-              name="active"
-              value={searchForm.active}
-              onChange={handleSearchFormChange}
-              style={{ padding: 6, width: 200 }}
-            >
-              <option value="">All</option>
-              <option value="1">Active</option>
-              <option value="0">Inactive</option>
-            </select>
-          </div>
-          <button type="submit" style={{ padding: '6px 14px', backgroundColor: '#28a745', color: '#fff', border: 'none', borderRadius: 4 }}>
-            Search
-          </button>
-        </form>
-      </div>
-
-      {/* Table */}
-      <div className={styles.rohpnl_tableContainer}>
-        <table className={styles.rohpnl_table}>
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>User Name</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Phone Number</th>
-              <th>User Role</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              <tr><td colSpan="9" style={{ textAlign: 'center' }}>Loading data...</td></tr>
-            ) : users.length > 0 ? (
-              users.map((user, index) => (
-                <tr key={index}  className={user.active === 0 ? 'rohuserinactive' : 'rohuseractive'}>
-                  <td>{user.user_id}</td>
-                  <td>{user.user_name}</td>
-                  <td>{user.first_name}</td>
-                  <td>{user.last_name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.phone_number}</td>
-                  <td>{roleMap[user.user_role_id] || 'Unknown Role'}</td>
-                  <td>{user.active === 1 ? 'Active' : 'Inactive'}</td>
-                  <td className={user.active === 0 ? 'rohadminpnliuserdelete' : ''}>
-                    <button onClick={() => openEditModal(user)}>Edit</button> | 
-                    <button
-                      onClick={() => handleDeleteUser(user.user_id)}
-                      disabled={user.active === 0}
-                      style={{ color: user.active === 0 ? '#aaa' : '#000', cursor: user.active === 0 ? 'not-allowed' : 'pointer' }}
-                    >
-                      Delete
-                    </button> | 
-                    <button onClick={() => openViewModal(user)}>View</button>
-                  </td>
-
-                </tr>
-              ))
-            ) : (
-              <tr><td colSpan="9" style={{ textAlign: 'center' }}>No users available</td></tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Pagination */}
-      <div style={{ textAlign: 'center', marginTop: 20 }}>
-        <button onClick={handlePrevPage} disabled={currentPage === 1 || loading} style={{ marginRight: 10 }}>
-          Previous
-        </button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages || loading} style={{ marginLeft: 10 }}>
-          Next
-        </button>
-        {loading && !initialLoad && <div style={{ marginTop: 10 }}>Updating...</div>}
-      </div>
-
-      {/* Modals */}
-      {isModalOpen && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
-          <div className={styles.modalContent}>
-            <button onClick={closeModal} className={styles.modalCloseButton}>×</button>
-            <AddUserForm onClose={closeModal} onSuccess={() => setIsModalOpen(false)} />
-          </div>
+    <div>
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column' }}>
+          <img src="/infinity-loading.gif" alt="Loading..." width="80" />
         </div>
-      )}
+      ) : (
+      <div className={styles.rohpnl_wrapper} id="rohpnl_wrapper">
+        {/* Header & Filter UI (always visible) */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+          <h2 className={styles.rohpnl_heading}>All Users</h2>
+          <button onClick={openModal} style={{ padding: '8px 16px', backgroundColor: '#007bff', color: '#fff', border: 'none', borderRadius: 4 }}>
+            Add New User
+          </button>
+        </div>
 
-      {isEditModalOpen && editUser && (
-        <EditUserForm user={editUser} roles={roles} onClose={closeEditModal} onSuccess={() => { setFilters((prev) => ({ ...prev })); closeEditModal(); }} />
-      )}
+        <div style={{ marginBottom: 30 }}>
+          <form onSubmit={handleSearch} style={{ display: 'flex', gap: 20, flexWrap: 'wrap', alignItems: 'flex-end' }}>
+            <div>
+              <label>User Info:</label><br />
+              <input
+                type="text"
+                name="user_name"
+                value={searchForm.user_name}
+                onChange={handleSearchFormChange}
+                style={{ padding: 6, width: 200 }}
+                autoComplete="off"
+                autoFocus
+              />
+            </div>
+            <div>
+              <label>User Role:</label><br />
+              <select
+                name="user_role_id"
+                value={searchForm.user_role_id}
+                onChange={handleSearchFormChange}
+                style={{ padding: 6, width: 200 }}
+              >
+                <option value="">All Roles</option>
+                {roles.map((role) => (
+                  <option key={role.id} value={role.id}>{role.name}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label>Status:</label><br />
+              <select
+                name="active"
+                value={searchForm.active}
+                onChange={handleSearchFormChange}
+                style={{ padding: 6, width: 200 }}
+              >
+                <option value="">All</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
+              </select>
+            </div>
+            <button type="submit" style={{ padding: '6px 14px', backgroundColor: '#28a745', color: '#fff', border: 'none', borderRadius: 4 }}>
+              Search
+            </button>
+          </form>
+        </div>
 
-      {isViewModalOpen && viewUser && (
-        <ViewUser user={viewUser} onClose={closeViewModal} />
-      )}
+        {/* Table */}
+
+          <div className={styles.rohpnl_tableContainer}>
+            <table className={styles.rohpnl_table}>
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>User Name</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+                  <th>User Role</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                { users.length > 0 ? (
+                  users.map((user, index) => (
+                    <tr key={index}  className={user.active === 0 ? 'rohuserinactive' : 'rohuseractive'}>
+                      <td>{user.user_id}</td>
+                      <td>{user.user_name}</td>
+                      <td>{user.first_name}</td>
+                      <td>{user.last_name}</td>
+                      <td>{user.email}</td>
+                      <td>{user.phone_number}</td>
+                      <td>{roleMap[user.user_role_id] || 'Unknown Role'}</td>
+                      <td>{user.active === 1 ? 'Active' : 'Inactive'}</td>
+                      <td className={user.active === 0 ? 'rohadminpnliuserdelete' : ''}>
+                        <button onClick={() => openEditModal(user)}>Edit</button> | 
+                        <button
+                          onClick={() => handleDeleteUser(user.user_id)}
+                          disabled={user.active === 0}
+                          style={{ color: user.active === 0 ? '#aaa' : '#000', cursor: user.active === 0 ? 'not-allowed' : 'pointer' }}
+                        >
+                          Delete
+                        </button> | 
+                        <button onClick={() => openViewModal(user)}>View</button>
+                      </td>
+
+                    </tr>
+                  ))
+                ) : (
+                  <tr><td colSpan="9" style={{ textAlign: 'center' }}>No users available</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+        {/* Pagination */}
+        <div style={{ textAlign: 'center', marginTop: 20 }}>
+          <button onClick={handlePrevPage} disabled={currentPage === 1 || loading} style={{ marginRight: 10 }}>
+            Previous
+          </button>
+          <span>Page {currentPage} of {totalPages}</span>
+          <button onClick={handleNextPage} disabled={currentPage === totalPages || loading} style={{ marginLeft: 10 }}>
+            Next
+          </button>
+          {loading && !initialLoad && <div style={{ marginTop: 10 }}>Updating...</div>}
+        </div>
+
+        {/* Modals */}
+        {isModalOpen && (
+          <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
+            <div className={styles.modalContent}>
+              <button onClick={closeModal} className={styles.modalCloseButton}>×</button>
+              <AddUserForm onClose={closeModal} onSuccess={() => setIsModalOpen(false)} />
+            </div>
+          </div>
+        )}
+
+        {isEditModalOpen && editUser && (
+          <EditUserForm user={editUser} roles={roles} onClose={closeEditModal} onSuccess={() => { setFilters((prev) => ({ ...prev })); closeEditModal(); }} />
+        )}
+
+        {isViewModalOpen && viewUser && (
+          <ViewUser user={viewUser} onClose={closeViewModal} />
+        )}
+      </div>
+        )}
     </div>
   );
 }
