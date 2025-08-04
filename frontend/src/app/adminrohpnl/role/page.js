@@ -110,78 +110,82 @@ export default function RoleListPage() {
   };
 
   return (
-    <div style={{ padding: '30px' }}>
-      <button onClick={role_openAddModal} style={{ padding: '8px 16px', marginBottom: '20px' }}>
-        Add Role
-      </button>
+    <div>
+       {role_loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column' }}>
+          <img src="/infinity-loading.gif" alt="Loading..." width="80" />
+        </div>
+      ) : (
+        <div style={{ padding: '30px' }}>
+          <button onClick={role_openAddModal} style={{ padding: '8px 16px', marginBottom: '20px' }}>
+            Add Role
+          </button>
 
-      <h2>Roles List</h2>
+          <h2>Roles List</h2>
 
-      <table border="1" cellPadding="10" style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th>Role ID</th>
-            <th>Role Name</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {role_loading ? (
-            <tr>
-              <td colSpan="4" style={{ textAlign: 'center' }}>Loading roles...</td>
-            </tr>
-          ) : role_roles.length > 0 ? (
-            role_roles.map((role) => {
-              const isInactive = role.active !== 1;
-              return (
-                <tr key={role.id} className={isInactive ? 'rohadminroledel_' : ''}>
-                  <td>{role.id}</td>
-                  <td>{role.name}</td>
-                  <td>{role.active === 1 ? 'Active' : 'Inactive'}</td>
-                  <td>
-                    <button onClick={() => role_openEditModal(role.id)}>Edit</button>
-                    {' | '}
-                    <button
-                      onClick={() => role_handleDelete(role.id)}
-                      disabled={isInactive}
-                      className={isInactive ? 'rohadminpnlroledel_' : ''}
-                    >
-                      Delete
-                    </button>
-                  </td>
+          <table border="1" cellPadding="10" style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr>
+                <th>Role ID</th>
+                <th>Role Name</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {role_roles.length > 0 ? (
+                role_roles.map((role) => {
+                  const isInactive = role.active !== 1;
+                  return (
+                    <tr key={role.id} className={isInactive ? 'rohadminroledel_' : ''}>
+                      <td>{role.id}</td>
+                      <td>{role.name}</td>
+                      <td>{role.active === 1 ? 'Active' : 'Inactive'}</td>
+                      <td>
+                        <button onClick={() => role_openEditModal(role.id)}>Edit</button>
+                        {' | '}
+                        <button
+                          onClick={() => role_handleDelete(role.id)}
+                          disabled={isInactive}
+                          className={isInactive ? 'rohadminpnlroledel_' : ''}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td colSpan="4" style={{ textAlign: 'center' }}>No roles available.</td>
                 </tr>
-              );
-            })
-          ) : (
-            <tr>
-              <td colSpan="4" style={{ textAlign: 'center' }}>No roles available.</td>
-            </tr>
+              )}
+            </tbody>
+          </table>
+
+          {role_error && <p style={{ color: 'red' }}>Error: {role_error}</p>}
+
+          {role_isAddModalOpen && (
+            <AddRoleForm
+              onClose={role_closeAddModal}
+              onSuccess={() => {
+                role_closeAddModal();
+                role_fetchRoles();
+              }}
+            />
           )}
-        </tbody>
-      </table>
 
-      {role_error && <p style={{ color: 'red' }}>Error: {role_error}</p>}
-
-      {role_isAddModalOpen && (
-        <AddRoleForm
-          onClose={role_closeAddModal}
-          onSuccess={() => {
-            role_closeAddModal();
-            role_fetchRoles();
-          }}
-        />
-      )}
-
-      {role_isEditModalOpen && role_selectedRoleId && (
-        <EditRoleForm
-          roleId={role_selectedRoleId}
-          onClose={role_closeEditModal}
-          onSuccess={() => {
-            role_closeEditModal();
-            role_fetchRoles();
-          }}
-        />
+          {role_isEditModalOpen && role_selectedRoleId && (
+            <EditRoleForm
+              roleId={role_selectedRoleId}
+              onClose={role_closeEditModal}
+              onSuccess={() => {
+                role_closeEditModal();
+                role_fetchRoles();
+              }}
+            />
+          )}
+        </div>
       )}
     </div>
   );

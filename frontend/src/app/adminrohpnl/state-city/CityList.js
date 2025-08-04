@@ -6,7 +6,7 @@ import EditCityForm from './EditCityForm';
 export default function CityList() {
   const [cities, setCities] = useState([]);
   const [stateMap, setStateMap] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editCityId, setEditCityId] = useState(null);
@@ -205,6 +205,12 @@ export default function CityList() {
 
   return (
     <div>
+       {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column' }}>
+          <img src="/infinity-loading.gif" alt="Loading..." width="80" />
+        </div>
+      ) : (
+      <div>
       <h2>City List</h2>
 
       <div style={{ marginBottom: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -234,56 +240,50 @@ export default function CityList() {
         </button>
       </div>
 
-      {loading ? (
-        <p>Loading cities...</p>
-      ) : (
-        <>
-          <table border="1" cellPadding="8" style={{ width: '100%', borderCollapse: 'collapse' }}>
-            {/* Table Headers always visible */}
-            <thead style={{ backgroundColor: '#f0f0f0' }}>
+        <table border="1" cellPadding="8" style={{ width: '100%', borderCollapse: 'collapse' }}>
+          {/* Table Headers always visible */}
+          <thead style={{ backgroundColor: '#f0f0f0' }}>
+            <tr>
+              <th>ID</th>
+              <th>City Name</th>
+              <th>Slug</th>
+              <th>Status</th>
+              <th>State</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cities.length === 0 ? (
               <tr>
-                <th>ID</th>
-                <th>City Name</th>
-                <th>Slug</th>
-                <th>Status</th>
-                <th>State</th>
-                <th>Action</th>
+                <td colSpan="6" style={{ textAlign: 'center' }}>No cities found.</td>
               </tr>
-            </thead>
-            <tbody>
-              {cities.length === 0 ? (
-                <tr>
-                  <td colSpan="6" style={{ textAlign: 'center' }}>No cities found.</td>
+            ) : (
+              cities.map((city) => (
+                <tr key={city.city_id}>
+                  <td>{city.city_id}</td>
+                  <td>{city.city_name}</td>
+                  <td>{city.city_slug}</td>
+                  <td>{city.active === 1 ? 'Active' : 'Inactive'}</td>
+                  <td>{stateMap[city.state_id] || city.state_id}</td>
+                  <td>
+                    <button onClick={() => handleEdit(city.city_id)}>Edit</button> | 
+                    <button 
+                      onClick={() => handleDelete(city.city_id, city.active)} 
+                      disabled={city.active === 0}>
+                      Delete
+                    </button>
+                  </td>
                 </tr>
-              ) : (
-                cities.map((city) => (
-                  <tr key={city.city_id}>
-                    <td>{city.city_id}</td>
-                    <td>{city.city_name}</td>
-                    <td>{city.city_slug}</td>
-                    <td>{city.active === 1 ? 'Active' : 'Inactive'}</td>
-                    <td>{stateMap[city.state_id] || city.state_id}</td>
-                    <td>
-                      <button onClick={() => handleEdit(city.city_id)}>Edit</button> | 
-                      <button 
-                        onClick={() => handleDelete(city.city_id, city.active)} 
-                        disabled={city.active === 0}>
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+              ))
+            )}
+          </tbody>
+        </table>
 
-          <div style={{ marginTop: 15, display: 'flex', gap: 15, alignItems: 'center' }}>
-            <button onClick={handlePrev} disabled={currentPage === 1 || loading}>Previous</button>
-            <span>Page {currentPage} of {totalPages}</span>
-            <button onClick={handleNext} disabled={currentPage === totalPages || loading}>Next</button>
-          </div>
-        </>
-      )}
+        <div style={{ marginTop: 15, display: 'flex', gap: 15, alignItems: 'center' }}>
+          <button onClick={handlePrev} disabled={currentPage === 1 || loading}>Previous</button>
+          <span>Page {currentPage} of {totalPages}</span>
+          <button onClick={handleNext} disabled={currentPage === totalPages || loading}>Next</button>
+        </div>
 
       {/* Add Modal */}
       {isModalOpen && (
@@ -343,6 +343,8 @@ export default function CityList() {
           </div>
         </div>
       )}
+      </div>
+    )}
     </div>
   );
 }

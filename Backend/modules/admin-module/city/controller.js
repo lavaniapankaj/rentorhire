@@ -128,9 +128,7 @@ function CityApi() {
           console.error("Error in EditCity:", err);
           return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
-      };
-      
-    
+    };
 
     /** Delete city in cities collection Coded by Vishnu July 05 2025 */
     this.DeleteCity = (req, res) => {
