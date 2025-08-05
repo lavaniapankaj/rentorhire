@@ -83,7 +83,7 @@ export default function AddCityForm({ onSuccess, onCancel }) {
       const data = await res.json();
 
       if (data.status) {
-        alert('City added!');
+        alert('City Added successfully!');
         onSuccess(); // Close modal and refresh list
       } else {
         setErrorMessage(data.message || 'Failed to add city.');

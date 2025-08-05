@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 04, 2025 at 08:22 PM
+-- Generation Time: Aug 05, 2025 at 08:41 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -45,13 +45,12 @@ CREATE TABLE `roh_categories` (
 --
 
 INSERT INTO `roh_categories` (`id`, `name`, `description`, `slug`, `parent_category_id`, `active`, `add_id`, `edit_id`, `add_date`, `edit_date`) VALUES
-(18, 'Electronics', 'Gadgets and devices for communication, work, and entertainment including phones, laptops, headphones, and smart accessories', 'electronics', NULL, 1, 1, 1, '2025-07-08 15:38:36', '2025-08-04 16:01:37'),
-(19, 'Mobile Phones', 'Gadgets and devices for communication, work, and entertainment including phones, laptops, headphones, and smart accessories', 'mobile-phones', 18, 1, 1, 1, '2025-07-08 15:39:13', '2025-07-08 15:39:13'),
-(22, 'Laptops', 'Gadgets and devices for communication, work, and entertainment including phones, laptops, headphones, and smart accessories', 'laptops', 18, 1, 1, 1, '2025-07-08 15:39:46', '2025-07-08 15:39:55'),
-(23, 'Accessories', 'Gadgets and devices for communication, work, and entertainment including phones, laptops, headphones, and smart accessories', 'accessories', 18, 1, 1, 1, '2025-07-08 15:40:09', '2025-07-08 15:40:23'),
-(24, 'Real Estate', 'Property listings for buying, selling, or renting houses, offices, and land in different cities and budgets', 'real-estate', NULL, 1, 1, 1, '2025-07-08 15:41:05', '2025-07-08 15:41:05'),
-(25, 'Residential', 'Property listings for buying, selling, or renting houses, offices, and land in different cities and budgets', 'residential', 24, 1, 1, 1, '2025-07-08 15:41:45', '2025-07-08 15:41:45'),
-(26, 'Commercial', 'Property listings for buying, selling, or renting houses, offices, and land in different cities and budgets', 'commercial', 24, 1, 1, 1, '2025-07-08 15:42:01', '2025-07-08 15:42:01');
+(1, 'Vehicle', 'A broad category that includes all types of transport modes, such as cars, bikes, trucks, and recreational vehicles. Vehicles are essential for personal, commercial, and leisure travel, offering diverse options for different purposes, from daily commuting to long-distance journeys and business logistics.', 'vehicle', NULL, 1, 1, 1, '2025-08-05 17:11:45', '2025-08-05 17:21:24'),
+(2, 'Cars', 'A wide range of vehicles for personal transportation, including various types like sedans, hatchbacks, and SUVs. Suitable for everyday commuting, family trips, and more.', 'cars', 1, 1, 1, 1, '2025-08-05 17:12:34', '2025-08-05 17:12:34'),
+(3, 'Bikes', 'Includes motorcycles and bicycles for personal use, from high-speed sports bikes to commuter-friendly models. Ideal for short trips, daily commutes, or adventure riding.', 'bikes', 1, 1, 1, 1, '2025-08-05 17:12:53', '2025-08-05 17:12:53'),
+(4, 'Commercial Vehicles', 'Vehicles designed for business purposes such as trucks, delivery vans, and buses. Used for transporting goods, passengers, or as part of a fleet for logistics and service industries.', 'commercial-vehicles', 1, 1, 1, 1, '2025-08-05 17:13:28', '2025-08-05 17:13:28'),
+(5, 'Luxury Vehicles', 'High-end cars and bikes offering exceptional comfort, performance, and design. Includes premium brands and models meant for those who seek an elite driving experience.', 'luxury-vehicles', 1, 1, 1, 1, '2025-08-05 17:13:51', '2025-08-05 17:13:51'),
+(6, 'Recreational Vehicles', 'Vehicles designed for leisure activities, including motorhomes, campervans, and RVs. Perfect for road trips, outdoor adventures, and extended vacations.', 'recreational-vehicles', 1, 1, 1, 1, '2025-08-05 17:14:11', '2025-08-05 17:14:11');
 
 -- --------------------------------------------------------
 
@@ -176,7 +175,8 @@ INSERT INTO `roh_cities` (`city_id`, `city_name`, `city_slug`, `state_id`, `add_
 (98, 'Gurgaon', 'gurgaon', 26, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
 (99, 'Kochi', 'kochi', 11, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
 (100, 'Vishakhapatnam', 'vishakhapatnam', 1, 1, 1, 1, '2025-07-25 18:53:25', '2025-07-25 18:53:25'),
-(101, 'Demo', 'demo', 1, 1, 1, 0, '2025-07-26 00:17:20', '2025-07-26 01:18:58');
+(101, 'Demo', 'demo', 1, 1, 1, 0, '2025-07-26 00:17:20', '2025-07-26 01:18:58'),
+(104, 'dfsdfs', 'dfsdfs', 1, 19, 19, 1, '2025-08-05 23:58:55', '2025-08-05 23:59:53');
 
 -- --------------------------------------------------------
 
@@ -212,7 +212,8 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 (22, 'pankaj-img-1-1.webp', '/media/users/profile/', 'webp', 1, '2025-08-01 17:31:33', '2025-08-02 16:13:27'),
 (23, 'vishnu-2-4.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:44:07', '2025-08-02 16:13:29'),
 (24, 'vishnu.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-02 18:12:39', '2025-08-02 18:12:39'),
-(25, 'pankaj-img-1-2.webp', '/media/users/profile/', 'webp', 1, '2025-08-02 18:13:29', '2025-08-02 18:13:29');
+(25, 'pankaj-img-1-2.webp', '/media/users/profile/', 'webp', 1, '2025-08-02 18:13:29', '2025-08-02 18:13:29'),
+(26, 'new-images.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-05 17:19:52', '2025-08-05 17:19:52');
 
 -- --------------------------------------------------------
 
@@ -235,7 +236,7 @@ CREATE TABLE `roh_roles` (
 --
 
 INSERT INTO `roh_roles` (`id`, `name`, `active`, `add_id`, `edit_id`, `add_date`, `edit_date`) VALUES
-(1, 'Super Admin', 1, 1, 1, '2025-07-08 15:46:30', '2025-07-19 18:01:50'),
+(1, 'Super Admin', 1, 1, 19, '2025-07-08 15:46:30', '2025-08-05 17:43:34'),
 (2, 'Service Provider', 1, 1, 1, '2025-07-08 15:46:55', '2025-07-08 15:46:55'),
 (3, 'Customer', 1, 1, 1, '2025-07-17 18:41:10', '2025-07-17 18:41:10'),
 (4, 'Moderator', 1, 1, 1, '2025-07-17 18:55:07', '2025-07-17 18:55:07'),
@@ -243,7 +244,7 @@ INSERT INTO `roh_roles` (`id`, `name`, `active`, `add_id`, `edit_id`, `add_date`
 (12, 'Moderator 1', 0, 1, 1, '2025-07-19 18:44:05', '2025-07-19 18:44:19'),
 (13, 'demo11', 0, 1, 1, '2025-07-19 19:50:03', '2025-07-19 19:50:13'),
 (14, 'Demo 22', 1, 1, 1, '2025-07-23 17:55:18', '2025-07-23 17:57:30'),
-(24, 'Demo', 0, 1, 1, '2025-07-27 09:43:24', '2025-07-27 09:58:56');
+(24, 'Demo', 0, 1, 19, '2025-07-27 09:43:24', '2025-08-05 17:26:47');
 
 -- --------------------------------------------------------
 
@@ -296,11 +297,11 @@ CREATE TABLE `roh_states` (
 --
 
 INSERT INTO `roh_states` (`state_id`, `state_name`, `state_slug`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(1, 'Andhra Pradesh', 'andhra-pradesh', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(1, 'Andhra Pradesh', 'andhra-pradesh', 1, 19, 1, '2025-07-25 18:48:11', '2025-08-05 23:13:02'),
 (2, 'Arunachal Pradesh', 'arunachal-pradesh', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
 (3, 'Assam', 'assam', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
 (4, 'Bihar', 'bihar', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
-(5, 'Chhattisgarh', 'chhattisgarh', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
+(5, 'Chhattisgarh', 'chhattisgarh', 1, 19, 1, '2025-07-25 18:48:11', '2025-08-05 23:04:45'),
 (6, 'Goa', 'goa', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
 (7, 'Gujarat', 'gujarat', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
 (8, 'Haryana', 'haryana', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
@@ -329,8 +330,8 @@ INSERT INTO `roh_states` (`state_id`, `state_name`, `state_slug`, `add_id`, `edi
 (31, 'Dadra and Nagar Haveli and Daman and Diu', 'dadra-and-nagar-haveli-and-daman-and-diu', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
 (32, 'Lakshadweep', 'lakshadweep', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
 (33, 'Delhi', 'delhi', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
-(34, 'Puducherry', 'puducherry', 1, 1, 1, '2025-07-25 18:48:11', '2025-07-25 18:48:11'),
-(35, 'Demo', 'demo', 1, 0, 0, '2025-07-26 22:34:15', '2025-07-26 22:34:31');
+(34, 'Puducherry', 'puducherry', 1, 19, 1, '2025-07-25 18:48:11', '2025-08-05 23:08:21'),
+(35, 'Demo', 'demo', 1, 19, 0, '2025-07-26 22:34:15', '2025-08-05 23:05:05');
 
 -- --------------------------------------------------------
 
@@ -365,14 +366,15 @@ CREATE TABLE `roh_users` (
 --
 
 INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `email`, `phone_number`, `password_hash`, `user_role_id`, `profile_picture_url`, `address_1`, `landmark`, `state`, `city`, `pincode`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$xdm/c.8Yh4o9VBQnAqvZW.GImjKMS3tYM/YMIJDsTRqv5YkQyKUcC', 1, '25', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, 1, 1, 1, '2025-07-13 11:26:08', '2025-08-02 18:13:29'),
+(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$xdm/c.8Yh4o9VBQnAqvZW.GImjKMS3tYM/YMIJDsTRqv5YkQyKUcC', 1, '25', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, 1, 19, 1, '2025-07-13 11:26:08', '2025-08-05 17:21:48'),
 (2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$VswYxyPGRuYuU/1IFkMS1uAgYybZCvHIwhb93CFUtmyHUZyddYFf.', 2, '', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, 1, 1, 1, '2025-07-13 11:27:31', '2025-07-31 17:01:44'),
 (18, 'lavaniapankaj', 'Pankaj ', 'Verma', 'lavaniapankaj@gmail.com', '9876543210', '$2b$10$fwpmVvn/RVr3d/cbedmo8eTTxBebn0XhKtfXQt4dHk32IkBZFw8bG', 1, '1', '13th Street', '47 W 13th St, New York, NY 10011, USA', 'New York', 'CT', 10011, 1, 0, 1, '2025-07-29 18:19:15', '2025-07-29 18:19:15'),
 (19, 'ecmascript', 'Vishnu', 'Kumawat', 'ecmascript.php@gmail.com', '9783457008', '$2b$10$bVzM.eJjjhU7boZzNEE8aul7iycXabXaDmIuQAB9CXMTfDLP/v8hC', 1, '2', 'Stuyvesant 14th St & 1st Ave ', '238 1st Ave, New York, NY 10009, USA', 'New York', 'CT', 10009, 1, 0, 1, '2025-07-29 18:32:46', '2025-07-29 18:32:46'),
 (20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 1, '3', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, 1, 0, 1, '2025-07-29 18:38:25', '2025-07-29 18:38:25'),
 (21, 'lejys', 'Tamara', 'Vinson', 'hufasowub@mailinator.com', '2147493968', '$2b$10$OeJlzsg9JtvZCTRFE5G9Z.2MPAatKidY4FOXWV4Gub46jVuC1hoXW', 4, '21', '99 New Street', 'Recusandae Vel nisi', 'Quia dolore odit et ', 'Maxime deserunt aliq', 1213232, 19, 19, 1, '2025-08-01 16:35:55', '2025-08-01 17:32:59'),
 (22, 'bobad', 'Martina', 'Hinton', 'cynocyca@mailinator.com', '5812511339', '$2b$10$pGma3ytDn.nk9/4wmJlb0OMoQfFTkSW5/g4LVR1HIiJVsXKEbsjHK', 3, NULL, '77 South White Old Extension', 'Quisquam ullam rerum', 'Repellendus Quia al', 'Consectetur sint la', 111111, 19, 0, 1, '2025-08-01 17:35:17', '2025-08-01 17:35:17'),
-(23, 'vorivipoci', 'Sandra', 'Gallagher', 'quvipira@mailinator.com', '1085223343', '$2b$10$DM0f9IF1b4Qetg9/lbdrjeo9YHSi1ZYS3n6uZ9unslDNkS9p3yIHm', 3, '23', '88 East Old Freeway', 'Occaecat consequuntu', 'Accusantium ullamco', 'Nihil molestiae qui', 19001, 19, 19, 0, '2025-08-01 17:43:25', '2025-08-01 18:06:14');
+(23, 'vorivipoci', 'Sandra', 'Gallagher', 'quvipira@mailinator.com', '1085223343', '$2b$10$DM0f9IF1b4Qetg9/lbdrjeo9YHSi1ZYS3n6uZ9unslDNkS9p3yIHm', 3, '23', '88 East Old Freeway', 'Occaecat consequuntu', 'Accusantium ullamco', 'Nihil molestiae qui', 19001, 19, 19, 0, '2025-08-01 17:43:25', '2025-08-01 18:06:14'),
+(24, 'tilobok', 'Mara', 'Stark', 'basafygodu@mailinator.com', '4667976394', '$2b$10$rc3wNtIHB67bc1wec.FgtuEDMtlek1F2BDItFQyXaeJquJ5MdCXWK', 2, '26', '327 Hague Extension', 'Consequatur Veniam', 'Perspiciatis aut un', 'Commodi atque tempor', 411667, 19, 0, 1, '2025-08-05 17:19:52', '2025-08-05 17:19:52');
 
 --
 -- Indexes for dumped tables
@@ -430,25 +432,25 @@ ALTER TABLE `roh_users`
 -- AUTO_INCREMENT for table `roh_categories`
 --
 ALTER TABLE `roh_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `roh_cities`
 --
 ALTER TABLE `roh_cities`
-  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
 --
 ALTER TABLE `roh_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `roh_routes`
@@ -460,13 +462,13 @@ ALTER TABLE `roh_routes`
 -- AUTO_INCREMENT for table `roh_states`
 --
 ALTER TABLE `roh_states`
-  MODIFY `state_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `state_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

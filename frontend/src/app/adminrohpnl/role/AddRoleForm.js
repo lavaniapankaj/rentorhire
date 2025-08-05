@@ -34,7 +34,7 @@ export default function AddRoleForm({ onClose, onSuccess }) {
 
       const data = await res.json();
       /** recode = 0 is used for the token error */
-      if(data.rcode == 0){
+      if (data.rcode == 0) {
         router.push('/auth/admin');
       }
 
@@ -42,11 +42,18 @@ export default function AddRoleForm({ onClose, onSuccess }) {
         throw new Error(data.message || 'Failed to add role');
       }
 
-      onSuccess(); // Success
+      // Show success alert after successful role creation
+      alert('Role registered successfully!');
+
+      // Trigger onSuccess callback if provided
+      if (onSuccess) onSuccess();
+      // Close the modal
+      if (onClose) onClose();
     } catch (err) {
       setErrorMessage(err.message);
     }
   };
+
 
   return (
     <div className="addrole_roh_modalOverlay">

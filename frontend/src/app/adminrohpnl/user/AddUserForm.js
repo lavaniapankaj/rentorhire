@@ -66,12 +66,12 @@ export default function AddUserForm({ onSuccess, onClose }) {
     }
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(form.password_hash, salt);
-  
+
     const payload = new FormData();
     payload.append('user_name', form.user_name);
     payload.append('first_name', form.first_name);
@@ -88,31 +88,39 @@ export default function AddUserForm({ onSuccess, onClose }) {
     payload.append('pincode', parseInt(form.pincode));
     payload.append('add_id', authid);
     payload.append('edit_id', 0);
-  
+
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/user/create', {
-        method: 'POST',
-        headers: { 
-          'Authorization': `Bearer ${token}` // No Content-Type here, FormData sets it automatically
-        },
-        body: payload
-      });
-  
-      const data = await res.json();
-      alert(data?.message || 'Unknown response');
-  
-      if (!res.ok || data.status === false) {
-        return;
-      }
-  
-      setForm(initialFormState);
-      if (onSuccess) onSuccess();
-      if (onClose) onClose();
+        const res = await fetch('http://localhost:8080/api/adminrohpnl/user/create', {
+            method: 'POST',
+            headers: { 
+                'Authorization': `Bearer ${token}` // No Content-Type here, FormData sets it automatically
+            },
+            body: payload
+        });
+
+        const data = await res.json();
+        if (res.ok && data.status === true) {
+            // Success message after user is registered
+            alert('User registered successfully!');
+        } else {
+            // Handle failure scenario
+            alert(data?.message || 'Failed to register user');
+        }
+
+        if (!res.ok || data.status === false) {
+            return;
+        }
+
+        setForm(initialFormState); // Reset form fields
+        if (onSuccess) onSuccess(); // Trigger success callback
+        if (onClose) onClose(); // Close modal
+
     } catch (err) {
-      console.error('API Error:', err);
-      alert('Server error');
+        console.error('API Error:', err);
+        alert('Server error');
     }
-  };
+};
+
   
 
   return (

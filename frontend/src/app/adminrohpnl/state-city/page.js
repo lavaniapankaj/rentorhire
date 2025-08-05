@@ -122,6 +122,7 @@ export default function StateCityPage() {
 
       const data = await res.json();
       if (data.status) {
+        alert('State updated successfully!');  // This blocks further execution until the user clicks "OK"
         setIsEditStateOpen(false);
         setEditStateError(null);
         await fetchStates(currentPage);
