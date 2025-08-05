@@ -7,6 +7,7 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
     category_name: "",
     parent_category_id: "",
     category_description: "",
+    // category_picture_file: null
   };
   const [form, setForm] = useState({ initialFormState });
   
@@ -83,10 +84,28 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
     }
   };
 
+  // const handleChange = (e) => {
+  //   const { name, value, files } = e.target;
+  //   if (name == 'category_picture_file') {
+  //     setForm((prev) => ({
+  //       ...prev,
+  //       category_picture_file: files[0],
+  //     }));
+  //   } else {
+  //     setForm((prev) => ({
+  //       ...prev,
+  //       [name]: value,
+  //     }));
+  //   }
+
+  //   console.log("form>>> ", form.category_picture_file);
+  // };
+
   /* Handle change */
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+    // console.log("form data>> ", form);
   };
   
 
@@ -100,6 +119,12 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
           </label>
           <input type="text" id="category_name" name="category_name" value={form.category_name} onChange={handleChange}/>
         </div>
+
+        {/* Category Picture */}
+        {/* <div className={styles.adminUserAddFormGroup}>
+          <label htmlFor="category_picture_file">Category Picture</label>
+          <input type="file" id="category_picture_file" name="category_picture_file" accept="image/*" onChange={handleChange}/>
+        </div> */}
     
         <div className={styles.admin_cat_group}>
           <label htmlFor="parent_category">Parent Category</label>
