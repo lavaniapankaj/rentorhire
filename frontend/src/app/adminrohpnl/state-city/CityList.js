@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from 'react';
 import AddCityForm from './AddCityForm';
 import EditCityForm from './EditCityForm';
+import styles from '../admin.module.css';
 
 export default function CityList() {
   const [cities, setCities] = useState([]);
@@ -259,7 +260,7 @@ export default function CityList() {
               </tr>
             ) : (
               cities.map((city) => (
-                <tr key={city.city_id}>
+                <tr key={city.city_id}  className={city.active !== 1 ? styles.rohadminpncitydeltr : 'activeCityRow'}>
                   <td>{city.city_id}</td>
                   <td>{city.city_name}</td>
                   <td>{city.city_slug}</td>

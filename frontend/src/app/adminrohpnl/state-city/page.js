@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import AddStateForm from './AddStateForm';
 import EditStateForm from './EditStateForm';
 import CityList from './CityList'; // import CityList component
+import styles from '../admin.module.css';
 
 export default function StateCityPage() {
   const [activeTab, setActiveTab] = useState('states');
@@ -248,7 +249,7 @@ export default function StateCityPage() {
                   <tbody>
                     {states.length > 0 ? (
                       states.map((state) => (
-                        <tr key={state.state_id}>
+                        <tr key={state.state_id} className={state.active !== 1 ? styles.rohadminpnstatedeltr : 'activeStateRow'}>
                           <td>{state.state_id}</td>
                           <td>{state.state_name}</td>
                           <td>{state.state_slug}</td>

@@ -865,3 +865,31 @@
   display: flex;
   justify-content: space-between;
 }
+
+
+/** User role tbl css */
+.rohadminpnroledeltr {
+  background-color: #ffe5e5;
+  color: #a94442;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* (optional) Active row highlight */
+.activeRoleRow {
+  background-color: #e6ffed;
+}
+
+/** State city tbl css */
+.rohadminpnstatedeltr {
+  background-color: #ffe5e5;
+  color: #a94442;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+.rohadminpncitydeltr {
+  background-color: #ffe5e5;
+  color: #a94442;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
