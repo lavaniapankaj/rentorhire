@@ -3,7 +3,7 @@ const { pool } = require("../../../config/connection");
 /** User registration validation - Coded by Raj - July 08 2025 */
 const validateUserSignUp = (req, res, next) => {
 
-    const { userName, firstName, email, phone, password, address_1, landmark, city, state, pincode } = req.body;
+    const { userName, firstName, email, phone, password } = req.body;
     /** Validate required fields */
     if (!userName) {
         return GLOBAL_ERROR_RESPONSE("User name can't be empty.", {}, res);
@@ -20,18 +20,7 @@ const validateUserSignUp = (req, res, next) => {
     if (!password) {
         return GLOBAL_ERROR_RESPONSE("Password can't be empty.", {}, res);
     }
-    if (!address_1) {
-        return GLOBAL_ERROR_RESPONSE("Address 1 can't be empty.", {}, res);
-    }
-    if (!city) {
-        return GLOBAL_ERROR_RESPONSE("City name can't be empty.", {}, res);
-    }
-    if (!state) {
-        return GLOBAL_ERROR_RESPONSE("State name can't be empty.", {}, res);
-    }
-    if (!pincode) {
-        return GLOBAL_ERROR_RESPONSE("Pincode can't be empty.", {}, res);
-    }
+    
 
     /** Check if user name exists */
     const checkUsernameQuery = `SELECT * FROM roh_users WHERE user_name = ? AND active = 1 LIMIT 1`;
