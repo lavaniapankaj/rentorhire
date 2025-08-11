@@ -1,7 +1,5 @@
 // Create Category Validation Coded by Raj July 04 2025
 const validateCreateCategory = (req, res, next) => {
-
-    // console.log("req.body>> ", req.body);
     
     const { name  } = req.body;
 

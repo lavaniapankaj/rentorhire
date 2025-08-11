@@ -1,15 +1,45 @@
 // controller.js
 const pool = require('../../../config/connection');
+const path = require('path');
 
 function CategoryApi() {
 
     /** Function method to create the category and sub-category Coded by Raj July 04 2025 */
-    /** Function method to create the category and sub-category - Coded by Raj July 04 2025 */
     this.createCategory = async (req, res) => {
         try {
-            const { name, description, add_id, edit_id, parent_category_id } = req.body;
+
+            const { name, description, add_id, edit_id, parent_category_id, category_picture_file } = req.body;
             const active = 1;
-    
+            let mediaId = null;
+
+            /** If the user hasn't uploaded an image, set category_picture_file to null */
+            let categoryImageName = null;
+            let categoryImagePath = null;
+            let categoryImageType = null;
+            
+            if (category_picture_file) {
+                /** If the category_picture_file is provided, process it */
+                const fileExtension = path.extname(category_picture_file); /** e.g. '.webp', '.jpg' */
+                categoryImageName = category_picture_file;  /** File name from request */
+                categoryImagePath = `/media/category/`;
+                categoryImageType = fileExtension.slice(1);  /** Remove the dot (e.g. 'webp', 'jpg') */
+            }
+
+
+            if (categoryImageName) {
+                const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
+                const mediaValues = [categoryImageName, categoryImagePath, categoryImageType, 1];
+              
+                pool.execute(mediaQuery, mediaValues, (err, mediaResult) => {
+                    mediaId = mediaResult.insertId;
+                  if (err) {
+                    return GLOBAL_ERROR_RESPONSE("Error saving image to media gallery", err, res);
+                  }
+                });
+              }
+
+            console.log("media result>> ", mediaId);
+
             let slug = name
                 .toLowerCase()
                 .trim()
@@ -73,6 +103,9 @@ function CategoryApi() {
             }
     
         } catch (err) {
+
+            console.log("catch block error>>> ", err);
+
             let message = "Internal server error";
     
             if (err.code === 'ER_DUP_ENTRY') {

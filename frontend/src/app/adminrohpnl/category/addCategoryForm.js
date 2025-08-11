@@ -7,7 +7,7 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
     category_name: "",
     parent_category_id: "",
     category_description: "",
-    // category_picture_file: null
+    category_picture_file: null
   };
   const [form, setForm] = useState({ initialFormState });
   
@@ -47,28 +47,29 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
     fetchCategories();
   }, []);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const payload = {
-      name: form.category_name,
-      parent_category_id: form.parent_category_id,
-      description: form.category_description,
-      add_id: 1,
-      edit_id: 1
-    };
-
+  
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', form.category_name);
+    formDataToSend.append('parent_category_id', form.parent_category_id);
+    formDataToSend.append('description', form.category_description);
+    formDataToSend.append('add_id', 1);
+    formDataToSend.append('edit_id', 1);
+  
+    if (form.category_picture_file) {
+      formDataToSend.append('category_picture_file', form.category_picture_file); // This is the FILE object
+    }
+  
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/category/create', {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+        headers: {
+          'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(payload)
+        body: formDataToSend,
       });
-
+  
       const data = await res.json();
 
       if (!res.ok || data.status === false) {
@@ -103,9 +104,12 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
 
   /* Handle change */
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    // console.log("form data>> ", form);
+    const { name, value, files } = e.target;
+    if (name === 'category_picture_file') {
+      setForm({ ...form, [name]: files[0] });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
   
 
@@ -121,10 +125,10 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
         </div>
 
         {/* Category Picture */}
-        {/* <div className={styles.adminUserAddFormGroup}>
+        <div className={styles.adminUserAddFormGroup}>
           <label htmlFor="category_picture_file">Category Picture</label>
           <input type="file" id="category_picture_file" name="category_picture_file" accept="image/*" onChange={handleChange}/>
-        </div> */}
+        </div>
     
         <div className={styles.admin_cat_group}>
           <label htmlFor="parent_category">Parent Category</label>
