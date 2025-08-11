@@ -186,103 +186,124 @@ function UsersApi() {
     
     /** Update user in roh_users table Coded by Vishnu July 07 2025 */
     this.UpdateUser = async (req, res) => {
-        try {
-            const {
-                user_id,
-                first_name,
-                last_name,
-                email,
-                phone_number,
-                user_role_id,
-                password_hash,
-                profile_picture_url,  /** Existing profile picture (could be null or the current ID) */
-                address_1,
-                landmark,
-                state,
-                city,
-                pincode,
-                edit_id,
-            } = req.body;
+    try {
+        const {
+        user_id,
+        first_name,
+        last_name,
+        email,
+        phone_number,
+        user_role_id,
+        password_hash,           // plain text password input
+        profile_picture_url,     // existing media id or null
+        address_1,
+        landmark,
+        state,
+        city,
+        pincode,
+        edit_id,
+        } = req.body;
 
-            let query = `
-                UPDATE roh_users SET
-                    first_name = ?,
-                    last_name = ?,
-                    email = ?,
-                    phone_number = ?,
-                    user_role_id = ?,
-            `;
-
-            const params = [
-                first_name,
-                last_name,
-                email,
-                phone_number,
-                user_role_id,
-            ];
-
-            /** Hash password if provided and valid */
-            if (password_hash && password_hash.trim() !== "") {
-                if (password_hash.length < 8) {
-                    return GLOBAL_ERROR_RESPONSE("Password must be at least 8 characters long", null, res);
-                }
-
-                const hashedPassword = await bcrypt.hash(password_hash.trim(), 10); /** Salt rounds = 10 */
-                query += `password_hash = ?, `;
-                params.push(hashedPassword);
-            }
-
-            let updatedProfilePictureUrl = profile_picture_url; /** Default to the existing ID if no new file */
-
-
-            /** Handling the profile picture URL update */
-            if (req.file) {
-                /** If a new file is uploaded, save it in media gallery */
-                const fileExtension = path.extname(req.file.filename);
-
-                const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
-                const mediaValues = [req.file.filename, `/media/users/profile/`, fileExtension.slice(1), 1];
-
-                /** Use promise-based query (this is where the fix happens) */
-                const [mediaResult] = await pool.promise().query(mediaQuery, mediaValues);
-
-                /** Save the media ID in profile_picture_url */
-                updatedProfilePictureUrl = mediaResult.insertId;
-            }
-
-            /** Final update query to the users table */
-            query += `
-                profile_picture_url = ?,
-                address_1 = ?,
-                landmark = ?,
-                state = ?,
-                city = ?,
-                pincode = ?,
-                edit_id = ?
-                WHERE user_id = ?
-            `;
-
-            params.push(
-                updatedProfilePictureUrl,  /** Updated media ID or existing ID */
-                address_1,
-                landmark,
-                state,
-                city,
-                pincode,
-                edit_id,
-                user_id
-            );
-
-
-            const result = await pool.promise().query(query, params); /** Use promise-based query here */
-
-            return GLOBAL_SUCCESS_RESPONSE("User updated successfully", result, res);
-
-        } catch (err) {
-            console.error('Unexpected error:', err);
-            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+        if (!user_id) {
+        return GLOBAL_ERROR_RESPONSE("user_id is required", null, res);
         }
+
+        // Helper to normalize empty strings to null
+        const toNullIfEmpty = (v) => (v === undefined || v === null || (typeof v === "string" && v.trim() === "") ? null : v);
+
+        // Build dynamic update parts to avoid forcing empty strings into DB
+        const setClauses = [];
+        const params = [];
+
+        const addSet = (clause, value) => {
+        setClauses.push(clause);
+        params.push(value);
+        };
+
+        if (first_name !== undefined) addSet("first_name = ?", toNullIfEmpty(first_name));
+        if (last_name !== undefined) addSet("last_name = ?", toNullIfEmpty(last_name));
+        if (email !== undefined) addSet("email = ?", toNullIfEmpty(email));
+        if (phone_number !== undefined) addSet("phone_number = ?", toNullIfEmpty(phone_number));
+        if (user_role_id !== undefined) addSet("user_role_id = ?", toNullIfEmpty(user_role_id));
+
+        // Password hash only if provided and valid
+        if (password_hash !== undefined && password_hash !== null && String(password_hash).trim() !== "") {
+        const pwd = String(password_hash).trim();
+        if (pwd.length < 8) {
+            return GLOBAL_ERROR_RESPONSE("Password must be at least 8 characters long", null, res);
+        }
+        const hashedPassword = await bcrypt.hash(pwd, 10);
+        addSet("password_hash = ?", hashedPassword);
+        }
+
+        // Handle profile picture:
+        // - If new file uploaded -> insert into media gallery and use insertId
+        // - Else, if profile_picture_url provided (could be null) -> set accordingly
+        let finalProfileId = undefined;
+
+        if (req.file) {
+        const fileExtension = path.extname(req.file.filename);
+        const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
+        const mediaValues = [req.file.filename, `/media/users/profile/`, fileExtension.slice(1), 1];
+        const [mediaResult] = await pool.promise().query(mediaQuery, mediaValues);
+        finalProfileId = mediaResult.insertId;
+        } else if (profile_picture_url !== undefined) {
+        // normalize: if empty string or "null" string, set to actual NULL
+        const normalized =
+            profile_picture_url === null ||
+            (typeof profile_picture_url === "string" && profile_picture_url.trim().toLowerCase() === "null") ||
+            (typeof profile_picture_url === "string" && profile_picture_url.trim() === "")
+            ? null
+            : profile_picture_url;
+        finalProfileId = normalized;
+        }
+
+        if (finalProfileId !== undefined) {
+        addSet("profile_picture_url = ?", finalProfileId);
+        }
+
+        // Optional address fields:
+        // Use NULL when empty string; also guard numeric type for pincode
+        if (address_1 !== undefined) addSet("address_1 = ?", toNullIfEmpty(address_1));
+        if (landmark !== undefined) addSet("landmark = ?", toNullIfEmpty(landmark));
+        if (state !== undefined) addSet("state = ?", toNullIfEmpty(state));
+        if (city !== undefined) addSet("city = ?", toNullIfEmpty(city));
+
+        if (pincode !== undefined) {
+        let normalizedPin = toNullIfEmpty(pincode);
+        // If provided and not null, coerce to number; if NaN, reject
+        if (normalizedPin !== null) {
+            const num = Number(normalizedPin);
+            if (!Number.isInteger(num)) {
+            return GLOBAL_ERROR_RESPONSE("Invalid pincode: must be an integer", null, res);
+            }
+            normalizedPin = num;
+        }
+        addSet("pincode = ?", normalizedPin);
+        }
+
+        if (edit_id !== undefined) addSet("edit_id = ?", toNullIfEmpty(edit_id));
+
+        if (setClauses.length === 0) {
+        return GLOBAL_SUCCESS_RESPONSE("Nothing to update", {}, res);
+        }
+
+        const sql = `
+        UPDATE roh_users
+        SET ${setClauses.join(", ")}
+        WHERE user_id = ?
+        `;
+
+        params.push(user_id);
+
+        const [result] = await pool.promise().query(sql, params);
+        return GLOBAL_SUCCESS_RESPONSE("User updated successfully", result, res);
+    } catch (err) {
+        console.error("Unexpected error:", err);
+        return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+    }
     };
+
 
     
     /** Delete user in roh_users table Coded by Vishnu July 07 2025 */

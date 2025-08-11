@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import AddRoleForm from './AddRoleForm';
 import EditRoleForm from './EditRoleForm';
+import styles from '../admin.module.css';
 
 export default function RoleListPage() {
   const [role_roles, setRoleRoles] = useState([]);
@@ -135,9 +136,11 @@ export default function RoleListPage() {
             <tbody>
               {role_roles.length > 0 ? (
                 role_roles.map((role) => {
-                  const isInactive = role.active !== 1;
                   return (
-                    <tr key={role.id} className={isInactive ? 'rohadminroledel_' : ''}>
+                    <tr
+                      key={role.id}
+                      className={role.active !== 1 ? styles.rohadminpnroledeltr : 'activeRoleRow'}
+                    >
                       <td>{role.id}</td>
                       <td>{role.name}</td>
                       <td>{role.active === 1 ? 'Active' : 'Inactive'}</td>
@@ -146,8 +149,8 @@ export default function RoleListPage() {
                         {' | '}
                         <button
                           onClick={() => role_handleDelete(role.id)}
-                          disabled={isInactive}
-                          className={isInactive ? 'rohadminpnlroledel_' : ''}
+                          disabled={role.active !== 1}
+                          className={role.active !== 1 ? 'rohadminpnlroledel_' : ''}
                         >
                           Delete
                         </button>
@@ -161,6 +164,7 @@ export default function RoleListPage() {
                 </tr>
               )}
             </tbody>
+
           </table>
 
           {role_error && <p style={{ color: 'red' }}>Error: {role_error}</p>}
@@ -188,5 +192,7 @@ export default function RoleListPage() {
         </div>
       )}
     </div>
+    
   );
+  
 }

@@ -9,44 +9,58 @@ function authApi() {
 
     /** Function method to register the user Coded by Raj July 08 2025 */
     this.userRegister = async (req, res) => {
+    try {
+        const { userName, firstName, lastName, email, phone, password } = req.body;
+
+        const active = 1;
+        const user_role_id = 3; /** Need to use the role id for the user customers. */
+
+        let passwordHash;
         try {
-            const { userName, firstName, lastName, email, phone, password, address_1, landmark, city, state, pincode } = req.body;
-            
-            const active = 1;
-            const user_role_id = 3; /** Need to use the role id for the user(buyer or service user.) */
-            const profile_picture_url = "";
-
-            let passwordHash;
-            try {
-                passwordHash = await bcrypt.hash(password, saltRounds);
-            } catch (err) {
-                return GLOBAL_ERROR_RESPONSE("Error hashing password.", err, res);
-            }
-
-            /** SQL query to insert data into the users table */
-            const sql = `INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, active, address_1, landmark, state, city, pincode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
-            /* Execute the query using the pool */
-            const [result] = await pool.query(sql, [ userName, firstName, lastName, email, phone, passwordHash, user_role_id, profile_picture_url, active, address_1, landmark, city, state, pincode]);
-
-            if (result.affectedRows === 1) {
-                return GLOBAL_SUCCESS_RESPONSE(
-                    "User registered successfully.",
-                    {},
-                    res
-                );
-            } else {
-                return GLOBAL_ERROR_RESPONSE("Failed to register user.", {}, res);
-            }
+        passwordHash = await bcrypt.hash(password, saltRounds);
         } catch (err) {
-            let message = "Internal server error";
-            /** MySQL errors like duplicate entries for user */
-            if (err.code === 'ER_DUP_ENTRY') {
-                message = "Duplicate User Name Or Email.";
-            }
-            return GLOBAL_ERROR_RESPONSE(message, err, res);
+        return GLOBAL_ERROR_RESPONSE("Error hashing password.", err, res);
         }
+
+        const sql = `
+        INSERT INTO roh_users
+            (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, active)
+        VALUES
+            (?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+
+        /** Params: match the fields above */
+        const params = [
+        userName,
+        firstName,
+        lastName,
+        email,
+        phone,
+        passwordHash,
+        user_role_id,
+        active
+        ];
+
+        const [result] = await pool.query(sql, params);
+
+        if (result.affectedRows === 1) {
+        return GLOBAL_SUCCESS_RESPONSE(
+            "User registered successfully.",
+            {},
+            res
+        );
+        } else {
+        return GLOBAL_ERROR_RESPONSE("Failed to register user.", {}, res);
+        }
+    } catch (err) {
+        let message = "Internal server error";
+        if (err.code === 'ER_DUP_ENTRY') {
+        message = "Duplicate User Name Or Email.";
+        }
+        return GLOBAL_ERROR_RESPONSE(message, err, res);
+    }
     };
+
 
     /** Function method to register the service provider Coded by Raj July 08 2025 */
     this.serviceProviderRegister = async (req, res) => {

@@ -117,6 +117,7 @@ export default function EditCityForm({ cityId, onSuccess, onCancel }) {
       const data = await res.json();
 
       if (data.status) {
+        alert('City Updated successfully!');
         onSuccess();
       } else {
         setErrorMessage(data.message || 'Failed to update city');  // Show the error message returned from API

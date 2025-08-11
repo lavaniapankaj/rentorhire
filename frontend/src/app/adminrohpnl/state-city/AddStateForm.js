@@ -65,7 +65,14 @@ export default function AddStateForm({ onClose, onStateAdded }) {
 
       setErrorMessage('');
       setLoading(false);
+      
+      // Show success alert after state is successfully added
+      alert('State registered successfully!');
+
+      // Trigger onStateAdded callback after successful registration
       onStateAdded();
+      onClose(); // Close modal after success
+
     } catch (err) {
       setErrorMessage('Internal server error. Please try again.');
       setLoading(false);

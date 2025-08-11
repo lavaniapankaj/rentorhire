@@ -63,6 +63,9 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
       const data = await res.json();
       if (!res.ok || !data.status) throw new Error(data.message || 'Failed to update');
 
+      // Show success alert after successful role update
+      alert('Role Updated successfully!');
+
       onSuccess(); // close modal + refresh
     } catch (err) {
       setErrorMessage(err.message);
