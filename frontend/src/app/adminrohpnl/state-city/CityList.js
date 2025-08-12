@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import AddCityForm from './AddCityForm';
 import EditCityForm from './EditCityForm';
 import styles from '../admin.module.css';
+import { getAuthToken } from "@/utils/utilities";
 
 export default function CityList() {
   const [cities, setCities] = useState([]);
@@ -20,12 +21,14 @@ export default function CityList() {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 5;
 
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
+
   const didFetch = useRef(false);
 
-  // Fetch States (only once on initial render)
+  /* Fetch States (only once on initial render) */
   const fetchStates = async () => {
     try {
-      const token = localStorage.getItem('authToken');
       const res = await fetch('http://localhost:8080/api/adminrohpnl/state/getall', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -44,11 +47,9 @@ export default function CityList() {
     }
   };
 
-  // Fetch Cities (getall) based on page, search, and status
+  /* Fetch Cities (getall) based on page, search, and status */
   const fetchCities = async (page = currentPage, searchTerm = search, status = statusFilter) => {
     setLoading(true);
-    const token = localStorage.getItem('authToken');
-
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/city/get', {
         method: 'POST',
@@ -83,10 +84,9 @@ export default function CityList() {
     }
   };
 
-  // Fetch City Details (getsingle) when editing a city
+  /* Fetch City Details (getsingle) when editing a city */
   const fetchCityDetails = async (cityId) => {
     try {
-      const token = localStorage.getItem('authToken');
       const res = await fetch('http://localhost:8080/api/adminrohpnl/city/getsingle', {
         method: 'POST',
         headers: {
@@ -100,7 +100,7 @@ export default function CityList() {
 
       if (data.status && Array.isArray(data.data) && data.data.length > 0) {
         const city = data.data[0];
-        setEditCityId(cityId); // Set the city ID for the edit modal
+        setEditCityId(cityId); /* Set the city ID for the edit modal */
         setIsEditModalOpen(true);
       } else {
         console.error('City not found');
@@ -110,7 +110,7 @@ export default function CityList() {
     }
   };
 
-  // Handle Delete
+  /* Handle Delete */
   const handleDelete = async (cityId, isActive) => {
     if (isActive === 0) {
       alert("Inactive city cannot be deleted");
@@ -120,7 +120,6 @@ export default function CityList() {
     const confirmDelete = window.confirm("Are you sure you want to delete this city?");
     if (confirmDelete) {
       try {
-        const token = localStorage.getItem('authToken');
         const res = await fetch('http://localhost:8080/api/adminrohpnl/city/delete', {
           method: 'POST',
           headers: {
@@ -136,7 +135,7 @@ export default function CityList() {
 
         if (data.status) {
           alert("City deleted successfully");
-          fetchCities(); // Refresh city list after deletion
+          fetchCities();
         } else {
           alert("Failed to delete city");
         }
@@ -147,16 +146,16 @@ export default function CityList() {
     }
   };
 
-  // useEffect to fetch states and cities only when needed
+  /* useEffect to fetch states and cities only when needed */
   useEffect(() => {
     if (!didFetch.current) {
       fetchStates();
       fetchCities();
-      didFetch.current = true; // Mark fetching as done
+      didFetch.current = true;
     }
   }, []);
 
-  // Handle search form submission
+  /* Handle search form submission */
   const handleSearch = (e) => {
     e.preventDefault();
     const trimmed = searchInput.trim();
@@ -165,7 +164,7 @@ export default function CityList() {
     fetchCities(1, trimmed, statusFilter);
   };
 
-  // Handle clear search input
+  /* Handle clear search input */
   const handleClearSearch = () => {
     setSearchInput('');
     setSearch('');
@@ -173,7 +172,7 @@ export default function CityList() {
     fetchCities(1, '', statusFilter);
   };
 
-  // Handle status filter change
+  /* Handle status filter change */
   const handleStatusChange = (e) => {
     const newStatus = e.target.value;
     setStatusFilter(newStatus);
@@ -181,7 +180,7 @@ export default function CityList() {
     fetchCities(1, search, newStatus);
   };
 
-  // Handle pagination for next page
+  /* Handle pagination for next page */
   const handleNext = () => {
     if (currentPage < totalPages) {
       const nextPage = currentPage + 1;
@@ -190,7 +189,7 @@ export default function CityList() {
     }
   };
 
-  // Handle pagination for previous page
+  /* Handle pagination for previous page */
   const handlePrev = () => {
     if (currentPage > 1) {
       const prevPage = currentPage - 1;
@@ -199,7 +198,7 @@ export default function CityList() {
     }
   };
 
-  // Handle edit city action
+  /* Handle edit city action */
   const handleEdit = (cityId) => {
     fetchCityDetails(cityId);
   };

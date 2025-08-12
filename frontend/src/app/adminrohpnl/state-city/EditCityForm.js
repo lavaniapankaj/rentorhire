@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
+import { getAuthToken, getAuthUser } from "@/utils/utilities";
 
 export default function EditCityForm({ cityId, onSuccess, onCancel }) {
   const [formData, setFormData] = useState({
@@ -8,21 +9,26 @@ export default function EditCityForm({ cityId, onSuccess, onCancel }) {
     state_id: '',
   });
 
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
+  const admindtl = getAuthUser();
+  const authUser = JSON.parse(admindtl);
+  const authid = authUser.id;
+
   const [loading, setLoading] = useState(false);
   const [states, setStates] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');  // New state for error messages
-  const didFetchStates = useRef(false); // Ref to track if states were already fetched
-  const didFetchCity = useRef(false); // Ref to track if the city details were already fetched
+  const [errorMessage, setErrorMessage] = useState('');
+  const didFetchStates = useRef(false);
+  const didFetchCity = useRef(false);
 
-  // Fetch all states using GET request
+  /* Fetch all states using GET request */
   useEffect(() => {
-    if (didFetchStates.current) return; // Only fetch states once
+    if (didFetchStates.current) return;
 
     const fetchStates = async () => {
       try {
-        const token = localStorage.getItem('authToken');
         const res = await fetch('http://localhost:8080/api/adminrohpnl/state/getall', {
-          method: 'GET', // Use GET request instead of POST
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
@@ -31,18 +37,18 @@ export default function EditCityForm({ cityId, onSuccess, onCancel }) {
 
         const data = await res.json();
         if (data.status && Array.isArray(data.data)) {
-          setStates(data.data); // Store the list of states
+          setStates(data.data);
         } else {
-          setErrorMessage(data.message || 'Failed to fetch states');  // Handle error message from API
+          setErrorMessage(data.message || 'Failed to fetch states');
         }
       } catch (err) {
         console.error('Error fetching states:', err);
-        setErrorMessage('An error occurred while fetching states.'); // Set generic error message
+        setErrorMessage('An error occurred while fetching states.');
       }
     };
 
     fetchStates();
-    didFetchStates.current = true; // Mark states as fetched
+    didFetchStates.current = true;
   }, []);
 
   // Fetch single city details
@@ -51,7 +57,6 @@ export default function EditCityForm({ cityId, onSuccess, onCancel }) {
 
     const fetchCityDetails = async () => {
       try {
-        const token = localStorage.getItem('authToken');
         const res = await fetch('http://localhost:8080/api/adminrohpnl/city/getsingle', {
           method: 'POST', // Use POST for fetching city details
           headers: {
@@ -94,11 +99,6 @@ export default function EditCityForm({ cityId, onSuccess, onCancel }) {
   const handleUpdate = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    const token = localStorage.getItem('authToken');
-    const admindtl = localStorage.getItem('authUser');
-    const authUser = JSON.parse(admindtl);
-    const authid = authUser.id;
 
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/city/edit', {

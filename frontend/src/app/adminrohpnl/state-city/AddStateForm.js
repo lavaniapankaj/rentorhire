@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { getAuthToken, getAuthUser } from "@/utils/utilities";
 
 export default function AddStateForm({ onClose, onStateAdded }) {
   const [stateName, setStateName] = useState('');
@@ -6,6 +7,10 @@ export default function AddStateForm({ onClose, onStateAdded }) {
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(false); // 👈 new state
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  /** Getting the token and userdata from the cookies */
+  const token = getAuthToken();
+  const admindtl = getAuthUser();
 
   const generateSlug = (value) => {
     return value
@@ -35,8 +40,6 @@ export default function AddStateForm({ onClose, onStateAdded }) {
     setLoading(true);
     setErrorMessage('');
 
-    const token = localStorage.getItem('authToken');
-    const admindtl = localStorage.getItem('authUser');
     const authUser = JSON.parse(admindtl);
     const authid = authUser.id;
 
@@ -66,13 +69,9 @@ export default function AddStateForm({ onClose, onStateAdded }) {
       setErrorMessage('');
       setLoading(false);
       
-      // Show success alert after state is successfully added
       alert('State registered successfully!');
-
-      // Trigger onStateAdded callback after successful registration
       onStateAdded();
-      onClose(); // Close modal after success
-
+      onClose();
     } catch (err) {
       setErrorMessage('Internal server error. Please try again.');
       setLoading(false);

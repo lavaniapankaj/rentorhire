@@ -6,7 +6,7 @@ import styles from '../admin.module.css';
 import AddCategoryForm from './addCategoryForm';
 import ViewCategory from './viewCategory';
 import EditCategoryForm from './EditCategoryForm';
-
+import { getAuthToken } from "@/utils/utilities";
 
 export default function ListCategoryPage() {
   const [categories, setCategories] = useState([]);
@@ -33,7 +33,9 @@ export default function ListCategoryPage() {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    /** Getting the token from the cookies */
+    const token = getAuthToken();
+
     const fetchCategories = async () => {
       try {
         const response = await fetch('http://localhost:8080/api/adminrohpnl/category/list', {
@@ -79,7 +81,10 @@ export default function ListCategoryPage() {
   
   /** Function to open the category view model */
   const viewCategoryData = async (cat_id) => {
-    const token = localStorage.getItem('authToken');
+
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
+
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/category/details', {
         method: 'POST',
@@ -109,7 +114,9 @@ export default function ListCategoryPage() {
     const confirmDelete = window.confirm("Are you sure you want to delete this category?");
     if (!confirmDelete) return;
 
-    const token = localStorage.getItem('authToken');
+    /** Getting the token from the cookies */
+    const token = getAuthToken();
+
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/category/delete', {
         method: 'POST',
@@ -130,7 +137,7 @@ export default function ListCategoryPage() {
 
       setCurrentPage(1);
       alert('Category deleted successfully.');
-      setFilters({ ...filters }); // trigger refresh with current filters
+      setFilters({ ...filters });
     } catch (err) {
       console.error('Delete error:', err);
       alert('An error occurred while deleting the category.');
@@ -143,7 +150,10 @@ export default function ListCategoryPage() {
 
   /** Function to open the edit model for the category */
   const openEditCategoryModal = async (cat_id) => {
-    const token = localStorage.getItem('authToken');
+    
+    /** Getting the token from the cookies */
+    const token = getAuthToken();
+
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/category/details', {
         method: 'POST',
@@ -180,28 +190,28 @@ export default function ListCategoryPage() {
     }
   };
 
-  // Handling input change for search
+  /* Handling input change for search */
   const handleSearchFormChange = (e) => {
     const { name, value } = e.target;
     setSearchForm((prev) => ({
       ...prev,
-      [name]: value, // Update category_name
+      [name]: value,
     }));
   };
 
-  // Handling form submit (Search)
+  /* Handling form submit (Search) */
   const handleSearch = (e) => {
-    e.preventDefault(); // Prevent form submission
-    setFilters({ ...searchForm });  // Set filters to searchForm
-    setCurrentPage(1); // Reset to page 1 when search is clicked
+    e.preventDefault();
+    setFilters({ ...searchForm });
+    setCurrentPage(1);
   };
 
-  // Handeling the cancel of the search
+  /* Handeling the cancel of the search */
   const handleCancel = (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
     setSearchForm({ category_name: '' });
-    setFilters({}); // Or whatever default filter state is
-    setCurrentPage(1); // Reset to page 1 when search is clicked
+    setFilters({});
+    setCurrentPage(1);
   };
 
   return (

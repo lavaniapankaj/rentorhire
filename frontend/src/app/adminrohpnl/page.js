@@ -9,7 +9,6 @@ export default function AdminDashboard() {
   /** Admin login token check - Coded by Raj - July 15 2025 */
   const router = useRouter();
   useEffect(() => {
-    // const token = localStorage.getItem('authToken');
     /** Checking for the token and redirecting on the dashboard if the token is not expired */
     const getCookie = (name) => {
       const value = `; ${document.cookie}`;
@@ -19,7 +18,6 @@ export default function AdminDashboard() {
     const token = getCookie('authToken');
     const authUserData = getCookie('authUser');
     
-    // const authUserData = localStorage.getItem('authUser');
     const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
     
     let isTokenExpired = false;
@@ -35,12 +33,6 @@ export default function AdminDashboard() {
         isTokenExpired = true;
       }
     }
-
-    console.log("now on the dashboard.");
-    console.log("token>>> ", token);
-    console.log("isTokenExpired>>> ", isTokenExpired);
-    console.log("parsedAuthUserData>>> ", parsedAuthUserData);
-    return;
 
     if (!token || isTokenExpired || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
       // Redirect to the login page

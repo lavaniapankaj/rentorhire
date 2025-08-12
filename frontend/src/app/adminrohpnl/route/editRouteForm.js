@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from '../admin.module.css';
+import { getAuthToken } from "@/utils/utilities";
 
 export default function EditRouteForm({ route, routeGroup, onClose, onSuccess }) {
 
@@ -7,12 +8,14 @@ export default function EditRouteForm({ route, routeGroup, onClose, onSuccess })
     route_name: "",
     access_type: "",
     route_type: "",
-    group_name: "", // Keep as empty initially
+    group_name: "",
   });
 
   const [errorMessage, setErrorMessage] = useState('');
-  const token = localStorage.getItem('authToken');
-
+  
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -27,10 +30,10 @@ export default function EditRouteForm({ route, routeGroup, onClose, onSuccess })
         route_name: route.route_name || '',
         access_type: route.access_type || '',
         route_type: route.route_type || '',
-        group_name: route.group_name || '', // Ensure group_name is correctly assigned from route
+        group_name: route.group_name || '',
       });
     }
-  }, [route, routeGroup]); // Track both route and routeGroup
+  }, [route, routeGroup]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

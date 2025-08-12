@@ -55,6 +55,7 @@ export default function AdminLoginPage() {
 
       localStorage.setItem('authToken', data.token);
       localStorage.setItem('authUser', JSON.stringify(data.user));
+      
       document.cookie = `authToken=${data.token}; path=/`;
       document.cookie = `authUser=${JSON.stringify(data.user)}; path=/`;
       router.push('/adminrohpnl');

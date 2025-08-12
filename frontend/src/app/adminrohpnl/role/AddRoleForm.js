@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { getAuthToken, getAuthUser } from "@/utils/utilities";
 
 export default function AddRoleForm({ onClose, onSuccess }) {
   const [roleName, setRoleName] = useState('');
@@ -9,8 +10,10 @@ export default function AddRoleForm({ onClose, onSuccess }) {
   const handleRoleNameChange = (e) => setRoleName(e.target.value);
   const handleStatusChange = (e) => setStatus(e.target.value);
 
-  const token = localStorage.getItem('authToken');
-  const admindtl = localStorage.getItem('authUser');
+  /** Getting the token and userdata from the cookies */
+  const token = getAuthToken();
+  const admindtl = getAuthUser();
+
   const authUser = JSON.parse(admindtl);
   const authid = authUser.id;
   const handleSubmit = async (e) => {
@@ -42,18 +45,14 @@ export default function AddRoleForm({ onClose, onSuccess }) {
         throw new Error(data.message || 'Failed to add role');
       }
 
-      // Show success alert after successful role creation
       alert('Role registered successfully!');
 
-      // Trigger onSuccess callback if provided
       if (onSuccess) onSuccess();
-      // Close the modal
       if (onClose) onClose();
     } catch (err) {
       setErrorMessage(err.message);
     }
   };
-
 
   return (
     <div className="addrole_roh_modalOverlay">
@@ -100,7 +99,8 @@ export default function AddRoleForm({ onClose, onSuccess }) {
         </form>
       </div>
 
-      <style jsx>{`
+      <style jsx>
+        {`
         .addrole_roh_modalOverlay {
           position: fixed;
           top: 0;
@@ -186,7 +186,8 @@ export default function AddRoleForm({ onClose, onSuccess }) {
           background-color: #f44336;
           color: white;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

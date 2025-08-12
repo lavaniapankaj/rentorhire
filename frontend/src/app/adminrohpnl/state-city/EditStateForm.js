@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
+import { getAuthToken, getAuthUser } from "@/utils/utilities";
 
 export default function EditStateForm({ state_id, onClose, onStateUpdated, error }) {
   const [stateName, setStateName] = useState('');
@@ -7,6 +8,9 @@ export default function EditStateForm({ state_id, onClose, onStateUpdated, error
   const [errorMessage, setErrorMessage] = useState('');
   const [isErrorVisible, setIsErrorVisible] = useState(false);
   const hasFetched = useRef(false);
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
+  const authUser = getAuthUser();
 
   // Fetch state details
   useEffect(() => {
@@ -15,7 +19,6 @@ export default function EditStateForm({ state_id, onClose, onStateUpdated, error
     const fetchStateDetails = async () => {
       hasFetched.current = true;
       try {
-        const token = localStorage.getItem('authToken');
         const res = await fetch('http://localhost:8080/api/adminrohpnl/state/getsingle', {
           method: 'POST',
           headers: {
@@ -47,7 +50,6 @@ export default function EditStateForm({ state_id, onClose, onStateUpdated, error
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const authUser = localStorage.getItem('authUser');
     const parsedUser = authUser ? JSON.parse(authUser) : null;
     const editId = parsedUser?.id || null;
     
@@ -55,8 +57,7 @@ export default function EditStateForm({ state_id, onClose, onStateUpdated, error
       state_name: stateName,
       state_slug: stateSlug,
       state_id: state_id,
-      edit_id: editId, // <-- Add this line
-
+      edit_id: editId,
     };
 
     setErrorMessage('');

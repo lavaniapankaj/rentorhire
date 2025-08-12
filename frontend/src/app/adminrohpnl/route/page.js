@@ -6,7 +6,7 @@ import styles from '../admin.module.css';
 import AddRouteForm from './addRouteForm';
 import ViewRoute from './viewRoute';
 import EditRouteForm from './editRouteForm';
-
+import { getAuthToken } from "@/utils/utilities";
 
 export default function ListRoutePage() {
   const [routes, setRoutes] = useState([]);
@@ -23,7 +23,8 @@ export default function ListRoutePage() {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  // app/adminrohpnl/route/page.js
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
 
   const routeGroups = [
     { id: 1, role_type: 1, groupName: 'Admin Dashboard', accessTypes: ['View', 'All'] },
@@ -36,7 +37,6 @@ export default function ListRoutePage() {
   }, [currentPage]);
 
   const fetchRoutes = async () => {
-    const token = localStorage.getItem('authToken');
     try {
       const response = await fetch('http://localhost:8080/api/adminrohpnl/route/get', {
         method: 'POST',
@@ -64,7 +64,6 @@ export default function ListRoutePage() {
       setLoading(false);
     }
   };
-  
 
   /** Function to open the add model */
   const openAddModal = () => {
@@ -77,8 +76,6 @@ export default function ListRoutePage() {
   
   /** Function to open the route view model */
   const viewRouteData = async (id) => {
-    const token = localStorage.getItem('authToken');
-
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/route/view', {
         method: 'post',
@@ -108,7 +105,6 @@ export default function ListRoutePage() {
     const confirmDelete = window.confirm("Are you sure you want to delete the route?");
     if (!confirmDelete) return;
 
-    const token = localStorage.getItem('authToken');
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/route/delete', {
         method: 'POST',
@@ -142,7 +138,6 @@ export default function ListRoutePage() {
 
   /** Function to open the edit model for the route */
   const openEditRouteModal = async (id) => {
-    const token = localStorage.getItem('authToken');
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/route/view', {
         method: 'POST',

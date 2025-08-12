@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from '../admin.module.css';
+import { getAuthToken } from "@/utils/utilities";
 
 export default function EditCategoryForm({ category, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -10,7 +11,9 @@ export default function EditCategoryForm({ category, onClose, onSuccess }) {
 
   const [parentCategories, setParentCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
-  const token = localStorage.getItem('authToken');
+
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
 
   useEffect(() => {
     if (category) {
@@ -60,8 +63,8 @@ export default function EditCategoryForm({ category, onClose, onSuccess }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
 
+    e.preventDefault();
     const updatedCategory = {
       ...category,
       name: formData.name,
@@ -69,7 +72,6 @@ export default function EditCategoryForm({ category, onClose, onSuccess }) {
       description: formData.description,
     };
 
-    // return;
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/category/update', {
         method: 'POST',

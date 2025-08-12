@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import AddRoleForm from './AddRoleForm';
 import EditRoleForm from './EditRoleForm';
 import styles from '../admin.module.css';
+import { getAuthToken, getAuthUser } from "@/utils/utilities";
+
 
 export default function RoleListPage() {
   const [role_roles, setRoleRoles] = useState([]);
@@ -18,9 +20,12 @@ export default function RoleListPage() {
 
   /** Get localStorage values only on client (browser) */
   useEffect(() => {
+    
     if (typeof window !== 'undefined') {
-      const admindtl = localStorage.getItem('authUser');
-      const token = localStorage.getItem('authToken');
+      
+      /** Getting the token and userdata from the cookies */
+      const token = getAuthToken();
+      const admindtl = getAuthUser();
 
       if (admindtl && token) {
         try {
@@ -192,7 +197,5 @@ export default function RoleListPage() {
         </div>
       )}
     </div>
-    
   );
-  
 }

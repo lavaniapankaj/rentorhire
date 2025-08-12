@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import AddStateForm from './AddStateForm';
 import EditStateForm from './EditStateForm';
-import CityList from './CityList'; // import CityList component
+import CityList from './CityList';
 import styles from '../admin.module.css';
+import { getAuthToken } from "@/utils/utilities";
 
 export default function StateCityPage() {
   const [activeTab, setActiveTab] = useState('states');
@@ -23,14 +24,15 @@ export default function StateCityPage() {
   const [stateIdToEdit, setStateIdToEdit] = useState(null);
   const [editStateError, setEditStateError] = useState(null);
 
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
+
   const limit = 5;
 
   // Fetch States
   const fetchStates = async (page = currentPage) => {
     if (activeTab !== 'states') return;
     setLoading(true);
-    const token = localStorage.getItem('authToken');
-
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/state/get', {
         method: 'POST',
@@ -109,7 +111,6 @@ export default function StateCityPage() {
 
   const handleStateUpdated = async (updatedState) => {
     try {
-      const token = localStorage.getItem('authToken');
       const res = await fetch('http://localhost:8080/api/adminrohpnl/state/edit', {
         method: 'POST',
         headers: {
@@ -123,7 +124,7 @@ export default function StateCityPage() {
 
       const data = await res.json();
       if (data.status) {
-        alert('State updated successfully!');  // This blocks further execution until the user clicks "OK"
+        alert('State updated successfully!');
         setIsEditStateOpen(false);
         setEditStateError(null);
         await fetchStates(currentPage);
@@ -141,8 +142,6 @@ export default function StateCityPage() {
     if (!window.confirm('Are you sure you want to delete this state?')) return;
 
     setLoading(true);
-    const token = localStorage.getItem('authToken');
-
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/state/delete', {
         method: 'POST',

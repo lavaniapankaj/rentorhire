@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import styles from '../admin.module.css';
+import { getAuthToken } from "@/utils/utilities";
 
 export default function AddCategoryForm({ onSuccess, onClose }) {
   const initialFormState = {
@@ -13,7 +14,9 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
   
   const [categories, setCategories] = useState([]);
   const fetchedOnce = useRef(false);
-  const token = localStorage.getItem('authToken');
+
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
 
   /* Fetch the parent categories to create a child category */
   useEffect(() => {
@@ -58,7 +61,7 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
     formDataToSend.append('edit_id', 1);
   
     if (form.category_picture_file) {
-      formDataToSend.append('category_picture_file', form.category_picture_file); // This is the FILE object
+      formDataToSend.append('category_picture_file', form.category_picture_file);
     }
   
     try {
@@ -85,23 +88,6 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
     }
   };
 
-  // const handleChange = (e) => {
-  //   const { name, value, files } = e.target;
-  //   if (name == 'category_picture_file') {
-  //     setForm((prev) => ({
-  //       ...prev,
-  //       category_picture_file: files[0],
-  //     }));
-  //   } else {
-  //     setForm((prev) => ({
-  //       ...prev,
-  //       [name]: value,
-  //     }));
-  //   }
-
-  //   console.log("form>>> ", form.category_picture_file);
-  // };
-
   /* Handle change */
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -112,7 +98,6 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
     }
   };
   
-
   return (
     <>
       <h2 className="admin-cat-title">Add New Category</h2>

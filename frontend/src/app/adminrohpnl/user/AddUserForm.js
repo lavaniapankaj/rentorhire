@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from '../admin.module.css';
 import bcrypt from 'bcryptjs';
+import { getAuthToken, getAuthUser } from "@/utils/utilities";
 
 const initialFormState = {
   first_name: '',
@@ -23,8 +24,10 @@ export default function AddUserForm({ onSuccess, onClose }) {
   const [form, setForm] = useState(initialFormState);
   const [roles, setRoles] = useState([]);
 
-  const token = localStorage.getItem('authToken');
-  const admindtl = localStorage.getItem('authUser');
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
+  const admindtl = getAuthUser();
+
   const authUser = JSON.parse(admindtl);
   const authid = authUser.id;
 

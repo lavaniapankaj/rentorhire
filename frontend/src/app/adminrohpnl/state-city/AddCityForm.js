@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
+import { getAuthToken, getAuthUser } from "@/utils/utilities";
 
 export default function AddCityForm({ onSuccess, onCancel }) {
   const [cityName, setCityName] = useState('');
@@ -9,7 +10,10 @@ export default function AddCityForm({ onSuccess, onCancel }) {
   const [states, setStates] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Prevent double fetch of states list
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
+
+  /* Prevent double fetch of states list */
   const fetched = useRef(false);
 
   useEffect(() => {
@@ -18,7 +22,6 @@ export default function AddCityForm({ onSuccess, onCancel }) {
 
     const fetchStates = async () => {
       try {
-        const token = localStorage.getItem('authToken');
         const res = await fetch('http://localhost:8080/api/adminrohpnl/state/getall', {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,7 +41,7 @@ export default function AddCityForm({ onSuccess, onCancel }) {
     fetchStates();
   }, []);
 
-  // Auto-generate slug from cityName unless user manually edits slug
+  /* Auto-generate slug from cityName unless user manually edits slug */
   useEffect(() => {
     if (!isSlugTouched) {
       const autoSlug = cityName
@@ -60,8 +63,8 @@ export default function AddCityForm({ onSuccess, onCancel }) {
       return;
     }
 
-    const token = localStorage.getItem('authToken');
-    const admindtl = localStorage.getItem('authUser');
+    /** Getting the userdata from the cookies */
+    const admindtl = getAuthUser();
     const authUser = JSON.parse(admindtl);
     const authid = authUser.id;
 

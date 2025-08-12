@@ -6,6 +6,7 @@ import styles from '../admin.module.css';
 import AddUserForm from './AddUserForm';
 import EditUserForm from './EditUserForm';
 import ViewUser from './ViewUser';
+import { getAuthToken } from "@/utils/utilities";
 
 export default function ListUserPage() {
   const [users, setUsers] = useState([]);
@@ -36,13 +37,15 @@ export default function ListUserPage() {
   const [viewUser, setViewUser] = useState(null);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
 
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
+
   const roleMap = roles.reduce((map, role) => {
     map[role.id] = role.name;
     return map;
   }, {});
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
     const fetchUsers = async () => {
       if (!initialLoad) setLoading(true);
       try {
@@ -107,7 +110,6 @@ export default function ListUserPage() {
   const closeModal = () => setIsModalOpen(false);
 
   const openEditModal = async (user) => {
-    const token = localStorage.getItem('authToken');
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/user/view', {
         method: 'POST',
@@ -134,7 +136,6 @@ export default function ListUserPage() {
   const handleDeleteUser = async (user_id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this user?");
     if (!confirmDelete) return;
-    const token = localStorage.getItem('authToken');
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/user/delete', {
         method: 'POST',
@@ -156,7 +157,6 @@ export default function ListUserPage() {
   };
 
   const openViewModal = async (user) => {
-    const token = localStorage.getItem('authToken');
     try {
       const res = await fetch('http://localhost:8080/api/adminrohpnl/user/view', {
         method: 'POST',

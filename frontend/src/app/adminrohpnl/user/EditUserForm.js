@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import styles from '../admin.module.css';
+import { getAuthToken, getAuthUser } from "@/utils/utilities";
 
 export default function EditUserForm({ user, onClose, roles: initialRoles, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -34,8 +35,10 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
   const [fetchedRoles, setFetchedRoles] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const token = localStorage.getItem('authToken');
-  const admindtl = localStorage.getItem('authUser');
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
+  const admindtl = getAuthUser();
+
   const authUser = JSON.parse(admindtl);
   const authid = authUser.id;
 

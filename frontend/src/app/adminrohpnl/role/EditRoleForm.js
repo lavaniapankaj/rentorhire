@@ -1,14 +1,17 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { getAuthToken, getAuthUser } from "@/utils/utilities";
 
 export default function EditRoleForm({ roleId, onClose, onSuccess }) {
   const [roleName, setRoleName] = useState('');
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-  const token = localStorage.getItem('authToken');
 
-  const hasFetched = useRef(false); // prevents duplicate fetch
+  /** Getting the token from the cookies */
+  const token = getAuthToken();
 
+  const hasFetched = useRef(false);
+  
   useEffect(() => {
     if (hasFetched.current) return;
     hasFetched.current = true;
@@ -42,7 +45,9 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
     e.preventDefault();
     setErrorMessage('');
 
-    const admindtl = localStorage.getItem('authUser');
+    /** Getting the userdata from the cookies */
+    const admindtl = getAuthUser();
+
     const authUser = JSON.parse(admindtl);
     const authid = authUser.id;
 

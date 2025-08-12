@@ -1,10 +1,12 @@
 'use client';
 import { useState, useEffect } from 'react';
 import styles from '../admin.module.css';
+import { getAuthToken } from "@/utils/utilities";
 
 export default function AddRouteForm({routeGroup, onSuccess, onClose }) {
 
-    const token = localStorage.getItem('authToken');
+    /** Getting the token from the cookies */
+    const token = getAuthToken();
     const initialFormState = {
         route_name: "",
         access_type: "",
@@ -95,7 +97,6 @@ export default function AddRouteForm({routeGroup, onSuccess, onClose }) {
                     ))}
                 </select>
             </div>
-
 
             <div className={styles.admin_cat_actions}>
                 <button type="submit" className={`${styles['admin-cat-btn']} ${styles['admin-cat-btn-primary']}`} onClick={handleSubmit}> Save </button>
