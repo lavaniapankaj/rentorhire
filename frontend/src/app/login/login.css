@@ -1,0 +1,136 @@
+/* Container */
+.rohuserlogn_wrap {
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+  padding: 48px 16px;
+  background: radial-gradient(1200px 600px at 50% -200px, #eef2ff 0%, transparent 70%);
+}
+
+/* Card */
+.rohuserlogn_card {
+  width: 100%;
+  max-width: 720px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* Headings */
+.rohuserlogn_title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: #111827;
+}
+.rohuserlogn_subtitle {
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+/* Alert */
+.rohuserlogn_alert {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+/* Form */
+.rohuserlogn_form { display: grid; gap: 16px; }
+.rohuserlogn_field { display: grid; gap: 8px; }
+
+.rohuserlogn_label { font-weight: 600; color: #111827; }
+.rohuserlogn_labelrow {
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.rohuserlogn_input {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 0 14px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.rohuserlogn_input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59,130,246,.15);
+}
+
+/* Row actions */
+.rohuserlogn_row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 4px;
+}
+
+.rohuserlogn_check { display: inline-flex; gap: 8px; align-items: center; color:#374151; }
+.rohuserlogn_checkbox { width: 16px; height: 16px; }
+
+/* Buttons */
+.rohuserlogn_btn {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform .05s ease, opacity .2s ease;
+}
+.rohuserlogn_btn:disabled { opacity: .7; cursor: not-allowed; }
+.rohuserlogn_btn:active { transform: translateY(1px); }
+
+.rohuserlogn_link {
+  color: #2563eb; text-decoration: none; font-weight: 600;
+}
+.rohuserlogn_link:hover { text-decoration: underline; }
+
+.rohuserlogn_linkbtn {
+  background: transparent; border: none; padding: 0; cursor: pointer;
+  color: #2563eb; font-weight: 600;
+}
+
+/* Divider */
+.rohuserlogn_divider {
+  position: relative; text-align: center; margin: 8px 0;
+  color: #6b7280; font-size: 14px;
+}
+.rohuserlogn_divider::before,
+.rohuserlogn_divider::after {
+  content: ""; position: absolute; top: 50%; width: 40%;
+  height: 1px; background: #e5e7eb;
+}
+.rohuserlogn_divider::before { left: 0; }
+.rohuserlogn_divider::after { right: 0; }
+
+/* Social buttons */
+.rohuserlogn_socials { display: grid; gap: 10px; margin-top: -4px; }
+.rohuserlogn_socialbtn {
+  width: 100%;
+  height: 46px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Footer text */
+.rohuserlogn_footer {
+  text-align: center; color: #4b5563; margin-top: 6px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .rohuserlogn_card { padding: 22px; border-radius: 14px; }
+  .rohuserlogn_title { font-size: 24px; }
+}

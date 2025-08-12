@@ -9,56 +9,54 @@ function authApi() {
 
     /** Function method to register the user Coded by Raj July 08 2025 */
     this.userRegister = async (req, res) => {
-    try {
-        const { userName, firstName, lastName, email, phone, password } = req.body;
-
-        const active = 1;
-        const user_role_id = 3; /** Need to use the role id for the user customers. */
-
-        let passwordHash;
         try {
-        passwordHash = await bcrypt.hash(password, saltRounds);
+            const { userName, firstName, lastName, email, phone, password } = req.body;
+
+            const active = 0;  // Initial status 0
+            const user_role_id = 3;
+
+            let passwordHash;
+            try {
+                passwordHash = await bcrypt.hash(password, saltRounds);
+            } catch (err) {
+                return GLOBAL_ERROR_RESPONSE("Error hashing password.", err, res);
+            }
+
+            const sql = `
+            INSERT INTO roh_users
+                (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, active, authorize_code, verified)
+            VALUES
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `;
+            const otp = Math.floor(100000 + Math.random() * 900000).toString();  // Generate OTP
+
+            const params = [
+                userName,
+                firstName,
+                lastName,
+                email,
+                phone,
+                passwordHash,
+                user_role_id,
+                active,
+                otp,  // Save OTP in the 'authorize_code' field
+                0, // Set 'verified' status to 0
+            ];
+
+            const [result] = await pool.query(sql, params);
+
+            if (result.affectedRows === 1) {
+                return GLOBAL_SUCCESS_RESPONSE("User registered successfully. OTP sent.", { otp }, res);
+            } else {
+                return GLOBAL_ERROR_RESPONSE("Failed to register user.", {}, res);
+            }
         } catch (err) {
-        return GLOBAL_ERROR_RESPONSE("Error hashing password.", err, res);
+            let message = "Internal server error";
+            if (err.code === 'ER_DUP_ENTRY') {
+                message = "Duplicate User Name Or Email.";
+            }
+            return GLOBAL_ERROR_RESPONSE(message, err, res);
         }
-
-        const sql = `
-        INSERT INTO roh_users
-            (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, active)
-        VALUES
-            (?, ?, ?, ?, ?, ?, ?, ?)
-        `;
-
-        /** Params: match the fields above */
-        const params = [
-        userName,
-        firstName,
-        lastName,
-        email,
-        phone,
-        passwordHash,
-        user_role_id,
-        active
-        ];
-
-        const [result] = await pool.query(sql, params);
-
-        if (result.affectedRows === 1) {
-        return GLOBAL_SUCCESS_RESPONSE(
-            "User registered successfully.",
-            {},
-            res
-        );
-        } else {
-        return GLOBAL_ERROR_RESPONSE("Failed to register user.", {}, res);
-        }
-    } catch (err) {
-        let message = "Internal server error";
-        if (err.code === 'ER_DUP_ENTRY') {
-        message = "Duplicate User Name Or Email.";
-        }
-        return GLOBAL_ERROR_RESPONSE(message, err, res);
-    }
     };
 
 
@@ -193,6 +191,95 @@ function authApi() {
             });
         } catch (error) {
             return res.status(500).json({ message: 'Internal Server error' });
+        }
+    };
+
+    /** Function method to check availability of user - Coded by Vishnu Aug 11 2025 */
+    this.checkAvailability = async (req, res) => {
+    try {
+        const { userName, email } = req.body || {};
+        const taken = { userName: false, email: false, phone: false };
+
+        // Build dynamic WHEREs only for provided fields
+        const checks = [];
+        const params = [];
+        if (userName) { checks.push("user_name = ?"); params.push(userName); }
+        if (email)    { checks.push("email = ?");     params.push(email); }
+
+        if (!checks.length) {
+        return GLOBAL_ERROR_RESPONSE("No fields to check.", {}, res);
+        }
+
+        // Single query for speed using OR, then inspect rows
+        const sql = `
+        SELECT user_name, email
+        FROM roh_users
+        WHERE ${checks.join(" OR ")}
+        LIMIT 50
+        `;
+        const [rows] = await pool.query(sql, params);
+
+        if (rows?.length) {
+        for (const r of rows) {
+            if (userName && r.user_name === userName) taken.userName = true;
+            if (email && r.email === email) taken.email = true;
+        }
+        }
+
+        return GLOBAL_SUCCESS_RESPONSE("Availability fetched.", { taken }, res);
+    } catch (err) {
+        return GLOBAL_ERROR_RESPONSE("Failed to check availability.", err, res);
+    }
+    };
+
+    /** OTP Verification Endpoint - Coded by Vishnu Aug 12 2025 */
+    this.verifyOTP = async (req, res) => {
+        try {
+            const { userName, otp } = req.body;
+
+            const sql = "SELECT authorize_code, active FROM roh_users WHERE user_name = ?";
+            const [rows] = await pool.query(sql, [userName]);
+
+            if (rows.length === 0) {
+                return GLOBAL_ERROR_RESPONSE("User not found", {}, res);
+            }
+
+            const user = rows[0];
+
+            if (user.authorize_code !== otp) {
+                return GLOBAL_ERROR_RESPONSE("Invalid OTP", {}, res);
+            }
+
+            const updateSql = "UPDATE roh_users SET active = 1, authorize_code = NULL, verified = 1 WHERE user_name = ?";
+            await pool.query(updateSql, [userName]);
+
+            return GLOBAL_SUCCESS_RESPONSE("OTP verified successfully. Account activated.", {}, res);
+        } catch (err) {
+            return GLOBAL_ERROR_RESPONSE("OTP verification failed", err, res);
+        }
+    };
+
+    /** Resend OTP Endpoint - Coded by Vishnu Aug 12 2025 */
+    this.resendOTP = async (req, res) => {
+        try {
+            const { userName } = req.body;
+
+            const sql = "SELECT email, authorize_code FROM roh_users WHERE user_name = ?";
+            const [rows] = await pool.query(sql, [userName]);
+
+            if (rows.length === 0) {
+                return GLOBAL_ERROR_RESPONSE("User not found", {}, res);
+            }
+
+            const user = rows[0];
+            const otp = Math.floor(100000 + Math.random() * 900000).toString();  // Generate new OTP
+
+            const updateSql = "UPDATE roh_users SET authorize_code = ? WHERE user_name = ?";
+            await pool.query(updateSql, [otp, userName]);
+
+            return GLOBAL_SUCCESS_RESPONSE("New OTP has been sent.", { otp }, res);
+        } catch (err) {
+            return GLOBAL_ERROR_RESPONSE("Failed to resend OTP", err, res);
         }
     };
 }
