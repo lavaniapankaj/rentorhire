@@ -176,4 +176,41 @@ const validateAdminUserLogin = (req, res, next) => {
     });
 };
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin};
+/** Availability check validation - Coded by Vishnu Aug 11 2025 */
+const validateAvailabilityCheck = (req, res, next) => {
+    const { userName, email } = req.body;
+    /** Validate required fields */
+    if (!userName) {
+        return GLOBAL_ERROR_RESPONSE("User name can't be empty.", {}, res);
+    }
+    if (!email) {
+        return GLOBAL_ERROR_RESPONSE("Email can't be empty.", {}, res);
+    }
+    
+    next();
+};
+
+/** OTP Verification - Coded by Vishnu Aug 12 2025 */
+const validateOTP = (req, res, next) => {
+    const { otp } = req.body;
+    /** Validate required fields */
+    if (!otp) {
+        return GLOBAL_ERROR_RESPONSE("OTP can't be empty.", {}, res);
+    }
+    
+    next();
+};
+
+/** Resend OTP - Coded by Vishnu Aug 12 2025 */
+const validateResendOTP = (req, res, next) => {
+    const { userName } = req.body;
+    /** Validate required fields */
+    if (!userName) {
+        return GLOBAL_ERROR_RESPONSE("User name can't be empty.", {}, res);
+    }
+    
+    next();
+};
+
+
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, validateOTP, validateResendOTP};
