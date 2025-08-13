@@ -21,7 +21,7 @@ export default function AddRoleForm({ onClose, onSuccess }) {
     setErrorMessage('');
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/role/add', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/add`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

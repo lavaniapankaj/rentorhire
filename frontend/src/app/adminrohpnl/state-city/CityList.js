@@ -29,7 +29,7 @@ export default function CityList() {
   /* Fetch States (only once on initial render) */
   const fetchStates = async () => {
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/state/getall', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/state/getall`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -51,7 +51,7 @@ export default function CityList() {
   const fetchCities = async (page = currentPage, searchTerm = search, status = statusFilter) => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/city/get', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/city/get`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export default function CityList() {
   /* Fetch City Details (getsingle) when editing a city */
   const fetchCityDetails = async (cityId) => {
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/city/getsingle', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/city/getsingle`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ export default function CityList() {
     const confirmDelete = window.confirm("Are you sure you want to delete this city?");
     if (confirmDelete) {
       try {
-        const res = await fetch('http://localhost:8080/api/adminrohpnl/city/delete', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/city/delete`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

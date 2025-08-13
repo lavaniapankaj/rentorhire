@@ -40,7 +40,7 @@ export default function AddUserForm({ onSuccess, onClose }) {
 
     const fetchRoles = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/adminrohpnl/role/roles');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/roles`);
         const data = await res.json();
         /** recode = 0 is used for the token error */
         if(data.rcode == 0){
@@ -93,7 +93,7 @@ const handleSubmit = async (e) => {
     payload.append('edit_id', 0);
 
     try {
-        const res = await fetch('http://localhost:8080/api/adminrohpnl/user/create', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/user/create`, {
             method: 'POST',
             headers: { 
                 'Authorization': `Bearer ${token}` // No Content-Type here, FormData sets it automatically

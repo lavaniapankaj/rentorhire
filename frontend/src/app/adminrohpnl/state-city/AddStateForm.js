@@ -44,7 +44,7 @@ export default function AddStateForm({ onClose, onStateAdded }) {
     const authid = authUser.id;
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/state/add', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/state/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

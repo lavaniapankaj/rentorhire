@@ -22,7 +22,7 @@ export default function AddCityForm({ onSuccess, onCancel }) {
 
     const fetchStates = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/adminrohpnl/state/getall', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/state/getall`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -69,7 +69,7 @@ export default function AddCityForm({ onSuccess, onCancel }) {
     const authid = authUser.id;
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/city/add', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/city/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

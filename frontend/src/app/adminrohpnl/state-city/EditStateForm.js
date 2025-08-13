@@ -19,7 +19,7 @@ export default function EditStateForm({ state_id, onClose, onStateUpdated, error
     const fetchStateDetails = async () => {
       hasFetched.current = true;
       try {
-        const res = await fetch('http://localhost:8080/api/adminrohpnl/state/getsingle', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/state/getsingle`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

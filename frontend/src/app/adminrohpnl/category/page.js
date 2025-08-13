@@ -38,7 +38,7 @@ export default function ListCategoryPage() {
 
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/adminrohpnl/category/list', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/list`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export default function ListCategoryPage() {
   const token = getAuthToken();
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/category/details', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/details`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ export default function ListCategoryPage() {
     const token = getAuthToken();
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/category/delete', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/delete`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -155,7 +155,7 @@ export default function ListCategoryPage() {
     const token = getAuthToken();
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/category/details', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/details`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

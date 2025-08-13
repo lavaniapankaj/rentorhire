@@ -25,7 +25,7 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
 
     const fetchCategories = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/adminrohpnl/category/getParent', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/getParent`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
     }
   
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/category/create', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/create`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

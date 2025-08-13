@@ -28,7 +28,7 @@ export default function EditCategoryForm({ category, onClose, onSuccess }) {
   useEffect(() => {
     const fetchParentCategories = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/adminrohpnl/category/getParent', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/getParent`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ export default function EditCategoryForm({ category, onClose, onSuccess }) {
     };
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/category/update', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/update`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

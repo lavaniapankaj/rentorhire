@@ -27,7 +27,7 @@ export default function EditCityForm({ cityId, onSuccess, onCancel }) {
 
     const fetchStates = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/adminrohpnl/state/getall', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/state/getall`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export default function EditCityForm({ cityId, onSuccess, onCancel }) {
 
     const fetchCityDetails = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/adminrohpnl/city/getsingle', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/city/getsingle`, {
           method: 'POST', // Use POST for fetching city details
           headers: {
             'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export default function EditCityForm({ cityId, onSuccess, onCancel }) {
     setLoading(true);
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/city/edit', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/city/edit`, {
         method: 'POST', // Keep POST for editing the city
         headers: {
           'Content-Type': 'application/json',

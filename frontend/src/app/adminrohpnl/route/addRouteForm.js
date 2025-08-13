@@ -34,7 +34,7 @@ export default function AddRouteForm({routeGroup, onSuccess, onClose }) {
         };
     
         try {
-          const res = await fetch('http://localhost:8080/api/adminrohpnl/route/create', {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/route/create`, {
             method: 'POST',
             headers: { 
               'Content-Type': 'application/json',

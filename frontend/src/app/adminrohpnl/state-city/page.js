@@ -34,7 +34,7 @@ export default function StateCityPage() {
     if (activeTab !== 'states') return;
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/state/get', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/state/get`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export default function StateCityPage() {
 
   const handleStateUpdated = async (updatedState) => {
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/state/edit', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/state/edit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -143,7 +143,7 @@ export default function StateCityPage() {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/state/delete', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/state/delete`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

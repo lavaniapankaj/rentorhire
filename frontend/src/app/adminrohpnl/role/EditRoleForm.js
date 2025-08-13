@@ -18,7 +18,7 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
 
     const fetchRole = async () => {
       try {
-        const res = await fetch('http://localhost:8080/api/adminrohpnl/role/view', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/view`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
     const authid = authUser.id;
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/role/update', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/update`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

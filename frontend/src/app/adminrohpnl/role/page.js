@@ -45,7 +45,7 @@ export default function RoleListPage() {
     setRoleLoading(true);
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/role/list', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/list`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ export default function RoleListPage() {
     if (!confirmDelete || !authToken || !authId) return;
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/role/delete', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/delete`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -38,7 +38,7 @@ export default function ListRoutePage() {
 
   const fetchRoutes = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/adminrohpnl/route/get', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/route/get`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export default function ListRoutePage() {
   /** Function to open the route view model */
   const viewRouteData = async (id) => {
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/route/view', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/route/view`, {
         method: 'post',
         headers: { 
           'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ export default function ListRoutePage() {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/route/delete', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/route/delete`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ export default function ListRoutePage() {
   /** Function to open the edit model for the route */
   const openEditRouteModal = async (id) => {
     try {
-      const res = await fetch('http://localhost:8080/api/adminrohpnl/route/view', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/route/view`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
