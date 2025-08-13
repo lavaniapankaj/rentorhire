@@ -1,5 +1,5 @@
 const AuthController = require("./controller");
-const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, validateOTP, validateResendOTP} = require("./validation");
+const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp} = require("./validation");
 
 
 /** Api for register user Coded by Raj July 07 2025 */
@@ -66,5 +66,14 @@ app.post(
     validateResendOTP,
     (req, res, next) => {
         AuthController.resendOTP(req, res, next); /** Calling the controller */
+    }
+);
+
+/** verifyOtp user login - Coded by Vishnu Aug 13 2025 */
+app.post(
+    "/user/verify-otp",
+    verifyOtp,
+    (req, res, next) => {
+        AuthController.verifyOtp(req, res, next); /** Calling the controller */
     }
 );

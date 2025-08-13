@@ -105,37 +105,63 @@ function authApi() {
     /** Function method to login the user - Coded by Raj July 09 2025 */
     this.userLogin = async (req, res) => {
         try {
-            const {email, password} = req.body;
+            const { email, password } = req.body;
 
-            /* Query the user from 'roh_users' by email */
-            const [rows] = await pool.query('SELECT email, password_hash, user_role_id FROM roh_users WHERE email = ?', [email]);
+            /** Step 1: Check if email exists */
+            const [emailRows] = await pool.query(`
+                SELECT user_id, email, user_name, first_name, last_name, password_hash,
+                    user_role_id, active, authorize_code, verified
+                FROM roh_users WHERE email = ?
+            `, [email]);
 
-            if (rows.length == 0) {
-                return res.status(401).json({ message: 'Invalid email or password.' });
+            if (emailRows.length === 0) {
+                return res.status(401).json({ message: 'Invalid email address.www' });
             }
 
-            const user = rows[0];
+            const user = emailRows[0];
 
-            /* Compare the password with the stored hash */
+            /** Step 2: Check password */
             const isMatch = await bcrypt.compare(password, user.password_hash);
             if (!isMatch) {
-                return res.status(401).json({ message: 'Invalid email or password.' });
+                return res.status(401).json({ message: 'Invalid password.' });
             }
 
-            /* Generate JWT */
+            /** Step 3: OTP check */
+            if ((!user.active || user.active === 0) || user.verified === 0 || 
+                (user.authorize_code !== null && user.verified !== 1)) {
+
+                let otp = user.authorize_code;
+
+                /** If OTP missing/null, generate & update */
+                if (!otp) {
+                    otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+                    await pool.query(`
+                        UPDATE roh_users SET authorize_code = ? WHERE user_id = ?
+                    `, [otp, user.user_id]);
+                }
+
+                return res.status(200).json({
+                    message: 'OTP verification required.',
+                    otpRequired: true,
+                    userId: user.user_id,
+                    email: user.email,
+                    otp // Optional: Only for dev/testing
+                });
+            }
+
+            /** Step 4: Normal login */
             const token = jwt.sign(
-                { id: user.id, email: user.email},
-                // JWT_SECRET,
+                { id: user.user_id, email: user.email },
                 process.env.JWT_SECRET,
                 { expiresIn: '1h' }
             );
 
-            /* Respond with success */
             return res.status(200).json({
                 message: 'Login successful.',
                 token,
                 user: {
-                    id: user.id,
+                    id: user.user_id,
                     userName: user.user_name,
                     email: user.email,
                     firstName: user.first_name,
@@ -147,6 +173,8 @@ function authApi() {
             return res.status(500).json({ message: 'Internal Server error' });
         }
     };
+
+
 
     /** Function method to login the admin users - Coded by Raj July 10 2025 */
     this.adminUserLogin = async (req, res) => {
@@ -282,5 +310,41 @@ function authApi() {
             return GLOBAL_ERROR_RESPONSE("Failed to resend OTP", err, res);
         }
     };
+
+    /** verifyOtp user login - Coded by Vishnu Aug 13 2025 */
+    this.verifyOtp = async (req, res) => {
+        try {
+            const { userId, otp } = req.body;
+
+            const [rows] = await pool.query(`
+                SELECT user_id, authorize_code FROM roh_users
+                WHERE user_id = ? AND verified = 0 AND (active = 0 OR active IS NULL)
+            `, [userId]);
+
+            if (rows.length === 0) {
+                return res.status(400).json({ message: 'Invalid user or already verified.' });
+            }
+
+            const user = rows[0];
+
+            if (user.authorize_code !== otp) {
+                return res.status(400).json({ message: 'Invalid OTP' });
+            }
+
+            await pool.query(`
+                UPDATE roh_users
+                SET authorize_code = NULL, active = 1, verified = 1
+                WHERE user_id = ?
+            `, [userId]);
+
+            return res.status(200).json({
+                message: 'OTP verified successfully. Please login again.'
+            });
+        } catch (error) {
+            console.error('OTP verification error:', error);
+            return res.status(500).json({ message: 'Internal Server error' });
+        }
+    };
+
 }
 module.exports = new authApi();
