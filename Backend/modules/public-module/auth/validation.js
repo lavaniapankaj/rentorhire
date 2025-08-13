@@ -115,34 +115,38 @@ const validateServiceProviderRegister = (req, res, next) => {
 
 /** User login validation - Coded by Raj - July 09 2025 */
 const validateUserLogin = (req, res, next) => {
-    const { email, password } = req.body;
-    /** Validate required fields */
-    if (!email) {
-        return GLOBAL_ERROR_RESPONSE("Email can't be empty.", {}, res);
-    }
-    if (!password) {
-        return GLOBAL_ERROR_RESPONSE("Password can't be empty.", {}, res);
+  const { email, password } = req.body;
+
+  if (!email?.trim()) {
+    return res.status(400).json({ message: "Email can't be empty." });
+  }
+  if (!password?.trim()) {
+    return res.status(400).json({ message: "Password can't be empty." });
+  }
+
+  const checkEmailQuery = `
+    SELECT email, user_role_id FROM roh_users
+    WHERE email = ? LIMIT 1
+  `;
+
+  pool.query(checkEmailQuery, [email], (err, emailResult) => {
+    if (err) {
+      return res.status(500).json({ message: "Error in user login.", error: err });
     }
 
-    /** Check if email exists */
-    const checkEmailQuery = `SELECT email, user_role_id FROM roh_users WHERE email = ? AND active = 1 LIMIT 1`;
-    pool.query(checkEmailQuery, [email], (err, emailResult) => {
-        if (err) {
-            return GLOBAL_ERROR_RESPONSE("Error in admin login.", err, res);
-        }
+    if (emailResult.length === 0) {
+      return res.status(401).json({ message: "Invalid email address." });
+    }
 
-        if (emailResult.length > 0) {
-            /** If email exists and the user is not Super admin */
-            if (emailResult[0].user_role_id == 6) {
-                next();
-            } else {
-                return GLOBAL_ERROR_RESPONSE("You are not allowed to access.", {}, res);
-            }
-        } else {
-            return GLOBAL_ERROR_RESPONSE("Invalid email address.", {}, res);
-        }
-    });
+    if (emailResult[0].user_role_id != 3) {
+      return res.status(403).json({ message: "You are not allowed to access." });
+    }
+
+    next();
+  });
 };
+
+
 
 /** Admin login validation - Coded by Raj - July 10 2025 */
 const validateAdminUserLogin = (req, res, next) => {
@@ -212,5 +216,19 @@ const validateResendOTP = (req, res, next) => {
     next();
 };
 
+/** user login verifyOtp - Coded by Vishnu Aug 13 2025 */
+const verifyOtp = (req, res, next) => {
+    const { userId, otp } = req.body;
+    /** Validate required fields */
+    if (!userId) {
+        return GLOBAL_ERROR_RESPONSE("User Id can't be empty.", {}, res);
+    }
+    if (!otp) {
+        return GLOBAL_ERROR_RESPONSE("OTP can't be empty.", {}, res);
+    }
+    
+    next();
+};
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, validateOTP, validateResendOTP};
+
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp};
