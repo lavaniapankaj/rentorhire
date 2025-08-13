@@ -53,8 +53,8 @@ export default function AdminLoginPage() {
         throw new Error(data.message || 'Login failed');
       }
 
-      localStorage.setItem('authToken', data.token);
-      localStorage.setItem('authUser', JSON.stringify(data.user));
+      // localStorage.setItem('authToken', data.token);
+      // localStorage.setItem('authUser', JSON.stringify(data.user));
       
       document.cookie = `authToken=${data.token}; path=/`;
       document.cookie = `authUser=${JSON.stringify(data.user)}; path=/`;

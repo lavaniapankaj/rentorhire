@@ -48,8 +48,10 @@ export default function LoginPage() {
         return;
       }
 
-      localStorage.setItem("token", data.token);
-      // router.push("/dashboard");
+      // localStorage.setItem("token", data.token);
+      document.cookie = `authToken=${data.token}; path=/`;
+      document.cookie = `authUser=${JSON.stringify(data.user)}; path=/`;
+      router.push("/dashboard"); 
     } catch (err) {
       setError(err.message);
     } finally {
