@@ -147,7 +147,6 @@ const validateUserLogin = (req, res, next) => {
 };
 
 
-
 /** Admin login validation - Coded by Raj - July 10 2025 */
 const validateAdminUserLogin = (req, res, next) => {
     const { email, password } = req.body;
