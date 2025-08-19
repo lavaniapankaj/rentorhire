@@ -9,6 +9,7 @@ export default function Header() {
         <Link href="#" style={styles.link}>About</Link>
         <Link href="#" style={styles.link}>Services</Link>
         <Link href="#" style={styles.link}>Contact</Link>
+        <Link href="/host/onboarding" style={styles.link}>Become a Host</Link>
         <Link href="#" style={styles.link}>Dashboard</Link>
       </nav>
     </header>
