@@ -13,6 +13,7 @@ module.exports = {
       /** Public module routes */
       require(WEBSITE_PUBLIC_FULL_PATH + "auth/routes");
       require(WEBSITE_PUBLIC_USER_FULL_PATH + "/routes");
+      require(WEBSITE_PUBLIC_USER_HOST_FULL_PATH + "/routes");
   
     },
   };
