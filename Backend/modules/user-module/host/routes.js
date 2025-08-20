@@ -1,11 +1,29 @@
-const UserModuleController = require("./controller");
-const {ValidategetUserActivecategory} = require("./validation");
+const UserHostModuleController = require("./controller");
+const {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands} = require("./validation");
 
-/** Api to get all active category - Coded by Vishnu August 19 2025 */
+/** Api to get all active parent category - Coded by Vishnu August 19 2025 */
 app.get(
     "/user/getallactivecategory",
     ValidategetUserActivecategory,
     (req, res, next) => {
-        UserModuleController.getAllActiveCategory(req, res, next);
+        UserHostModuleController.getAllActiveCategory(req, res, next);
+    }
+);
+
+/** Api to get all active child category - Coded by Vishnu August 20 2025 */
+app.post(
+    "/user/getallactivechildcategory",
+    ValidategetUserActivechildcategory,
+    (req, res, next) => {
+        UserHostModuleController.getAllActiveChildCategory(req, res, next);
+    }
+);
+
+/** Api to get all child category brands - Coded by Vishnu August 20 2025 */
+app.post(
+    "/user/getallchildcategorybrands",
+    ValidategetUserActivechildcategorybrands,
+    (req, res, next) => {
+        UserHostModuleController.getAllChildCategoryBrands(req, res, next);
     }
 );
