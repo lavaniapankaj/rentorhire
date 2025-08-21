@@ -1,0 +1,123 @@
+.rohhostdas_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh;
+  background: rgba(0, 0, 0, 0.6); */
+}
+
+.rohhostdas_popup {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;              
+  max-width: 1200px;       
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.rohhostdas_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.rohhostdas_accountLink {
+  font-size: 14px;
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.rohhostdas_content {
+  display: grid;
+  gap: 12px;
+}
+
+.rohhostdas_box {
+  padding: 14px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.rohhostdas_box:hover {
+  border-color: #0070f3;
+}
+
+.rohhostdas_selected {
+  border-color: #0070f3;
+  background: #e6f0ff;
+}
+
+.rohhostdas_form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.rohhostdas_footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.rohhostdas_back,
+.rohhostdas_next {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.rohhostdas_back {
+  background: #f0f0f0;
+}
+
+.rohhostdas_next {
+  background: #0070f3;
+  color: #fff;
+}
+
+
+.vehicleForm {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* px add */
+  gap: 20px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.vehicleForm input,
+.vehicleForm textarea,
+.vehicleForm select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+
+.vehicleForm textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.vehicleForm input[type="file"] {
+  border: none;
+  padding: 0;
+}
+
+
+.fullWidthForm {
+  grid-column: 1 / -1;   /* ye form ko pura stretch karega */
+  width: 100%;
+}

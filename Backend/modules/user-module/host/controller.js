@@ -65,6 +65,31 @@ function hostModuleApi() {
         }
     };
 
+    /** get all active child category active brands model Coded by Vishnu August 21 2025 */
+    this.getAllChildCategoryBrandsModel = async (req, res) => {
+        try {
+            const { brand_id } = req.body;
+
+            if (!brand_id || isNaN(brand_id)) {
+                return res.status(400).json({ message: 'Valid Brand id is required' });
+            }
+
+            const [rows] = await pool.query(
+                'SELECT id, model_name, brand_id, tag_id FROM roh_models WHERE active = 1 AND brand_id = ?',
+                [brand_id]
+            );
+
+            if (rows.length === 0) {
+                return res.status(404).json({ message: 'No models found for given brand' });
+            }
+
+            res.status(200).json(rows);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    };
+
 
 }
 

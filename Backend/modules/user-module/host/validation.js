@@ -34,7 +34,6 @@ const ValidategetUserActivechildcategory = async (req, res, next) => {
 const ValidategetUserActivechildcategorybrands = async (req, res, next) => {
     try {
         const { child_category_id } = req.body;
-        console.log(child_category_id);
             if (!child_category_id || isNaN(child_category_id)) {
             return res.status(400).json({
                 success: false,
@@ -50,5 +49,25 @@ const ValidategetUserActivechildcategorybrands = async (req, res, next) => {
     }
 };
 
+/** validate get all active child category brands model - Coded by Vishnu August 21 2025 */
+const ValidategetUserActivechildcategorybrandsmodel = async (req, res, next) => {
+    try {
+        const { brand_id } = req.body;
 
-module.exports = {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands};
+        if (!brand_id || isNaN(brand_id)) {
+            return res.status(400).json({
+                success: false,
+                message: "No data found",
+                error: "Valid Brand id is required"
+            });
+        }
+
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
+
+
+module.exports = {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel};
