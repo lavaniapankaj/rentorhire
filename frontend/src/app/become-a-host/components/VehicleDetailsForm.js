@@ -32,7 +32,7 @@ export default function VehicleDetailsForm({ formData, setFormData }) {
       />
       <input
         type="file"
-        name="images"
+        name="image_ids"
         multiple
         onChange={handleChange}
       />

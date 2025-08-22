@@ -75,17 +75,80 @@ export default function BecomeAHost() {
     }
   }, [step, selectedBrand]);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step === 1 && selectedParent) setStep(2);
     else if (step === 2 && selectedSub) setStep(3);
     else if (step === 3 && selectedBrand) setStep(4);
     else if (step === 4 && selectedModel) setStep(5);
     else if (step === 5) {
-      alert(`✅ Final Form Data: ${JSON.stringify(formData)}`);
+      const finalData = {
+        service_provider_id: 1, 
+        item_name: formData.item_name,
+        vehicle_description: formData.vehicle_description,
+        category_id: selectedParent,
+        // tag_id: selectedSub, 
+        tag_id: 2, 
+        brand_id: selectedBrand,
+        model_id: selectedModel,
+        image_ids: formData.image_ids || ["image1.jpg"],
+        price_per_day: formData.price_per_day,
+        price_per_week: formData.price_per_week,
+        price_per_month: formData.price_per_month,
+        price_custom_day: formData.price_custom_day,
+        item_status: 1,
+        admin_item_status: 1,
+        total_views: 0,
+        security_deposit: formData.security_deposit,
+        booking_terms: formData.booking_terms,
+        availability_status: formData.availability_status,
+
+        engine_type: formData.engine_type,
+        transmission_type: formData.transmission_type,
+        fuel_consumption: formData.fuel_consumption,
+        seating_capacity: formData.seating_capacity,
+        color: formData.color,
+        vehicle_age: formData.vehicle_age,
+        mileage: formData.mileage,
+        registration_number: formData.registration_number,
+        insurance_validity: formData.insurance_validity,
+        vehicle_type: formData.vehicle_type,
+        rental_period: formData.rental_period,
+        vehicle_condition: formData.vehicle_condition,
+        accessories: formData.accessories,
+        address_1: formData.address_1,
+        landmark: formData.landmark,
+        item_state: formData.item_state,
+        city: formData.city,
+        pincode: formData.pincode,
+        booking_instructions: formData.booking_instructions,
+      };
+
+      console.log("Final Submit Data:", finalData);
+
+      try {
+        const response = await fetch("http://localhost:8080/user/becomehostaddnewvehicle", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(finalData),
+        });
+
+        if (!response.ok) throw new Error("API Error");
+
+        const result = await response.json();
+        console.log("✅ API Response:", result);
+        alert("Vehicle Added Successfully!");
+      } catch (error) {
+        console.error("❌ Submission Failed:", error);
+        alert("Error submitting vehicle data");
+      }
     } else {
       alert("Please select an option");
     }
   };
+
+
 
   const handleBack = () => {
     if (step > 1) setStep(step - 1);

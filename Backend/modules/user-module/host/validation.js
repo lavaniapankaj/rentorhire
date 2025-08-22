@@ -69,5 +69,15 @@ const ValidategetUserActivechildcategorybrandsmodel = async (req, res, next) => 
     }
 };
 
+/** validate main api for become a host for add new vehicle - Coded by Vishnu August 22 2025 */
+const ValidateHostAddNewVehicle = async (req, res, next) => {
+    try {
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
 
-module.exports = {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel};
+
+module.exports = {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle};
