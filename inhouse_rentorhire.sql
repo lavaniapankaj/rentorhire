@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 20, 2025 at 09:16 PM
+-- Generation Time: Aug 22, 2025 at 09:18 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -47,7 +47,8 @@ INSERT INTO `roh_brands` (`id`, `brand_name`, `cat_id`, `logo_media_id`, `active
 (1, 'TATA', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
 (2, 'Suzuki', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
 (3, 'Mahindra', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
-(4, 'Volkswagen', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53');
+(4, 'Volkswagen', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
+(5, 'BMW', 3, 1, 1, 1, 1, '2025-08-21 16:27:32', '2025-08-21 16:27:32');
 
 -- --------------------------------------------------------
 
@@ -267,7 +268,9 @@ INSERT INTO `roh_models` (`id`, `model_name`, `brand_id`, `tag_id`, `active`, `a
 (5, 'Scorpio S11 Classic', 3, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
 (6, 'ScorpioN', 3, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
 (7, 'Virtus', 4, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
-(8, 'Taigun', 4, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25');
+(8, 'Taigun', 4, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
+(9, 'BMW S 1000 RR', 5, 0, 1, 1, 1, '2025-08-22 17:36:50', '2025-08-22 17:36:50'),
+(10, 'G310 RR', 5, 0, 1, 1, 1, '2025-08-22 17:37:39', '2025-08-22 17:37:39');
 
 -- --------------------------------------------------------
 
@@ -481,6 +484,14 @@ CREATE TABLE `roh_vehicle_attributes` (
   `booking_instructions` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `roh_vehicle_attributes`
+--
+
+INSERT INTO `roh_vehicle_attributes` (`id`, `vehicle_id`, `engine_type`, `transmission_type`, `fuel_consumption`, `seating_capacity`, `color`, `vehicle_age`, `mileage`, `registration_number`, `insurance_validity`, `vehicle_type`, `rental_period`, `vehicle_condition`, `accessories`, `address_1`, `landmark`, `item_state`, `city`, `pincode`, `booking_instructions`) VALUES
+(2, 6, 'Petrol', 'Automatic', 12.00, 7, 'White', 3, 40000.00, 'MH12AB1234', '2026-12-31', 'Standard', 'Daily', 'New', 'GPS, AC, Music system', '123 MG Road', 'Near Central Mall', 'Maharashtra', 'Mumbai', 400001, 'Pickup from MG Road, return by 6 PM'),
+(3, 10, 'Diesel', 'Automatic', 11.00, 73, 'Commodi nesciunt om', 11, 36.00, '861', '2025-08-31', 'Standard', 'Daily', 'Refurbished', 'Voluptate dicta ab u', '281 Fabien Parkway', 'Adipisci dignissimos', 'Dolores impedit eu ', 'Atque ea perferendis', 19001, 'Sed debitis deleniti');
+
 -- --------------------------------------------------------
 
 --
@@ -510,6 +521,14 @@ CREATE TABLE `roh_vehicle_details` (
   `add_date` datetime DEFAULT current_timestamp(),
   `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `roh_vehicle_details`
+--
+
+INSERT INTO `roh_vehicle_details` (`id`, `service_provider_id`, `item_name`, `vehicle_description`, `category_id`, `tag_id`, `brand_id`, `model_id`, `image_ids`, `price_per_day`, `price_per_week`, `price_per_month`, `price_custom_day`, `item_status`, `admin_item_status`, `total_views`, `security_deposit`, `booking_terms`, `availability_status`, `add_date`, `edit_date`) VALUES
+(6, 1, 'Scorpio S11 Classic', 'Luxury SUV for family trips', 1, 2, 3, 5, '[\"image1.jpg\",\"image2.jpg\"]', 3000.00, 18000.00, 70000.00, 2800.00, 1, 1, 0, 10000.00, 'No smoking, full tank required', 'Available', '2025-08-22 22:30:46', '2025-08-22 22:30:46'),
+(10, 1, 'ScorpioN', 'Quia corrupti eiusm', 1, 2, 3, 6, '[\"image1.jpg\"]', 72.00, 968.00, 370.00, 776.00, 1, 1, 0, 29.00, 'Vel officiis esse di', 'Booked', '2025-08-22 22:59:04', '2025-08-22 22:59:04');
 
 --
 -- Indexes for dumped tables
@@ -593,7 +612,7 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
@@ -623,13 +642,13 @@ ALTER TABLE `roh_users`
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`
 --
 ALTER TABLE `roh_vehicle_attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_details`
 --
 ALTER TABLE `roh_vehicle_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
