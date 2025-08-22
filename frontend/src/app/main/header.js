@@ -31,7 +31,8 @@ export default function Header() {
         <Link href="#" style={styles.link}>About</Link>
         <Link href="#" style={styles.link}>Services</Link>
         <Link href="#" style={styles.link}>Contact</Link>
-        <Link href="/dashboard" style={styles.link}>Dashboard</Link>
+        <Link href="/become-a-host" style={styles.link}>Become a Host</Link>
+        <Link href="#" style={styles.link}>Dashboard</Link>
 
         {/* Logout button only if logged in */}
         {isLoggedIn && (

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 12, 2025 at 07:39 PM
+-- Generation Time: Aug 22, 2025 at 09:18 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,35 @@ SET time_zone = "+00:00";
 --
 -- Database: `inhouse_rentorhire`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roh_brands`
+--
+
+CREATE TABLE `roh_brands` (
+  `id` int(11) NOT NULL,
+  `brand_name` varchar(150) DEFAULT NULL,
+  `cat_id` int(11) DEFAULT NULL,
+  `logo_media_id` int(10) NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `add_id` int(11) DEFAULT NULL,
+  `edit_id` int(11) DEFAULT NULL,
+  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `edit_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `roh_brands`
+--
+
+INSERT INTO `roh_brands` (`id`, `brand_name`, `cat_id`, `logo_media_id`, `active`, `add_id`, `edit_id`, `add_date`, `edit_date`) VALUES
+(1, 'TATA', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
+(2, 'Suzuki', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
+(3, 'Mahindra', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
+(4, 'Volkswagen', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
+(5, 'BMW', 3, 1, 1, 1, 1, '2025-08-21 16:27:32', '2025-08-21 16:27:32');
 
 -- --------------------------------------------------------
 
@@ -212,6 +241,40 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `roh_models`
+--
+
+CREATE TABLE `roh_models` (
+  `id` int(11) NOT NULL,
+  `model_name` varchar(150) DEFAULT NULL,
+  `brand_id` int(11) DEFAULT NULL,
+  `tag_id` int(10) NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `add_id` int(11) DEFAULT NULL,
+  `edit_id` int(11) DEFAULT NULL,
+  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `edit_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `roh_models`
+--
+
+INSERT INTO `roh_models` (`id`, `model_name`, `brand_id`, `tag_id`, `active`, `add_id`, `edit_id`, `add_date`, `edit_date`) VALUES
+(1, 'Altroz', 1, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
+(2, 'Punch', 1, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
+(3, 'Baleno', 2, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
+(4, 'Swift', 2, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
+(5, 'Scorpio S11 Classic', 3, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
+(6, 'ScorpioN', 3, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
+(7, 'Virtus', 4, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
+(8, 'Taigun', 4, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
+(9, 'BMW S 1000 RR', 5, 0, 1, 1, 1, '2025-08-22 17:36:50', '2025-08-22 17:36:50'),
+(10, 'G310 RR', 5, 0, 1, 1, 1, '2025-08-22 17:37:39', '2025-08-22 17:37:39');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roh_roles`
 --
 
@@ -324,6 +387,34 @@ INSERT INTO `roh_states` (`state_id`, `state_name`, `state_slug`, `add_id`, `edi
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `roh_tags`
+--
+
+CREATE TABLE `roh_tags` (
+  `id` int(11) NOT NULL,
+  `tag_name` varchar(150) DEFAULT NULL,
+  `cat_id` int(11) DEFAULT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `add_id` int(11) DEFAULT NULL,
+  `edit_id` int(11) DEFAULT NULL,
+  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `edit_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `roh_tags`
+--
+
+INSERT INTO `roh_tags` (`id`, `tag_name`, `cat_id`, `active`, `add_id`, `edit_id`, `add_date`, `edit_date`) VALUES
+(1, 'SUV', 2, 1, 1, 1, '2025-08-19 14:36:36', '2025-08-19 14:36:36'),
+(2, 'Sedan', 2, 1, 1, 1, '2025-08-19 14:36:36', '2025-08-19 14:36:36'),
+(3, 'Coupe', 2, 1, 1, 1, '2025-08-19 14:36:36', '2025-08-19 14:36:36'),
+(4, 'Hatchback', 2, 1, 1, 1, '2025-08-19 14:36:36', '2025-08-19 14:36:36'),
+(5, 'MPV', 2, 1, 1, 1, '2025-08-19 14:36:36', '2025-08-19 14:36:36');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roh_users`
 --
 
@@ -360,7 +451,84 @@ INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `ema
 (2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$VswYxyPGRuYuU/1IFkMS1uAgYybZCvHIwhb93CFUtmyHUZyddYFf.', 2, '', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 1, 1, 1, 1, '2025-07-13 11:27:31', '2025-08-12 17:24:15'),
 (18, 'lavaniapankaj', 'Pankaj ', 'Verma', 'lavaniapankaj@gmail.com', '9876543210', '$2b$10$fwpmVvn/RVr3d/cbedmo8eTTxBebn0XhKtfXQt4dHk32IkBZFw8bG', 1, '1', '13th Street', '47 W 13th St, New York, NY 10011, USA', 'New York', 'CT', 10011, NULL, 1, 1, 0, 1, '2025-07-29 18:19:15', '2025-08-12 17:24:19'),
 (19, 'ecmascript', 'Vishnu', 'Kumawat', 'ecmascript.php@gmail.com', '9783457008', '$2b$10$bVzM.eJjjhU7boZzNEE8aul7iycXabXaDmIuQAB9CXMTfDLP/v8hC', 1, '2', 'Stuyvesant 14th St & 1st Ave ', '238 1st Ave, New York, NY 10009, USA', 'New York', 'CT', 10009, NULL, 1, 1, 0, 1, '2025-07-29 18:32:46', '2025-08-12 17:24:21'),
-(20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 1, '3', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, NULL, 1, 1, 0, 1, '2025-07-29 18:38:25', '2025-08-12 17:24:23');
+(20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 1, '3', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, NULL, 1, 1, 0, 1, '2025-07-29 18:38:25', '2025-08-12 17:24:23'),
+(44, 'rudrax', 'Raymond', 'Foster', 'bowijen@mailinator.com', '9999999999', '$2b$10$qchWQg.7/f.OvDEqes6MqeulRouWGrswPU5IFWhE4Ablj/rmdKIqq', 3, NULL, '', '', '', '', 123456, NULL, 1, NULL, NULL, 1, '2025-08-13 15:40:33', '2025-08-15 18:12:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roh_vehicle_attributes`
+--
+
+CREATE TABLE `roh_vehicle_attributes` (
+  `id` int(11) NOT NULL,
+  `vehicle_id` int(11) NOT NULL,
+  `engine_type` enum('Petrol','Diesel','Electric','Hybrid','CNG') DEFAULT 'Petrol',
+  `transmission_type` enum('Manual','Automatic') DEFAULT 'Automatic',
+  `fuel_consumption` decimal(5,2) DEFAULT NULL,
+  `seating_capacity` int(11) DEFAULT 5,
+  `color` varchar(100) DEFAULT NULL,
+  `vehicle_age` int(11) DEFAULT NULL,
+  `mileage` decimal(10,2) DEFAULT NULL,
+  `registration_number` varchar(255) DEFAULT NULL,
+  `insurance_validity` date DEFAULT NULL,
+  `vehicle_type` enum('Luxury','Economy','Standard') DEFAULT 'Standard',
+  `rental_period` enum('Daily','Weekly','Monthly','Custom') DEFAULT 'Daily',
+  `vehicle_condition` enum('New','Used','Refurbished') DEFAULT 'Used',
+  `accessories` text DEFAULT NULL,
+  `address_1` varchar(255) DEFAULT NULL,
+  `landmark` varchar(255) DEFAULT NULL,
+  `item_state` varchar(100) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `pincode` int(11) DEFAULT NULL,
+  `booking_instructions` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `roh_vehicle_attributes`
+--
+
+INSERT INTO `roh_vehicle_attributes` (`id`, `vehicle_id`, `engine_type`, `transmission_type`, `fuel_consumption`, `seating_capacity`, `color`, `vehicle_age`, `mileage`, `registration_number`, `insurance_validity`, `vehicle_type`, `rental_period`, `vehicle_condition`, `accessories`, `address_1`, `landmark`, `item_state`, `city`, `pincode`, `booking_instructions`) VALUES
+(2, 6, 'Petrol', 'Automatic', 12.00, 7, 'White', 3, 40000.00, 'MH12AB1234', '2026-12-31', 'Standard', 'Daily', 'New', 'GPS, AC, Music system', '123 MG Road', 'Near Central Mall', 'Maharashtra', 'Mumbai', 400001, 'Pickup from MG Road, return by 6 PM'),
+(3, 10, 'Diesel', 'Automatic', 11.00, 73, 'Commodi nesciunt om', 11, 36.00, '861', '2025-08-31', 'Standard', 'Daily', 'Refurbished', 'Voluptate dicta ab u', '281 Fabien Parkway', 'Adipisci dignissimos', 'Dolores impedit eu ', 'Atque ea perferendis', 19001, 'Sed debitis deleniti');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roh_vehicle_details`
+--
+
+CREATE TABLE `roh_vehicle_details` (
+  `id` int(11) NOT NULL,
+  `service_provider_id` int(11) NOT NULL,
+  `item_name` varchar(255) NOT NULL,
+  `vehicle_description` text DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  `brand_id` int(11) NOT NULL,
+  `model_id` int(11) NOT NULL,
+  `image_ids` text DEFAULT NULL,
+  `price_per_day` decimal(10,2) DEFAULT NULL,
+  `price_per_week` decimal(10,2) DEFAULT NULL,
+  `price_per_month` decimal(10,2) DEFAULT NULL,
+  `price_custom_day` decimal(10,2) DEFAULT NULL,
+  `item_status` tinyint(1) DEFAULT 1,
+  `admin_item_status` tinyint(1) DEFAULT 1,
+  `total_views` int(11) DEFAULT 0,
+  `security_deposit` decimal(10,2) DEFAULT NULL,
+  `booking_terms` text DEFAULT NULL,
+  `availability_status` enum('Available','Unavailable','Booked') DEFAULT 'Available',
+  `add_date` datetime DEFAULT current_timestamp(),
+  `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `roh_vehicle_details`
+--
+
+INSERT INTO `roh_vehicle_details` (`id`, `service_provider_id`, `item_name`, `vehicle_description`, `category_id`, `tag_id`, `brand_id`, `model_id`, `image_ids`, `price_per_day`, `price_per_week`, `price_per_month`, `price_custom_day`, `item_status`, `admin_item_status`, `total_views`, `security_deposit`, `booking_terms`, `availability_status`, `add_date`, `edit_date`) VALUES
+(6, 1, 'Scorpio S11 Classic', 'Luxury SUV for family trips', 1, 2, 3, 5, '[\"image1.jpg\",\"image2.jpg\"]', 3000.00, 18000.00, 70000.00, 2800.00, 1, 1, 0, 10000.00, 'No smoking, full tank required', 'Available', '2025-08-22 22:30:46', '2025-08-22 22:30:46'),
+(10, 1, 'ScorpioN', 'Quia corrupti eiusm', 1, 2, 3, 6, '[\"image1.jpg\"]', 72.00, 968.00, 370.00, 776.00, 1, 1, 0, 29.00, 'Vel officiis esse di', 'Booked', '2025-08-22 22:59:04', '2025-08-22 22:59:04');
 
 --
 -- Indexes for dumped tables
@@ -411,6 +579,20 @@ ALTER TABLE `roh_users`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `roh_vehicle_attributes`
+--
+ALTER TABLE `roh_vehicle_attributes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `registration_number` (`registration_number`),
+  ADD KEY `vehicle_id` (`vehicle_id`);
+
+--
+-- Indexes for table `roh_vehicle_details`
+--
+ALTER TABLE `roh_vehicle_details`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -430,7 +612,7 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
@@ -454,7 +636,29 @@ ALTER TABLE `roh_states`
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT for table `roh_vehicle_attributes`
+--
+ALTER TABLE `roh_vehicle_attributes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `roh_vehicle_details`
+--
+ALTER TABLE `roh_vehicle_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `roh_vehicle_attributes`
+--
+ALTER TABLE `roh_vehicle_attributes`
+  ADD CONSTRAINT `roh_vehicle_attributes_ibfk_1` FOREIGN KEY (`vehicle_id`) REFERENCES `roh_vehicle_details` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

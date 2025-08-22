@@ -176,7 +176,6 @@ function authApi() {
     };
 
 
-
     /** Function method to login the admin users - Coded by Raj July 10 2025 */
     this.adminUserLogin = async (req, res) => {
         try {
