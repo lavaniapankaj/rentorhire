@@ -30,7 +30,7 @@ export default function LoginPage() {
 
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:8080/user/login", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_USER_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -69,7 +69,7 @@ export default function LoginPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:8080/user/verify-otp", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/user/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId, otp }),
@@ -99,9 +99,7 @@ export default function LoginPage() {
             {otpStep ? "Verify OTP" : "Log in to your account"}
           </h1>
           <p className="rohuserlogn_subtitle">
-            {otpStep
-              ? "Enter the 6-digit OTP sent to your email"
-              : "Welcome back — let’s get you signed in."}
+            {otpStep ? "Enter the 6-digit OTP sent to your email" : "Welcome back — let’s get you signed in."}
           </p>
 
           {error && <div className="rohuserlogn_alert">{error}</div>}
@@ -109,42 +107,16 @@ export default function LoginPage() {
           {!otpStep ? (
             <form className="rohuserlogn_form" onSubmit={onSubmit} noValidate>
               <div className="rohuserlogn_field">
-                <label htmlFor="email" className="rohuserlogn_label">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="username"
-                  placeholder="you@example.com"
-                  className="rohuserlogn_input"
-                  value={form.email}
-                  onChange={onChange}
-                />
+                <label htmlFor="email" className="rohuserlogn_label"> Email </label>
+                <input id="email" name="email" type="email" autoComplete="username" placeholder="you@example.com" className="rohuserlogn_input" value={form.email} onChange={onChange}/>
               </div>
 
               <div className="rohuserlogn_field">
-                <label htmlFor="password" className="rohuserlogn_label">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  placeholder="At least 8 characters"
-                  className="rohuserlogn_input"
-                  value={form.password}
-                  onChange={onChange}
-                />
+                <label htmlFor="password" className="rohuserlogn_label"> Password </label>
+                <input id="password" name="password" type="password" autoComplete="current-password" placeholder="At least 8 characters" className="rohuserlogn_input" value={form.password} onChange={onChange}/>
               </div>
 
-              <button
-                type="submit"
-                className="rohuserlogn_btn"
-                disabled={loading}
-              >
+              <button type="submit" className="rohuserlogn_btn" disabled={loading}>
                 {loading ? "Signing in..." : "Sign In"}
               </button>
 
@@ -159,19 +131,9 @@ export default function LoginPage() {
             <form onSubmit={onOtpSubmit} className="rohuserlogn_form">
               <div className="rohuserlogn_field">
                 <label className="rohuserlogn_label">Enter OTP</label>
-                <input
-                  type="text"
-                  maxLength="6"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  className="rohuserlogn_input"
-                  placeholder="6-digit OTP"
-                />
+                <input type="text" maxLength="6" value={otp} onChange={(e) => setOtp(e.target.value)} className="rohuserlogn_input" placeholder="6-digit OTP"/>
               </div>
-
-              <button type="submit" className="rohuserlogn_btn">
-                Verify OTP
-              </button>
+              <button type="submit" className="rohuserlogn_btn"> Verify OTP </button>
             </form>
           )}
         </section>

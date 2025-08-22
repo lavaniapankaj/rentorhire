@@ -5,7 +5,7 @@ const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, v
 /** Api for register user Coded by Raj July 07 2025 */
 app.post(
     // ADMIN_NAME + "/user/signup",
-    "/user/signup",
+    "/api/user/signup",
     //checkLoginAuth,  
     validateUserSignUp,
     (req, res, next) => {
@@ -16,7 +16,7 @@ app.post(
 /** Api for register service provider Coded by Raj July 08 2025 */
 app.post(
     // ADMIN_NAME + "/user/signup",
-    "/service-provider/register",
+    "/api/service-provider/register",
     //checkLoginAuth,  
     validateServiceProviderRegister,
     (req, res, next) => {
@@ -26,7 +26,7 @@ app.post(
 
 /** Api to login the user - Coded by Raj July 09 2025 */
 app.post(
-    "/user/login",
+    "/api/user/login",
     validateUserLogin,
     (req, res, next) => {
         AuthController.userLogin(req, res, next); /** Calling the controller */
@@ -35,7 +35,7 @@ app.post(
 
 /** Api to login the admin - Coded by Raj July 10 2025 */
 app.post(
-    "/adminrohpnl/login",
+    "/api/adminrohpnl/login",
     validateAdminUserLogin,
     (req, res, next) => {
         AuthController.adminUserLogin(req, res, next); /** Calling the controller */
@@ -44,7 +44,7 @@ app.post(
 
 /** API Check Availability Coded by Vishnu Aug 11 2025 */
 app.post(
-    "/user/checkavailability",
+    "/api/user/checkavailability",
     validateAvailabilityCheck,
     (req, res, next) => {
         AuthController.checkAvailability(req, res, next); /** Calling the controller */
@@ -53,7 +53,7 @@ app.post(
 
 /** OTP Verification Coded by Vishnu Aug 12 2025 */
 app.post(
-    "/user/verifyotp",
+    "/api/user/verifyotp",
     validateOTP,
     (req, res, next) => {
         AuthController.verifyOTP(req, res, next); /** Calling the controller */
@@ -62,7 +62,7 @@ app.post(
 
 /** Resend OTP Coded by Vishnu Aug 12 2025 */
 app.post(
-    "/user/resendotp",
+    "/api/user/resendotp",
     validateResendOTP,
     (req, res, next) => {
         AuthController.resendOTP(req, res, next); /** Calling the controller */
@@ -71,7 +71,7 @@ app.post(
 
 /** verifyOtp user login - Coded by Vishnu Aug 13 2025 */
 app.post(
-    "/user/verify-otp",
+    "/api/user/verify-otp",
     verifyOtp,
     (req, res, next) => {
         AuthController.verifyOtp(req, res, next); /** Calling the controller */

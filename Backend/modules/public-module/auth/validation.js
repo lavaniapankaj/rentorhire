@@ -124,10 +124,7 @@ const validateUserLogin = (req, res, next) => {
     return res.status(400).json({ message: "Password can't be empty." });
   }
 
-  const checkEmailQuery = `
-    SELECT email, user_role_id FROM roh_users
-    WHERE email = ? LIMIT 1
-  `;
+  const checkEmailQuery = `SELECT email, user_role_id FROM roh_users WHERE email = ? LIMIT 1`;
 
   pool.query(checkEmailQuery, [email], (err, emailResult) => {
     if (err) {
@@ -138,14 +135,13 @@ const validateUserLogin = (req, res, next) => {
       return res.status(401).json({ message: "Invalid email address." });
     }
 
-    if (emailResult[0].user_role_id != 3) {
+    if (emailResult[0].user_role_id !== 3) {
       return res.status(403).json({ message: "You are not allowed to access." });
     }
 
     next();
   });
 };
-
 
 
 /** Admin login validation - Coded by Raj - July 10 2025 */
@@ -229,6 +225,5 @@ const verifyOtp = (req, res, next) => {
     
     next();
 };
-
 
 module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp};

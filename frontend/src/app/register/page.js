@@ -5,7 +5,6 @@ import Footer from "../main/footer";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import "./register.css";
-
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080";
 
 /** Helper: safe fetch + JSON */

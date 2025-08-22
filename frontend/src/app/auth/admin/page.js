@@ -37,31 +37,33 @@ export default function AdminLoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:8080/adminrohpnl/login', {
+      const res = await fetch(`http://localhost:8080/api/adminrohpnl/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
-
+      
       if (!res.ok) {
         const errorData = await res.json();
         throw new Error(errorData.message || 'Login failed');
       }
-
+      
       const data = await res.json();
+
       if (data.status === false) {
         throw new Error(data.message || 'Login failed');
       }
-
-      // localStorage.setItem('authToken', data.token);
-      // localStorage.setItem('authUser', JSON.stringify(data.user));
       
       document.cookie = `authToken=${data.token}; path=/`;
       document.cookie = `authUser=${JSON.stringify(data.user)}; path=/`;
+
       router.push('/adminrohpnl');
     } catch (error) {
+      console.error("Login error:", error);          // default error log
+      console.error("Error message:", error.message);
+      console.error("Error stack:", error.stack);    // stack trace for exact location
       alert(error.message);
-    }
+    }    
   };
 /** Login new layout coded by Vishnu - July 28 2025 */
   return (

@@ -166,6 +166,7 @@ function authApi() {
                     email: user.email,
                     firstName: user.first_name,
                     lastName: user.last_name,
+                    role_id: user.user_role_id
                 }
             });
         } catch (error) {
