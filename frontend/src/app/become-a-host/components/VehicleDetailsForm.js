@@ -4,18 +4,20 @@ import styles from "../become.module.css";
 
 
 export default function VehicleDetailsForm({ formData, setFormData }) {
-  // Handle input change
+  /** Handle input change */
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
+    /** inside handleChange */
     if (type === "file") {
-      setFormData({ ...formData, [name]: [...files] });
+      setFormData({ ...formData, [name]: Array.from(files || []) });
     } else {
       setFormData({ ...formData, [name]: value });
     }
+
   };
 
   return (
-    <form className={styles.vehicleForm}>
+    <form className={styles.vehicleForm} encType="multipart/form-data">
       {/* Basic Info */}
       <input
         type="text"

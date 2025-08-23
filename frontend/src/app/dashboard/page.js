@@ -53,7 +53,7 @@ export default function DashboardPage() {
 
   async function fetchUserDetails(userId) {
     try {
-      const res = await fetch("http://localhost:8080/user/userdetails", {
+      const res = await fetch("http://localhost:8080/api/user/userdetails", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId }),
@@ -81,7 +81,7 @@ export default function DashboardPage() {
 
   async function handleUpdateProfile() {
     try {
-      const res = await fetch("http://localhost:8080/user/edituserdetails", {
+      const res = await fetch("http://localhost:8080/api/user/edituserdetails", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

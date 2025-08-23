@@ -5,7 +5,7 @@ import Footer from "../main/footer";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import "./register.css";
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080/api";
 
 /** Helper: safe fetch + JSON */
 async function fetchJSON(url, options = {}) {
@@ -111,6 +111,7 @@ export default function RegisterPage() {
             setFormError("Some details already exist. Please update and try again.");
             return;
           }
+          console.log(data);
           /** Fallback generic */
           throw new Error(data?.message || "Could not check availability");
         }

@@ -52,10 +52,10 @@ function UsersApi() {
     
     
                     /** Now insert the user data into the 'roh_users' table, using the media gallery id for the profile picture URL */
-                    const userQuery = `INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id, edit_id, active) 
-                                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                    const userQuery = `INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, verified, add_id, edit_id, active) 
+                                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     
-                    const userValues = [user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, mediaResult.insertId, address_1, landmark, state, city, pincode, add_id, edit_id, 1];
+                    const userValues = [user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, mediaResult.insertId, address_1, landmark, state, city, pincode, 0, add_id, edit_id, 1];
     
                     pool.execute(userQuery, userValues, (err, result) => {
                         if (err) {
@@ -69,10 +69,10 @@ function UsersApi() {
                 });
             } else {
                 /** If no image is uploaded, insert the user data without the profile picture */
-                const userQuery = `INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, add_id, edit_id, active) 
-                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                const userQuery = `INSERT INTO roh_users (user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, profile_picture_url, address_1, landmark, state, city, pincode, verified, add_id, edit_id, active) 
+                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     
-                const userValues = [user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, null, address_1, landmark, state, city, pincode, add_id, edit_id, 1];
+                const userValues = [user_name, first_name, last_name, email, phone_number, password_hash, user_role_id, null, address_1, landmark, state, city, pincode, 0, add_id, edit_id, 1];
     
                 pool.execute(userQuery, userValues, (err, result) => {
                     if (err) {

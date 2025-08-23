@@ -69,7 +69,7 @@ export default function LoginPage() {
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/user/verify-otp`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_USER_URL}/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId, otp }),

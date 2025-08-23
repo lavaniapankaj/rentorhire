@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 22, 2025 at 09:18 PM
+-- Generation Time: Aug 23, 2025 at 07:33 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -236,7 +236,14 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 (17, 'vishnu-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:13:08', '2025-08-02 16:13:13'),
 (18, 'vishnu-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:16:35', '2025-08-02 16:13:15'),
 (19, 'vishnu-2-1.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:16:49', '2025-08-02 16:13:21'),
-(20, 'vishnu-2-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:18:25', '2025-08-02 16:13:18');
+(20, 'vishnu-2-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:18:25', '2025-08-02 16:13:18'),
+(35, 'creta.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-23 09:22:15', '2025-08-23 09:22:15'),
+(36, 'ChatGPT Image Jul 13, 2025, 12_43_28 AM.png', '/media/host/items/', 'png', 1, '2025-08-23 09:22:48', '2025-08-23 09:22:48'),
+(37, 'download.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-23 09:22:48', '2025-08-23 09:22:48'),
+(38, 'dummy-profile-img.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-23 09:22:48', '2025-08-23 09:22:48'),
+(39, 'creta.jpg', '/media/users/profile/', 'jpg', 1, '2025-08-23 16:37:28', '2025-08-23 16:37:28'),
+(40, 'creta-1.jpg', '/media/users/profile/', 'jpg', 1, '2025-08-23 16:40:50', '2025-08-23 16:40:50'),
+(41, 'creta-2.jpg', '/media/users/profile/', 'jpg', 1, '2025-08-23 16:41:42', '2025-08-23 16:41:42');
 
 -- --------------------------------------------------------
 
@@ -451,8 +458,10 @@ INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `ema
 (2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$VswYxyPGRuYuU/1IFkMS1uAgYybZCvHIwhb93CFUtmyHUZyddYFf.', 2, '', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 1, 1, 1, 1, '2025-07-13 11:27:31', '2025-08-12 17:24:15'),
 (18, 'lavaniapankaj', 'Pankaj ', 'Verma', 'lavaniapankaj@gmail.com', '9876543210', '$2b$10$fwpmVvn/RVr3d/cbedmo8eTTxBebn0XhKtfXQt4dHk32IkBZFw8bG', 1, '1', '13th Street', '47 W 13th St, New York, NY 10011, USA', 'New York', 'CT', 10011, NULL, 1, 1, 0, 1, '2025-07-29 18:19:15', '2025-08-12 17:24:19'),
 (19, 'ecmascript', 'Vishnu', 'Kumawat', 'ecmascript.php@gmail.com', '9783457008', '$2b$10$bVzM.eJjjhU7boZzNEE8aul7iycXabXaDmIuQAB9CXMTfDLP/v8hC', 1, '2', 'Stuyvesant 14th St & 1st Ave ', '238 1st Ave, New York, NY 10009, USA', 'New York', 'CT', 10009, NULL, 1, 1, 0, 1, '2025-07-29 18:32:46', '2025-08-12 17:24:21'),
-(20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 1, '3', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, NULL, 1, 1, 0, 1, '2025-07-29 18:38:25', '2025-08-12 17:24:23'),
-(44, 'rudrax', 'Raymond', 'Foster', 'bowijen@mailinator.com', '9999999999', '$2b$10$qchWQg.7/f.OvDEqes6MqeulRouWGrswPU5IFWhE4Ablj/rmdKIqq', 3, NULL, '', '', '', '', 123456, NULL, 1, NULL, NULL, 1, '2025-08-13 15:40:33', '2025-08-15 18:12:07');
+(20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 3, '3', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, NULL, 1, 1, 1, 1, '2025-07-29 18:38:25', '2025-08-23 09:47:28'),
+(44, 'rudrax', 'Raymond', 'Foster', 'bowijen@mailinator.com', '9999999999', '$2b$10$qchWQg.7/f.OvDEqes6MqeulRouWGrswPU5IFWhE4Ablj/rmdKIqq', 3, NULL, '', '', '', '', 123456, '1234', 0, NULL, NULL, 1, '2025-08-13 15:40:33', '2025-08-23 09:48:33'),
+(45, 'papyviq', 'Daphne', 'Spence', 'ligy@mailinator.com', '8957058952', '$2b$10$gv2JDIFncJrkcn/Hau.mf.hmExvOYvmMWMTkZQKsylG2Co0hdzEwK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-23 13:10:32', '2025-08-23 13:16:46'),
+(46, 'natup', 'Holly', 'Rush', 'cexul@mailinator.com', '2538281972', '$2b$10$DBrEyUDMsLAjCnWHfr3IfeCyeBtJ2Cv78q8c5YaysfXDPqQYpwYNi', 3, '41', '70 West New Parkway', 'Quia ut sed maiores ', 'Ea a qui amet cupid', 'Dolores harum ipsum ', 578908, NULL, 0, 1, 1, 1, '2025-08-23 16:41:42', '2025-08-23 16:42:02');
 
 -- --------------------------------------------------------
 
@@ -490,7 +499,13 @@ CREATE TABLE `roh_vehicle_attributes` (
 
 INSERT INTO `roh_vehicle_attributes` (`id`, `vehicle_id`, `engine_type`, `transmission_type`, `fuel_consumption`, `seating_capacity`, `color`, `vehicle_age`, `mileage`, `registration_number`, `insurance_validity`, `vehicle_type`, `rental_period`, `vehicle_condition`, `accessories`, `address_1`, `landmark`, `item_state`, `city`, `pincode`, `booking_instructions`) VALUES
 (2, 6, 'Petrol', 'Automatic', 12.00, 7, 'White', 3, 40000.00, 'MH12AB1234', '2026-12-31', 'Standard', 'Daily', 'New', 'GPS, AC, Music system', '123 MG Road', 'Near Central Mall', 'Maharashtra', 'Mumbai', 400001, 'Pickup from MG Road, return by 6 PM'),
-(3, 10, 'Diesel', 'Automatic', 11.00, 73, 'Commodi nesciunt om', 11, 36.00, '861', '2025-08-31', 'Standard', 'Daily', 'Refurbished', 'Voluptate dicta ab u', '281 Fabien Parkway', 'Adipisci dignissimos', 'Dolores impedit eu ', 'Atque ea perferendis', 19001, 'Sed debitis deleniti');
+(3, 10, 'Diesel', 'Automatic', 11.00, 73, 'Commodi nesciunt om', 11, 36.00, '861', '2025-08-31', 'Standard', 'Daily', 'Refurbished', 'Voluptate dicta ab u', '281 Fabien Parkway', 'Adipisci dignissimos', 'Dolores impedit eu ', 'Atque ea perferendis', 19001, 'Sed debitis deleniti'),
+(4, 11, 'Petrol', 'Automatic', 11.00, 43, 'Red blue', 21, 34.00, '915', '1987-07-15', 'Standard', 'Weekly', 'New', 'Quis a est numquam ', '730 Green Nobel Boulevard', 'Est animi voluptate', 'Est occaecat suscipi', 'Aut officia sit et q', 190001, 'Quo dolorum facilis '),
+(6, 13, 'Petrol', 'Automatic', 11.00, 43, 'Red blue', 21, 34.00, '916', '1987-07-15', 'Standard', 'Weekly', 'New', 'Quis a est numquam ', '730 Green Nobel Boulevard', 'Est animi voluptate', 'Est occaecat suscipi', 'Aut officia sit et q', 190001, 'Quo dolorum facilis '),
+(9, 18, 'Petrol', 'Automatic', 11.00, 43, 'Red blue', 21, 34.00, '917', '1987-07-15', 'Standard', 'Weekly', 'New', 'Quis a est numquam ', '730 Green Nobel Boulevard', 'Est animi voluptate', 'Est occaecat suscipi', 'Aut officia sit et q', 190001, 'Quo dolorum facilis '),
+(10, 19, 'CNG', 'Automatic', 112.00, 75, 'Dark Red', 21, 50.00, '675', '1980-03-16', 'Standard', 'Custom', 'New', 'Quia est nihil sit ', '429 West Hague Extension', 'Provident id blandi', 'Obcaecati lorem ea v', 'Autem ea harum aut d', 111111, 'Exercitation aut ali'),
+(11, 20, 'CNG', 'Automatic', 112.00, 75, 'Dark Red', 21, 50.00, '676', '1980-03-16', 'Standard', 'Custom', 'New', 'Quia est nihil sit ', '429 West Hague Extension', 'Provident id blandi', 'Obcaecati lorem ea v', 'Autem ea harum aut d', 111111, 'Exercitation aut ali'),
+(12, 21, 'CNG', 'Automatic', 112.00, 75, 'Dark Red', 21, 50.00, '677', '1980-03-16', 'Standard', 'Custom', 'New', 'Quia est nihil sit ', '429 West Hague Extension', 'Provident id blandi', 'Obcaecati lorem ea v', 'Autem ea harum aut d', 111111, 'Exercitation aut ali');
 
 -- --------------------------------------------------------
 
@@ -528,7 +543,15 @@ CREATE TABLE `roh_vehicle_details` (
 
 INSERT INTO `roh_vehicle_details` (`id`, `service_provider_id`, `item_name`, `vehicle_description`, `category_id`, `tag_id`, `brand_id`, `model_id`, `image_ids`, `price_per_day`, `price_per_week`, `price_per_month`, `price_custom_day`, `item_status`, `admin_item_status`, `total_views`, `security_deposit`, `booking_terms`, `availability_status`, `add_date`, `edit_date`) VALUES
 (6, 1, 'Scorpio S11 Classic', 'Luxury SUV for family trips', 1, 2, 3, 5, '[\"image1.jpg\",\"image2.jpg\"]', 3000.00, 18000.00, 70000.00, 2800.00, 1, 1, 0, 10000.00, 'No smoking, full tank required', 'Available', '2025-08-22 22:30:46', '2025-08-22 22:30:46'),
-(10, 1, 'ScorpioN', 'Quia corrupti eiusm', 1, 2, 3, 6, '[\"image1.jpg\"]', 72.00, 968.00, 370.00, 776.00, 1, 1, 0, 29.00, 'Vel officiis esse di', 'Booked', '2025-08-22 22:59:04', '2025-08-22 22:59:04');
+(10, 1, 'ScorpioN', 'Quia corrupti eiusm', 1, 2, 3, 6, '[\"image1.jpg\"]', 72.00, 968.00, 370.00, 776.00, 1, 1, 0, 29.00, 'Vel officiis esse di', 'Booked', '2025-08-22 22:59:04', '2025-08-22 22:59:04'),
+(11, 1, 'Tashya Steele', 'Cillum quis mollit r', 1, 2, 1, 2, '[\"image1.jpg\"]', 609.00, 897.00, 474.00, 898.00, 1, 1, 0, 63.00, 'Ipsam saepe vitae et', 'Available', '2025-08-23 14:07:01', '2025-08-23 14:07:01'),
+(13, 1, 'Tashya Steele', 'Cillum quis mollit r', 1, 2, 1, 2, '[{}]', 609.00, 897.00, 474.00, 898.00, 1, 1, 0, 63.00, 'Ipsam saepe vitae et', 'Available', '2025-08-23 14:08:26', '2025-08-23 14:08:26'),
+(14, 1, 'Tashya Steele', 'Cillum quis mollit r', 1, 2, 1, 2, '[]', 609.00, 897.00, 474.00, 898.00, 1, 1, 0, 63.00, 'Ipsam saepe vitae et', 'Available', '2025-08-23 14:14:41', '2025-08-23 14:14:41'),
+(15, 1, 'Tashya Steele', 'Cillum quis mollit r', 1, 2, 1, 2, '[]', 609.00, 897.00, 474.00, 898.00, 1, 1, 0, 63.00, 'Ipsam saepe vitae et', 'Available', '2025-08-23 14:18:28', '2025-08-23 14:18:28'),
+(18, 1, 'Tashya Steele', 'Cillum quis mollit r', 1, 2, 1, 2, '[]', 609.00, 897.00, 474.00, 898.00, 1, 1, 0, 63.00, 'Ipsam saepe vitae et', 'Available', '2025-08-23 14:37:58', '2025-08-23 14:37:58'),
+(19, 1, 'Graham Mccullough', 'Commodi quo odit vol', 1, 2, 2, 4, '[]', 229.00, 628.00, 575.00, 563.00, 1, 1, 0, 62.00, 'Quis earum et harum ', 'Available', '2025-08-23 14:51:20', '2025-08-23 14:51:20'),
+(20, 1, 'Graham Mccullough', 'Commodi quo odit vol', 1, 2, 2, 4, '[35]', 229.00, 628.00, 575.00, 563.00, 1, 1, 0, 62.00, 'Quis earum et harum ', 'Available', '2025-08-23 14:52:15', '2025-08-23 14:52:15'),
+(21, 1, 'Graham Mccullough', 'Commodi quo odit vol', 1, 2, 2, 4, '[36,37,38]', 229.00, 628.00, 575.00, 563.00, 1, 1, 0, 62.00, 'Quis earum et harum ', 'Available', '2025-08-23 14:52:48', '2025-08-23 14:52:48');
 
 --
 -- Indexes for dumped tables
@@ -612,13 +635,13 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
 --
 ALTER TABLE `roh_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `roh_routes`
@@ -636,19 +659,19 @@ ALTER TABLE `roh_states`
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`
 --
 ALTER TABLE `roh_vehicle_attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_details`
 --
 ALTER TABLE `roh_vehicle_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables

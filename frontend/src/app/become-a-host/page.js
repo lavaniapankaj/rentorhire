@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "./become.module.css";
-import VehicleDetailsForm from "./components/VehicleDetailsForm"; 
-
+import VehicleDetailsForm from "./components/VehicleDetailsForm";
 
 export default function BecomeAHost() {
   const [step, setStep] = useState(1);
@@ -17,26 +16,55 @@ export default function BecomeAHost() {
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedModel, setSelectedModel] = useState(null);
 
+  /**  */
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    item_name: "",
+    vehicle_description: "",
+    image_ids: [], // File[]
+    price_per_day: "",
+    price_per_week: "",
+    price_per_month: "",
+    price_custom_day: "",
+    security_deposit: "",
+    booking_terms: "",
+    availability_status: "",
+    // attributes
+    engine_type: "",
+    transmission_type: "",
+    fuel_consumption: "",
+    seating_capacity: "",
+    color: "",
+    vehicle_age: "",
+    mileage: "",
+    registration_number: "",
+    insurance_validity: "", // YYYY-MM-DD
+    vehicle_type: "",
+    rental_period: "",
+    vehicle_condition: "",
+    accessories: "",
+    // address
+    address_1: "",
+    landmark: "",
+    item_state: "",
+    city: "",
+    pincode: "",
+    booking_instructions: "",
   });
 
-  // Step 1: Categories
+  /** Step 1: Categories */
   useEffect(() => {
     if (step === 1) {
-      fetch("http://localhost:8080/user/getallactivecategory")
+      fetch("http://localhost:8080/api/user/getallactivecategory")
         .then((res) => res.json())
         .then((data) => setCategories(data))
         .catch((err) => console.error(err));
     }
   }, [step]);
 
-  // Step 2: Subcategories
+  /** Step 2: Subcategories */
   useEffect(() => {
     if (step === 2 && selectedParent) {
-      fetch("http://localhost:8080/user/getallactivechildcategory", {
+      fetch("http://localhost:8080/api/user/getallactivechildcategory", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ parent_category_id: selectedParent }),
@@ -47,10 +75,10 @@ export default function BecomeAHost() {
     }
   }, [step, selectedParent]);
 
-  // Step 3: Brands
+  /** Step 3: Brands */
   useEffect(() => {
     if (step === 3 && selectedSub) {
-      fetch("http://localhost:8080/user/getallchildcategorybrands", {
+      fetch("http://localhost:8080/api/user/getallchildcategorybrands", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ child_category_id: selectedSub }),
@@ -61,10 +89,10 @@ export default function BecomeAHost() {
     }
   }, [step, selectedSub]);
 
-  // Step 4: Models
+  /** Step 4: Models */
   useEffect(() => {
     if (step === 4 && selectedBrand) {
-      fetch("http://localhost:8080/user/getallchildcategorybrandsmodel", {
+      fetch("http://localhost:8080/api/user/getallchildcategorybrandsmodel", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ brand_id: selectedBrand }),
@@ -81,62 +109,84 @@ export default function BecomeAHost() {
     else if (step === 3 && selectedBrand) setStep(4);
     else if (step === 4 && selectedModel) setStep(5);
     else if (step === 5) {
-      const finalData = {
-        service_provider_id: 1, 
-        item_name: formData.item_name,
-        vehicle_description: formData.vehicle_description,
-        category_id: selectedParent,
-        // tag_id: selectedSub, 
-        tag_id: 2, 
-        brand_id: selectedBrand,
-        model_id: selectedModel,
-        image_ids: formData.image_ids || ["image1.jpg"],
-        price_per_day: formData.price_per_day,
-        price_per_week: formData.price_per_week,
-        price_per_month: formData.price_per_month,
-        price_custom_day: formData.price_custom_day,
-        item_status: 1,
-        admin_item_status: 1,
-        total_views: 0,
-        security_deposit: formData.security_deposit,
-        booking_terms: formData.booking_terms,
-        availability_status: formData.availability_status,
+      
+      const fd = new FormData();
 
-        engine_type: formData.engine_type,
-        transmission_type: formData.transmission_type,
-        fuel_consumption: formData.fuel_consumption,
-        seating_capacity: formData.seating_capacity,
-        color: formData.color,
-        vehicle_age: formData.vehicle_age,
-        mileage: formData.mileage,
-        registration_number: formData.registration_number,
-        insurance_validity: formData.insurance_validity,
-        vehicle_type: formData.vehicle_type,
-        rental_period: formData.rental_period,
-        vehicle_condition: formData.vehicle_condition,
-        accessories: formData.accessories,
-        address_1: formData.address_1,
-        landmark: formData.landmark,
-        item_state: formData.item_state,
-        city: formData.city,
-        pincode: formData.pincode,
-        booking_instructions: formData.booking_instructions,
+      /** Hardcoded fields */
+      fd.append("service_provider_id", "1"); /** hardcode service provider id */
+      fd.append("category_id", String(selectedParent || ""));
+      fd.append("tag_id", "2"); /** hardcode tag id */
+      fd.append("brand_id", String(selectedBrand || ""));
+      fd.append("model_id", String(selectedModel || ""));
+
+      /** Text fields from formData */
+      const keys = [
+        "item_name",
+        "vehicle_description",
+        "price_per_day",
+        "price_per_week",
+        "price_per_month",
+        "price_custom_day",
+        "item_status",
+        "admin_item_status",
+        "total_views",
+        "security_deposit",
+        "booking_terms",
+        "availability_status",
+        "engine_type",
+        "transmission_type",
+        "fuel_consumption",
+        "seating_capacity",
+        "color",
+        "vehicle_age",
+        "mileage",
+        "registration_number",
+        "insurance_validity",
+        "vehicle_type",
+        "rental_period",
+        "vehicle_condition",
+        "accessories",
+        "address_1",
+        "landmark",
+        "item_state",
+        "city",
+        "pincode",
+        "booking_instructions",
+      ];
+
+      // Defaults for those not in state explicitly
+      const extrasDefaults = {
+        item_status: "1",
+        admin_item_status: "1",
+        total_views: "0",
       };
 
-      console.log("Final Submit Data:", finalData);
+      keys.forEach((k) => {
+        const val =
+          formData[k] != null && formData[k] !== ""
+            ? String(formData[k])
+            : extrasDefaults[k] != null
+            ? String(extrasDefaults[k])
+            : "";
+        fd.append(k, val);
+      });
+
+      // Files — MUST be appended with same field name backend expects
+      if (Array.isArray(formData.image_ids)) {
+        formData.image_ids.forEach((file) => fd.append("image_ids", file));
+      }
 
       try {
-        const response = await fetch("http://localhost:8080/user/becomehostaddnewvehicle", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(finalData),
-        });
-
-        if (!response.ok) throw new Error("API Error");
+        const response = await fetch(
+          "http://localhost:8080/api/user/becomehostaddnewvehicle",
+          {
+            method: "POST",
+            body: fd, // 🚫 Content-Type mat set karo; browser khud lagayega
+          }
+        );
 
         const result = await response.json();
+        if (!response.ok) throw new Error(result?.message || "API Error");
         console.log("✅ API Response:", result);
         alert("Vehicle Added Successfully!");
       } catch (error) {
@@ -147,8 +197,6 @@ export default function BecomeAHost() {
       alert("Please select an option");
     }
   };
-
-
 
   const handleBack = () => {
     if (step > 1) setStep(step - 1);
@@ -164,7 +212,6 @@ export default function BecomeAHost() {
 
   return (
     <div className={styles.rohhostdas_wrapper}>
-      {/* Popup */}
       <div className={styles.rohhostdas_popup}>
         {/* Header */}
         <div className={styles.rohhostdas_header}>
@@ -238,10 +285,7 @@ export default function BecomeAHost() {
         {/* Footer */}
         <div className={styles.rohhostdas_footer}>
           {step > 1 && (
-            <button
-              className={styles.rohhostdas_back}
-              onClick={handleBack}
-            >
+            <button className={styles.rohhostdas_back} onClick={handleBack}>
               ← Back
             </button>
           )}
