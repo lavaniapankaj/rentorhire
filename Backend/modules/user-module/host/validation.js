@@ -79,5 +79,16 @@ const ValidateHostAddNewVehicle = async (req, res, next) => {
     }
 };
 
+/** validate main api for login service provider items - Coded by Vishnu August 23 2025 */
+const ValidateLoginServiceProviderItems = async (req, res, next) => {
+    try {
+        const { service_provider_id } = req.body;
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+}
 
-module.exports = {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle};
+
+module.exports = {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle, ValidateLoginServiceProviderItems};
