@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import styles from "./hosting.module.css";
+import Hostingitems from "./components/Hostingitems";
 
 export default function BecomeAHosting() {
   const [activeTab, setActiveTab] = useState("hostingHub");
@@ -10,7 +11,9 @@ export default function BecomeAHosting() {
       case "hostingHub":
         return <div className={styles.rohhostpnlhostinh_tabContent}>This is the Hosting Hub.</div>;
       case "listing":
-        return <div className={styles.rohhostpnlhostinh_tabContent}>Here are your Listings.</div>;
+        return <div className={styles.rohhostpnlhostinh_tabContent}>
+          <Hostingitems />
+          </div>;
       case "calendar":
         return <div className={styles.rohhostpnlhostinh_tabContent}>This is your Calendar.</div>;
       default:

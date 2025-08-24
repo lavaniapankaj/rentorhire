@@ -1,5 +1,5 @@
 const UserHostModuleController = require("./controller");
-const {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle} = require("./validation");
+const {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle, ValidateLoginServiceProviderItems} = require("./validation");
 
 const multer = require('multer');
 const path = require('path');
@@ -90,3 +90,11 @@ app.post(
     }
 );
 
+/** Api to get all service providers listed items - Coded by Vishnu August 23 2025 */
+app.post(
+    "/api/user/getalllisteditems",
+    ValidateLoginServiceProviderItems,
+    (req, res, next) => {
+        UserHostModuleController.getServiceProviderListedItems(req, res, next);
+    }
+);

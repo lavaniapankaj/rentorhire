@@ -245,6 +245,36 @@ function hostModuleApi() {
         }
     };
 
+    /** Api to get all login service providers listed items - Coded by Vishnu August 23 2025 */
+    this.getServiceProviderListedItems = async (req, res) => {
+        try {
+            const { service_provider_id } = req.body;
+
+            const [result] = await pool.query(
+                `SELECT 
+                    d.id, 
+                    d.service_provider_id, 
+                    d.item_name, 
+                    d.category_id, 
+                    d.image_ids,
+                    d.item_status,
+                    a.registration_number
+                FROM roh_vehicle_details d
+                LEFT JOIN roh_vehicle_attributes a 
+                    ON d.id = a.vehicle_id
+                WHERE d.service_provider_id = ?`,
+                [service_provider_id]
+            );
+
+            return res.status(200).json(result);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    };
+
+
+
 
 }
 
