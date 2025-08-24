@@ -16,6 +16,13 @@ export default function BecomeAHost() {
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedModel, setSelectedModel] = useState(null);
 
+  /** To manage the validations */
+  const [showCategoryValidation, setShowCategoryValidation] = useState(false);
+  const [showSubCategoryValidation, setShowSubCategoryValidation] = useState(false);
+  const [showBrandValidation, setShowBrandValidation] = useState(false);
+  const [showModelValidation, setShowModelValidation] = useState(false);
+  const [errors, setErrors] = useState({});
+
   /**  */
   const [formData, setFormData] = useState({
     item_name: "",
@@ -103,13 +110,71 @@ export default function BecomeAHost() {
     }
   }, [step, selectedBrand]);
 
+  
+  // if (!selectedParent) {
+  //   setShowError(true);
+  //   return;
+  // } else {
+  //   setShowError(false);
+  //   // proceed to next step
+  //   console.log("Next step with category:", selectedParent);
+  // }
+
   const handleNext = async () => {
-    if (step === 1 && selectedParent) setStep(2);
-    else if (step === 2 && selectedSub) setStep(3);
-    else if (step === 3 && selectedBrand) setStep(4);
-    else if (step === 4 && selectedModel) setStep(5);
-    else if (step === 5) {
-      
+    // if (step === 1 && selectedParent) setStep(2);
+    // else if (step === 2 && selectedSub) setStep(3);
+    // else if (step === 3 && selectedBrand) setStep(4);
+    // else if (step === 4 && selectedModel) setStep(5);
+
+    if (step === 1) {
+      if (!selectedParent) {
+        setShowCategoryValidation(true);
+        return;
+      }
+      setShowCategoryValidation(false);
+      setStep(2);
+    } else if (step === 2) {
+      if (!selectedSub) {
+        setShowSubCategoryValidation(true);
+        return;
+      }
+      setShowSubCategoryValidation(false);
+      setStep(3);
+    } else if (step === 3) {
+      if (!selectedBrand) {
+        setShowBrandValidation(true);
+        return;
+      }
+      setShowBrandValidation(false);
+      setStep(4);
+    } else if (step === 4) {
+      if (!selectedModel) {
+        setShowModelValidation(true);
+        return;
+      }
+      setShowModelValidation(false);
+      setStep(5);
+    } else if (step === 5) {
+
+      /** Checking data and showing the validation as needed */
+      let newErrors = {};
+
+      if (!formData.item_name.trim()) {
+        newErrors.item_name = "Item name is required";
+      }
+      // if (!formData.vehicle_description.trim()) {
+      //   newErrors.vehicle_description = "Description is required";
+      // }
+      // if (!formData.image_ids || formData.image_ids.length === 0) {
+      //   newErrors.image_ids = "Please upload at least one image";
+      // }
+
+      setErrors(newErrors);
+
+      if (Object.keys(newErrors).length > 0) {
+        return;
+      }
+
       const fd = new FormData();
 
       /** Hardcoded fields */
@@ -193,7 +258,8 @@ export default function BecomeAHost() {
         console.error("❌ Submission Failed:", error);
         alert("Error submitting vehicle data");
       }
-    } else {
+    }
+     else {
       alert("Please select an option");
     }
   };
@@ -223,61 +289,105 @@ export default function BecomeAHost() {
 
         {/* Step Content */}
         <div className={styles.rohhostdas_content}>
-          {step === 1 &&
+          {/* {step === 1 &&
             categories.map((cat) => (
-              <div
-                key={cat.id}
-                onClick={() => setSelectedParent(cat.id)}
-                className={`${styles.rohhostdas_box} ${
-                  selectedParent === cat.id ? styles.rohhostdas_selected : ""
-                }`}
-              >
+              <div key={cat.id} onClick={() => setSelectedParent(cat.id)} className={`${styles.rohhostdas_box} ${selectedParent === cat.id ? styles.rohhostdas_selected : ""}`}>
+                {cat.name}
+              </div>
+            ))} */}
+          {step == 1 && (
+            <>
+              {categories.map((cat) => (
+              <div key={cat.id} onClick={() => setSelectedParent(cat.id)} className={`${styles.rohhostdas_box} ${selectedParent === cat.id ? styles.rohhostdas_selected : ""}`}>
                 {cat.name}
               </div>
             ))}
 
-          {step === 2 &&
+              {/* Validation error message */}
+              {showCategoryValidation && (
+                <div style={{ color: "red", marginTop: "8px" }}>
+                  <span>Please select the category.</span>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* {step === 2 &&
             subCategories.map((sub) => (
-              <div
-                key={sub.id}
-                onClick={() => setSelectedSub(sub.id)}
-                className={`${styles.rohhostdas_box} ${
-                  selectedSub === sub.id ? styles.rohhostdas_selected : ""
-                }`}
-              >
+              <div key={sub.id} onClick={() => setSelectedSub(sub.id)} className={`${styles.rohhostdas_box} ${selectedSub === sub.id ? styles.rohhostdas_selected : ""}`}>
                 {sub.name}
               </div>
-            ))}
+            ))
+          } */}
 
-          {step === 3 &&
+          {step == 2 && (
+            <>
+              {subCategories.map((sub) => (
+                <div key={sub.id} onClick={() => setSelectedSub(sub.id)} className={`${styles.rohhostdas_box} ${selectedSub === sub.id ? styles.rohhostdas_selected : ""}`}>
+                  {sub.name}
+                </div>
+              ))}
+
+              {/* Validation error message */}
+              {showSubCategoryValidation && (
+                <div style={{ color: "red", marginTop: "8px" }}>
+                  <span>Please select the sub-category.</span>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* {step === 3 &&
             brands.map((brand) => (
-              <div
-                key={brand.id}
-                onClick={() => setSelectedBrand(brand.id)}
-                className={`${styles.rohhostdas_box} ${
-                  selectedBrand === brand.id ? styles.rohhostdas_selected : ""
-                }`}
-              >
+              <div key={brand.id} onClick={() => setSelectedBrand(brand.id)} className={`${styles.rohhostdas_box} ${selectedBrand === brand.id ? styles.rohhostdas_selected : ""}`}>
+                {brand.brand_name}
+              </div>
+            ))} */}
+          {step === 3 && (
+            <>
+              {brands.map((brand) => (
+              <div key={brand.id} onClick={() => setSelectedBrand(brand.id)} className={`${styles.rohhostdas_box} ${selectedBrand === brand.id ? styles.rohhostdas_selected : ""}`}>
                 {brand.brand_name}
               </div>
             ))}
 
-          {step === 4 &&
+            {/* Validation error message */}
+            {showBrandValidation && (
+                <div style={{ color: "red", marginTop: "8px" }}>
+                  <span>Please select the brand.</span>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* {step === 4 && 
             models.map((model) => (
-              <div
-                key={model.id}
-                onClick={() => setSelectedModel(model.id)}
-                className={`${styles.rohhostdas_box} ${
-                  selectedModel === model.id ? styles.rohhostdas_selected : ""
-                }`}
-              >
+              <div key={model.id} onClick={() => setSelectedModel(model.id)} className={`${styles.rohhostdas_box} ${selectedModel === model.id ? styles.rohhostdas_selected : ""}`}>
+                {model.model_name}
+              </div>
+            ))} */}
+
+          {step === 4 && (
+            <>
+            {models.map((model) => (
+              <div key={model.id} onClick={() => setSelectedModel(model.id)} className={`${styles.rohhostdas_box} ${selectedModel === model.id ? styles.rohhostdas_selected : ""}`}>
                 {model.model_name}
               </div>
             ))}
 
+            {/* Validation error message */}
+            {showModelValidation && (
+              <div style={{ color: "red", marginTop: "8px" }}>
+                <span>Please select the model.</span>
+              </div>
+            )}
+            </>
+          )}
+
           {step === 5 && (
             <div className={styles.fullWidthForm}>
-              <VehicleDetailsForm formData={formData} setFormData={setFormData} />
+              {/* <VehicleDetailsForm formData={formData} setFormData={setFormData} /> */}
+              <VehicleDetailsForm formData={formData} errors={errors} setFormData={setFormData}/>
             </div>
           )}
         </div>
