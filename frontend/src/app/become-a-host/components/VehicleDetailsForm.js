@@ -44,15 +44,24 @@ export default function VehicleDetailsForm({ formData, setFormData, errors }) {
         </div>
       )}
       
-      <input type="file" name="image_ids" multiple onChange={handleChange}/>
-      {errors.image_ids && (
-        <div style={{ color: "red", marginTop: "4px" }}>
-          <span>{errors.image_ids}</span>
-        </div>
-      )}
+      <div>
+        <input type="file" name="image_ids" multiple onChange={handleChange}/>
+        {errors.image_ids && (
+          <div style={{ color: "red", marginTop: "4px" }}>
+            <span>{errors.image_ids}</span>
+          </div>
+        )}
+      </div>
 
       {/* Pricing */}
-      <input type="number" name="price_per_day" placeholder="Price Per Day" value={formData.price_per_day || ""} onChange={handleChange}/>
+      <div>
+        <input type="number" name="price_per_day" placeholder="Price Per Day" value={formData.price_per_day || ""} onChange={handleChange}/>
+        {errors.price_per_day && (
+          <div style={{ color: "red", marginTop: "4px" }}>
+            <span>{errors.price_per_day}</span>
+          </div>
+        )}
+      </div>
       <input type="number" name="price_per_week" placeholder="Price Per Week" value={formData.price_per_week || ""} onChange={handleChange}/>
       <input type="number" name="price_per_month" placeholder="Price Per Month" value={formData.price_per_month || ""} onChange={handleChange}/>
       
@@ -63,12 +72,19 @@ export default function VehicleDetailsForm({ formData, setFormData, errors }) {
       <textarea name="booking_terms" placeholder="Booking Terms" value={formData.booking_terms || ""} onChange={handleChange}/>
 
       {/* Status */}
-      <select name="availability_status" value={formData.availability_status || ""} onChange={handleChange}>
-        <option value="">Select Availability</option>
-        <option value="Available">Available</option>
-        <option value="Unavailable">Unavailable</option>
-        <option value="Booked">Booked</option>
-      </select>
+      <div>
+        <select name="availability_status" value={formData.availability_status || ""} onChange={handleChange}>
+          <option value="">Select Availability</option>
+          <option value="Available">Available</option>
+          <option value="Unavailable">Unavailable</option>
+          <option value="Booked">Booked</option>
+        </select>
+        {errors.availability_status && (
+          <div style={{ color: "red", marginTop: "4px" }}>
+            <span>{errors.availability_status}</span>
+          </div>
+        )}
+      </div>
 
       <select name="engine_type" value={formData.engine_type || ""} onChange={handleChange}>
         <option value="">Engine Type</option>
@@ -91,16 +107,32 @@ export default function VehicleDetailsForm({ formData, setFormData, errors }) {
       <input type="text" name="color" placeholder="Color" value={formData.color || ""} onChange={handleChange}/>
       <input type="text" name="vehicle_age" placeholder="Vehicle Age" value={formData.vehicle_age || ""} onChange={handleChange}/>
       <input type="number" name="mileage" placeholder="Mileage" value={formData.mileage || ""} onChange={handleChange} />
-      <input type="text" name="registration_number" placeholder="Registration Number" value={formData.registration_number || ""} onChange={handleChange}/>
+
+      <div>
+        <input type="text" name="registration_number" placeholder="Registration Number" value={formData.registration_number || ""} onChange={handleChange}/>
+        {errors.registration_number && (
+          <div style={{ color: "red", marginTop: "4px" }}>
+            <span>{errors.registration_number}</span>
+          </div>
+        )}
+      </div>
+      
       <input type="date" name="insurance_validity" placeholder="Insurance Validity" value={formData.insurance_validity || ""} onChange={handleChange}/>
 
       {/* Type & Period */}
-      <select name="vehicle_type" value={formData.vehicle_type || ""} onChange={handleChange}>
-        <option value="">Vehicle Type</option>
-        <option value="Luxury">Luxury</option>
-        <option value="Economy">Economy</option>
-        <option value="Standard">Standard</option>
-      </select>
+      <div>
+        <select name="vehicle_type" value={formData.vehicle_type || ""} onChange={handleChange}>
+          <option value="">Vehicle Type</option>
+          <option value="Luxury">Luxury</option>
+          <option value="Economy">Economy</option>
+          <option value="Standard">Standard</option>
+        </select>
+        {errors.vehicle_type && (
+          <div style={{ color: "red", marginTop: "4px" }}>
+            <span>{errors.vehicle_type}</span>
+          </div>
+        )}
+      </div>
 
       <select name="rental_period" value={formData.rental_period || ""} onChange={handleChange}>
         <option value="">Rental Period</option>
@@ -121,11 +153,46 @@ export default function VehicleDetailsForm({ formData, setFormData, errors }) {
       <textarea name="accessories" placeholder="Accessories" value={formData.accessories || ""} onChange={handleChange}/>
 
       {/* Address */}
-      <input type="text" name="address_1" placeholder="Address Line 1" value={formData.address_1 || ""} onChange={handleChange}/>
-      <input type="text" name="landmark" placeholder="Landmark" value={formData.landmark || ""} onChange={handleChange}/>
-      <input type="text" name="item_state" placeholder="State" value={formData.item_state || ""} onChange={handleChange}/>
-      <input type="text" name="city" placeholder="City" value={formData.city || ""} onChange={handleChange}/>
-      <input type="text" name="pincode" placeholder="Pincode" value={formData.pincode || ""} onChange={handleChange}/>
+      <div>
+        <input type="text" name="address_1" placeholder="Address Line 1" value={formData.address_1 || ""} onChange={handleChange}/>
+        {errors.address_1 && (
+          <div style={{ color: "red", marginTop: "4px" }}>
+            <span>{errors.address_1}</span>
+          </div>
+        )}
+      </div>
+      <div>
+        <input type="text" name="landmark" placeholder="Landmark" value={formData.landmark || ""} onChange={handleChange}/>
+        {errors.landmark && (
+          <div style={{ color: "red", marginTop: "4px" }}>
+            <span>{errors.landmark}</span>
+          </div>
+        )}
+      </div>
+      <div>
+        <input type="text" name="item_state" placeholder="State" value={formData.item_state || ""} onChange={handleChange}/>
+        {errors.item_state && (
+          <div style={{ color: "red", marginTop: "4px" }}>
+            <span>{errors.item_state}</span>
+          </div>
+        )}
+      </div>
+      <div>
+        <input type="text" name="city" placeholder="City" value={formData.city || ""} onChange={handleChange}/>
+        {errors.city && (
+          <div style={{ color: "red", marginTop: "4px" }}>
+            <span>{errors.city}</span>
+          </div>
+        )}
+      </div>
+      <div>
+        <input type="text" name="pincode" placeholder="Pincode" value={formData.pincode || ""} onChange={handleChange}/>
+        {errors.pincode && (
+          <div style={{ color: "red", marginTop: "4px" }}>
+            <span>{errors.pincode}</span>
+          </div>
+        )}
+      </div>
 
       {/* Instructions */}
       <textarea name="booking_instructions" placeholder="Booking Instructions" value={formData.booking_instructions || ""} onChange={handleChange}/>

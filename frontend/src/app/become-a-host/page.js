@@ -160,8 +160,50 @@ export default function BecomeAHost() {
       let newErrors = {};
 
       if (!formData.item_name.trim()) {
-        newErrors.item_name = "Item name is required";
+        newErrors.item_name = "Item name is required.";
       }
+
+      if (!formData.price_per_day) {
+        newErrors.price_per_day = "Please enter the per day price.";
+      }
+
+      if (!formData.availability_status) {
+        newErrors.availability_status = "Please select the availability.";
+      }
+
+      if (!formData.registration_number) {
+        newErrors.registration_number = "Please enter the registration number.";
+      }
+
+      if (!formData.vehicle_type) {
+        newErrors.vehicle_type = "Please select the vechicle type.";
+      }
+
+      if (!formData.address_1) {
+        newErrors.address_1 = "Please enter the street address.";
+      }
+
+      if (!formData.landmark) {
+        newErrors.landmark = "Please enter the landmark.";
+      }
+
+      if (!formData.item_state) {
+        newErrors.item_state = "Please enter the state.";
+      }
+
+      if (!formData.city) {
+        newErrors.city = "Please enter the city..";
+      }
+
+      if (!formData.pincode) {
+        newErrors.pincode = "Please enter the pincode.";
+      }
+
+
+      if (!formData.image_ids || formData.image_ids.length == 0) {
+        newErrors.image_ids = "Please select atleast one image.";
+      }
+    
       // if (!formData.vehicle_description.trim()) {
       //   newErrors.vehicle_description = "Description is required";
       // }
