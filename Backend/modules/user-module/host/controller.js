@@ -250,7 +250,8 @@ function hostModuleApi() {
         try {
             const { service_provider_id } = req.body;
 
-            const [result] = await pool.query(
+            // Step 1: Fetch vehicle list
+            const [vehicles] = await pool.query(
                 `SELECT 
                     d.id, 
                     d.service_provider_id, 
@@ -266,12 +267,70 @@ function hostModuleApi() {
                 [service_provider_id]
             );
 
+            if (vehicles.length === 0) {
+                return res.status(200).json([]);
+            }
+
+            // Step 2: For each vehicle, parse image_ids and fetch media data coded by Vishnu August 25 2025
+            const enhancedVehicles = await Promise.all(
+                vehicles.map(async (vehicle) => {
+                    let imageIds = [];
+
+                    try {
+                        imageIds = JSON.parse(vehicle.image_ids);
+                    } catch (e) {
+                        console.warn('Invalid JSON in image_ids for vehicle id:', vehicle.id);
+                    }
+
+                    let mediaGallery = [];
+                    if (imageIds.length > 0) {
+                        const placeholders = imageIds.map(() => '?').join(',');
+                        const [mediaResult] = await pool.query(
+                            `SELECT id, file_name, file_path FROM roh_media_gallery WHERE id IN (${placeholders})`,
+                            imageIds
+                        );
+                        mediaGallery = mediaResult;
+                    }
+
+                    return {
+                        ...vehicle,
+                        media_gallery: mediaGallery
+                    };
+                })
+            );
+
+            // Step 3: Return result
+            return res.status(200).json(enhancedVehicles);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    };
+
+
+    /** Api to view login service providers single items - Coded by Vishnu August 25 2025 */
+    this.getServiceProviderSingleListedItems = async (req, res) => {
+        try {
+            const { id } = req.body;
+
+            const [result] = await pool.query(
+                `SELECT 
+                    d.*, 
+                    a.*
+                FROM roh_vehicle_details d
+                LEFT JOIN roh_vehicle_attributes a 
+                    ON d.id = a.vehicle_id
+                WHERE d.id = ?`,
+                [id]
+            );
+
             return res.status(200).json(result);
         } catch (error) {
             console.error(error);
             return res.status(500).json({ message: 'Internal server error' });
         }
     };
+
 
 
 

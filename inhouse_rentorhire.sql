@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 23, 2025 at 07:33 PM
+-- Generation Time: Aug 25, 2025 at 09:07 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -48,7 +48,8 @@ INSERT INTO `roh_brands` (`id`, `brand_name`, `cat_id`, `logo_media_id`, `active
 (2, 'Suzuki', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
 (3, 'Mahindra', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
 (4, 'Volkswagen', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
-(5, 'BMW', 3, 1, 1, 1, 1, '2025-08-21 16:27:32', '2025-08-21 16:27:32');
+(5, 'BMW', 3, 1, 1, 1, 1, '2025-08-21 16:27:32', '2025-08-21 16:27:32'),
+(6, 'Hyundai', 2, 1, 1, 1, 1, '2025-08-25 17:19:56', '2025-08-25 17:19:56');
 
 -- --------------------------------------------------------
 
@@ -237,13 +238,17 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 (18, 'vishnu-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:16:35', '2025-08-02 16:13:15'),
 (19, 'vishnu-2-1.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:16:49', '2025-08-02 16:13:21'),
 (20, 'vishnu-2-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:18:25', '2025-08-02 16:13:18'),
-(35, 'creta.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-23 09:22:15', '2025-08-23 09:22:15'),
-(36, 'ChatGPT Image Jul 13, 2025, 12_43_28 AM.png', '/media/host/items/', 'png', 1, '2025-08-23 09:22:48', '2025-08-23 09:22:48'),
-(37, 'download.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-23 09:22:48', '2025-08-23 09:22:48'),
-(38, 'dummy-profile-img.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-23 09:22:48', '2025-08-23 09:22:48'),
-(39, 'creta.jpg', '/media/users/profile/', 'jpg', 1, '2025-08-23 16:37:28', '2025-08-23 16:37:28'),
-(40, 'creta-1.jpg', '/media/users/profile/', 'jpg', 1, '2025-08-23 16:40:50', '2025-08-23 16:40:50'),
-(41, 'creta-2.jpg', '/media/users/profile/', 'jpg', 1, '2025-08-23 16:41:42', '2025-08-23 16:41:42');
+(54, 'scorpio-headshot-1.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
+(55, 'scorpio-headshot-2.webp', '/media/host/items/', 'webp', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
+(56, 'scorpio-headshot-3.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
+(57, 'scorpio-headshot-4.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
+(58, 'scorpio-headshot-5.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
+(59, 'scorpio-headshot-6.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
+(60, 'hyundai-i20-1.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
+(61, 'hyundai-i20-2.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
+(62, 'hyundai-i20-3.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
+(63, 'hyundai-i20-4.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
+(64, 'hyundai-i20-5.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55');
 
 -- --------------------------------------------------------
 
@@ -277,7 +282,8 @@ INSERT INTO `roh_models` (`id`, `model_name`, `brand_id`, `tag_id`, `active`, `a
 (7, 'Virtus', 4, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
 (8, 'Taigun', 4, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
 (9, 'BMW S 1000 RR', 5, 0, 1, 1, 1, '2025-08-22 17:36:50', '2025-08-22 17:36:50'),
-(10, 'G310 RR', 5, 0, 1, 1, 1, '2025-08-22 17:37:39', '2025-08-22 17:37:39');
+(10, 'G310 RR', 5, 0, 1, 1, 1, '2025-08-22 17:37:39', '2025-08-22 17:37:39'),
+(11, 'i20', 6, 2, 1, 1, 1, '2025-08-25 17:21:03', '2025-08-25 17:21:03');
 
 -- --------------------------------------------------------
 
@@ -498,14 +504,8 @@ CREATE TABLE `roh_vehicle_attributes` (
 --
 
 INSERT INTO `roh_vehicle_attributes` (`id`, `vehicle_id`, `engine_type`, `transmission_type`, `fuel_consumption`, `seating_capacity`, `color`, `vehicle_age`, `mileage`, `registration_number`, `insurance_validity`, `vehicle_type`, `rental_period`, `vehicle_condition`, `accessories`, `address_1`, `landmark`, `item_state`, `city`, `pincode`, `booking_instructions`) VALUES
-(2, 6, 'Petrol', 'Automatic', 12.00, 7, 'White', 3, 40000.00, 'MH12AB1234', '2026-12-31', 'Standard', 'Daily', 'New', 'GPS, AC, Music system', '123 MG Road', 'Near Central Mall', 'Maharashtra', 'Mumbai', 400001, 'Pickup from MG Road, return by 6 PM'),
-(3, 10, 'Diesel', 'Automatic', 11.00, 73, 'Commodi nesciunt om', 11, 36.00, '861', '2025-08-31', 'Standard', 'Daily', 'Refurbished', 'Voluptate dicta ab u', '281 Fabien Parkway', 'Adipisci dignissimos', 'Dolores impedit eu ', 'Atque ea perferendis', 19001, 'Sed debitis deleniti'),
-(4, 11, 'Petrol', 'Automatic', 11.00, 43, 'Red blue', 21, 34.00, '915', '1987-07-15', 'Standard', 'Weekly', 'New', 'Quis a est numquam ', '730 Green Nobel Boulevard', 'Est animi voluptate', 'Est occaecat suscipi', 'Aut officia sit et q', 190001, 'Quo dolorum facilis '),
-(6, 13, 'Petrol', 'Automatic', 11.00, 43, 'Red blue', 21, 34.00, '916', '1987-07-15', 'Standard', 'Weekly', 'New', 'Quis a est numquam ', '730 Green Nobel Boulevard', 'Est animi voluptate', 'Est occaecat suscipi', 'Aut officia sit et q', 190001, 'Quo dolorum facilis '),
-(9, 18, 'Petrol', 'Automatic', 11.00, 43, 'Red blue', 21, 34.00, '917', '1987-07-15', 'Standard', 'Weekly', 'New', 'Quis a est numquam ', '730 Green Nobel Boulevard', 'Est animi voluptate', 'Est occaecat suscipi', 'Aut officia sit et q', 190001, 'Quo dolorum facilis '),
-(10, 19, 'CNG', 'Automatic', 112.00, 75, 'Dark Red', 21, 50.00, '675', '1980-03-16', 'Standard', 'Custom', 'New', 'Quia est nihil sit ', '429 West Hague Extension', 'Provident id blandi', 'Obcaecati lorem ea v', 'Autem ea harum aut d', 111111, 'Exercitation aut ali'),
-(11, 20, 'CNG', 'Automatic', 112.00, 75, 'Dark Red', 21, 50.00, '676', '1980-03-16', 'Standard', 'Custom', 'New', 'Quia est nihil sit ', '429 West Hague Extension', 'Provident id blandi', 'Obcaecati lorem ea v', 'Autem ea harum aut d', 111111, 'Exercitation aut ali'),
-(12, 21, 'CNG', 'Automatic', 112.00, 75, 'Dark Red', 21, 50.00, '677', '1980-03-16', 'Standard', 'Custom', 'New', 'Quia est nihil sit ', '429 West Hague Extension', 'Provident id blandi', 'Obcaecati lorem ea v', 'Autem ea harum aut d', 111111, 'Exercitation aut ali');
+(1, 24, 'Diesel', 'Manual', 100.00, 7, 'Z Black', 2, 14.00, 'TR01 AB 1234', '2025-08-25', 'Standard', 'Daily', 'New', 'Stylish Alloy Wheels\r\n\r\nPremium Fog Lamps\r\n\r\nRoof Rails\r\n\r\nDesigner Seat Covers\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nFloor Mats', 'Scorpio Car Rentals', '2nd Floor, MG Road', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery'),
+(2, 25, 'Petrol', 'Manual', 18.00, 5, 'Polar White', 3, 11.00, 'TR02 XY 5678', '2025-08-27', 'Luxury', 'Daily', 'New', 'Alloy Wheels\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nSeat Covers\r\n\r\nFloor Mats\r\n\r\nFog Lamps', 'i20 Car Rentals', 'Ground Floor, HGB Road,', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery');
 
 -- --------------------------------------------------------
 
@@ -542,16 +542,8 @@ CREATE TABLE `roh_vehicle_details` (
 --
 
 INSERT INTO `roh_vehicle_details` (`id`, `service_provider_id`, `item_name`, `vehicle_description`, `category_id`, `tag_id`, `brand_id`, `model_id`, `image_ids`, `price_per_day`, `price_per_week`, `price_per_month`, `price_custom_day`, `item_status`, `admin_item_status`, `total_views`, `security_deposit`, `booking_terms`, `availability_status`, `add_date`, `edit_date`) VALUES
-(6, 1, 'Scorpio S11 Classic', 'Luxury SUV for family trips', 1, 2, 3, 5, '[\"image1.jpg\",\"image2.jpg\"]', 3000.00, 18000.00, 70000.00, 2800.00, 1, 1, 0, 10000.00, 'No smoking, full tank required', 'Available', '2025-08-22 22:30:46', '2025-08-22 22:30:46'),
-(10, 1, 'ScorpioN', 'Quia corrupti eiusm', 1, 2, 3, 6, '[\"image1.jpg\"]', 72.00, 968.00, 370.00, 776.00, 1, 1, 0, 29.00, 'Vel officiis esse di', 'Booked', '2025-08-22 22:59:04', '2025-08-22 22:59:04'),
-(11, 1, 'Tashya Steele', 'Cillum quis mollit r', 1, 2, 1, 2, '[\"image1.jpg\"]', 609.00, 897.00, 474.00, 898.00, 1, 1, 0, 63.00, 'Ipsam saepe vitae et', 'Available', '2025-08-23 14:07:01', '2025-08-23 14:07:01'),
-(13, 1, 'Tashya Steele', 'Cillum quis mollit r', 1, 2, 1, 2, '[{}]', 609.00, 897.00, 474.00, 898.00, 1, 1, 0, 63.00, 'Ipsam saepe vitae et', 'Available', '2025-08-23 14:08:26', '2025-08-23 14:08:26'),
-(14, 1, 'Tashya Steele', 'Cillum quis mollit r', 1, 2, 1, 2, '[]', 609.00, 897.00, 474.00, 898.00, 1, 1, 0, 63.00, 'Ipsam saepe vitae et', 'Available', '2025-08-23 14:14:41', '2025-08-23 14:14:41'),
-(15, 1, 'Tashya Steele', 'Cillum quis mollit r', 1, 2, 1, 2, '[]', 609.00, 897.00, 474.00, 898.00, 1, 1, 0, 63.00, 'Ipsam saepe vitae et', 'Available', '2025-08-23 14:18:28', '2025-08-23 14:18:28'),
-(18, 1, 'Tashya Steele', 'Cillum quis mollit r', 1, 2, 1, 2, '[]', 609.00, 897.00, 474.00, 898.00, 1, 1, 0, 63.00, 'Ipsam saepe vitae et', 'Available', '2025-08-23 14:37:58', '2025-08-23 14:37:58'),
-(19, 1, 'Graham Mccullough', 'Commodi quo odit vol', 1, 2, 2, 4, '[]', 229.00, 628.00, 575.00, 563.00, 1, 1, 0, 62.00, 'Quis earum et harum ', 'Available', '2025-08-23 14:51:20', '2025-08-23 14:51:20'),
-(20, 1, 'Graham Mccullough', 'Commodi quo odit vol', 1, 2, 2, 4, '[35]', 229.00, 628.00, 575.00, 563.00, 1, 1, 0, 62.00, 'Quis earum et harum ', 'Available', '2025-08-23 14:52:15', '2025-08-23 14:52:15'),
-(21, 1, 'Graham Mccullough', 'Commodi quo odit vol', 1, 2, 2, 4, '[36,37,38]', 229.00, 628.00, 575.00, 563.00, 1, 1, 0, 62.00, 'Quis earum et harum ', 'Available', '2025-08-23 14:52:48', '2025-08-23 14:52:48');
+(24, 1, 'Mahindra Scorpio – Power Meets Style', 'The Big Daddy SUV – Mahindra Scorpio is known for its bold looks, powerful performance, and unmatched road presence. Whether it’s a city ride or an off-road adventure, the Scorpio is built to conquer every journey with style and comfort.', 1, 2, 3, 5, '[54,55,56,57,58,59]', 2500.00, 15000.00, 45000.00, 120000.00, 1, 1, 0, 9998.00, 'Booking amount: ₹5,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes RTO, insurance, and taxes\r\n\r\nDelivery subject to stock availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:44:58', '2025-08-25 22:44:58'),
+(25, 1, 'Hyundai i20 – Premium Hatchback', 'The Hyundai i20 is a premium hatchback that blends style, comfort, and efficiency. With its modern design, advanced features, and smooth driving experience, the i20 is the perfect choice for city commutes and weekend getaways.', 1, 2, 6, 11, '[60,61,62,63,64]', 1800.00, 11000.00, 32000.00, 69998.00, 1, 1, 0, 7000.00, 'Booking amount: ₹3,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes fuel, tolls, RTO, insurance, and taxes\r\n\r\nDelivery subject to availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:56:55', '2025-08-25 23:03:54');
 
 --
 -- Indexes for dumped tables
@@ -635,7 +627,7 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
@@ -665,13 +657,13 @@ ALTER TABLE `roh_users`
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`
 --
 ALTER TABLE `roh_vehicle_attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_details`
 --
 ALTER TABLE `roh_vehicle_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables
