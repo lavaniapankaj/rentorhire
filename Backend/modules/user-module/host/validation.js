@@ -90,5 +90,16 @@ const ValidateLoginServiceProviderItems = async (req, res, next) => {
     }
 }
 
+/** validate main api for login service provider view single items - Coded by Vishnu August 25 2025 */
+const ValidateLoginServiceProviderSingleItems = async (req, res, next) => {
+    try {
+        const { id } = req.body;
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+}
 
-module.exports = {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle, ValidateLoginServiceProviderItems};
+
+module.exports = {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle, ValidateLoginServiceProviderItems, ValidateLoginServiceProviderSingleItems};

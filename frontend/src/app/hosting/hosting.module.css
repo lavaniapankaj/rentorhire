@@ -55,12 +55,11 @@
 
 
 
-
 /** Hosting items css */
 .rohhostinglist_container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
   padding: 20px;
 }
 
@@ -70,26 +69,41 @@
   padding: 16px;
   text-align: center;
   background: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 420px;  /* thoda fixed height taaki balance lage */
+}
+
+.rohhostinglist_card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 }
 
 .rohhostinglist_image {
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 12px auto;
-  background: #f3f4f6;
+  width: 100%;
+  height: 220px;             /* pehle 180 tha, ab bada */
+  margin-bottom: 12px;
+  background: #f9fafb;
   border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #9ca3af;
-  font-size: 14px;
+  overflow: hidden;
+  position: relative;
+}
+
+.rohhostinglist_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* image cut nahi hoga */
+  border-radius: 12px;
 }
 
 .rohhostinglist_title {
   font-size: 18px;
   font-weight: 600;
   margin: 8px 0 4px 0;
+  color: #111827;
 }
 
 .rohhostinglist_category,
@@ -109,7 +123,7 @@
 .rohhostinglist_view,
 .rohhostinglist_edit,
 .rohhostinglist_delete {
-  padding: 6px 12px;
+  padding: 6px 14px;
   border: 1px solid;
   border-radius: 8px;
   font-size: 14px;
@@ -147,3 +161,80 @@
   color: #fff;
 }
 
+
+/** Modal css */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modalContent {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 640px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modalClose {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+
+/** Slider css */
+.sliderWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.sliderImage {
+  width: 100%;
+  height: 220px;       /* image height sync with card image */
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.sliderControls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  transform: translateY(-50%);
+}
+
+.sliderControls button {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.sliderControls button:hover {
+  background: rgba(0, 0, 0, 0.7);
+}

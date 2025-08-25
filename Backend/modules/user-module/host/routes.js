@@ -1,5 +1,5 @@
 const UserHostModuleController = require("./controller");
-const {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle, ValidateLoginServiceProviderItems} = require("./validation");
+const {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle, ValidateLoginServiceProviderItems, ValidateLoginServiceProviderSingleItems} = require("./validation");
 
 const multer = require('multer');
 const path = require('path');
@@ -43,7 +43,7 @@ app.post(
     console.log("FILES>>", (req.files || []).map(f => ({
       field: f.fieldname, name: f.originalname, saved: f.filename, type: f.mimetype
     })));
-    console.log("BODY KEYS>>", Object.keys(req.body || {}));
+    // console.log("BODY KEYS>>", Object.keys(req.body || {}));
     next();
   },
   ValidateHostAddNewVehicle,
@@ -96,5 +96,14 @@ app.post(
     ValidateLoginServiceProviderItems,
     (req, res, next) => {
         UserHostModuleController.getServiceProviderListedItems(req, res, next);
+    }
+);
+
+/** API to view service provider single items - Coded by Vishnu August 25 2025 */
+app.post(
+    "/api/user/getallsinglelisteditems",
+    ValidateLoginServiceProviderSingleItems,
+    (req, res, next) => {
+        UserHostModuleController.getServiceProviderSingleListedItems(req, res, next);
     }
 );
