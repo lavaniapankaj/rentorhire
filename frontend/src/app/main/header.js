@@ -1,59 +1,146 @@
-"use client";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+'use client';
 
-export default function Header() {
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import styles from './header.module.css';
+
+const Header = () => {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // To check the user is logged in or not
-    const cookies = document.cookie.split(";").map(c => c.trim());
-    const hasAuthToken = cookies.some(c => c.startsWith("authToken="));
-    const hasAuthUser = cookies.some(c => c.startsWith("authUser="));
+    // Bootstrap JS only on client
+    import('bootstrap/dist/js/bootstrap.bundle.min.js');
+
+    // Check login from cookies
+    const cookies = document.cookie.split(';').map(c => c.trim());
+    const hasAuthToken = cookies.some(c => c.startsWith('authToken='));
+    const hasAuthUser  = cookies.some(c => c.startsWith('authUser='));
     setIsLoggedIn(hasAuthToken && hasAuthUser);
   }, []);
 
   const handleLogout = () => {
     // clear cookies
-    document.cookie = "authToken=; Max-Age=0; path=/";
-    document.cookie = "authUser=; Max-Age=0; path=/";
-
+    document.cookie = 'authToken=; Max-Age=0; path=/';
+    document.cookie = 'authUser=; Max-Age=0; path=/';
     setIsLoggedIn(false);
-    router.push("/login");
+    router.push('/login');
   };
 
   return (
-    <header style={styles.header}>
-      <nav style={styles.nav}>
-        <Link href="/" style={styles.link}>Home</Link>
-        <Link href="#" style={styles.link}>About</Link>
-        <Link href="#" style={styles.link}>Services</Link>
-        <Link href="#" style={styles.link}>Contact</Link>
-        <Link href="/become-a-host" style={styles.link}>Become a Host</Link>
-        <Link href="#" style={styles.link}>Dashboard</Link>
+    <header className={styles.headerArea}>
+      <div className={`container ${styles.headerBlock}`}>
+        <div className="row align-items-center">
 
-        {/* Logout button only if logged in */}
-        {isLoggedIn && (
-          <button onClick={handleLogout} style={styles.logoutBtn}>Logout</button>
-        )}
-      </nav>
+          {/* Logo */}
+          <div className={`col-6 col-md-4 col-lg-2 ${styles.logoBlock}`}>
+            <Link href="/">
+              <img
+                className={styles.logo}
+                src="/images/global-imgs/site-logo.png"
+                alt="Logo"
+              />
+            </Link>
+          </div>
+
+          {/* Navbar */}
+          <div className="col-6 col-md-4 col-lg-7 order-1 order-lg-0">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-transparent">
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+
+              <div className="collapse navbar-collapse justify-content-start" id="navbarNav">
+                <ul className="navbar-nav w-100 justify-content-around">
+                  <li className="nav-item">
+                    <Link className={styles.navLink} href="/">Home</Link>
+                  </li>
+                  <li className="nav-item dropdown">
+                    <a
+                      className={`nav-link dropdown-toggle ${styles.navLink}`}
+                      href="#"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Services
+                    </a>
+                    <ul className={`dropdown-menu ${styles.dropdownMenu}`} aria-labelledby="navbarDropdown">
+                      <li><Link className={`dropdown-item ${styles.dropdownItem}`} href="#">Vehicles</Link></li>
+                      <li><Link className={`dropdown-item ${styles.dropdownItem}`} href="#">Electronics</Link></li>
+                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Home Appliances</a></li>
+                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Tools & Equipment</a></li>
+                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Events & Party</a></li>
+                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Baby & Kids</a></li>
+                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Travel & Camping</a></li>
+                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Studio & Production</a></li>
+                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Office & Furniture</a></li>
+                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Miscellaneous</a></li>
+                    </ul>
+                  </li>
+                  <li className="nav-item">
+                    <a className={styles.navLink} href="#">How It Works</a>
+                  </li>
+                  <li className="nav-item">
+                    <Link className={styles.navLink} href="/lokesh/faq.html">FAQs</Link>
+                  </li>
+                  <li className="nav-item">
+                    <a className={styles.navLink} href="#">About Us</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className={styles.navLink} href="#">Contact Us</a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+
+          {/* CTA + Logout */}
+          <div className="col-12 col-md-4 col-lg-3 d-flex align-items-center justify-content-end">
+            <div className={`d-flex align-items-center ${styles.topBtns}`}>
+              {/* Logout button only if logged in */}
+              {isLoggedIn ? (
+                <button onClick={handleLogout} className={styles.logoutBtn}>
+                  Logout
+                </button>
+              ) : (
+                <Link href="/login" className={styles.loginBtn}>
+                  Login
+                </Link>
+              )}
+
+
+              <Link href="/lokesh/signup.html" style={{ textDecoration: 'none' }}>
+                <div className="d-flex align-items-center">
+                  <div className={styles.buttonCustom}>
+                    <button>List Your Item</button>
+                  </div>
+                  <div className={styles.circlBtn}>
+                    <button aria-label="go">
+                      <svg fill="none" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <g clipRule="evenodd" fill="black" fillRule="evenodd">
+                          <path d="m4 16c0-.5523.44772-1 1-1h22c.5523 0 1 .4477 1 1s-.4477 1-1 1h-22c-.55228 0-1-.4477-1-1z" />
+                          <path d="m17.2929 6.29289c.3905-.39052 1.0237-.39052 1.4142 0l9 9.00001c.3905.3905.3905 1.0237 0 1.4142l-9 9c-.3905.3905-1.0237.3905-1.4142 0s-.3905-1.0237 0-1.4142l8.2929-8.2929-8.2929-8.29289c-.3905-.39053-.3905-1.02369 0-1.41422z" />
+                        </g>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </header>
   );
-}
-
-const styles = {
-  header: { background: "#222", padding: "15px 0" },
-  nav: { display: "flex", justifyContent: "center", gap: "20px" },
-  link: { color: "#fff", textDecoration: "none", fontWeight: "bold" },
-  logoutBtn: {
-    background: "red",
-    color: "#fff",
-    border: "none",
-    padding: "6px 12px",
-    fontWeight: "bold",
-    cursor: "pointer",
-    borderRadius: "4px",
-  },
 };
+
+export default Header;

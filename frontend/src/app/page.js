@@ -1,5 +1,6 @@
 "use client";
-import Header from "./main/header"; 
+// import Header from "./main/header"; 
+import Header from './main/header';
 import Footer from "./main/footer"; 
 import Link from "next/link";
 
@@ -190,7 +191,15 @@ export default function HomePage() {
 }
 
 const styles = {
-  main: { minHeight: "70vh", padding: "0", margin: 0 },
+  main: { 
+    minHeight: "70vh",
+    padding: "0", 
+    margin: 0,
+    backgroundImage: "url('https://webcarelogics.com/lokesh/assets/images/bg-img-3.svg')", 
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  },
   hero: {
     background: "linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%)",
     color: "#fff",

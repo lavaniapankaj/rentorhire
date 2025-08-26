@@ -1,0 +1,94 @@
+.footer {
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 48px 0 16px;
+}
+
+/* Brand / left block */
+.brandBlock { max-width: 560px; }
+.logoLink { display: inline-block; }
+.logo { height: 28px; width: auto; display: block; }
+.desc {
+  color: #5f6368;
+  line-height: 1.65;
+  font-size: 15.5px;
+  margin: 0;
+}
+
+/* Social icons */
+.social {
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  padding: 0;
+  margin: 18px 0 0;
+}
+.social li a {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #f5f6f8;
+  border: 1px solid #e7e8ea;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+}
+.social li a:hover {
+  transform: translateY(-2px);
+  background: #fff;
+  border-color: #dcdfe3;
+}
+.social img { width: 18px; height: 18px; display: block; }
+
+/* Column titles + lists */
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 12px;
+}
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.list li a {
+  display: inline-block;
+  padding: 6px 0;
+  color: #374151;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.list li a:hover {
+  color: #ff3c00; /* brand accent */
+}
+
+/* Copy bar */
+.copyBar {
+  border-top: 1px solid #eee;
+  padding: 12px 0;
+  row-gap: 10px;
+}
+.fineLinks {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.fineLink {
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 14px;
+}
+.fineLink:hover { color: #111827; }
+
+.copyText {
+  text-align: right;
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .copyText { text-align: left; margin-top: 6px; }
+}
