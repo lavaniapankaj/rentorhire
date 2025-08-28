@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 25, 2025 at 09:07 PM
+-- Generation Time: Aug 28, 2025 at 03:16 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -467,7 +467,13 @@ INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `ema
 (20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 3, '3', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, NULL, 1, 1, 1, 1, '2025-07-29 18:38:25', '2025-08-23 09:47:28'),
 (44, 'rudrax', 'Raymond', 'Foster', 'bowijen@mailinator.com', '9999999999', '$2b$10$qchWQg.7/f.OvDEqes6MqeulRouWGrswPU5IFWhE4Ablj/rmdKIqq', 3, NULL, '', '', '', '', 123456, '1234', 0, NULL, NULL, 1, '2025-08-13 15:40:33', '2025-08-23 09:48:33'),
 (45, 'papyviq', 'Daphne', 'Spence', 'ligy@mailinator.com', '8957058952', '$2b$10$gv2JDIFncJrkcn/Hau.mf.hmExvOYvmMWMTkZQKsylG2Co0hdzEwK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-23 13:10:32', '2025-08-23 13:16:46'),
-(46, 'natup', 'Holly', 'Rush', 'cexul@mailinator.com', '2538281972', '$2b$10$DBrEyUDMsLAjCnWHfr3IfeCyeBtJ2Cv78q8c5YaysfXDPqQYpwYNi', 3, '41', '70 West New Parkway', 'Quia ut sed maiores ', 'Ea a qui amet cupid', 'Dolores harum ipsum ', 578908, NULL, 0, 1, 1, 1, '2025-08-23 16:41:42', '2025-08-23 16:42:02');
+(46, 'natup', 'Holly', 'Rush', 'cexul@mailinator.com', '2538281972', '$2b$10$DBrEyUDMsLAjCnWHfr3IfeCyeBtJ2Cv78q8c5YaysfXDPqQYpwYNi', 3, '41', '70 West New Parkway', 'Quia ut sed maiores ', 'Ea a qui amet cupid', 'Dolores harum ipsum ', 578908, NULL, 0, 1, 1, 1, '2025-08-23 16:41:42', '2025-08-23 16:42:02'),
+(47, 'bitugoxe', 'Amity', 'Schultz', 'perikop@mailinator.com', '4869643856', '$2b$10$Ecgs/LNcxCFKv/CqgQ7C.uS0W9Ox3moJ9z0G1XRC0mOffe6sVtXOO', 3, NULL, NULL, NULL, NULL, NULL, NULL, '497910', 0, NULL, NULL, 0, '2025-08-27 16:44:32', '2025-08-27 16:51:00'),
+(48, 'soruke', 'Chadwick', 'Dalton', 'qugenehiv@mailinator.com', '4625174203', '$2b$10$dxqghMmEVZujsUIPSeDF7uPStFFsuvOfKL.J6onRbs1jlB6l4ohQK', 3, NULL, NULL, NULL, NULL, NULL, NULL, '677190', 0, NULL, NULL, 0, '2025-08-27 16:53:58', '2025-08-27 16:53:58'),
+(49, 'qyqaluvuqu', 'Isaac', 'Hall', 'bobyhiz@mailinator.com', '2883996366', '$2b$10$StXcohwoZNeRIjOSwwfJPeMWH8EAC8c5Q79f4B3noutl1mZIaPNJW', 3, NULL, NULL, NULL, NULL, NULL, NULL, '110654', 0, NULL, NULL, 0, '2025-08-27 16:54:55', '2025-08-27 16:54:55'),
+(50, 'rent_or_hire', 'Den', 'Cook', 'roh@hosting.com', '9876543219', '$2b$10$TwK0imHqaYotk9QvtG0aiu65rXvC4gBHxAnm26vXGY77eWDNkOMZq', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:16:42', '2025-08-27 17:17:05'),
+(51, 'vedoq', 'Jenette', 'Cannon', 'huqinileju@mailinator.com', '5317534899', '$2b$10$VFU5t7sxh9TVa8Jd.dmUiuKQtDU8sS13QWmqmC3WZKnytHuoIum5W', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:18:00', '2025-08-27 17:20:13'),
+(52, 'pidawoh', 'Lunea', 'Nolan', 'lyhede@mailinator.com', '1982856472', '$2b$10$GY2KBR7dPhpa.RMI3KziIuoLXQkQFTtiSIJ0edp8JuKzHZXTAmtBm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:21:52', '2025-08-27 17:22:01');
 
 -- --------------------------------------------------------
 
@@ -542,8 +548,8 @@ CREATE TABLE `roh_vehicle_details` (
 --
 
 INSERT INTO `roh_vehicle_details` (`id`, `service_provider_id`, `item_name`, `vehicle_description`, `category_id`, `tag_id`, `brand_id`, `model_id`, `image_ids`, `price_per_day`, `price_per_week`, `price_per_month`, `price_custom_day`, `item_status`, `admin_item_status`, `total_views`, `security_deposit`, `booking_terms`, `availability_status`, `add_date`, `edit_date`) VALUES
-(24, 1, 'Mahindra Scorpio – Power Meets Style', 'The Big Daddy SUV – Mahindra Scorpio is known for its bold looks, powerful performance, and unmatched road presence. Whether it’s a city ride or an off-road adventure, the Scorpio is built to conquer every journey with style and comfort.', 1, 2, 3, 5, '[54,55,56,57,58,59]', 2500.00, 15000.00, 45000.00, 120000.00, 1, 1, 0, 9998.00, 'Booking amount: ₹5,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes RTO, insurance, and taxes\r\n\r\nDelivery subject to stock availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:44:58', '2025-08-25 22:44:58'),
-(25, 1, 'Hyundai i20 – Premium Hatchback', 'The Hyundai i20 is a premium hatchback that blends style, comfort, and efficiency. With its modern design, advanced features, and smooth driving experience, the i20 is the perfect choice for city commutes and weekend getaways.', 1, 2, 6, 11, '[60,61,62,63,64]', 1800.00, 11000.00, 32000.00, 69998.00, 1, 1, 0, 7000.00, 'Booking amount: ₹3,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes fuel, tolls, RTO, insurance, and taxes\r\n\r\nDelivery subject to availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:56:55', '2025-08-25 23:03:54');
+(24, 50, 'Mahindra Scorpio – Power Meets Style', 'The Big Daddy SUV – Mahindra Scorpio is known for its bold looks, powerful performance, and unmatched road presence. Whether it’s a city ride or an off-road adventure, the Scorpio is built to conquer every journey with style and comfort.', 1, 2, 3, 5, '[54,55,56,57,58,59]', 2500.00, 15000.00, 45000.00, 120000.00, 1, 1, 0, 9998.00, 'Booking amount: ₹5,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes RTO, insurance, and taxes\r\n\r\nDelivery subject to stock availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:44:58', '2025-08-28 06:16:16'),
+(25, 50, 'Hyundai i20 – Premium Hatchback', 'The Hyundai i20 is a premium hatchback that blends style, comfort, and efficiency. With its modern design, advanced features, and smooth driving experience, the i20 is the perfect choice for city commutes and weekend getaways.', 1, 2, 6, 11, '[60,61,62,63,64]', 1800.00, 11000.00, 32000.00, 69998.00, 1, 1, 0, 7000.00, 'Booking amount: ₹3,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes fuel, tolls, RTO, insurance, and taxes\r\n\r\nDelivery subject to availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:56:55', '2025-08-28 06:16:19');
 
 --
 -- Indexes for dumped tables
@@ -651,7 +657,7 @@ ALTER TABLE `roh_states`
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`

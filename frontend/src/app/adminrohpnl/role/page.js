@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import AddRoleForm from './AddRoleForm';
 import EditRoleForm from './EditRoleForm';
 import styles from '../admin.module.css';
-import { getAuthToken, getAuthUser } from "@/utils/utilities";
+import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
 
 export default function RoleListPage() {

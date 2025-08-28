@@ -1,7 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Header from "../main/header";
-import Footer from "../main/footer";
 
 export default function DashboardPage() {
   const [tab, setTab] = useState("details");
@@ -107,7 +105,6 @@ export default function DashboardPage() {
 
   return (
     <>
-      <Header />
 
       <main style={styles.wrap}>
         <h1 style={styles.h1}>Dashboard</h1>
@@ -198,8 +195,6 @@ export default function DashboardPage() {
           </div>
         </div>
       )}
-
-      <Footer />
     </>
   );
 }

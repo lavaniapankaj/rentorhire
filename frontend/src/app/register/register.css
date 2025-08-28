@@ -59,13 +59,13 @@
 }
 
 .rohuserres_input:focus {
-  border-color: #2563eb;
+  border-color: #ff3c00;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .rohuserres_btn {
   margin-top: 6px;
-  background: #2563eb;
+  background: #ff3c00;
   color: #fff;
   padding: 12px 16px;
   border: none;

@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Header from "../main/header";
-import Footer from "../main/footer";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import "./login.css";
@@ -92,7 +90,6 @@ export default function LoginPage() {
 
   return (
     <>
-      <Header />
       <main className="rohuserlogn_wrap">
         <section className="rohuserlogn_card">
           <h1 className="rohuserlogn_title">
@@ -138,7 +135,6 @@ export default function LoginPage() {
           )}
         </section>
       </main>
-      <Footer />
     </>
   );
 }

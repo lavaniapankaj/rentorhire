@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { getAuthToken, getAuthUser } from "@/utils/utilities";
+import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
 export default function AddStateForm({ onClose, onStateAdded }) {
   const [stateName, setStateName] = useState('');
   const [stateSlug, setStateSlug] = useState('');
-  const [slugManuallyEdited, setSlugManuallyEdited] = useState(false); // 👈 new state
+  const [slugManuallyEdited, setSlugManuallyEdited] = useState(false); // new state
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 

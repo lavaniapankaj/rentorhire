@@ -1,7 +1,4 @@
 "use client";
-// import Header from "./main/header"; 
-import Header from './main/header';
-import Footer from "./main/footer"; 
 import Link from "next/link";
 
 export default function HomePage() {
@@ -76,8 +73,6 @@ export default function HomePage() {
 
   return (
     <>
-      <Header />
-
       <main style={styles.main}>
         {/* Hero */}
         <section style={styles.hero}>
@@ -184,8 +179,6 @@ export default function HomePage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </>
   );
 }

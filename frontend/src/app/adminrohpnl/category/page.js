@@ -6,7 +6,7 @@ import styles from '../admin.module.css';
 import AddCategoryForm from './addCategoryForm';
 import ViewCategory from './viewCategory';
 import EditCategoryForm from './EditCategoryForm';
-import { getAuthToken } from "@/utils/utilities";
+import { getAuthToken } from "../../../utils/utilities";
 
 export default function ListCategoryPage() {
   const [categories, setCategories] = useState([]);

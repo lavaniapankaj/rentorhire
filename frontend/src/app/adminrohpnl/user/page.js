@@ -6,7 +6,7 @@ import styles from '../admin.module.css';
 import AddUserForm from './AddUserForm';
 import EditUserForm from './EditUserForm';
 import ViewUser from './ViewUser';
-import { getAuthToken } from "@/utils/utilities";
+import { getAuthToken } from "../../../utils/utilities";
 
 export default function ListUserPage() {
   const [users, setUsers] = useState([]);

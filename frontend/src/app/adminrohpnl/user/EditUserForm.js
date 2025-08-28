@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import styles from '../admin.module.css';
-import { getAuthToken, getAuthUser } from "@/utils/utilities";
+import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
 export default function EditUserForm({ user, onClose, roles: initialRoles, onSuccess }) {
   const [formData, setFormData] = useState({

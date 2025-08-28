@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
-import { getAuthToken, getAuthUser } from "@/utils/utilities";
+import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
 export default function AddCityForm({ onSuccess, onCancel }) {
   const [cityName, setCityName] = useState('');
