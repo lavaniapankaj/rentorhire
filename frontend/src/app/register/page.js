@@ -61,14 +61,19 @@ export default function RegisterPage() {
 
   const validateStep1 = () => {
     const fe = {};
+    const cleanedPhone = form.phone.replace(/\D/g, "");
     if (!form.userName.trim()) fe.userName = "Username is required.";
     if (!form.firstName.trim()) fe.firstName = "First name is required.";
     if (!form.lastName.trim()) fe.lastName = "Last name is required.";
     if (!form.email.trim()) fe.email = "Email is required.";
     else if (!/^\S+@\S+\.\S+$/.test(form.email)) fe.email = "Enter a valid email.";
-    if (!form.phone.trim()) fe.phone = "Phone number is required.";
-    else if (!/^\d{10}$/.test(form.phone.replace(/\D/g, "")))
+    if (!cleanedPhone) {
+      fe.phone = "Phone number is required.";
+    } else if (cleanedPhone.length !== 10) {
       fe.phone = "Enter 10-digit number.";
+    } else {
+      form.phone = cleanedPhone; 
+    }
     if (!form.password) fe.password = "Password is required.";
     else if (form.password.length < 8)
       fe.password = "Password must be at least 8 characters.";
