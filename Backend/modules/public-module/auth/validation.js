@@ -226,4 +226,15 @@ const verifyOtp = (req, res, next) => {
     next();
 };
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp};
+/** Validate get all active products - Coded by Vishnu August 29 2025 */
+const ValidateGetAllActiveProducts = async (req, res, next) => {
+    try {
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
+
+
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp, ValidateGetAllActiveProducts};

@@ -1,314 +1,159 @@
+
 "use client";
-import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
+import Script from "next/script";
+import styles from "./home.module.css";
 
-export default function HomePage() {
-  const categories = [
-    { slug: "cars", name: "Cars", icon: "🚗" },
-    { slug: "bikes", name: "Bikes", icon: "🏍️" },
-    { slug: "cameras", name: "Cameras", icon: "📷" },
-    { slug: "tools", name: "Tools", icon: "🧰" },
-  ];
+export default function RentPage() {
+  const words = useMemo(() => ["Affordable.", "Trusted.", "Flexible."], []);
+  const [index, setIndex] = useState(0);
 
-  const cars = [
-    {
-      id: 1,
-      name: "Maruti Swift (Petrol, MT)",
-      pricePerDay: 1800,
-      img: "/images/cars/swift.jpg",
-      location: "Delhi NCR",
-    },
-    {
-      id: 2,
-      name: "Hyundai Creta (Diesel, AT)",
-      pricePerDay: 3200,
-      img: "/images/cars/creta.jpg",
-      location: "Gurugram",
-    },
-    {
-      id: 3,
-      name: "Tata Nexon (Petrol, AMT)",
-      pricePerDay: 2600,
-      img: "/images/cars/nexon.jpg",
-      location: "Jaipur",
-    },
-    {
-      id: 4,
-      name: "Mahindra XUV700 (Diesel, AT)",
-      pricePerDay: 4200,
-      img: "/images/cars/xuv700.jpg",
-      location: "Pune",
-    },
-  ];
+  // rotate every 2 seconds
+  useEffect(() => {
+    const t = setInterval(() => {
+      setIndex((i) => (i + 1) % words.length);
+    }, 2000);
+    return () => clearInterval(t);
+  }, [words.length]);
 
-  const bikes = [
-    {
-      id: 1,
-      name: "Honda Activa 6G",
-      pricePerDay: 500,
-      img: "/images/bikes/activa.jpg",
-      location: "Jaipur",
-    },
-    {
-      id: 2,
-      name: "Royal Enfield Classic 350",
-      pricePerDay: 1200,
-      img: "/images/bikes/classic350.jpg",
-      location: "Pune",
-    },
-    {
-      id: 3,
-      name: "Bajaj Pulsar 150",
-      pricePerDay: 700,
-      img: "/images/bikes/pulsar150.jpg",
-      location: "Delhi",
-    },
-    {
-      id: 4,
-      name: "KTM Duke 250",
-      pricePerDay: 1500,
-      img: "/images/bikes/duke250.jpg",
-      location: "Bengaluru",
-    },
-  ];
+  const letters = words[index].split("");
 
   return (
     <>
-      <main style={styles.main}>
-        {/* Hero */}
-        <section style={styles.hero}>
-          <div style={styles.heroInner}>
-            <h1 style={styles.h1}>Rent On-Demand — Cars, Bikes, Cameras & More</h1>
-            <p style={styles.sub}>
-              Daily, weekly ya monthly rental. No deposit* options, verified listings, fast pickup.
-            </p>
-            <div style={styles.ctas}>
-              <a href="#categories" style={styles.btnPrimary}>Browse Categories</a>
-              <a href="#featured" style={styles.btnGhost}>View Featured</a>
+      <head>
+        <title>RentOrHire</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+
+      {/* HEADER/FOOTER removed as requested */}
+
+      <section className={styles.hero_wrap}>
+        <div className={styles.hero_section}>
+          <div className={`container ${styles.hero_container}`}>
+            <div className="row justify-content-center">
+              <div className="col-12">
+                <div className={styles.main_heading}>
+                  <h1>
+                    Book Reliable Rentals From Locals - Fast, Easy, and{" "}
+                    <span className={styles["cd-words-wrapper"]}>
+                      <b className="is-visible">
+                        <span className={styles.cdLetters}>
+                          {letters.map((ch, i) => (
+                            <i key={i} style={{ animationDelay: `${i * 0.1}s` }}>
+                              {ch}
+                            </i>
+                          ))}
+                        </span>
+                      </b>
+                    </span>
+                  </h1>
+                  <h2 className="d-none">Lorem ipsum dolor sit amet, consectetur.</h2>
+                </div>
+              </div>
+
+              {/* Search Bar */}
+              <div className="col-12">
+                <div className={`container ${styles.custom_searchbar_wrap}`}>
+                  <div className={styles.custom_searchbar}>
+                    <form className="w-100" action="#" method="post">
+                      <div className="row">
+                        {/* Location */}
+                        <div className={`col-lg-3 col-md-6 col-12 ${styles.border_rightF1}`}>
+                          <div className="h-100">
+                            <div className="form-group w-100">
+                              <label htmlFor="location" className="loc_block_inner">
+                                Location
+                              </label>
+                              <div className={styles.location_in_wrap}>
+                                <input
+                                  className="w-100"
+                                  id="location"
+                                  type="search"
+                                  placeholder="Enter your destination..."
+                                  name="location"
+                                />
+                                <img src="images/homepg/pin.svg" alt="pin" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Category */}
+                        <div className={`col-lg-3 col-md-6 col-12 ${styles.border_rightF2}`}>
+                          <div className="h-100">
+                            <div className="form-group w-100">
+                              <label htmlFor="category" className="cat_block_inner">
+                                Category
+                              </label>
+                              <div className={styles.category_in_wrap}>
+                                <select id="category" className="text-muted w-100" defaultValue="">
+                                  <option value="">Select Category</option>
+                                  <option value="">Select Category</option>
+                                </select>
+                                <img className="toggle-icon" src="images/homepg/down.svg" alt="toggle" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Query */}
+                        <div className="col-lg-4 col-md-8 col-12">
+                          <div className={styles.search_block_wrap}>
+                            <div className={`${styles.search_block_inner} rounded-pill`}>
+                              <div className="w-100">
+                                <label className={styles.whatoftype} htmlFor="whatoftype">
+                                  Search Rentals
+                                </label>
+                                <input
+                                  id="whatoftype"
+                                  className="rounded-pill w-100"
+                                  type="search"
+                                  placeholder="Enter something..."
+                                  name="q"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Button */}
+                        <div className="col-lg-2 col-md-12 col-12">
+                          <div className={styles.rent_search_btn}>
+                            <button className="button theme-btn" type="submit" aria-label="Search">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+                                <path
+                                  fill="#ffffff"
+                                  d="m886.2 843.8-62.6-62.6-99.7-99.7-22.7-22.7v42.4c44.6-44.8 76.8-102.3 90.2-164.2 13.1-60.6 10.1-125.1-10.8-183.7-10.6-29.7-24.8-58.1-43.4-83.6-20.6-28.3-44.5-52.6-72.2-73.8-50-38.3-110.8-60.1-173.3-65.8-62.1-5.6-125.3 7.7-180.7 35.8-57.1 29-105.7 75.8-137.6 131.3-30.9 53.8-46.6 116.6-44.2 178.6 2.4 62.3 21.8 124.2 57.1 175.7 39.7 57.9 95.5 101.7 161 126.7 61.8 23.6 131 27 195.2 11.9 14.8-3.5 29.2-8.1 43.3-13.7 7.5-3 13.7-6.5 17.9-13.8 3.8-6.4 5.4-15.9 3-23.1-2.3-7.3-6.8-14.3-13.8-17.9-6.7-3.5-15.8-5.9-23.1-3-23.5 9.4-48.1 15.8-73.2 19.2 2.7-.4 5.3-.7 8-1.1-26.9 3.5-54.2 3.5-81.1 0 2.7.4 5.3.7 8 1.1-27.1-3.7-53.6-10.9-78.8-21.5l7.2 3c-14.2-6.1-27.9-13.1-41-21.2-6.5-4-12.9-8.3-19.1-12.9-1.5-1.1-2.9-2.1-4.4-3.2-3.9-2.9 2.3 1.8 2.4 1.9-.5-.1-1.9-1.5-2.4-1.9-3.3-2.6-6.5-5.3-9.6-8-11.5-10-22.3-20.8-32.2-32.3-2.4-2.8-4.7-5.6-7-8.4-.5-.6-.9-1.1-1.4-1.7-2.9-3.6 2 2.6 2 2.6-1.4-1.6-2.6-3.5-3.9-5.2-4.2-5.8-8.2-11.7-12-17.8-8.6-13.7-16.1-28.1-22.4-43.1l3 7.2c-10.6-25.2-17.8-51.6-21.4-78.6.4 2.7.7 5.3 1.1 8-3.5-26.9-3.5-54 0-80.9-.4 2.7-.7 5.3-1.1 8 3.7-27 10.8-53.4 21.4-78.6l-3 7.2c5.8-13.6 12.5-26.8 20.2-39.4 4-6.5 8.2-12.9 12.6-19.1 1-1.4 2-2.7 3-4.1.6-.8 1.2-1.5 1.7-2.3 2.7-3.7-2 2.6-2.1 2.6 2.1-3.2 4.8-6.1 7.3-9 9.9-11.8 20.8-22.9 32.4-33.1 2.7-2.4 5.5-4.8 8.3-7.1l4.5-3.6c1.5-1.2 4.5-3.1-2.6 2 1-.7 1.9-1.5 2.9-2.2 5.9-4.4 12-8.6 18.3-12.6 14.3-9.1 29.3-17 44.9-23.6l-7.2 3c25.2-10.6 51.6-17.8 78.6-21.4-2.7.4-5.3.7-8 1.1 26.9-3.5 54-3.5 80.9 0-2.7-.4-5.3-.7-8-1.1 27 3.7 53.4 10.8 78.6 21.4l-7.2-3c13.6 5.8 26.8 12.5 39.4 20.2 6.5 4 12.9 8.2 19 12.6 1.4 1 2.7 2 4.1 3 .8.6 1.5 1.2 2.3 1.7 3.7 2.7-2.6-2-2.6-2.1 3.2 2.1 6.1 4.8 9 7.3 11.8 9.9 22.9 20.8 33.1 32.4 2.4 2.7 4.8 5.5 7.1 8.3l3.6 4.5c1.2 1.5 3.1 4.5-2-2.6.7 1 1.5 1.9 2.2 2.9 4.4 5.9 8.6 12 12.6 18.3 9.1 14.3 17 29.3 23.6 44.9l-3-7.2c10.6 25.2 17.8 51.6 21.4 78.6-.4-2.7-.7-5.3-1.1-8 3.5 26.9 3.5 54 0 80.9.4-2.7.7-5.3 1.1-8-3.7 27-10.8 53.4-21.4 78.6l3-7.2c-7.5 17.5-16.5 34.4-27.1 50.2-2.7 4-5.4 7.9-8.2 11.7-.7 1-1.4 1.9-2.2 2.9-2.9 3.9 3.8-4.9 1.6-2.1l-4.5 5.7c-6.4 7.7-13.1 15.2-20.2 22.3-11.4 11.5-11.5 30.9 0 42.4l62.6 62.6 99.7 99.7 22.7 22.7c11.1 11.1 31.5 11.9 42.4 0 11-11.8 11.9-30.4 0-42.3z"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+                  {/* Advance Filter (placeholder, hidden by default in CSS) */}
+                </div>
+              </div>
+
+              {/* Bottom text */}
+              <div className="col-12">
+                <div className="bottom_title">
+                  <ul className={styles.list_bottom}>
+                    <li>100% free</li>
+                    <li>peer to peer rentals</li>
+                    <li>no booking fees</li>
+                  </ul>
+                </div>
+              </div>
+
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Categories */}
-        <section id="categories" style={styles.section}>
-          <h2 style={styles.h2}>Top Categories</h2>
-          <div style={styles.grid}>
-            {categories.map((c) => (
-              <a key={c.slug} href="#" style={styles.catCard}>
-                <span style={styles.catIcon}>{c.icon}</span>
-                <span style={styles.catName}>{c.name}</span>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        {/* Featured – Cars */}
-        <section id="featured" style={styles.section}>
-          <div style={styles.sectionHead}>
-            <h2 style={styles.h2}>Featured Cars</h2>
-            <a href="#" style={styles.link}>See all →</a>
-          </div>
-          <div style={styles.cardGrid}>
-            {cars.map((car) => (
-              <article key={car.id} style={styles.card}>
-                <div style={styles.imageWrap}>
-                  <img
-                    src={car.img}
-                    alt={car.name}
-                    style={styles.img}
-                    onError={(e) => (e.currentTarget.style.display = "none")}
-                  />
-                </div>
-                <div style={styles.cardBody}>
-                  <h3 style={styles.cardTitle}>{car.name}</h3>
-                  <p style={styles.meta}>{car.location}</p>
-                  <p style={styles.price}>₹{car.pricePerDay}/day</p>
-                  <div style={styles.cardCtas}>
-                    <a href="#" style={styles.btnPrimarySm}>Rent Now</a>
-                    <a href="#" style={styles.btnGhostSm}>Details</a>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* Featured – Bikes */}
-        <section style={styles.section}>
-          <div style={styles.sectionHead}>
-            <h2 style={styles.h2}>Popular Bikes</h2>
-            <a href="#" style={styles.link}>See all →</a>
-          </div>
-          <div style={styles.cardGrid}>
-            {bikes.map((bike) => (
-              <article key={bike.id} style={styles.card}>
-                <div style={styles.imageWrap}>
-                  <img
-                    src={bike.img}
-                    alt={bike.name}
-                    style={styles.img}
-                    onError={(e) => (e.currentTarget.style.display = "none")}
-                  />
-                </div>
-                <div style={styles.cardBody}>
-                  <h3 style={styles.cardTitle}>{bike.name}</h3>
-                  <p style={styles.meta}>{bike.location}</p>
-                  <p style={styles.price}>₹{bike.pricePerDay}/day</p>
-                  <div style={styles.cardCtas}>
-                    <a href="#" style={styles.btnPrimarySm}>Rent Now</a>
-                    <a href="#" style={styles.btnGhostSm}>Details</a>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* Trust badges / USPs */}
-        <section style={{ ...styles.section, ...styles.uspWrap }}>
-          <div style={styles.usp}>
-            <strong>Verified Owners</strong>
-            <span>Documents checked</span>
-          </div>
-          <div style={styles.usp}>
-            <strong>Transparent Pricing</strong>
-            <span>No hidden fees</span>
-          </div>
-          <div style={styles.usp}>
-            <strong>Support</strong>
-            <span>7 days a week</span>
-          </div>
-        </section>
-      </main>
     </>
   );
 }
-
-const styles = {
-  main: { 
-    minHeight: "70vh",
-    padding: "0", 
-    margin: 0,
-    backgroundImage: "url('https://webcarelogics.com/lokesh/assets/images/bg-img-3.svg')", 
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-  },
-  hero: {
-    background: "linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%)",
-    color: "#fff",
-    padding: "60px 20px",
-    textAlign: "center",
-  },
-  heroInner: { maxWidth: 1100, margin: "0 auto" },
-  h1: { fontSize: "32px", lineHeight: 1.2, margin: "0 0 10px" },
-  sub: { opacity: 0.9, margin: "0 0 20px" },
-  ctas: { display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" },
-
-  btnPrimary: {
-    display: "inline-block",
-    padding: "10px 16px",
-    background: "#22c55e",
-    color: "#0b1428",
-    borderRadius: 8,
-    textDecoration: "none",
-    fontWeight: 700,
-  },
-  btnGhost: {
-    display: "inline-block",
-    padding: "10px 16px",
-    border: "1px solid rgba(255,255,255,0.6)",
-    color: "#fff",
-    borderRadius: 8,
-    textDecoration: "none",
-    fontWeight: 600,
-  },
-
-  section: { maxWidth: 1100, margin: "40px auto", padding: "0 20px" },
-  h2: { fontSize: 24, margin: "0 0 16px" },
-  link: { textDecoration: "none", color: "#2563eb", fontWeight: 600 },
-
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
-    gap: 16,
-  },
-  catCard: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-    padding: 16,
-    border: "1px solid #e5e7eb",
-    borderRadius: 12,
-    background: "#fff",
-    textDecoration: "none",
-    color: "#0f172a",
-    fontWeight: 600,
-    justifyContent: "center",
-  },
-  catIcon: { fontSize: 22 },
-  catName: {},
-
-  sectionHead: {
-    display: "flex",
-    alignItems: "baseline",
-    justifyContent: "space-between",
-    gap: 10,
-    marginBottom: 10,
-  },
-
-  cardGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-    gap: 16,
-  },
-  card: {
-    border: "1px solid #e5e7eb",
-    borderRadius: 12,
-    overflow: "hidden",
-    background: "#fff",
-    display: "flex",
-    flexDirection: "column",
-  },
-  imageWrap: { height: 160, background: "#f1f5f9" },
-  img: { width: "100%", height: "100%", objectFit: "cover", display: "block" },
-  cardBody: { padding: 14, display: "flex", flexDirection: "column", gap: 8 },
-  cardTitle: { margin: 0, fontSize: 18 },
-  meta: { margin: 0, color: "#64748b", fontSize: 14 },
-  price: { margin: "2px 0 8px", fontWeight: 700 },
-
-  cardCtas: { display: "flex", gap: 8 },
-  btnPrimarySm: {
-    padding: "8px 12px",
-    background: "#0ea5e9",
-    color: "#fff",
-    borderRadius: 8,
-    textDecoration: "none",
-    fontWeight: 700,
-    fontSize: 14,
-  },
-  btnGhostSm: {
-    padding: "8px 12px",
-    border: "1px solid #cbd5e1",
-    color: "#0f172a",
-    borderRadius: 8,
-    textDecoration: "none",
-    fontWeight: 600,
-    fontSize: 14,
-    background: "#fff",
-  },
-
-  uspWrap: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: 12,
-  },
-  usp: {
-    border: "1px solid #e5e7eb",
-    borderRadius: 12,
-    padding: 16,
-    background: "#fff",
-    display: "flex",
-    flexDirection: "column",
-    gap: 4,
-  },
-};

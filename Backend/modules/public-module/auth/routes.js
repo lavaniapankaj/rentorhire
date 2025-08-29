@@ -1,5 +1,5 @@
 const AuthController = require("./controller");
-const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp} = require("./validation");
+const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp, ValidateGetAllActiveProducts} = require("./validation");
 
 
 /** Api for register user Coded by Raj July 07 2025 */
@@ -75,5 +75,14 @@ app.post(
     verifyOtp,
     (req, res, next) => {
         AuthController.verifyOtp(req, res, next); /** Calling the controller */
+    }
+);
+
+/** Get all active products on product archive page - Coded by Vishnu Aug 29 2025 */
+app.get(
+    "/api/user/getallproducts",
+    ValidateGetAllActiveProducts,
+    (req, res, next) => {
+        AuthController.getActiveProducts(req, res, next); /** Calling the controller */
     }
 );

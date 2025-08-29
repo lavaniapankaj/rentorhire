@@ -64,7 +64,7 @@ const Header = () => {
                   <li className="nav-item dropdown">
                     <a
                       className={`nav-link dropdown-toggle ${styles.navLink}`}
-                      href="#"
+                      href="/products/"
                       id="navbarDropdown"
                       role="button"
                       data-bs-toggle="dropdown"

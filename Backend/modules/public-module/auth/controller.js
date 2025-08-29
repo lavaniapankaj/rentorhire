@@ -59,7 +59,6 @@ function authApi() {
         }
     };
 
-
     /** Function method to register the service provider Coded by Raj July 08 2025 */
     this.serviceProviderRegister = async (req, res) => {
         try {
@@ -174,7 +173,6 @@ function authApi() {
             return res.status(500).json({ message: 'Internal Server error' });
         }
     };
-
 
     /** Function method to login the admin users - Coded by Raj July 10 2025 */
     this.adminUserLogin = async (req, res) => {
@@ -345,6 +343,74 @@ function authApi() {
             return res.status(500).json({ message: 'Internal Server error' });
         }
     };
+
+    /** Get all Active products on product archive page - Coded by Vishnu Aug 29 2025 */
+    this.getActiveProducts = async (req, res) => {
+        try {
+            /** Step 1: Fetch product list */
+            const [products] = await pool.query(
+            `SELECT 
+                d.id,
+                d.service_provider_id,
+                d.item_name,
+                d.category_id,
+                d.image_ids,
+                d.item_status,
+                d.add_date,
+                d.price_per_day,
+                a.registration_number
+            FROM roh_vehicle_details d
+            LEFT JOIN roh_vehicle_attributes a 
+                ON d.id = a.vehicle_id
+            WHERE d.item_status = 1
+            ORDER BY d.add_date DESC, d.id DESC
+            LIMIT 30`
+            );
+
+
+            if (!products || products.length === 0) {
+            return res.status(200).json([]);
+            }
+
+            /** Step 2: For each product, parse image_ids and fetch media data */
+            const enhancedProducts = await Promise.all(
+            products.map(async (product) => {
+                let imageIds = [];
+
+                try {
+                imageIds = JSON.parse(product.image_ids || "[]");
+                if (!Array.isArray(imageIds)) imageIds = [];
+                } catch (e) {
+                console.warn("Invalid JSON in image_ids for product id:", product.id);
+                }
+
+                let mediaGallery = [];
+                if (imageIds.length > 0) {
+                const placeholders = imageIds.map(() => "?").join(",");
+                const [mediaResult] = await pool.query(
+                    `SELECT id, file_name, file_path 
+                    FROM roh_media_gallery 
+                    WHERE id IN (${placeholders})`,
+                    imageIds
+                );
+                mediaGallery = mediaResult;
+                }
+
+                return {
+                ...product,
+                media_gallery: mediaGallery,
+                };
+            })
+            );
+
+            /** Step 3: Return result */
+            return res.status(200).json(enhancedProducts);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    };
+
 
 }
 module.exports = new authApi();
