@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { getAuthToken, getAuthUser } from "@/utils/utilities";
+import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
 export default function EditStateForm({ state_id, onClose, onStateUpdated, error }) {
   const [stateName, setStateName] = useState('');

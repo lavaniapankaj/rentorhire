@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from '../admin.module.css';
-import { getAuthToken } from "@/utils/utilities";
+import { getAuthToken } from "../../../utils/utilities";
 
 export default function EditRouteForm({ route, routeGroup, onClose, onSuccess }) {
 

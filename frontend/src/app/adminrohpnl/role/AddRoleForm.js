@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { getAuthToken, getAuthUser } from "@/utils/utilities";
+import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
 export default function AddRoleForm({ onClose, onSuccess }) {
   const [roleName, setRoleName] = useState('');

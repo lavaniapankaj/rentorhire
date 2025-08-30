@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import styles from '../admin.module.css';
-import { getAuthToken } from "@/utils/utilities";
+import { getAuthToken } from "../../../utils/utilities";
 
 export default function AddCategoryForm({ onSuccess, onClose }) {
   const initialFormState = {

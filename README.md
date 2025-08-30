@@ -49,3 +49,10 @@
    ```bash
    npm install multer
    ```
+
+7. **Media Upload:**
+   For Bootstrap, install the required packages:
+
+   ```bash
+   npm install bootstrap
+   ```

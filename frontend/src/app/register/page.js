@@ -1,10 +1,8 @@
 "use client";
-
-import Header from "../main/header";
-import Footer from "../main/footer";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import "./register.css";
+import { useRouter } from "next/navigation";
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080/api";
 
 /** Helper: safe fetch + JSON */
@@ -29,6 +27,7 @@ export default function RegisterPage() {
   const [formError, setFormError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
   const [debugOtp, setDebugOtp] = useState(""); /** for testing if backend returns OTP (can hide in prod) */
+  const router = useRouter();
 
   const [form, setForm] = useState({
     userName: "",
@@ -62,14 +61,19 @@ export default function RegisterPage() {
 
   const validateStep1 = () => {
     const fe = {};
+    const cleanedPhone = form.phone.replace(/\D/g, "");
     if (!form.userName.trim()) fe.userName = "Username is required.";
     if (!form.firstName.trim()) fe.firstName = "First name is required.";
     if (!form.lastName.trim()) fe.lastName = "Last name is required.";
     if (!form.email.trim()) fe.email = "Email is required.";
     else if (!/^\S+@\S+\.\S+$/.test(form.email)) fe.email = "Enter a valid email.";
-    if (!form.phone.trim()) fe.phone = "Phone number is required.";
-    else if (!/^\d{10}$/.test(form.phone.replace(/\D/g, "")))
+    if (!cleanedPhone) {
+      fe.phone = "Phone number is required.";
+    } else if (cleanedPhone.length !== 10) {
       fe.phone = "Enter 10-digit number.";
+    } else {
+      form.phone = cleanedPhone; 
+    }
     if (!form.password) fe.password = "Password is required.";
     else if (form.password.length < 8)
       fe.password = "Password must be at least 8 characters.";
@@ -198,6 +202,7 @@ export default function RegisterPage() {
 
       /** Success: active=1 & authorize_code cleared */
       alert("Account verified successfully. You can now log in.");
+      router.push("/login"); 
 
       /** Reset form → back to Step-1 or redirect to login */
       setForm({
@@ -247,18 +252,17 @@ export default function RegisterPage() {
 
   return (
     <>
-      <Header />
       <main className="rohuserres_shell">
         <section className="rohuserres_card">
           <h1 className="rohuserres_title">Create your account</h1>
           <p className="rohuserres_sub">
-            Rent cars, bikes, cameras and more — faster checkout next time.
+            {/* Rent cars, bikes, cameras and more — faster checkout next time. */}
           </p>
 
           {/* Step indicator */}
           <div className="rohuserres_steps">
-            <span className={step === 1 ? "active" : ""}>1. Details</span>
-            <span className={step === 2 ? "active" : ""}>2. OTP</span>
+            <span className={step === 1 ? "active" : ""}></span>
+            <span className={step === 2 ? "active" : ""}></span>
           </div>
 
           {formError ? <p className="rohuserres_errorTop">{formError}</p> : null}
@@ -423,20 +427,22 @@ export default function RegisterPage() {
             <form onSubmit={handleVerifyAndCreate} className="rohuserres_form" noValidate>
               {/* Summary */}
               <div className="rohuserres_summary">
-                <p>
+                {/* <p>
                   <strong>Username:</strong> {form.userName}
-                </p>
+                </p> */}
                 <p>
-                  <strong>Email:</strong> {form.email}
+                  <strong>We just sent a code to your phone </strong>
+                  (+91 {`XXXXX X${form.phone?.slice(-4)}`})
                 </p>
-                <button
+
+                {/* <button
                   type="button"
                   className="rohuserres_linkBtn"
                   onClick={() => setStep(1)}
                   disabled={loading}
                 >
                   Edit details
-                </button>
+                </button> */}
               </div>
 
               {/* OTP Field */}
@@ -493,7 +499,6 @@ export default function RegisterPage() {
           )}
         </section>
       </main>
-      <Footer />
     </>
   );
 }

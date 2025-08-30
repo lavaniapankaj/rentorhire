@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from '../admin.module.css';
 import bcrypt from 'bcryptjs';
-import { getAuthToken, getAuthUser } from "@/utils/utilities";
+import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
 const initialFormState = {
   first_name: '',

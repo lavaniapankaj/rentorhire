@@ -1,312 +1,306 @@
 "use client";
-import Header from "./main/header"; 
-import Footer from "./main/footer"; 
+import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import styles from "./home.module.css";
+import Viewproductspop from "./products/components/Viewproductspop";
 
-export default function HomePage() {
-  const categories = [
-    { slug: "cars", name: "Cars", icon: "🚗" },
-    { slug: "bikes", name: "Bikes", icon: "🏍️" },
-    { slug: "cameras", name: "Cameras", icon: "📷" },
-    { slug: "tools", name: "Tools", icon: "🧰" },
-  ];
+// ---- API ENDPOINTS ----
+const RECENT_API_URL = `${process.env.NEXT_PUBLIC_API_BASE_USER_URL}/getrecentproducts`;
+const CATEGORY_API = `${process.env.NEXT_PUBLIC_API_BASE_USER_URL}/getallactivecategory`;
 
-  const cars = [
-    {
-      id: 1,
-      name: "Maruti Swift (Petrol, MT)",
-      pricePerDay: 1800,
-      img: "/images/cars/swift.jpg",
-      location: "Delhi NCR",
-    },
-    {
-      id: 2,
-      name: "Hyundai Creta (Diesel, AT)",
-      pricePerDay: 3200,
-      img: "/images/cars/creta.jpg",
-      location: "Gurugram",
-    },
-    {
-      id: 3,
-      name: "Tata Nexon (Petrol, AMT)",
-      pricePerDay: 2600,
-      img: "/images/cars/nexon.jpg",
-      location: "Jaipur",
-    },
-    {
-      id: 4,
-      name: "Mahindra XUV700 (Diesel, AT)",
-      pricePerDay: 4200,
-      img: "/images/cars/xuv700.jpg",
-      location: "Pune",
-    },
-  ];
+// Category label (fallback)
+const CATEGORY = { 1: "Vehicle", 2: "Unknown" };
 
-  const bikes = [
-    {
-      id: 1,
-      name: "Honda Activa 6G",
-      pricePerDay: 500,
-      img: "/images/bikes/activa.jpg",
-      location: "Jaipur",
-    },
-    {
-      id: 2,
-      name: "Royal Enfield Classic 350",
-      pricePerDay: 1200,
-      img: "/images/bikes/classic350.jpg",
-      location: "Pune",
-    },
-    {
-      id: 3,
-      name: "Bajaj Pulsar 150",
-      pricePerDay: 700,
-      img: "/images/bikes/pulsar150.jpg",
-      location: "Delhi",
-    },
-    {
-      id: 4,
-      name: "KTM Duke 250",
-      pricePerDay: 1500,
-      img: "/images/bikes/duke250.jpg",
-      location: "Bengaluru",
-    },
-  ];
+// Price formatter
+const formatPriceINR = (v) => Number(v ?? 0).toLocaleString("en-IN");
+
+export default function RentHomePage() {
+  const words = useMemo(() => ["Affordable.", "Trusted.", "Flexible."], []);
+  const [index, setIndex] = useState(0);
+  const [selectedId, setSelectedId] = useState(null);
+  const [recent, setRecent] = useState([]);
+  const [loadingRecent, setLoadingRecent] = useState(true);
+
+  // Categories
+  const [categories, setCategories] = useState([]);
+  const [catLoading, setCatLoading] = useState(true);
+
+  // Rotate words
+  useEffect(() => {
+    const t = setInterval(() => setIndex((i) => (i + 1) % words.length), 2000);
+    return () => clearInterval(t);
+  }, [words.length]);
+
+  // Fetch recent products
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const res = await fetch(RECENT_API_URL, { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          if (mounted) setRecent(Array.isArray(data) ? data : []);
+        } else if (mounted) setRecent([]);
+      } catch (e) {
+        console.error("Recent products fetch failed:", e);
+        if (mounted) setRecent([]);
+      } finally {
+        if (mounted) setLoadingRecent(false);
+      }
+    })();
+    return () => { mounted = false; };
+  }, []);
+
+  // Fetch categories dynamically
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        setCatLoading(true);
+        const res = await fetch(CATEGORY_API, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (mounted) setCategories(Array.isArray(data) ? data : []);
+      } catch (e) {
+        console.error("Fetch categories failed:", e);
+        if (mounted) setCategories([]);
+      } finally {
+        if (mounted) setCatLoading(false);
+      }
+    })();
+    return () => { mounted = false; };
+  }, []);
+
+  const letters = words[index].split("");
 
   return (
     <>
-      <Header />
+      <head>
+        <title>RentOrHire</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
 
-      <main style={styles.main}>
-        {/* Hero */}
-        <section style={styles.hero}>
-          <div style={styles.heroInner}>
-            <h1 style={styles.h1}>Rent On-Demand — Cars, Bikes, Cameras & More</h1>
-            <p style={styles.sub}>
-              Daily, weekly ya monthly rental. No deposit* options, verified listings, fast pickup.
-            </p>
-            <div style={styles.ctas}>
-              <a href="#categories" style={styles.btnPrimary}>Browse Categories</a>
-              <a href="#featured" style={styles.btnGhost}>View Featured</a>
+      {/* HERO */}
+      <section className={styles.hero_wrap}>
+        <div className={styles.hero_section}>
+          <div className={`container ${styles.hero_container}`}>
+            <div className="row justify-content-center">
+              <div className="col-12">
+                <div className={styles.main_heading}>
+                  <h1>
+                    Book Reliable Rentals From Locals - Fast, Easy, and{" "}
+                    <span className={styles["cd-words-wrapper"]}>
+                      <b className="is-visible">
+                        <span className={styles.cdLetters}>
+                          {letters.map((ch, i) => (
+                            <i key={i} style={{ animationDelay: `${i * 0.1}s` }}>{ch}</i>
+                          ))}
+                        </span>
+                      </b>
+                    </span>
+                  </h1>
+                </div>
+              </div>
+
+              {/* Search Bar */}
+              <div className="col-12">
+                <div className={`container ${styles.custom_searchbar_wrap}`}>
+                  <div className={styles.custom_searchbar}>
+                    <form
+                      className="w-100"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const locVal = document.getElementById("location").value.trim();
+                        const catVal = document.getElementById("category").value;
+                        const qVal = document.getElementById("whatoftype").value.trim();
+
+                        const params = new URLSearchParams();
+                        params.set("page", "1");
+                        params.set("category", catVal || "");
+                        params.set("q", qVal || "");
+                        params.set("location", locVal || "");
+
+                        window.location.href = `/products?${params.toString()}`;
+                      }}
+                    >
+                      <div className="row">
+                        {/* Location */}
+                        <div className={`col-lg-3 col-md-6 col-12 ${styles.border_rightF1}`}>
+                          <div className="form-group w-100">
+                            <label htmlFor="location" className="loc_block_inner">Location</label>
+                            <div className={styles.location_in_wrap}>
+                              <input
+                                className="w-100"
+                                id="location"
+                                type="search"
+                                placeholder="Enter your destination..."
+                                name="location"
+                              />
+                              <img src="/images/homepg/pin.svg" alt="pin" />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Category */}
+                        <div className={`col-lg-3 col-md-6 col-12 ${styles.border_rightF2}`}>
+                          <div className="form-group w-100">
+                            <label htmlFor="category" className="cat_block_inner">Category</label>
+                            <div className={styles.category_in_wrap}>
+                              <select id="category" className="text-muted w-100" defaultValue="">
+                                <option value="">Select Category</option>
+                                {!catLoading && categories.map((c) => (
+                                  <option key={c.id} value={c.id}>{c.name}</option>
+                                ))}
+                              </select>
+                              <img className="toggle-icon" src="/images/homepg/down.svg" alt="toggle" />
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Query */}
+                        <div className="col-lg-4 col-md-8 col-12">
+                          <div className={styles.search_block_wrap}>
+                            <div className={`${styles.search_block_inner} rounded-pill`}>
+                              <div className="w-100">
+                                <label className={styles.whatoftype} htmlFor="whatoftype">Search Rentals</label>
+                                <input
+                                  id="whatoftype"
+                                  className="rounded-pill w-100"
+                                  type="search"
+                                  placeholder="Enter something..."
+                                  name="q"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Button */}
+                        <div className="col-lg-2 col-md-12 col-12">
+                          <div className={styles.rent_search_btn}>
+                            <button className="button theme-btn-new" type="submit">Search</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+                {/* Bottom bullets */}
+                <div className="col-12">
+                  <div className="bottom_title">
+                    <ul className={styles.list_bottom}>
+                      <li>100% free</li>
+                      <li>peer to peer rentals</li>
+                      <li>no booking fees</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
 
-        {/* Categories */}
-        <section id="categories" style={styles.section}>
-          <h2 style={styles.h2}>Top Categories</h2>
-          <div style={styles.grid}>
-            {categories.map((c) => (
-              <a key={c.slug} href="#" style={styles.catCard}>
-                <span style={styles.catIcon}>{c.icon}</span>
-                <span style={styles.catName}>{c.name}</span>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        {/* Featured – Cars */}
-        <section id="featured" style={styles.section}>
-          <div style={styles.sectionHead}>
-            <h2 style={styles.h2}>Featured Cars</h2>
-            <a href="#" style={styles.link}>See all →</a>
-          </div>
-          <div style={styles.cardGrid}>
-            {cars.map((car) => (
-              <article key={car.id} style={styles.card}>
-                <div style={styles.imageWrap}>
-                  <img
-                    src={car.img}
-                    alt={car.name}
-                    style={styles.img}
-                    onError={(e) => (e.currentTarget.style.display = "none")}
-                  />
+        {/* Recent Products */}
+        <div className={styles.fleetswrap_inner}>
+          <div className={styles.fleets_wrap_main}>
+            <div className="d-flex justify-content-center align-items-center">
+              <div className={styles.star_box}>
+                <div className="d-flex align-items-center gap-1">
+                  <Image src="/images/homepg/star.svg" alt="star icon" width={20} height={20} />
+                  <span className={styles.star_title}>Recent Products</span>
                 </div>
-                <div style={styles.cardBody}>
-                  <h3 style={styles.cardTitle}>{car.name}</h3>
-                  <p style={styles.meta}>{car.location}</p>
-                  <p style={styles.price}>₹{car.pricePerDay}/day</p>
-                  <div style={styles.cardCtas}>
-                    <a href="#" style={styles.btnPrimarySm}>Rent Now</a>
-                    <a href="#" style={styles.btnGhostSm}>Details</a>
+              </div>
+            </div>
+
+            <h3 className={`${styles.second_heading} text-center`}>Browse the newest items added</h3>
+
+            <div className="container-fluid px-2 px-md-3 px-lg-3 position-relative">
+              <div className="row g-4">
+                {loadingRecent && (
+                  <div className="col-12">
+                    <p className="text-center text-muted m-0">Loading recent items…</p>
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
+                )}
 
-        {/* Featured – Bikes */}
-        <section style={styles.section}>
-          <div style={styles.sectionHead}>
-            <h2 style={styles.h2}>Popular Bikes</h2>
-            <a href="#" style={styles.link}>See all →</a>
-          </div>
-          <div style={styles.cardGrid}>
-            {bikes.map((bike) => (
-              <article key={bike.id} style={styles.card}>
-                <div style={styles.imageWrap}>
-                  <img
-                    src={bike.img}
-                    alt={bike.name}
-                    style={styles.img}
-                    onError={(e) => (e.currentTarget.style.display = "none")}
-                  />
-                </div>
-                <div style={styles.cardBody}>
-                  <h3 style={styles.cardTitle}>{bike.name}</h3>
-                  <p style={styles.meta}>{bike.location}</p>
-                  <p style={styles.price}>₹{bike.pricePerDay}/day</p>
-                  <div style={styles.cardCtas}>
-                    <a href="#" style={styles.btnPrimarySm}>Rent Now</a>
-                    <a href="#" style={styles.btnGhostSm}>Details</a>
+                {!loadingRecent && recent.slice(0, 8).map((p) => (
+                  <div key={p.id} className="col-12 col-sm-6 col-lg-3">
+                    <div className={`card ${styles.fleetscard} h-100`}>
+                      <Image
+                        src={p.media_gallery?.[0]?.file_path + p.media_gallery?.[0]?.file_name || "/images/placeholder.png"}
+                        alt={p.item_name}
+                        width={600}
+                        height={360}
+                        className={`card-img-top p-4 ${styles.cardImg}`}
+                      />
+
+                      <div className={`card-body d-flex flex-column pt-2 ${styles.cardBody}`}>
+                        <div>
+                          <span className="badge rounded-pill px-3 py-2 badge-car">
+                            {CATEGORY[p.category_id] ?? p.category_name ?? "Item"}
+                          </span>
+                          <h5 className={`${styles.feets_cardH} mt-3 mb-3`}>{p.item_name}</h5>
+
+                          <div className="d-flex justify-content-between text-secondary mb-2">
+                            <div className="d-flex align-items-center gap-1 feets_data_list">
+                              {/* <Image src="/images/homepg/helmet.svg" alt="icon" width={20} height={20} /> */}
+                              <span>Rental Period</span>
+                            </div>
+                            <span className="text-dark fw-medium">{p.rental_period ?? "-"}</span>
+                          </div>
+
+                          <div className="d-flex justify-content-between text-secondary mb-4">
+                            <div className="d-flex align-items-center gap-1 feets_data_list">
+                              {/* <Image src="/images/homepg/pistons.svg" alt="icon" width={20} height={20} /> */}
+                              <span>Availability</span>
+                            </div>
+                            <span className="text-dark fw-medium">{p.availability_status}</span>
+                          </div>
+                        </div>
+
+                        <div className="d-flex justify-content-between align-items-center border-top mt-auto pt-2">
+                          <div className="mb-0">
+                            <span className={styles.priceStrong}>₹{formatPriceINR(p.price_per_day)}</span>
+                            <span className={styles.priceMuted}> /Per Day</span>
+                          </div>
+
+                          <button
+                            className={styles.ctaBtn}
+                            aria-label={`View item ${p.item_name}`}
+                            onClick={() => setSelectedId(p.id)}
+                          >
+                            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M4 16a1 1 0 0 1 1-1h22a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1z" />
+                              <path d="M17.293 6.293a1 1 0 0 1 1.414 0l9 9a1 1 0 0 1 0 1.414l-9 9a1 1 0 1 1-1.414-1.414L24.586 17l-7.293-7.293a1 1 0 0 1 0-1.414z" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
+                ))}
 
-        {/* Trust badges / USPs */}
-        <section style={{ ...styles.section, ...styles.uspWrap }}>
-          <div style={styles.usp}>
-            <strong>Verified Owners</strong>
-            <span>Documents checked</span>
-          </div>
-          <div style={styles.usp}>
-            <strong>Transparent Pricing</strong>
-            <span>No hidden fees</span>
-          </div>
-          <div style={styles.usp}>
-            <strong>Support</strong>
-            <span>7 days a week</span>
-          </div>
-        </section>
-      </main>
+                {!loadingRecent && recent.length === 0 && (
+                  <div className="col-12">
+                    <p className="text-center text-muted m-0">No recent products found.</p>
+                  </div>
+                )}
+              </div>
 
-      <Footer />
+              <div className="d-flex justify-content-center mt-4">
+                <Link href="/products" className="btn btn-dark rounded-pill px-4 py-2">View All Items</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Modal */}
+      {selectedId !== null && (
+        <Viewproductspop triggerId={selectedId} onClose={() => setSelectedId(null)} />
+      )}
     </>
   );
 }
-
-const styles = {
-  main: { minHeight: "70vh", padding: "0", margin: 0 },
-  hero: {
-    background: "linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%)",
-    color: "#fff",
-    padding: "60px 20px",
-    textAlign: "center",
-  },
-  heroInner: { maxWidth: 1100, margin: "0 auto" },
-  h1: { fontSize: "32px", lineHeight: 1.2, margin: "0 0 10px" },
-  sub: { opacity: 0.9, margin: "0 0 20px" },
-  ctas: { display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" },
-
-  btnPrimary: {
-    display: "inline-block",
-    padding: "10px 16px",
-    background: "#22c55e",
-    color: "#0b1428",
-    borderRadius: 8,
-    textDecoration: "none",
-    fontWeight: 700,
-  },
-  btnGhost: {
-    display: "inline-block",
-    padding: "10px 16px",
-    border: "1px solid rgba(255,255,255,0.6)",
-    color: "#fff",
-    borderRadius: 8,
-    textDecoration: "none",
-    fontWeight: 600,
-  },
-
-  section: { maxWidth: 1100, margin: "40px auto", padding: "0 20px" },
-  h2: { fontSize: 24, margin: "0 0 16px" },
-  link: { textDecoration: "none", color: "#2563eb", fontWeight: 600 },
-
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
-    gap: 16,
-  },
-  catCard: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-    padding: 16,
-    border: "1px solid #e5e7eb",
-    borderRadius: 12,
-    background: "#fff",
-    textDecoration: "none",
-    color: "#0f172a",
-    fontWeight: 600,
-    justifyContent: "center",
-  },
-  catIcon: { fontSize: 22 },
-  catName: {},
-
-  sectionHead: {
-    display: "flex",
-    alignItems: "baseline",
-    justifyContent: "space-between",
-    gap: 10,
-    marginBottom: 10,
-  },
-
-  cardGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-    gap: 16,
-  },
-  card: {
-    border: "1px solid #e5e7eb",
-    borderRadius: 12,
-    overflow: "hidden",
-    background: "#fff",
-    display: "flex",
-    flexDirection: "column",
-  },
-  imageWrap: { height: 160, background: "#f1f5f9" },
-  img: { width: "100%", height: "100%", objectFit: "cover", display: "block" },
-  cardBody: { padding: 14, display: "flex", flexDirection: "column", gap: 8 },
-  cardTitle: { margin: 0, fontSize: 18 },
-  meta: { margin: 0, color: "#64748b", fontSize: 14 },
-  price: { margin: "2px 0 8px", fontWeight: 700 },
-
-  cardCtas: { display: "flex", gap: 8 },
-  btnPrimarySm: {
-    padding: "8px 12px",
-    background: "#0ea5e9",
-    color: "#fff",
-    borderRadius: 8,
-    textDecoration: "none",
-    fontWeight: 700,
-    fontSize: 14,
-  },
-  btnGhostSm: {
-    padding: "8px 12px",
-    border: "1px solid #cbd5e1",
-    color: "#0f172a",
-    borderRadius: 8,
-    textDecoration: "none",
-    fontWeight: 600,
-    fontSize: 14,
-    background: "#fff",
-  },
-
-  uspWrap: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: 12,
-  },
-  usp: {
-    border: "1px solid #e5e7eb",
-    borderRadius: 12,
-    padding: 16,
-    background: "#fff",
-    display: "flex",
-    flexDirection: "column",
-    gap: 4,
-  },
-};

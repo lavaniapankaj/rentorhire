@@ -1,0 +1,130 @@
+.headerArea {
+  background: #fff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  z-index: 999;
+  position: sticky;
+  top: 0;
+  padding: 12px 0;
+}
+
+
+.headerBlock {
+  padding: 0;
+}
+
+.logoBlock .logo {
+  max-height: 40px;   /* height control */
+  max-width: 120px;   /* width control */
+  height: auto;
+  width: auto;
+  object-fit: contain;
+}
+
+
+.navLink {
+  color: #000;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover,
+.navLink:focus {
+  color: #ff4500;
+  text-decoration: none;
+}
+
+.dropdownMenu {
+  border-radius: 0;
+  padding: 0.5rem 0;
+  font-size: 15px;
+}
+
+.dropdownItem {
+  padding: 0.4rem 1rem;
+  transition: background 0.3s ease;
+}
+
+.dropdownItem:hover {
+  background-color: #f8f9fa;
+}
+
+.topBtns {
+  gap: 12px;
+}
+
+.buttonCustom button {
+  background-color: #ff3c00;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background 0.3s ease;
+}
+
+.buttonCustom button:hover {
+  background-color: #e23300;
+}
+
+.circlBtn button {
+  background-color: #ff3c00;
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+.circlBtn button:hover {
+  background-color: #e23300;
+}
+
+.circlBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+
+
+/* Logout button styling */
+.logoutBtn {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 10px;   /* space before CTA */
+  cursor: pointer;
+}
+.logoutBtn:hover {
+  border-color: #bbb;
+}
+
+.loginBtn {
+  background: transparent;
+  border: 1px solid #ff3c00;
+  color: #ff3c00;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 10px;   /* CTA se pehle gap */
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.loginBtn:hover {
+  background: #fff3ee;
+  border-color: #e23300;
+  color: #e23300;
+}

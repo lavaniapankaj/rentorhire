@@ -6,7 +6,7 @@ import styles from '../admin.module.css';
 import AddRouteForm from './addRouteForm';
 import ViewRoute from './viewRoute';
 import EditRouteForm from './editRouteForm';
-import { getAuthToken } from "@/utils/utilities";
+import { getAuthToken } from "../../../utils/utilities";
 
 export default function ListRoutePage() {
   const [routes, setRoutes] = useState([]);

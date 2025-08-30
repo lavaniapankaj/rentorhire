@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import AddCityForm from './AddCityForm';
 import EditCityForm from './EditCityForm';
 import styles from '../admin.module.css';
-import { getAuthToken } from "@/utils/utilities";
+import { getAuthToken } from "../../../utils/utilities";
 
 export default function CityList() {
   const [cities, setCities] = useState([]);

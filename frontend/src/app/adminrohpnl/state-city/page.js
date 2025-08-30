@@ -5,7 +5,7 @@ import AddStateForm from './AddStateForm';
 import EditStateForm from './EditStateForm';
 import CityList from './CityList';
 import styles from '../admin.module.css';
-import { getAuthToken } from "@/utils/utilities";
+import { getAuthToken } from "../../../utils/utilities";
 
 export default function StateCityPage() {
   const [activeTab, setActiveTab] = useState('states');

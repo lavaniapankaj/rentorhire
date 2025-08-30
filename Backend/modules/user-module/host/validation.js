@@ -102,4 +102,5 @@ const ValidateLoginServiceProviderSingleItems = async (req, res, next) => {
 }
 
 
+
 module.exports = {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle, ValidateLoginServiceProviderItems, ValidateLoginServiceProviderSingleItems};
