@@ -236,5 +236,37 @@ const ValidateGetAllActiveProducts = async (req, res, next) => {
     }
 };
 
+/** Validate get all recent 8 active products - Coded by Vishnu August 29 2025 */
+const ValidateGetAllRecentActiveProducts = async (req, res, next) => {
+    try {
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp, ValidateGetAllActiveProducts};
+/** Validate view single product - Coded by Vishnu August 29 2025 */
+const ValidateViewSingleProduct = async (req, res, next) => {
+    try {
+        const { id } = req.body;
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
+
+/* Validate to get service provider details - Coded by Vishnu August 31 2025 */
+const ValidateGetServiceProviderinfo = async (req, res, next) => {
+    try {
+        const { service_provider_id } = req.body;
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
+
+
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp, ValidateGetAllActiveProducts, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetServiceProviderinfo};

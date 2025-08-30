@@ -1,36 +1,18 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import styles from './header.module.css';
 
 const Header = () => {
-  const router = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   useEffect(() => {
-    // Bootstrap JS only on client
+    /** Load Bootstrap JS on client side for navbar toggles and dropdowns */
     import('bootstrap/dist/js/bootstrap.bundle.min.js');
-
-    // Check login from cookies
-    const cookies = document.cookie.split(';').map(c => c.trim());
-    const hasAuthToken = cookies.some(c => c.startsWith('authToken='));
-    const hasAuthUser  = cookies.some(c => c.startsWith('authUser='));
-    setIsLoggedIn(hasAuthToken && hasAuthUser);
   }, []);
-
-  const handleLogout = () => {
-    // clear cookies
-    document.cookie = 'authToken=; Max-Age=0; path=/';
-    document.cookie = 'authUser=; Max-Age=0; path=/';
-    setIsLoggedIn(false);
-    router.push('/login');
-  };
 
   return (
     <header className={styles.headerArea}>
-      <div className={`container ${styles.headerBlock}`}>
+      <div className={`container-fluid px-3 px-md-4 px-lg-5 ${styles.headerBlock}`}>
         <div className="row align-items-center">
 
           {/* Logo */}
@@ -102,20 +84,12 @@ const Header = () => {
             </nav>
           </div>
 
-          {/* CTA + Logout */}
+          {/* CTA + Dashboard */}
           <div className="col-12 col-md-4 col-lg-3 d-flex align-items-center justify-content-end">
             <div className={`d-flex align-items-center ${styles.topBtns}`}>
-              {/* Logout button only if logged in */}
-              {isLoggedIn ? (
-                <button onClick={handleLogout} className={styles.logoutBtn}>
-                  Logout
-                </button>
-              ) : (
-                <Link href="/login" className={styles.loginBtn}>
-                  Login
-                </Link>
-              )}
-
+              <Link href="/dashboard" className={styles.loginBtn}>
+                Dashboard
+              </Link>
 
               <Link href="/lokesh/signup.html" style={{ textDecoration: 'none' }}>
                 <div className="d-flex align-items-center">

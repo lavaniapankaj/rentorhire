@@ -1,10 +1,26 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./hosting.module.css";
 import Hostingitems from "./components/Hostingitems";
 
 export default function BecomeAHosting() {
   const [activeTab, setActiveTab] = useState("hostingHub");
+
+  useEffect(() => {
+    // Set full page background
+    document.body.style.backgroundImage = 'url("/images/homepg/bg-img-3.svg")';
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundPosition = "center";
+
+    // Cleanup when component unmounts
+    return () => {
+      document.body.style.backgroundImage = "";
+      document.body.style.backgroundSize = "";
+      document.body.style.backgroundRepeat = "";
+      document.body.style.backgroundPosition = "";
+    };
+  }, []);
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -13,7 +29,7 @@ export default function BecomeAHosting() {
       case "listing":
         return <div className={styles.rohhostpnlhostinh_tabContent}>
           <Hostingitems />
-          </div>;
+        </div>;
       case "calendar":
         return <div className={styles.rohhostpnlhostinh_tabContent}>This is your Calendar.</div>;
       default:
@@ -22,7 +38,7 @@ export default function BecomeAHosting() {
   };
 
   return (
-    <div className={styles.rohhostpnlhostinh_container}>
+    <div className={styles.rohhostpnlhostinh_container} style={{ backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10, padding: 30 }}>
       {/* Tabs */}
       <div className={styles.rohhostpnlhostinh_tabs} role="tablist" aria-label="Hosting navigation">
         <div

@@ -24,6 +24,11 @@ export default function DashboardPage() {
   };
 
   useEffect(() => {
+    document.body.style.backgroundImage = 'url("/images/homepg/bg-img-3.svg")';
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundPosition = "center";
+
     const authUserData = getCookie("authUser");
     const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
 
@@ -103,10 +108,17 @@ export default function DashboardPage() {
     }
   }
 
+  const handleLogout = () => {
+    if (confirm("Are you sure you want to log out?")) {
+      document.cookie = 'authToken=; Max-Age=0; path=/';
+      document.cookie = 'authUser=; Max-Age=0; path=/';
+      window.location.href = '/login';
+    }
+  };
+
   return (
     <>
-
-      <main style={styles.wrap}>
+      <main style={{ ...styles.wrap, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10, padding: 30 }}>
         <h1 style={styles.h1}>Dashboard</h1>
 
         <div style={styles.tabs}>
@@ -137,7 +149,11 @@ export default function DashboardPage() {
                 <div style={styles.infoRow}><span style={styles.key}>State</span><span style={styles.val}>{user.state}</span></div>
                 <div style={styles.infoRow}><span style={styles.key}>Pincode</span><span style={styles.val}>{user.pincode}</span></div>
 
-                <button onClick={() => setShowModal(true)} style={styles.btnPrimary}>Edit Profile</button>
+                <div style={{ display: "flex", gap: "10px", marginTop: 20 }}>
+                  <button onClick={() => setShowModal(true)} style={styles.btnPrimary}>Edit Profile</button>
+                  <a href="/hosting"><button style={styles.btnPrimary}>Switch to hosting</button></a>
+                  <button onClick={handleLogout} style={styles.btnGhostSm}>Logout</button>
+                </div>
               </>
             ) : (
               <p>Loading user details...</p>
@@ -162,8 +178,8 @@ export default function DashboardPage() {
                       )}
                     </div>
                     <div style={styles.cardCtas}>
-                      <a href="#" style={styles.btnPrimarySm}>View</a>
-                      <a href="#" style={styles.btnGhostSm}>Remove</a>
+                      <a href="#"><button style={styles.btnPrimarySm}>View</button></a>
+                      <a href="#"><button style={styles.btnGhostSm}>Remove</button></a>
                     </div>
                   </article>
                 ))}
@@ -200,15 +216,15 @@ export default function DashboardPage() {
 }
 
 const styles = {
-  wrap: { padding: 30, maxWidth: 800, margin: "0 auto" },
+  wrap: { maxWidth: 800, margin: "30px auto", padding: 30, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10 },
   h1: { fontSize: 28, marginBottom: 30 },
   tabs: { display: "flex", gap: "1rem", marginBottom: 30 },
   tabBtn: {
     padding: "10px 20px", background: "#e2e8f0",
     border: "none", borderRadius: 8, cursor: "pointer"
   },
-  tabActive: { background: "#1e40af", color: "#fff" },
-  panel: { padding: 20, border: "1px solid #e5e7eb", borderRadius: 10 },
+  tabActive: { background: "#ff3c00", color: "#fff" },
+  panel: { padding: 20, border: "1px solid #e5e7eb", borderRadius: 10, backgroundColor: "#fff" },
   infoRow: {
     display: "flex", justifyContent: "space-between",
     padding: "8px 0", borderBottom: "1px solid #f1f1f1"
@@ -216,9 +232,19 @@ const styles = {
   key: { color: "#6b7280" },
   val: { fontWeight: "bold" },
   btnPrimary: {
-    marginTop: 20, background: "#2563eb",
+    background: "#ff3c00",
     color: "#fff", padding: "10px 20px",
     borderRadius: 8, border: "none", cursor: "pointer"
+  },
+  btnPrimarySm: {
+    background: "#ff3c00", color: "#fff",
+    padding: "6px 12px", fontSize: 14,
+    borderRadius: 6, border: "none", cursor: "pointer"
+  },
+  btnGhostSm: {
+    background: "red", color: "#ffffff",
+    padding: "6px 12px", fontSize: 14,
+    borderRadius: 6, border: "none", cursor: "pointer"
   },
   cardGrid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 },
   card: { padding: 20, border: "1px solid #ddd", borderRadius: 10 },
@@ -232,16 +258,6 @@ const styles = {
   meta: { fontSize: 14, color: "#475569" },
   price: { fontWeight: "bold", color: "#1e3a8a" },
   cardCtas: { marginTop: 10, display: "flex", gap: "0.5rem" },
-  btnPrimarySm: {
-    background: "#2563eb", color: "#fff",
-    padding: "6px 12px", fontSize: 14,
-    borderRadius: 6, border: "none", cursor: "pointer"
-  },
-  btnGhostSm: {
-    background: "#f1f5f9", color: "#1e293b",
-    padding: "6px 12px", fontSize: 14,
-    borderRadius: 6, border: "none", cursor: "pointer"
-  },
   modalBackdrop: {
     position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
     backgroundColor: "rgba(0,0,0,0.5)",

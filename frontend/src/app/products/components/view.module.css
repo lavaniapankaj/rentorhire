@@ -1,0 +1,152 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modalOverlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: 14px;
+  max-width: 850px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  animation: slideUp 0.25s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #eee;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  transition: background 0.2s;
+}
+.closeBtn:hover {
+  background: #ddd;
+}
+
+.itemWrap {
+  text-align: left;
+}
+
+.itemTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.itemDesc {
+  color: #555;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.imageWrap {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-bottom: 18px;
+}
+
+.itemImg {
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px 16px;
+  margin-bottom: 20px;
+}
+
+.extraInfo {
+  margin-top: 14px;
+}
+
+.extraInfo h4 {
+  margin-bottom: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
+/* Skeleton Loader */
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px;
+}
+
+.skelTitle {
+  width: 60%;
+  height: 20px;
+  background: #eee;
+  border-radius: 6px;
+  animation: pulse 1.5s infinite;
+}
+
+.skelImage {
+  width: 100%;
+  height: 160px;
+  background: #eee;
+  border-radius: 8px;
+  animation: pulse 1.5s infinite;
+}
+
+.skelLines {
+  width: 80%;
+  height: 14px;
+  background: #eee;
+  border-radius: 6px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { background-color: #f0f0f0; }
+  50% { background-color: #e0e0e0; }
+  100% { background-color: #f0f0f0; }
+}
+
+.serProInfo button {
+    background-color: #ff3c00;
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background 0.3s ease;
+}

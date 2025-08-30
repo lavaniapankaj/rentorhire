@@ -3,7 +3,7 @@
 /* Hero section */
 .hero_wrap {
   position: relative;
-  margin-top: 70px;
+  /* margin-top: 70px; */
 }
 
 .hero_section {
@@ -153,7 +153,8 @@
   font-weight: 700;
   padding: 11px 13px;
   border-radius: 20px;
-  background: #2d2d2d;
+  background: #ff3c00;
+  color: #fff;
   border: 1px solid transparent;
   display: flex;
   align-items: center;
@@ -207,8 +208,9 @@
 }
 
 .fleets_wrap_main {
-  max-width: 1280px;
-  margin-inline: auto;
+  max-width: none;   /* 1280px */
+  width: 100%;
+  margin-inline: 0;
 }
 
 /* small star label row */
@@ -355,4 +357,112 @@
   .fleetscard { border-radius: 22px; }
   .fleetscard :global(.card-img-top) { height: 180px; }
   .priceStrong { font-size: 24px; }
+}
+
+
+.cardImg { width:100%; height:220px; object-fit:contain; background:#fff; }
+@media (max-width: 991px){ .cardImg{ height:200px; } }
+@media (max-width: 575px){ .cardImg{ height:180px; } }
+
+
+/* CTA link wrapper (Next <Link>) */
+.ctaLink {
+  text-decoration: none;
+  display: inline-grid;      /* size collapse na ho */
+}
+
+/* Round orange CTA button */
+.ctaBtn {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #ff4a16;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(255, 74, 22, 0.35);
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+}
+
+/* Hover/Focus states */
+.ctaBtn:hover,
+.ctaBtn:focus-visible {
+  transform: translateY(-1px);
+  background: #000;
+  box-shadow: 0 10px 20px rgba(0,0,0,.15);
+  outline: none;
+}
+
+/* Icon inside */
+.ctaBtn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.ctaBtn svg path {
+  fill: #fff;
+}
+
+/** Products page pagination */
+/* Pagination container */
+.rohproducts_pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* General button styling */
+.rohproducts_btn {
+  background-color: #ff3c00; /* Background color */
+  color: #ffffff; /* Text color */
+  padding: 8px 16px;
+  border: 2px solid #ff3c00; /* Border color */
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.rohproducts_btn:hover {
+  background-color: #000000; /* Black on hover */
+  border: #000000;
+  color: #ffffff; /* Text remains white on hover */
+}
+
+/* Active page button */
+.rohproducts_btn_active {
+  background-color: #000000; /* Black color for active button */
+  color: #ffffff;
+  border: 2px solid #000000; /* Border color to match */
+}
+
+/* Inactive page button */
+.rohproducts_btn_inactive {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border: 2px solid #dcdfe1;
+}
+
+/* Disabled button */
+.rohproducts_btn:disabled {
+  background-color: #e9ecef;
+  border: 2px solid #dcdfe1;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Page number button */
+.rohproducts_btn_page {
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.rohproducts_btn_page:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
 }

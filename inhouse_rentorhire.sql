@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 28, 2025 at 03:16 AM
+-- Generation Time: Aug 30, 2025 at 01:51 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -248,7 +248,11 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 (61, 'hyundai-i20-2.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
 (62, 'hyundai-i20-3.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
 (63, 'hyundai-i20-4.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
-(64, 'hyundai-i20-5.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55');
+(64, 'hyundai-i20-5.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
+(65, 'bmw-s1000rr-headshot-1.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18'),
+(66, 'bmw-s1000rr-headshot-2.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18'),
+(67, 'bmw-s1000rr-headshot-3.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18'),
+(68, 'bmw-s1000rr-headshot-4.png', '/media/host/items/', 'png', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18');
 
 -- --------------------------------------------------------
 
@@ -471,9 +475,11 @@ INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `ema
 (47, 'bitugoxe', 'Amity', 'Schultz', 'perikop@mailinator.com', '4869643856', '$2b$10$Ecgs/LNcxCFKv/CqgQ7C.uS0W9Ox3moJ9z0G1XRC0mOffe6sVtXOO', 3, NULL, NULL, NULL, NULL, NULL, NULL, '497910', 0, NULL, NULL, 0, '2025-08-27 16:44:32', '2025-08-27 16:51:00'),
 (48, 'soruke', 'Chadwick', 'Dalton', 'qugenehiv@mailinator.com', '4625174203', '$2b$10$dxqghMmEVZujsUIPSeDF7uPStFFsuvOfKL.J6onRbs1jlB6l4ohQK', 3, NULL, NULL, NULL, NULL, NULL, NULL, '677190', 0, NULL, NULL, 0, '2025-08-27 16:53:58', '2025-08-27 16:53:58'),
 (49, 'qyqaluvuqu', 'Isaac', 'Hall', 'bobyhiz@mailinator.com', '2883996366', '$2b$10$StXcohwoZNeRIjOSwwfJPeMWH8EAC8c5Q79f4B3noutl1mZIaPNJW', 3, NULL, NULL, NULL, NULL, NULL, NULL, '110654', 0, NULL, NULL, 0, '2025-08-27 16:54:55', '2025-08-27 16:54:55'),
-(50, 'rent_or_hire', 'Den', 'Cook', 'roh@hosting.com', '9876543219', '$2b$10$TwK0imHqaYotk9QvtG0aiu65rXvC4gBHxAnm26vXGY77eWDNkOMZq', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:16:42', '2025-08-27 17:17:05'),
+(50, 'rent_or_hire', 'Den', 'Cook', 'roh@hosting.com', '9876543219', '$2b$10$TwK0imHqaYotk9QvtG0aiu65rXvC4gBHxAnm26vXGY77eWDNkOMZq', 3, NULL, 'Jaipur', '', '', '', 302012, '999000', 1, NULL, NULL, 1, '2025-08-27 17:16:42', '2025-08-30 10:25:19'),
 (51, 'vedoq', 'Jenette', 'Cannon', 'huqinileju@mailinator.com', '5317534899', '$2b$10$VFU5t7sxh9TVa8Jd.dmUiuKQtDU8sS13QWmqmC3WZKnytHuoIum5W', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:18:00', '2025-08-27 17:20:13'),
-(52, 'pidawoh', 'Lunea', 'Nolan', 'lyhede@mailinator.com', '1982856472', '$2b$10$GY2KBR7dPhpa.RMI3KziIuoLXQkQFTtiSIJ0edp8JuKzHZXTAmtBm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:21:52', '2025-08-27 17:22:01');
+(52, 'pidawoh', 'Lunea', 'Nolan', 'lyhede@mailinator.com', '1982856472', '$2b$10$GY2KBR7dPhpa.RMI3KziIuoLXQkQFTtiSIJ0edp8JuKzHZXTAmtBm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:21:52', '2025-08-27 17:22:01'),
+(53, 'boviqafih', 'Dominique', 'Conner', 'qazitug@mailinator.com', '(294) 719-9133', '$2b$10$5FMyQTqpP3nZacqeoyWjDOVoigrhcxRLp4SZo.XfDTt7O9r7tD3C2', 3, NULL, NULL, NULL, NULL, NULL, NULL, '662670', 0, NULL, NULL, 0, '2025-08-28 01:25:33', '2025-08-28 01:25:33'),
+(54, 'numuzufot', 'Slade', 'Dixon', 'zupejyton@mailinator.com', '9815618907', '$2b$10$Ya8bGxm9dJgUdYsYwp/eQ.XSK3sWfPhf4Gp0xrcLFBdpWQTRlc2vO', 3, NULL, NULL, NULL, NULL, NULL, NULL, '161043', 0, NULL, NULL, 0, '2025-08-28 01:30:28', '2025-08-28 01:30:28');
 
 -- --------------------------------------------------------
 
@@ -511,7 +517,8 @@ CREATE TABLE `roh_vehicle_attributes` (
 
 INSERT INTO `roh_vehicle_attributes` (`id`, `vehicle_id`, `engine_type`, `transmission_type`, `fuel_consumption`, `seating_capacity`, `color`, `vehicle_age`, `mileage`, `registration_number`, `insurance_validity`, `vehicle_type`, `rental_period`, `vehicle_condition`, `accessories`, `address_1`, `landmark`, `item_state`, `city`, `pincode`, `booking_instructions`) VALUES
 (1, 24, 'Diesel', 'Manual', 100.00, 7, 'Z Black', 2, 14.00, 'TR01 AB 1234', '2025-08-25', 'Standard', 'Daily', 'New', 'Stylish Alloy Wheels\r\n\r\nPremium Fog Lamps\r\n\r\nRoof Rails\r\n\r\nDesigner Seat Covers\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nFloor Mats', 'Scorpio Car Rentals', '2nd Floor, MG Road', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery'),
-(2, 25, 'Petrol', 'Manual', 18.00, 5, 'Polar White', 3, 11.00, 'TR02 XY 5678', '2025-08-27', 'Luxury', 'Daily', 'New', 'Alloy Wheels\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nSeat Covers\r\n\r\nFloor Mats\r\n\r\nFog Lamps', 'i20 Car Rentals', 'Ground Floor, HGB Road,', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery');
+(2, 25, 'Petrol', 'Manual', 18.00, 5, 'Polar White', 3, 11.00, 'TR02 XY 5678', '2025-08-27', 'Luxury', 'Daily', 'New', 'Alloy Wheels\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nSeat Covers\r\n\r\nFloor Mats\r\n\r\nFog Lamps', 'i20 Car Rentals', 'Ground Floor, HGB Road,', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery'),
+(3, 26, 'Petrol', 'Automatic', 4.00, 2, 'Black', 3, 3.00, 'RJ45DD9892', '2025-08-31', 'Luxury', 'Daily', 'New', 'Helemt', 'Vaishali nagar', 'Plot no.11', 'Rajasthan', 'Jaipur', 302021, 'No booking instructions fro S1000RR ');
 
 -- --------------------------------------------------------
 
@@ -549,7 +556,8 @@ CREATE TABLE `roh_vehicle_details` (
 
 INSERT INTO `roh_vehicle_details` (`id`, `service_provider_id`, `item_name`, `vehicle_description`, `category_id`, `tag_id`, `brand_id`, `model_id`, `image_ids`, `price_per_day`, `price_per_week`, `price_per_month`, `price_custom_day`, `item_status`, `admin_item_status`, `total_views`, `security_deposit`, `booking_terms`, `availability_status`, `add_date`, `edit_date`) VALUES
 (24, 50, 'Mahindra Scorpio – Power Meets Style', 'The Big Daddy SUV – Mahindra Scorpio is known for its bold looks, powerful performance, and unmatched road presence. Whether it’s a city ride or an off-road adventure, the Scorpio is built to conquer every journey with style and comfort.', 1, 2, 3, 5, '[54,55,56,57,58,59]', 2500.00, 15000.00, 45000.00, 120000.00, 1, 1, 0, 9998.00, 'Booking amount: ₹5,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes RTO, insurance, and taxes\r\n\r\nDelivery subject to stock availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:44:58', '2025-08-28 06:16:16'),
-(25, 50, 'Hyundai i20 – Premium Hatchback', 'The Hyundai i20 is a premium hatchback that blends style, comfort, and efficiency. With its modern design, advanced features, and smooth driving experience, the i20 is the perfect choice for city commutes and weekend getaways.', 1, 2, 6, 11, '[60,61,62,63,64]', 1800.00, 11000.00, 32000.00, 69998.00, 1, 1, 0, 7000.00, 'Booking amount: ₹3,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes fuel, tolls, RTO, insurance, and taxes\r\n\r\nDelivery subject to availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:56:55', '2025-08-28 06:16:19');
+(25, 50, 'Hyundai i20 – Premium Hatchback', 'The Hyundai i20 is a premium hatchback that blends style, comfort, and efficiency. With its modern design, advanced features, and smooth driving experience, the i20 is the perfect choice for city commutes and weekend getaways.', 1, 2, 6, 11, '[60,61,62,63,64]', 1800.00, 11000.00, 32000.00, 69998.00, 1, 1, 0, 7000.00, 'Booking amount: ₹3,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes fuel, tolls, RTO, insurance, and taxes\r\n\r\nDelivery subject to availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:56:55', '2025-08-28 06:16:19'),
+(26, 50, 'BMW S1000RR', 'The S1000RR is BMW\'s flagship sportsbike that is known for its top-end performance, modern safety electronics and excellent handling abilities. But just like other BMWs, the S1000RR is also expensive to purchase and maintain', 1, 2, 5, 9, '[65,66,67,68]', 1200.00, 8000.00, 25000.00, 45000.00, 1, 1, 0, 596.00, 'No Booking terms for S1000RR. ', 'Available', '2025-08-30 04:38:18', '2025-08-30 15:57:56');
 
 --
 -- Indexes for dumped tables
@@ -633,7 +641,7 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
@@ -657,19 +665,19 @@ ALTER TABLE `roh_states`
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`
 --
 ALTER TABLE `roh_vehicle_attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_details`
 --
 ALTER TABLE `roh_vehicle_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints for dumped tables

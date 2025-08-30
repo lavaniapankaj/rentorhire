@@ -344,8 +344,9 @@ function authApi() {
         }
     };
 
-    /** Get all Active products on product archive page - Coded by Vishnu Aug 29 2025 */
-    this.getActiveProducts = async (req, res) => {
+
+    /** Get all recent 8 Active products on home page - Coded by Vishnu Aug 30 2025 */
+    this.getRecentActiveProducts = async (req, res) => {
         try {
             /** Step 1: Fetch product list */
             const [products] = await pool.query(
@@ -357,16 +358,17 @@ function authApi() {
                 d.image_ids,
                 d.item_status,
                 d.add_date,
+                d.availability_status,
                 d.price_per_day,
-                a.registration_number
+                a.registration_number,
+                a.rental_period
             FROM roh_vehicle_details d
             LEFT JOIN roh_vehicle_attributes a 
                 ON d.id = a.vehicle_id
             WHERE d.item_status = 1
             ORDER BY d.add_date DESC, d.id DESC
-            LIMIT 30`
+            LIMIT 8`
             );
-
 
             if (!products || products.length === 0) {
             return res.status(200).json([]);
@@ -410,6 +412,226 @@ function authApi() {
             return res.status(500).json({ message: "Internal server error" });
         }
     };
+
+    /** Get all Active products on product archive page - Coded by Vishnu Aug 29 2025 */
+    this.getActiveProducts = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 4;
+        const offset = (page - 1) * limit;
+
+        const category = req.query.category ? parseInt(req.query.category) : null;
+
+        // item_name search
+        const qRaw = (req.query.q || "").trim();
+        const qLike = qRaw ? `%${qRaw}%` : null;
+
+        // location: address_1, landmark, item_state, city, pincode (attributes table)
+        const locRaw = (req.query.location || "").trim();
+        const locTokens = locRaw ? locRaw.split(/\s+/).filter(Boolean) : [];
+
+        let whereClauses = [`d.item_status = 1`];
+        let params = [];
+
+        if (category) {
+        whereClauses.push(`d.category_id = ?`);
+        params.push(category);
+        }
+
+        if (qLike) {
+        whereClauses.push(`d.item_name LIKE ?`);
+        params.push(qLike);
+        }
+
+        // ---- LOCATION FILTER ----
+        if (locTokens.length) {
+        const groups = [];
+        for (const tok of locTokens) {
+            const like = `%${tok}%`;
+            if (/^\d{4,6}$/.test(tok)) {
+            groups.push(`(a.pincode LIKE ?)`);
+            params.push(like);
+            } else {
+            groups.push(`(
+                a.address_1 LIKE ? OR 
+                a.landmark LIKE ? OR 
+                a.item_state LIKE ? OR 
+                a.city LIKE ?
+            )`);
+            params.push(like, like, like, like);
+            }
+        }
+        whereClauses.push(`(${groups.join(' AND ')})`);
+        }
+
+        const whereSQL = whereClauses.length ? `WHERE ${whereClauses.join(" AND ")}` : "";
+
+        // ---- FETCH PRODUCTS ----
+        const [products] = await pool.query(
+        `
+        SELECT 
+            d.id,
+            d.service_provider_id,
+            d.item_name,
+            d.category_id,
+            d.image_ids,
+            d.item_status,
+            d.add_date,
+            d.availability_status,
+            d.price_per_day,
+            a.registration_number,
+            a.rental_period,
+            a.address_1,
+            a.landmark,
+            a.item_state,
+            a.city,
+            a.pincode
+        FROM roh_vehicle_details d
+        LEFT JOIN roh_vehicle_attributes a 
+            ON d.id = a.vehicle_id
+        ${whereSQL}
+        ORDER BY d.add_date DESC, d.id DESC
+        LIMIT ? OFFSET ?
+        `,
+        [...params, limit, offset]
+        );
+
+        if (!products || products.length === 0) {
+        return res.status(200).json({ products: [], total: 0 });
+        }
+
+        // ---- TOTAL COUNT ----
+        const [[{ total }]] = await pool.query(
+        `SELECT COUNT(*) AS total 
+        FROM roh_vehicle_details d
+        LEFT JOIN roh_vehicle_attributes a 
+            ON d.id = a.vehicle_id
+        ${whereSQL}`,
+        params
+        );
+
+        // ---- ENHANCE: media_gallery ----
+        const enhancedProducts = await Promise.all(
+        products.map(async (product) => {
+            let imageIds = [];
+            try {
+            imageIds = JSON.parse(product.image_ids || "[]");
+            } catch {
+            console.warn("Invalid JSON for product id:", product.id);
+            }
+
+            let mediaGallery = [];
+            if (imageIds.length > 0) {
+            const placeholders = imageIds.map(() => "?").join(",");
+            const [mediaResult] = await pool.query(
+                `SELECT id, file_name, file_path 
+                FROM roh_media_gallery 
+                WHERE id IN (${placeholders})`,
+                imageIds
+            );
+            mediaGallery = mediaResult;
+            }
+
+            return { ...product, media_gallery: mediaGallery };
+        })
+        );
+
+        return res.status(200).json({ products: enhancedProducts, total });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+    };
+
+
+     /** Api to view single items - Coded by Vishnu August 30 2025 */
+    this.getsingleListedItemsVie = async (req, res) => {
+        try {
+            const { id } = req.body;
+
+            /** Step 1: Fetch vehicle details + attributes + user info */
+            const [result] = await pool.query(
+                `SELECT 
+                    d.*, 
+                    a.*,                     
+                    u.first_name, 
+                    u.last_name
+                FROM roh_vehicle_details d
+                LEFT JOIN roh_vehicle_attributes a 
+                    ON d.id = a.vehicle_id
+                LEFT JOIN roh_users u 
+                    ON d.service_provider_id = u.user_id
+                WHERE d.id = ?`,
+                [id]
+            );
+
+            if (!result || result.length === 0) {
+                return res.status(404).json({ message: "Item not found" });
+            }
+
+            const vehicle = result[0];
+
+            /** Step 2: Parse image_ids */
+            let imageIds = [];
+            try {
+                imageIds = JSON.parse(vehicle.image_ids || "[]");
+                if (!Array.isArray(imageIds)) imageIds = [];
+            } catch (e) {
+                console.warn("Invalid JSON in image_ids for vehicle id:", vehicle.id);
+            }
+
+            /** Step 3: Fetch media data */
+            let mediaGallery = [];
+            if (imageIds.length > 0) {
+                const placeholders = imageIds.map(() => "?").join(",");
+                const [mediaResult] = await pool.query(
+                    `SELECT id, file_name, file_path 
+                    FROM roh_media_gallery 
+                    WHERE id IN (${placeholders})`,
+                    imageIds
+                );
+                mediaGallery = mediaResult;
+            }
+
+            /** Step 4: Return merged response */
+            return res.status(200).json({
+                ...vehicle,
+                media_gallery: mediaGallery
+            });
+
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    };
+
+    /** Api Get service provider details this APIs useing on the single products contact button - Coded by Vishnu August 31 2025 */
+    this.getServiceProviderDetails = async (req, res) => {
+        try {
+            const { service_provider_id } = req.body;
+
+            /**Fetch only required fields */
+            const [result] = await pool.query(
+                `SELECT first_name, last_name, phone_number 
+                FROM roh_users 
+                WHERE user_id = ?`,
+                [service_provider_id]
+            );
+
+            if (!result || result.length === 0) {
+                return res.status(404).json({ message: "Service provider not found" });
+            }
+
+            return res.status(200).json(result[0]);
+
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+    };
+
+
+            
 
 
 }

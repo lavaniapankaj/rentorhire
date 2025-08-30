@@ -1,5 +1,5 @@
 const AuthController = require("./controller");
-const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp, ValidateGetAllActiveProducts} = require("./validation");
+const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp, ValidateGetAllActiveProducts, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetServiceProviderinfo} = require("./validation");
 
 
 /** Api for register user Coded by Raj July 07 2025 */
@@ -78,11 +78,39 @@ app.post(
     }
 );
 
+
+/** Get all recent 8 active products on home page - Coded by Vishnu Aug 29 2025 */
+app.get(
+    "/api/user/getrecentproducts",
+    ValidateGetAllRecentActiveProducts,
+    (req, res, next) => {
+        AuthController.getRecentActiveProducts(req, res, next); /** Calling the controller */
+    }
+);
+
 /** Get all active products on product archive page - Coded by Vishnu Aug 29 2025 */
 app.get(
     "/api/user/getallproducts",
     ValidateGetAllActiveProducts,
     (req, res, next) => {
         AuthController.getActiveProducts(req, res, next); /** Calling the controller */
+    }
+);
+
+/** View single item Coded by Vishnu Aug 30 2025 */
+app.post(
+    "/api/user/viewsingleitem",
+    ValidateViewSingleProduct,
+    (req, res, next) => {
+        AuthController.getsingleListedItemsVie(req, res, next); /** Calling the controller */
+    }
+);
+
+/** Api to get service provider details - Coded by Vishnu August 31 2025 */
+app.post(
+    "/api/user/getserviceprovideinfo",
+    ValidateGetServiceProviderinfo,
+    (req, res, next) => {
+        AuthController.getServiceProviderDetails(req, res, next); /** Calling the controller */
     }
 );
