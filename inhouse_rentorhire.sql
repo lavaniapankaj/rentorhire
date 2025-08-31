@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Aug 30, 2025 at 01:51 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: localhost:3306
+-- Generation Time: Aug 31, 2025 at 10:27 PM
+-- Server version: 5.7.24
+-- PHP Version: 8.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,12 +32,12 @@ CREATE TABLE `roh_brands` (
   `brand_name` varchar(150) DEFAULT NULL,
   `cat_id` int(11) DEFAULT NULL,
   `logo_media_id` int(10) NOT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `active` tinyint(4) NOT NULL DEFAULT '1',
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `edit_date` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `roh_brands`
@@ -60,15 +60,15 @@ INSERT INTO `roh_brands` (`id`, `brand_name`, `cat_id`, `logo_media_id`, `active
 CREATE TABLE `roh_categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
+  `description` text,
   `slug` varchar(255) NOT NULL,
   `parent_category_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT 1,
+  `active` tinyint(1) DEFAULT '1',
   `add_id` bigint(11) DEFAULT NULL,
   `edit_id` bigint(11) DEFAULT NULL,
-  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `edit_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `roh_categories`
@@ -95,10 +95,10 @@ CREATE TABLE `roh_cities` (
   `state_id` int(11) NOT NULL,
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT 1,
-  `add_date` datetime DEFAULT current_timestamp(),
-  `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(1) DEFAULT '1',
+  `add_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `roh_cities`
@@ -219,10 +219,10 @@ CREATE TABLE `roh_media_gallery` (
   `file_name` varchar(255) NOT NULL,
   `file_path` varchar(255) NOT NULL,
   `file_type` varchar(50) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT 1,
-  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `edit_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(1) DEFAULT '1',
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `roh_media_gallery`
@@ -265,12 +265,12 @@ CREATE TABLE `roh_models` (
   `model_name` varchar(150) DEFAULT NULL,
   `brand_id` int(11) DEFAULT NULL,
   `tag_id` int(10) NOT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `active` tinyint(4) NOT NULL DEFAULT '1',
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `edit_date` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `roh_models`
@@ -298,12 +298,12 @@ INSERT INTO `roh_models` (`id`, `model_name`, `brand_id`, `tag_id`, `active`, `a
 CREATE TABLE `roh_roles` (
   `id` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `active` tinyint(4) NOT NULL DEFAULT '1',
   `add_id` bigint(20) DEFAULT NULL,
   `edit_id` bigint(20) DEFAULT NULL,
-  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `edit_date` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `roh_roles`
@@ -323,15 +323,15 @@ INSERT INTO `roh_roles` (`id`, `name`, `active`, `add_id`, `edit_id`, `add_date`
 CREATE TABLE `roh_routes` (
   `id` int(11) NOT NULL,
   `route_name` varchar(255) NOT NULL,
-  `access_type` tinyint(4) DEFAULT 1 COMMENT '1 = View, 2 = All',
-  `route_type` tinyint(4) DEFAULT 3 COMMENT '1 = Admin, 2 = User, 3 = Public',
+  `access_type` tinyint(4) DEFAULT '1' COMMENT '1 = View, 2 = All',
+  `route_type` tinyint(4) DEFAULT '3' COMMENT '1 = Admin, 2 = User, 3 = Public',
   `group_name` varchar(100) DEFAULT NULL,
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `active` tinyint(4) DEFAULT 1,
-  `add_date` datetime DEFAULT current_timestamp(),
-  `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(4) DEFAULT '1',
+  `add_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `roh_routes`
@@ -355,10 +355,10 @@ CREATE TABLE `roh_states` (
   `state_slug` varchar(150) NOT NULL,
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT 1,
-  `add_date` datetime DEFAULT current_timestamp(),
-  `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(1) DEFAULT '1',
+  `add_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `roh_states`
@@ -411,12 +411,12 @@ CREATE TABLE `roh_tags` (
   `id` int(11) NOT NULL,
   `tag_name` varchar(150) DEFAULT NULL,
   `cat_id` int(11) DEFAULT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT 1,
+  `active` tinyint(4) NOT NULL DEFAULT '1',
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `edit_date` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `roh_tags`
@@ -445,6 +445,7 @@ CREATE TABLE `roh_users` (
   `password_hash` varchar(255) NOT NULL,
   `user_role_id` int(11) NOT NULL,
   `profile_picture_url` varchar(255) DEFAULT NULL,
+  `business_name` varchar(100) DEFAULT NULL,
   `address_1` varchar(100) DEFAULT NULL,
   `landmark` varchar(100) DEFAULT NULL,
   `state` varchar(100) DEFAULT NULL,
@@ -454,32 +455,32 @@ CREATE TABLE `roh_users` (
   `verified` int(5) NOT NULL,
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
-  `active` tinyint(1) DEFAULT 1,
-  `add_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `edit_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `active` tinyint(1) DEFAULT '1',
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `roh_users`
 --
 
-INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `email`, `phone_number`, `password_hash`, `user_role_id`, `profile_picture_url`, `address_1`, `landmark`, `state`, `city`, `pincode`, `authorize_code`, `verified`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$xdm/c.8Yh4o9VBQnAqvZW.GImjKMS3tYM/YMIJDsTRqv5YkQyKUcC', 1, '25', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 1, 1, 19, 1, '2025-07-13 11:26:08', '2025-08-12 17:24:12'),
-(2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$VswYxyPGRuYuU/1IFkMS1uAgYybZCvHIwhb93CFUtmyHUZyddYFf.', 2, '', 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 1, 1, 1, 1, '2025-07-13 11:27:31', '2025-08-12 17:24:15'),
-(18, 'lavaniapankaj', 'Pankaj ', 'Verma', 'lavaniapankaj@gmail.com', '9876543210', '$2b$10$fwpmVvn/RVr3d/cbedmo8eTTxBebn0XhKtfXQt4dHk32IkBZFw8bG', 1, '1', '13th Street', '47 W 13th St, New York, NY 10011, USA', 'New York', 'CT', 10011, NULL, 1, 1, 0, 1, '2025-07-29 18:19:15', '2025-08-12 17:24:19'),
-(19, 'ecmascript', 'Vishnu', 'Kumawat', 'ecmascript.php@gmail.com', '9783457008', '$2b$10$bVzM.eJjjhU7boZzNEE8aul7iycXabXaDmIuQAB9CXMTfDLP/v8hC', 1, '2', 'Stuyvesant 14th St & 1st Ave ', '238 1st Ave, New York, NY 10009, USA', 'New York', 'CT', 10009, NULL, 1, 1, 0, 1, '2025-07-29 18:32:46', '2025-08-12 17:24:21'),
-(20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 3, '3', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, NULL, 1, 1, 1, 1, '2025-07-29 18:38:25', '2025-08-23 09:47:28'),
-(44, 'rudrax', 'Raymond', 'Foster', 'bowijen@mailinator.com', '9999999999', '$2b$10$qchWQg.7/f.OvDEqes6MqeulRouWGrswPU5IFWhE4Ablj/rmdKIqq', 3, NULL, '', '', '', '', 123456, '1234', 0, NULL, NULL, 1, '2025-08-13 15:40:33', '2025-08-23 09:48:33'),
-(45, 'papyviq', 'Daphne', 'Spence', 'ligy@mailinator.com', '8957058952', '$2b$10$gv2JDIFncJrkcn/Hau.mf.hmExvOYvmMWMTkZQKsylG2Co0hdzEwK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-23 13:10:32', '2025-08-23 13:16:46'),
-(46, 'natup', 'Holly', 'Rush', 'cexul@mailinator.com', '2538281972', '$2b$10$DBrEyUDMsLAjCnWHfr3IfeCyeBtJ2Cv78q8c5YaysfXDPqQYpwYNi', 3, '41', '70 West New Parkway', 'Quia ut sed maiores ', 'Ea a qui amet cupid', 'Dolores harum ipsum ', 578908, NULL, 0, 1, 1, 1, '2025-08-23 16:41:42', '2025-08-23 16:42:02'),
-(47, 'bitugoxe', 'Amity', 'Schultz', 'perikop@mailinator.com', '4869643856', '$2b$10$Ecgs/LNcxCFKv/CqgQ7C.uS0W9Ox3moJ9z0G1XRC0mOffe6sVtXOO', 3, NULL, NULL, NULL, NULL, NULL, NULL, '497910', 0, NULL, NULL, 0, '2025-08-27 16:44:32', '2025-08-27 16:51:00'),
-(48, 'soruke', 'Chadwick', 'Dalton', 'qugenehiv@mailinator.com', '4625174203', '$2b$10$dxqghMmEVZujsUIPSeDF7uPStFFsuvOfKL.J6onRbs1jlB6l4ohQK', 3, NULL, NULL, NULL, NULL, NULL, NULL, '677190', 0, NULL, NULL, 0, '2025-08-27 16:53:58', '2025-08-27 16:53:58'),
-(49, 'qyqaluvuqu', 'Isaac', 'Hall', 'bobyhiz@mailinator.com', '2883996366', '$2b$10$StXcohwoZNeRIjOSwwfJPeMWH8EAC8c5Q79f4B3noutl1mZIaPNJW', 3, NULL, NULL, NULL, NULL, NULL, NULL, '110654', 0, NULL, NULL, 0, '2025-08-27 16:54:55', '2025-08-27 16:54:55'),
-(50, 'rent_or_hire', 'Den', 'Cook', 'roh@hosting.com', '9876543219', '$2b$10$TwK0imHqaYotk9QvtG0aiu65rXvC4gBHxAnm26vXGY77eWDNkOMZq', 3, NULL, 'Jaipur', '', '', '', 302012, '999000', 1, NULL, NULL, 1, '2025-08-27 17:16:42', '2025-08-30 10:25:19'),
-(51, 'vedoq', 'Jenette', 'Cannon', 'huqinileju@mailinator.com', '5317534899', '$2b$10$VFU5t7sxh9TVa8Jd.dmUiuKQtDU8sS13QWmqmC3WZKnytHuoIum5W', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:18:00', '2025-08-27 17:20:13'),
-(52, 'pidawoh', 'Lunea', 'Nolan', 'lyhede@mailinator.com', '1982856472', '$2b$10$GY2KBR7dPhpa.RMI3KziIuoLXQkQFTtiSIJ0edp8JuKzHZXTAmtBm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:21:52', '2025-08-27 17:22:01'),
-(53, 'boviqafih', 'Dominique', 'Conner', 'qazitug@mailinator.com', '(294) 719-9133', '$2b$10$5FMyQTqpP3nZacqeoyWjDOVoigrhcxRLp4SZo.XfDTt7O9r7tD3C2', 3, NULL, NULL, NULL, NULL, NULL, NULL, '662670', 0, NULL, NULL, 0, '2025-08-28 01:25:33', '2025-08-28 01:25:33'),
-(54, 'numuzufot', 'Slade', 'Dixon', 'zupejyton@mailinator.com', '9815618907', '$2b$10$Ya8bGxm9dJgUdYsYwp/eQ.XSK3sWfPhf4Gp0xrcLFBdpWQTRlc2vO', 3, NULL, NULL, NULL, NULL, NULL, NULL, '161043', 0, NULL, NULL, 0, '2025-08-28 01:30:28', '2025-08-28 01:30:28');
+INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `email`, `phone_number`, `password_hash`, `user_role_id`, `profile_picture_url`, `business_name`, `address_1`, `landmark`, `state`, `city`, `pincode`, `authorize_code`, `verified`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
+(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$xdm/c.8Yh4o9VBQnAqvZW.GImjKMS3tYM/YMIJDsTRqv5YkQyKUcC', 1, '25', NULL, 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 1, 1, 19, 1, '2025-07-13 11:26:08', '2025-08-12 17:24:12'),
+(2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$VswYxyPGRuYuU/1IFkMS1uAgYybZCvHIwhb93CFUtmyHUZyddYFf.', 2, '', NULL, 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 1, 1, 1, 1, '2025-07-13 11:27:31', '2025-08-12 17:24:15'),
+(18, 'lavaniapankaj', 'Pankaj ', 'Verma', 'lavaniapankaj@gmail.com', '9876543210', '$2b$10$fwpmVvn/RVr3d/cbedmo8eTTxBebn0XhKtfXQt4dHk32IkBZFw8bG', 1, '1', NULL, '13th Street', '47 W 13th St, New York, NY 10011, USA', 'New York', 'CT', 10011, NULL, 1, 1, 0, 1, '2025-07-29 18:19:15', '2025-08-12 17:24:19'),
+(19, 'ecmascript', 'Vishnu', 'Kumawat', 'ecmascript.php@gmail.com', '9783457008', '$2b$10$bVzM.eJjjhU7boZzNEE8aul7iycXabXaDmIuQAB9CXMTfDLP/v8hC', 1, '2', NULL, 'Stuyvesant 14th St & 1st Ave ', '238 1st Ave, New York, NY 10009, USA', 'New York', 'CT', 10009, NULL, 1, 1, 0, 1, '2025-07-29 18:32:46', '2025-08-12 17:24:21'),
+(20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 3, '3', NULL, 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, NULL, 1, 1, 1, 1, '2025-07-29 18:38:25', '2025-08-31 13:34:26'),
+(44, 'rudrax', 'Raymond', 'Foster', 'bowijen@mailinator.com', '9999999999', '$2b$10$qchWQg.7/f.OvDEqes6MqeulRouWGrswPU5IFWhE4Ablj/rmdKIqq', 3, NULL, NULL, '', '', '', '', 123456, '1234', 0, NULL, NULL, 1, '2025-08-13 15:40:33', '2025-08-23 09:48:33'),
+(45, 'papyviq', 'Daphne', 'Spence', 'ligy@mailinator.com', '8957058952', '$2b$10$gv2JDIFncJrkcn/Hau.mf.hmExvOYvmMWMTkZQKsylG2Co0hdzEwK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-23 13:10:32', '2025-08-23 13:16:46'),
+(46, 'natup', 'Holly', 'Rush', 'cexul@mailinator.com', '2538281972', '$2b$10$DBrEyUDMsLAjCnWHfr3IfeCyeBtJ2Cv78q8c5YaysfXDPqQYpwYNi', 3, '41', NULL, '70 West New Parkway', 'Quia ut sed maiores ', 'Ea a qui amet cupid', 'Dolores harum ipsum ', 578908, NULL, 0, 1, 1, 1, '2025-08-23 16:41:42', '2025-08-23 16:42:02'),
+(47, 'bitugoxe', 'Amity', 'Schultz', 'perikop@mailinator.com', '4869643856', '$2b$10$Ecgs/LNcxCFKv/CqgQ7C.uS0W9Ox3moJ9z0G1XRC0mOffe6sVtXOO', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '497910', 0, NULL, NULL, 0, '2025-08-27 16:44:32', '2025-08-27 16:51:00'),
+(48, 'soruke', 'Chadwick', 'Dalton', 'qugenehiv@mailinator.com', '4625174203', '$2b$10$dxqghMmEVZujsUIPSeDF7uPStFFsuvOfKL.J6onRbs1jlB6l4ohQK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '677190', 0, NULL, NULL, 0, '2025-08-27 16:53:58', '2025-08-27 16:53:58'),
+(49, 'qyqaluvuqu', 'Isaac', 'Hall', 'bobyhiz@mailinator.com', '2883996366', '$2b$10$StXcohwoZNeRIjOSwwfJPeMWH8EAC8c5Q79f4B3noutl1mZIaPNJW', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '110654', 0, NULL, NULL, 0, '2025-08-27 16:54:55', '2025-08-27 16:54:55'),
+(50, 'rent_or_hire', 'Den', 'Cook', 'roh@hosting.com', '9876543219', '$2b$10$TwK0imHqaYotk9QvtG0aiu65rXvC4gBHxAnm26vXGY77eWDNkOMZq', 3, NULL, NULL, 'Jaipur', '', '', '', 302012, '999000', 1, NULL, NULL, 1, '2025-08-27 17:16:42', '2025-08-30 10:25:19'),
+(51, 'vedoq', 'Jenette', 'Cannon', 'huqinileju@mailinator.com', '5317534899', '$2b$10$VFU5t7sxh9TVa8Jd.dmUiuKQtDU8sS13QWmqmC3WZKnytHuoIum5W', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:18:00', '2025-08-27 17:20:13'),
+(52, 'pidawoh', 'Lunea', 'Nolan', 'lyhede@mailinator.com', '1982856472', '$2b$10$GY2KBR7dPhpa.RMI3KziIuoLXQkQFTtiSIJ0edp8JuKzHZXTAmtBm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:21:52', '2025-08-27 17:22:01'),
+(53, 'boviqafih', 'Dominique', 'Conner', 'qazitug@mailinator.com', '(294) 719-9133', '$2b$10$5FMyQTqpP3nZacqeoyWjDOVoigrhcxRLp4SZo.XfDTt7O9r7tD3C2', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '662670', 0, NULL, NULL, 0, '2025-08-28 01:25:33', '2025-08-28 01:25:33'),
+(54, 'numuzufot', 'Slade', 'Dixon', 'zupejyton@mailinator.com', '9815618907', '$2b$10$Ya8bGxm9dJgUdYsYwp/eQ.XSK3sWfPhf4Gp0xrcLFBdpWQTRlc2vO', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '161043', 0, NULL, NULL, 0, '2025-08-28 01:30:28', '2025-08-28 01:30:28');
 
 -- --------------------------------------------------------
 
@@ -493,7 +494,7 @@ CREATE TABLE `roh_vehicle_attributes` (
   `engine_type` enum('Petrol','Diesel','Electric','Hybrid','CNG') DEFAULT 'Petrol',
   `transmission_type` enum('Manual','Automatic') DEFAULT 'Automatic',
   `fuel_consumption` decimal(5,2) DEFAULT NULL,
-  `seating_capacity` int(11) DEFAULT 5,
+  `seating_capacity` int(11) DEFAULT '5',
   `color` varchar(100) DEFAULT NULL,
   `vehicle_age` int(11) DEFAULT NULL,
   `mileage` decimal(10,2) DEFAULT NULL,
@@ -502,23 +503,23 @@ CREATE TABLE `roh_vehicle_attributes` (
   `vehicle_type` enum('Luxury','Economy','Standard') DEFAULT 'Standard',
   `rental_period` enum('Daily','Weekly','Monthly','Custom') DEFAULT 'Daily',
   `vehicle_condition` enum('New','Used','Refurbished') DEFAULT 'Used',
-  `accessories` text DEFAULT NULL,
+  `accessories` text,
   `address_1` varchar(255) DEFAULT NULL,
   `landmark` varchar(255) DEFAULT NULL,
   `item_state` varchar(100) DEFAULT NULL,
   `city` varchar(100) DEFAULT NULL,
   `pincode` int(11) DEFAULT NULL,
-  `booking_instructions` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `booking_instructions` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `roh_vehicle_attributes`
 --
 
 INSERT INTO `roh_vehicle_attributes` (`id`, `vehicle_id`, `engine_type`, `transmission_type`, `fuel_consumption`, `seating_capacity`, `color`, `vehicle_age`, `mileage`, `registration_number`, `insurance_validity`, `vehicle_type`, `rental_period`, `vehicle_condition`, `accessories`, `address_1`, `landmark`, `item_state`, `city`, `pincode`, `booking_instructions`) VALUES
-(1, 24, 'Diesel', 'Manual', 100.00, 7, 'Z Black', 2, 14.00, 'TR01 AB 1234', '2025-08-25', 'Standard', 'Daily', 'New', 'Stylish Alloy Wheels\r\n\r\nPremium Fog Lamps\r\n\r\nRoof Rails\r\n\r\nDesigner Seat Covers\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nFloor Mats', 'Scorpio Car Rentals', '2nd Floor, MG Road', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery'),
-(2, 25, 'Petrol', 'Manual', 18.00, 5, 'Polar White', 3, 11.00, 'TR02 XY 5678', '2025-08-27', 'Luxury', 'Daily', 'New', 'Alloy Wheels\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nSeat Covers\r\n\r\nFloor Mats\r\n\r\nFog Lamps', 'i20 Car Rentals', 'Ground Floor, HGB Road,', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery'),
-(3, 26, 'Petrol', 'Automatic', 4.00, 2, 'Black', 3, 3.00, 'RJ45DD9892', '2025-08-31', 'Luxury', 'Daily', 'New', 'Helemt', 'Vaishali nagar', 'Plot no.11', 'Rajasthan', 'Jaipur', 302021, 'No booking instructions fro S1000RR ');
+(1, 24, 'Diesel', 'Manual', '100.00', 7, 'Z Black', 2, '14.00', 'TR01 AB 1234', '2025-08-25', 'Standard', 'Daily', 'New', 'Stylish Alloy Wheels\r\n\r\nPremium Fog Lamps\r\n\r\nRoof Rails\r\n\r\nDesigner Seat Covers\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nFloor Mats', 'Scorpio Car Rentals', '2nd Floor, MG Road', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery'),
+(2, 25, 'Petrol', 'Manual', '18.00', 5, 'Polar White', 3, '11.00', 'TR02 XY 5678', '2025-08-27', 'Luxury', 'Daily', 'New', 'Alloy Wheels\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nSeat Covers\r\n\r\nFloor Mats\r\n\r\nFog Lamps', 'i20 Car Rentals', 'Ground Floor, HGB Road,', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery'),
+(3, 26, 'Petrol', 'Automatic', '4.00', 2, 'Black', 3, '3.00', 'RJ45DD9892', '2025-08-31', 'Luxury', 'Daily', 'New', 'Helemt', 'Vaishali nagar', 'Plot no.11', 'Rajasthan', 'Jaipur', 302021, 'No booking instructions fro S1000RR ');
 
 -- --------------------------------------------------------
 
@@ -530,34 +531,34 @@ CREATE TABLE `roh_vehicle_details` (
   `id` int(11) NOT NULL,
   `service_provider_id` int(11) NOT NULL,
   `item_name` varchar(255) NOT NULL,
-  `vehicle_description` text DEFAULT NULL,
+  `vehicle_description` text,
   `category_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL,
   `brand_id` int(11) NOT NULL,
   `model_id` int(11) NOT NULL,
-  `image_ids` text DEFAULT NULL,
+  `image_ids` text,
   `price_per_day` decimal(10,2) DEFAULT NULL,
   `price_per_week` decimal(10,2) DEFAULT NULL,
   `price_per_month` decimal(10,2) DEFAULT NULL,
   `price_custom_day` decimal(10,2) DEFAULT NULL,
-  `item_status` tinyint(1) DEFAULT 1,
-  `admin_item_status` tinyint(1) DEFAULT 1,
-  `total_views` int(11) DEFAULT 0,
+  `item_status` tinyint(1) DEFAULT '1',
+  `admin_item_status` tinyint(1) DEFAULT '1',
+  `total_views` int(11) DEFAULT '0',
   `security_deposit` decimal(10,2) DEFAULT NULL,
-  `booking_terms` text DEFAULT NULL,
+  `booking_terms` text,
   `availability_status` enum('Available','Unavailable','Booked') DEFAULT 'Available',
-  `add_date` datetime DEFAULT current_timestamp(),
-  `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `add_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `edit_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `roh_vehicle_details`
 --
 
 INSERT INTO `roh_vehicle_details` (`id`, `service_provider_id`, `item_name`, `vehicle_description`, `category_id`, `tag_id`, `brand_id`, `model_id`, `image_ids`, `price_per_day`, `price_per_week`, `price_per_month`, `price_custom_day`, `item_status`, `admin_item_status`, `total_views`, `security_deposit`, `booking_terms`, `availability_status`, `add_date`, `edit_date`) VALUES
-(24, 50, 'Mahindra Scorpio – Power Meets Style', 'The Big Daddy SUV – Mahindra Scorpio is known for its bold looks, powerful performance, and unmatched road presence. Whether it’s a city ride or an off-road adventure, the Scorpio is built to conquer every journey with style and comfort.', 1, 2, 3, 5, '[54,55,56,57,58,59]', 2500.00, 15000.00, 45000.00, 120000.00, 1, 1, 0, 9998.00, 'Booking amount: ₹5,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes RTO, insurance, and taxes\r\n\r\nDelivery subject to stock availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:44:58', '2025-08-28 06:16:16'),
-(25, 50, 'Hyundai i20 – Premium Hatchback', 'The Hyundai i20 is a premium hatchback that blends style, comfort, and efficiency. With its modern design, advanced features, and smooth driving experience, the i20 is the perfect choice for city commutes and weekend getaways.', 1, 2, 6, 11, '[60,61,62,63,64]', 1800.00, 11000.00, 32000.00, 69998.00, 1, 1, 0, 7000.00, 'Booking amount: ₹3,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes fuel, tolls, RTO, insurance, and taxes\r\n\r\nDelivery subject to availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:56:55', '2025-08-28 06:16:19'),
-(26, 50, 'BMW S1000RR', 'The S1000RR is BMW\'s flagship sportsbike that is known for its top-end performance, modern safety electronics and excellent handling abilities. But just like other BMWs, the S1000RR is also expensive to purchase and maintain', 1, 2, 5, 9, '[65,66,67,68]', 1200.00, 8000.00, 25000.00, 45000.00, 1, 1, 0, 596.00, 'No Booking terms for S1000RR. ', 'Available', '2025-08-30 04:38:18', '2025-08-30 15:57:56');
+(24, 50, 'Mahindra Scorpio – Power Meets Style', 'The Big Daddy SUV – Mahindra Scorpio is known for its bold looks, powerful performance, and unmatched road presence. Whether it’s a city ride or an off-road adventure, the Scorpio is built to conquer every journey with style and comfort.', 1, 2, 3, 5, '[54,55,56,57,58,59]', '2500.00', '15000.00', '45000.00', '120000.00', 1, 1, 0, '9998.00', 'Booking amount: ₹5,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes RTO, insurance, and taxes\r\n\r\nDelivery subject to stock availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:44:58', '2025-08-28 06:16:16'),
+(25, 50, 'Hyundai i20 – Premium Hatchback', 'The Hyundai i20 is a premium hatchback that blends style, comfort, and efficiency. With its modern design, advanced features, and smooth driving experience, the i20 is the perfect choice for city commutes and weekend getaways.', 1, 2, 6, 11, '[60,61,62,63,64]', '1800.00', '11000.00', '32000.00', '69998.00', 1, 1, 0, '7000.00', 'Booking amount: ₹3,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes fuel, tolls, RTO, insurance, and taxes\r\n\r\nDelivery subject to availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:56:55', '2025-08-28 06:16:19'),
+(26, 50, 'BMW S1000RR', 'The S1000RR is BMW\'s flagship sportsbike that is known for its top-end performance, modern safety electronics and excellent handling abilities. But just like other BMWs, the S1000RR is also expensive to purchase and maintain', 1, 2, 5, 9, '[65,66,67,68]', '1200.00', '8000.00', '25000.00', '45000.00', 1, 1, 0, '596.00', 'No Booking terms for S1000RR. ', 'Available', '2025-08-30 04:38:18', '2025-08-30 15:57:56');
 
 --
 -- Indexes for dumped tables
@@ -671,13 +672,13 @@ ALTER TABLE `roh_users`
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`
 --
 ALTER TABLE `roh_vehicle_attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_details`
 --
 ALTER TABLE `roh_vehicle_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Constraints for dumped tables
