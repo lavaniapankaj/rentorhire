@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const path = require('path');
 
-
-
 function hostModuleApi() {
 
     /** get all active parent category Coded by Vishnu August 19 2025 */
@@ -20,7 +18,6 @@ function hostModuleApi() {
             res.status(500).json({ message: 'Internal server error' });
         }
     };
-
 
     /** get all active child category Coded by Vishnu August 20 2025 */
     this.getAllActiveChildCategory = async (req, res) => {
@@ -96,114 +93,138 @@ function hostModuleApi() {
     /** Main Api for Become a host Add new vehicle Coded by Vishnu August 22 2025 */
     this.addNewVehicle = async (req, res) => {
         const connection = await pool.getConnection();
+        console.log("controller me aagya");
+      
         try {
-            const {
+          const {
             service_provider_id,
-            item_name,
-            vehicle_description,
-            category_id,
-            tag_id,
-            brand_id,
-            model_id,
-            price_per_day,
-            price_per_week,
-            price_per_month,
-            price_custom_day,
-            item_status,
-            admin_item_status,
-            total_views,
-            security_deposit,
-            booking_terms,
-            availability_status,
-            /** Attributes table fields */
-            engine_type,
-            transmission_type,
-            fuel_consumption,
-            seating_capacity,
-            color,
-            vehicle_age,
-            mileage,
-            registration_number,
-            insurance_validity,
-            vehicle_type,
-            rental_period,
-            vehicle_condition,
-            accessories,
-            address_1,
+            businessName,
+            contactPerson,
+            whatsappNumber,
+            gstNumber,
+            deliveryAvailable,
+            streetAddress,
             landmark,
-            item_state,
             city,
-            pincode,
-            booking_instructions
-            } = req.body;
-
-            /** Basic validations */
-            if (!service_provider_id) return res.status(400).json({ message: 'service_provider_id is required' });
-            if (!item_name) return res.status(400).json({ message: 'item_name is required' });
-
-            /** Start transaction */
-            await connection.beginTransaction();
-
-            /** 1) Save uploaded images into roh_media_gallery and collect their IDs */
+            state,
+            pinCode,
+            items, // 👈 array of items from frontend
+          } = req.body;
+      
+          /** Validation */
+          if (!service_provider_id) {
+            return res.status(400).json({ message: "service_provider_id is required" });
+          }
+          if (!items || !Array.isArray(items) || items.length === 0) {
+            return res.status(400).json({ message: "At least one item is required" });
+          }
+      
+          /** Start transaction */
+          await connection.beginTransaction();
+      
+          const createdVehicles = [];
+      
+          for (const item of items) {
+            const {
+              category,
+              subCategory,
+              details = {}
+            } = item;
+      
+            const {
+              item_name,
+              vehicle_description,
+              price_per_day,
+              price_per_week,
+              price_per_month,
+              price_custom_day,
+              security_deposit,
+              booking_terms,
+              availability_status,
+              engine_type,
+              transmission_type,
+              fuel_consumption,
+              seating_capacity,
+              color,
+              vehicle_age,
+              mileage,
+              registration_number,
+              insurance_validity,
+              vehicle_type,
+              rental_period,
+              vehicle_condition,
+              accessories,
+              address_1,
+              landmark,
+              city,
+              item_state,
+              pincode,
+              booking_instructions,
+            } = details;
+      
+            if (!item_name) {
+              throw new Error("item_name is required in each item");
+            }
+      
+            /** 1) Save uploaded images into roh_media_gallery */
             const files = Array.isArray(req.files) ? req.files : [];
             const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
-
+      
             const mediaIds = [];
-            const staticPathForDB = '/media/host/items/';
-
+            const staticPathForDB = "/media/host/items/";
+      
             for (const f of files) {
-            // file_type: try MIME last part or fall back to file extension
-            const extFromMime = (f.mimetype && f.mimetype.includes('/')) ? f.mimetype.split('/')[1] : null;
-            const extFromName = path.extname(f.originalname).replace('.', '') || null;
-            const fileType = extFromMime || extFromName || 'bin';
-
-            const [ins] = await connection.query(mediaQuery, [
-                f.filename,               // file_name
-                staticPathForDB,          // file_path (static, as required)
-                fileType,                 // file_type (jpg/jpeg/png/webp...)
-                1                         // active
-            ]);
-            mediaIds.push(ins.insertId);
+              const extFromMime =
+                f.mimetype && f.mimetype.includes("/") ? f.mimetype.split("/")[1] : null;
+              const extFromName = path.extname(f.originalname).replace(".", "") || null;
+              const fileType = extFromMime || extFromName || "bin";
+      
+              const [ins] = await connection.query(mediaQuery, [
+                f.filename,
+                staticPathForDB,
+                fileType,
+                1,
+              ]);
+              mediaIds.push(ins.insertId);
             }
-
-            /** 2) image_ids JSON (store DB IDs) */
-            const imagesJson = JSON.stringify(mediaIds); // e.g., [12,13,14]
-
-            /** 3) Insert into roh_vehicle_details */
+      
+            const imagesJson = JSON.stringify(mediaIds);
+      
+            /** 2) Insert into roh_vehicle_details */
             const [vehicleResult] = await connection.query(
-            `INSERT INTO roh_vehicle_details 
+              `INSERT INTO roh_vehicle_details 
                 (service_provider_id, item_name, vehicle_description, category_id, tag_id, brand_id, model_id, image_ids, price_per_day, price_per_week, price_per_month, price_custom_day, item_status, admin_item_status, total_views, security_deposit, booking_terms, availability_status)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              [
                 service_provider_id,
                 item_name,
                 vehicle_description || null,
-                category_id || null,
-                tag_id || null,
-                brand_id || null,
-                model_id || null,
-                imagesJson, // <— yahan JSON array of media IDs
+                category || null, // 👈 using category id
+                1, // tag_id (if needed later)
+                1, // brand_id
+                1, // model_id
+                imagesJson,
                 price_per_day || null,
                 price_per_week || null,
                 price_per_month || null,
                 price_custom_day || null,
-                item_status || 1,
-                admin_item_status || 0,
-                total_views || 0,
+                1, // item_status
+                0, // admin_item_status
+                0, // total_views
                 security_deposit || null,
                 booking_terms || null,
-                availability_status || 1
-            ]
+                availability_status || 1,
+              ]
             );
-
+      
             const vehicle_id = vehicleResult.insertId;
-
-            /** 4) Insert into roh_vehicle_attributes */
+      
+            /** 3) Insert into roh_vehicle_attributes */
             await connection.query(
-            `INSERT INTO roh_vehicle_attributes
+              `INSERT INTO roh_vehicle_attributes
                 (vehicle_id, engine_type, transmission_type, fuel_consumption, seating_capacity, color, vehicle_age, mileage, registration_number, insurance_validity, vehicle_type, rental_period, vehicle_condition, accessories, address_1, landmark, item_state, city, pincode, booking_instructions)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              [
                 vehicle_id,
                 engine_type || null,
                 transmission_type || null,
@@ -223,27 +244,33 @@ function hostModuleApi() {
                 item_state || null,
                 city || null,
                 pincode || null,
-                booking_instructions || null
-            ]
+                booking_instructions || null,
+              ]
             );
-
-            /** Commit */
-            await connection.commit();
-            connection.release();
-
-            return res.status(200).json({
-            message: 'Vehicle and attributes added successfully',
-            vehicle_id,
-            image_ids: mediaIds // helpful response
-            });
-
+      
+            createdVehicles.push({ vehicle_id, image_ids: mediaIds });
+          }
+      
+          /** Commit transaction */
+          await connection.commit();
+          connection.release();
+      
+          return res.status(200).json({
+            message: "Vehicles and attributes added successfully",
+            createdVehicles,
+          });
         } catch (error) {
-            try { await connection.rollback(); } catch (e) {}
-            try { connection.release(); } catch (e) {}
-            console.error(error);
-            return res.status(500).json({ message: 'Internal server error' });
+          try {
+            await connection.rollback();
+          } catch (e) {}
+          try {
+            connection.release();
+          } catch (e) {}
+          console.error(error);
+          return res.status(500).json({ message: "Internal server error" });
         }
-    };
+      };
+      
 
     /** Api to get all login service providers listed items - Coded by Vishnu August 23 2025 */
     this.getServiceProviderListedItems = async (req, res) => {
@@ -307,7 +334,6 @@ function hostModuleApi() {
         }
     };
 
-
     /** Api to view login service providers single items - Coded by Vishnu August 25 2025 */
     this.getServiceProviderSingleListedItems = async (req, res) => {
         try {
@@ -330,11 +356,6 @@ function hostModuleApi() {
             return res.status(500).json({ message: 'Internal server error' });
         }
     };
-
-
-
-
-
 }
 
 module.exports = new hostModuleApi();

@@ -91,7 +91,7 @@ const Header = () => {
                 Dashboard
               </Link>
 
-              <Link href="/lokesh/signup.html" style={{ textDecoration: 'none' }}>
+              <Link href="/become-a-host" style={{ textDecoration: 'none' }}>
                 <div className="d-flex align-items-center">
                   <div className={styles.buttonCustom}>
                     <button>List Your Item</button>

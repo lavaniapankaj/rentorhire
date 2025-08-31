@@ -3,9 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 export function middleware(request) {
   const { pathname } = request.nextUrl;
-
-  console.log("mid works");
-
+  
   const token = request.cookies.get('authToken')?.value;
   const authUserCookie = request.cookies.get('authUser')?.value;
 
@@ -15,6 +13,7 @@ export function middleware(request) {
   const redirectToAdminLogin = () => NextResponse.redirect(new URL('/auth/admin', request.url));
   const redirectToAdminDashboard = () => NextResponse.redirect(new URL('/adminrohpnl', request.url));
   const redirectToUserDashboard = () => NextResponse.redirect(new URL('/dashboard', request.url));
+  const redirectToBecomeAHost = () => NextResponse.redirect(new URL('/become-a-host', request.url));
 
   // --- Handle `/login` ---
   if (pathname.startsWith('/login') || pathname.startsWith('/register')) {
@@ -118,6 +117,34 @@ export function middleware(request) {
     }
   }
 
+  // --- Handle become a host page --- 
+  if(pathname.startsWith('/become-a-host')){
+    // case 1: no token or no user → user login
+    if (!token || !authUser) {
+      return redirectToUserLogin();
+    }
+
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      // case 2: token expired → user login
+      if (decodedToken.exp < currentTime) {
+        return redirectToUserLogin();
+      }
+
+      // case 3: token valid
+      if (authUser.role_id == 1) {
+        // user trying to hit become a host → redirect to become a host
+        return redirectToBecomeAHost();
+      } else {
+        // normal user → allow become a host
+        return NextResponse.next();
+      }
+    } catch (err) {
+      return redirectToUserLogin();
+    }
+  } 
 }
 
 export const config = {
