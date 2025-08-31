@@ -526,8 +526,8 @@ export default function BecomeAHostPage() {
                               ))}
                               
                               {/* ADD ITEM BTN */}
-                              <button type="button" className={`${styles.btn} mb-3 addMoreBtn`} onClick={addItem}> + Add Item </button>
-                              <div className={`${styles.footerSepertor} mt-3 ${styles.mb4}`}></div>
+                              {/* <button type="button" className={`${styles.btn} mb-3 addMoreBtn`} onClick={addItem}> + Add Item </button> */}
+                              {/* <div className={`${styles.footerSepertor} mt-3 ${styles.mb4}`}></div> */}
                               
                               {/* FOOTER BTNS */}
                               <div className={`${styles.dFlex} justify-content-between ${styles.gap2}`}>
