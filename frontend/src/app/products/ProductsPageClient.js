@@ -259,7 +259,7 @@ export default function ProductsPageClient() {
                       src={
                         p?.media_gallery?.[0]
                           ? p.media_gallery[0].file_path + p.media_gallery[0].file_name
-                          : "/images/placeholder.png"
+                          : "/media/host/items/placeholder.png"
                       }
                       alt={p?.item_name || "Item image"}
                       width={600}
