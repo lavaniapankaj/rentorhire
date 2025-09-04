@@ -229,7 +229,7 @@ export default function RentHomePage() {
                   <div key={p.id} className="col-12 col-sm-6 col-lg-3">
                     <div className={`card ${styles.fleetscard} h-100`}>
                       <Image
-                        src={p.media_gallery?.[0]?.file_path + p.media_gallery?.[0]?.file_name || "/images/placeholder.png"}
+                        src={p.media_gallery?.[0]?.file_path + p.media_gallery?.[0]?.file_name || "/media/host/items/placeholder.png"}
                         alt={p.item_name}
                         width={600}
                         height={360}

@@ -2,26 +2,54 @@
 import { useState, useEffect, useRef } from "react";
 import styles from "./view.module.css";
 import Image from "next/image";
+import { jwtDecode } from "jwt-decode";
 
 export default function Viewproductspop({ triggerId, onClose }) {
   const [loading, setLoading] = useState(false);
   const [item, setItem] = useState(null);
   const [serviceProvider, setServiceProvider] = useState(null);
   const [parsedAuthUserData, setParsedAuthUserData] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const abortRef = useRef(null);
 
   const getCookie = (name) => {
+    if (typeof document === "undefined") return undefined;
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(";").shift();
   };
 
-  /** Get current URL (for redirect) */
   const getCurrentUrl = () => {
-    if (typeof window !== "undefined") {
-      return window.location.href;
-    }
+    if (typeof window !== "undefined") return window.location.href;
     return "/";
+  };
+
+  /** Validate JWT + role (optional) */
+  const getValidSession = () => {
+    try {
+      const authUserRaw = getCookie("authUser");
+      const token =
+        getCookie("token") ||
+        getCookie("authToken") ||
+        getCookie("accessToken");
+
+      const authUser = authUserRaw ? JSON.parse(authUserRaw) : null;
+      if (!token || !authUser) return { isValid: false, authUser: null };
+
+      const decoded = jwtDecode(token);
+      const now = Date.now() / 1000;
+
+      if (!decoded?.exp || decoded.exp <= now) {
+        return { isValid: false, authUser: null };
+      }
+
+      // Optional: role-based gating (example)
+      // if (authUser.role_id !== 1) return { isValid: false, authUser: null };
+
+      return { isValid: true, authUser };
+    } catch (e) {
+      return { isValid: false, authUser: null };
+    }
   };
 
   /** Body scroll lock while modal open */
@@ -34,11 +62,11 @@ export default function Viewproductspop({ triggerId, onClose }) {
     };
   }, [triggerId]);
 
-  // Fetch item
+  // Fetch item (+ conditionally fetch service provider info on valid token)
   useEffect(() => {
-    const authUserData = getCookie("authUser");
-    const parsed = authUserData ? JSON.parse(authUserData) : null;
-    setParsedAuthUserData(parsed);
+    const { isValid, authUser } = getValidSession();
+    setIsAuthenticated(isValid);
+    setParsedAuthUserData(authUser || null);
 
     if (!triggerId) return;
 
@@ -60,12 +88,13 @@ export default function Viewproductspop({ triggerId, onClose }) {
             signal: ac.signal,
           }
         );
+
         const data = await res.json();
         const singleItem = Array.isArray(data) ? data[0] : data;
         setItem(singleItem);
 
-        /** Fetch service provider details */
-        if (singleItem?.service_provider_id) {
+        // Only fetch service provider info if token/session is valid
+        if (isValid && singleItem?.service_provider_id) {
           const res2 = await fetch(
             `${process.env.NEXT_PUBLIC_API_BASE_USER_URL}/getserviceprovideinfo`,
             {
@@ -74,6 +103,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
               body: JSON.stringify({
                 service_provider_id: singleItem.service_provider_id,
               }),
+              signal: ac.signal,
             }
           );
           const data2 = await res2.json();
@@ -101,11 +131,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
       onClick={onClose}
     >
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <button
-          className={styles.closeBtn}
-          onClick={onClose}
-          aria-label="Close"
-        >
+        <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
           ✕
         </button>
 
@@ -188,26 +214,32 @@ export default function Viewproductspop({ triggerId, onClose }) {
             </div>
 
             <div className={styles.serProInfo}>
-                {serviceProvider ? (
-                    parsedAuthUserData ? (
-                    /** if user is logged in → contact button + phone number */
-                    <a href={`tel:${serviceProvider.phone_number}`}>
-                        <button>
-                        Contact {serviceProvider.first_name} {serviceProvider.last_name} (
-                        {serviceProvider.phone_number})
-                        </button>
-                    </a>
-                    ) : (
-                    /** if user is not logged in → login button */
-                    <a
-                        href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}
-                    >
-                        <button>Contact Seller</button>
-                    </a>
-                    )
+              {serviceProvider ? (
+                isAuthenticated ? (
+                  // Valid token → direct contact
+                  <a href={`tel:${serviceProvider.phone_number}`}>
+                    <button>
+                      Contact {serviceProvider.first_name} {serviceProvider.last_name} (
+                      {serviceProvider.phone_number})
+                    </button>
+                  </a>
                 ) : (
-                    <button disabled>Loading contact…</button>
-                )}
+                  // No/expired token → ask login with redirect
+                  <a
+                    href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}
+                  >
+                    <button>Contact Seller</button>
+                  </a>
+                )
+              ) : isAuthenticated ? (
+                <button disabled>Loading contact…</button>
+              ) : (
+                <a
+                  href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}
+                >
+                  <button>Contact Seller</button>
+                </a>
+              )}
             </div>
           </div>
         )}
