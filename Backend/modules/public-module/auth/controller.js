@@ -108,9 +108,7 @@ function authApi() {
 
             /** Step 1: Check if email exists */
             const [emailRows] = await pool.query(`
-                SELECT user_id, email, user_name, first_name, last_name, password_hash,
-                    user_role_id, active, authorize_code, verified
-                FROM roh_users WHERE email = ?
+                SELECT user_id, email, user_name, first_name, last_name, password_hash, user_role_id, active, authorize_code, verified, is_service_provider FROM roh_users WHERE email = ?
             `, [email]);
 
             if (emailRows.length === 0) {
@@ -165,7 +163,8 @@ function authApi() {
                     email: user.email,
                     firstName: user.first_name,
                     lastName: user.last_name,
-                    role_id: user.user_role_id
+                    role_id: user.user_role_id,
+                    is_service_provider: user.is_service_provider
                 }
             });
         } catch (error) {
@@ -343,7 +342,6 @@ function authApi() {
             return res.status(500).json({ message: 'Internal Server error' });
         }
     };
-
 
     /** Get all recent 8 Active products on home page - Coded by Vishnu Aug 30 2025 */
     this.getRecentActiveProducts = async (req, res) => {
@@ -543,8 +541,7 @@ function authApi() {
     }
     };
 
-
-     /** Api to view single items - Coded by Vishnu August 30 2025 */
+    /** Api to view single items - Coded by Vishnu August 30 2025 */
     this.getsingleListedItemsVie = async (req, res) => {
         try {
             const { id } = req.body;
@@ -629,10 +626,5 @@ function authApi() {
             return res.status(500).json({ message: 'Internal server error' });
         }
     };
-
-
-            
-
-
 }
 module.exports = new authApi();

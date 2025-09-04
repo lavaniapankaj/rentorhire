@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 31, 2025 at 10:27 PM
+-- Generation Time: Sep 04, 2025 at 04:51 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.3.1
 
@@ -252,7 +252,16 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 (65, 'bmw-s1000rr-headshot-1.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18'),
 (66, 'bmw-s1000rr-headshot-2.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18'),
 (67, 'bmw-s1000rr-headshot-3.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18'),
-(68, 'bmw-s1000rr-headshot-4.png', '/media/host/items/', 'png', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18');
+(68, 'bmw-s1000rr-headshot-4.png', '/media/host/items/', 'png', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18'),
+(69, 'images.png', '/media/host/items/', 'png', 1, '2025-09-03 19:43:26', '2025-09-03 19:43:26'),
+(71, 'car1.jpg', '/media/host/items/', 'jpeg', 1, '2025-09-03 20:17:19', '2025-09-03 20:17:19'),
+(72, 'car2.jpg', '/media/host/items/', 'jpeg', 1, '2025-09-03 20:17:19', '2025-09-03 20:17:19'),
+(73, 'car3.jpg', '/media/host/items/', 'jpeg', 1, '2025-09-03 20:17:19', '2025-09-03 20:17:19'),
+(74, 'car4.jpg', '/media/host/items/', 'jpeg', 1, '2025-09-03 20:17:19', '2025-09-03 20:17:19'),
+(75, 'car1-1.jpg', '/media/host/items/', 'jpeg', 1, '2025-09-04 16:49:19', '2025-09-04 16:49:19'),
+(76, 'car2-1.jpg', '/media/host/items/', 'jpeg', 1, '2025-09-04 16:49:19', '2025-09-04 16:49:19'),
+(77, 'car3-1.jpg', '/media/host/items/', 'jpeg', 1, '2025-09-04 16:49:19', '2025-09-04 16:49:19'),
+(78, 'car4-1.jpg', '/media/host/items/', 'jpeg', 1, '2025-09-04 16:49:19', '2025-09-04 16:49:19');
 
 -- --------------------------------------------------------
 
@@ -453,6 +462,7 @@ CREATE TABLE `roh_users` (
   `pincode` int(11) DEFAULT NULL,
   `authorize_code` varchar(7) DEFAULT NULL,
   `verified` int(5) NOT NULL,
+  `is_service_provider` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'is_service_provider => 0(Only User)\r\n\r\nis_service_provider => 1(Service provider and products listed for the user)',
   `add_id` int(11) DEFAULT NULL,
   `edit_id` int(11) DEFAULT NULL,
   `active` tinyint(1) DEFAULT '1',
@@ -464,23 +474,23 @@ CREATE TABLE `roh_users` (
 -- Dumping data for table `roh_users`
 --
 
-INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `email`, `phone_number`, `password_hash`, `user_role_id`, `profile_picture_url`, `business_name`, `address_1`, `landmark`, `state`, `city`, `pincode`, `authorize_code`, `verified`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$xdm/c.8Yh4o9VBQnAqvZW.GImjKMS3tYM/YMIJDsTRqv5YkQyKUcC', 1, '25', NULL, 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 1, 1, 19, 1, '2025-07-13 11:26:08', '2025-08-12 17:24:12'),
-(2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$VswYxyPGRuYuU/1IFkMS1uAgYybZCvHIwhb93CFUtmyHUZyddYFf.', 2, '', NULL, 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 1, 1, 1, 1, '2025-07-13 11:27:31', '2025-08-12 17:24:15'),
-(18, 'lavaniapankaj', 'Pankaj ', 'Verma', 'lavaniapankaj@gmail.com', '9876543210', '$2b$10$fwpmVvn/RVr3d/cbedmo8eTTxBebn0XhKtfXQt4dHk32IkBZFw8bG', 1, '1', NULL, '13th Street', '47 W 13th St, New York, NY 10011, USA', 'New York', 'CT', 10011, NULL, 1, 1, 0, 1, '2025-07-29 18:19:15', '2025-08-12 17:24:19'),
-(19, 'ecmascript', 'Vishnu', 'Kumawat', 'ecmascript.php@gmail.com', '9783457008', '$2b$10$bVzM.eJjjhU7boZzNEE8aul7iycXabXaDmIuQAB9CXMTfDLP/v8hC', 1, '2', NULL, 'Stuyvesant 14th St & 1st Ave ', '238 1st Ave, New York, NY 10009, USA', 'New York', 'CT', 10009, NULL, 1, 1, 0, 1, '2025-07-29 18:32:46', '2025-08-12 17:24:21'),
-(20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 3, '3', NULL, 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, NULL, 1, 1, 1, 1, '2025-07-29 18:38:25', '2025-08-31 13:34:26'),
-(44, 'rudrax', 'Raymond', 'Foster', 'bowijen@mailinator.com', '9999999999', '$2b$10$qchWQg.7/f.OvDEqes6MqeulRouWGrswPU5IFWhE4Ablj/rmdKIqq', 3, NULL, NULL, '', '', '', '', 123456, '1234', 0, NULL, NULL, 1, '2025-08-13 15:40:33', '2025-08-23 09:48:33'),
-(45, 'papyviq', 'Daphne', 'Spence', 'ligy@mailinator.com', '8957058952', '$2b$10$gv2JDIFncJrkcn/Hau.mf.hmExvOYvmMWMTkZQKsylG2Co0hdzEwK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-23 13:10:32', '2025-08-23 13:16:46'),
-(46, 'natup', 'Holly', 'Rush', 'cexul@mailinator.com', '2538281972', '$2b$10$DBrEyUDMsLAjCnWHfr3IfeCyeBtJ2Cv78q8c5YaysfXDPqQYpwYNi', 3, '41', NULL, '70 West New Parkway', 'Quia ut sed maiores ', 'Ea a qui amet cupid', 'Dolores harum ipsum ', 578908, NULL, 0, 1, 1, 1, '2025-08-23 16:41:42', '2025-08-23 16:42:02'),
-(47, 'bitugoxe', 'Amity', 'Schultz', 'perikop@mailinator.com', '4869643856', '$2b$10$Ecgs/LNcxCFKv/CqgQ7C.uS0W9Ox3moJ9z0G1XRC0mOffe6sVtXOO', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '497910', 0, NULL, NULL, 0, '2025-08-27 16:44:32', '2025-08-27 16:51:00'),
-(48, 'soruke', 'Chadwick', 'Dalton', 'qugenehiv@mailinator.com', '4625174203', '$2b$10$dxqghMmEVZujsUIPSeDF7uPStFFsuvOfKL.J6onRbs1jlB6l4ohQK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '677190', 0, NULL, NULL, 0, '2025-08-27 16:53:58', '2025-08-27 16:53:58'),
-(49, 'qyqaluvuqu', 'Isaac', 'Hall', 'bobyhiz@mailinator.com', '2883996366', '$2b$10$StXcohwoZNeRIjOSwwfJPeMWH8EAC8c5Q79f4B3noutl1mZIaPNJW', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '110654', 0, NULL, NULL, 0, '2025-08-27 16:54:55', '2025-08-27 16:54:55'),
-(50, 'rent_or_hire', 'Den', 'Cook', 'roh@hosting.com', '9876543219', '$2b$10$TwK0imHqaYotk9QvtG0aiu65rXvC4gBHxAnm26vXGY77eWDNkOMZq', 3, NULL, NULL, 'Jaipur', '', '', '', 302012, '999000', 1, NULL, NULL, 1, '2025-08-27 17:16:42', '2025-08-30 10:25:19'),
-(51, 'vedoq', 'Jenette', 'Cannon', 'huqinileju@mailinator.com', '5317534899', '$2b$10$VFU5t7sxh9TVa8Jd.dmUiuKQtDU8sS13QWmqmC3WZKnytHuoIum5W', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:18:00', '2025-08-27 17:20:13'),
-(52, 'pidawoh', 'Lunea', 'Nolan', 'lyhede@mailinator.com', '1982856472', '$2b$10$GY2KBR7dPhpa.RMI3KziIuoLXQkQFTtiSIJ0edp8JuKzHZXTAmtBm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, '2025-08-27 17:21:52', '2025-08-27 17:22:01'),
-(53, 'boviqafih', 'Dominique', 'Conner', 'qazitug@mailinator.com', '(294) 719-9133', '$2b$10$5FMyQTqpP3nZacqeoyWjDOVoigrhcxRLp4SZo.XfDTt7O9r7tD3C2', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '662670', 0, NULL, NULL, 0, '2025-08-28 01:25:33', '2025-08-28 01:25:33'),
-(54, 'numuzufot', 'Slade', 'Dixon', 'zupejyton@mailinator.com', '9815618907', '$2b$10$Ya8bGxm9dJgUdYsYwp/eQ.XSK3sWfPhf4Gp0xrcLFBdpWQTRlc2vO', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '161043', 0, NULL, NULL, 0, '2025-08-28 01:30:28', '2025-08-28 01:30:28');
+INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `email`, `phone_number`, `password_hash`, `user_role_id`, `profile_picture_url`, `business_name`, `address_1`, `landmark`, `state`, `city`, `pincode`, `authorize_code`, `verified`, `is_service_provider`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
+(1, 'Super Admin', 'Super', 'Admin', 'superadmin@gmail.com', '9012345678', '$2b$10$xdm/c.8Yh4o9VBQnAqvZW.GImjKMS3tYM/YMIJDsTRqv5YkQyKUcC', 1, '25', NULL, 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 1, 0, 1, 19, 1, '2025-07-13 11:26:08', '2025-08-12 17:24:12'),
+(2, 'Service Provider', 'Service', 'Provider', 'serviceprovider@gmail.com', '9012345678', '$2b$10$VswYxyPGRuYuU/1IFkMS1uAgYybZCvHIwhb93CFUtmyHUZyddYFf.', 2, '', NULL, 'Test address 2', 'Test landmark', 'Sikar', 'Rajasthan', 302001, NULL, 1, 0, 1, 1, 1, '2025-07-13 11:27:31', '2025-08-12 17:24:15'),
+(18, 'lavaniapankaj', 'Pankaj ', 'Verma', 'lavaniapankaj@gmail.com', '9876543210', '$2b$10$fwpmVvn/RVr3d/cbedmo8eTTxBebn0XhKtfXQt4dHk32IkBZFw8bG', 1, '1', NULL, '13th Street', '47 W 13th St, New York, NY 10011, USA', 'New York', 'CT', 10011, NULL, 1, 0, 1, 0, 1, '2025-07-29 18:19:15', '2025-08-12 17:24:19'),
+(19, 'ecmascript', 'Vishnu', 'Kumawat', 'ecmascript.php@gmail.com', '9783457008', '$2b$10$bVzM.eJjjhU7boZzNEE8aul7iycXabXaDmIuQAB9CXMTfDLP/v8hC', 1, '2', NULL, 'Stuyvesant 14th St & 1st Ave ', '238 1st Ave, New York, NY 10009, USA', 'New York', 'CT', 10009, NULL, 1, 0, 1, 0, 1, '2025-07-29 18:32:46', '2025-08-12 17:24:21'),
+(20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 3, '3', 'Moyal Rentals', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, NULL, 1, 1, 1, 1, 1, '2025-07-29 18:38:25', '2025-09-03 20:21:24'),
+(44, 'rudrax', 'Raymond', 'Foster', 'bowijen@mailinator.com', '9999999999', '$2b$10$qchWQg.7/f.OvDEqes6MqeulRouWGrswPU5IFWhE4Ablj/rmdKIqq', 3, NULL, NULL, '', '', '', '', 123456, '1234', 0, 0, NULL, NULL, 1, '2025-08-13 15:40:33', '2025-08-23 09:48:33'),
+(45, 'papyviq', 'Daphne', 'Spence', 'ligy@mailinator.com', '8957058952', '$2b$10$gv2JDIFncJrkcn/Hau.mf.hmExvOYvmMWMTkZQKsylG2Co0hdzEwK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-08-23 13:10:32', '2025-08-23 13:16:46'),
+(46, 'natup', 'Holly', 'Rush', 'cexul@mailinator.com', '2538281972', '$2b$10$DBrEyUDMsLAjCnWHfr3IfeCyeBtJ2Cv78q8c5YaysfXDPqQYpwYNi', 3, '41', NULL, '70 West New Parkway', 'Quia ut sed maiores ', 'Ea a qui amet cupid', 'Dolores harum ipsum ', 578908, NULL, 0, 0, 1, 1, 1, '2025-08-23 16:41:42', '2025-08-23 16:42:02'),
+(47, 'bitugoxe', 'Amity', 'Schultz', 'perikop@mailinator.com', '4869643856', '$2b$10$Ecgs/LNcxCFKv/CqgQ7C.uS0W9Ox3moJ9z0G1XRC0mOffe6sVtXOO', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '497910', 0, 0, NULL, NULL, 0, '2025-08-27 16:44:32', '2025-08-27 16:51:00'),
+(48, 'soruke', 'Chadwick', 'Dalton', 'qugenehiv@mailinator.com', '4625174203', '$2b$10$dxqghMmEVZujsUIPSeDF7uPStFFsuvOfKL.J6onRbs1jlB6l4ohQK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '677190', 0, 0, NULL, NULL, 0, '2025-08-27 16:53:58', '2025-08-27 16:53:58'),
+(49, 'qyqaluvuqu', 'Isaac', 'Hall', 'bobyhiz@mailinator.com', '2883996366', '$2b$10$StXcohwoZNeRIjOSwwfJPeMWH8EAC8c5Q79f4B3noutl1mZIaPNJW', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '110654', 0, 0, NULL, NULL, 0, '2025-08-27 16:54:55', '2025-08-27 16:54:55'),
+(50, 'rent_or_hire', 'Den', 'Cook', 'roh@hosting.com', '9876543219', '$2b$10$TwK0imHqaYotk9QvtG0aiu65rXvC4gBHxAnm26vXGY77eWDNkOMZq', 3, NULL, NULL, 'Jaipur', '', '', '', 302012, '999000', 1, 0, NULL, NULL, 1, '2025-08-27 17:16:42', '2025-08-30 10:25:19'),
+(51, 'vedoq', 'Jenette', 'Cannon', 'huqinileju@mailinator.com', '5317534899', '$2b$10$VFU5t7sxh9TVa8Jd.dmUiuKQtDU8sS13QWmqmC3WZKnytHuoIum5W', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-08-27 17:18:00', '2025-08-27 17:20:13'),
+(52, 'pidawoh', 'Lunea', 'Nolan', 'lyhede@mailinator.com', '1982856472', '$2b$10$GY2KBR7dPhpa.RMI3KziIuoLXQkQFTtiSIJ0edp8JuKzHZXTAmtBm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-08-27 17:21:52', '2025-08-27 17:22:01'),
+(53, 'boviqafih', 'Dominique', 'Conner', 'qazitug@mailinator.com', '(294) 719-9133', '$2b$10$5FMyQTqpP3nZacqeoyWjDOVoigrhcxRLp4SZo.XfDTt7O9r7tD3C2', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '662670', 0, 0, NULL, NULL, 0, '2025-08-28 01:25:33', '2025-08-28 01:25:33'),
+(54, 'numuzufot', 'Slade', 'Dixon', 'zupejyton@mailinator.com', '9815618907', '$2b$10$Ya8bGxm9dJgUdYsYwp/eQ.XSK3sWfPhf4Gp0xrcLFBdpWQTRlc2vO', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '161043', 0, 0, NULL, NULL, 0, '2025-08-28 01:30:28', '2025-08-28 01:30:28');
 
 -- --------------------------------------------------------
 
@@ -519,7 +529,10 @@ CREATE TABLE `roh_vehicle_attributes` (
 INSERT INTO `roh_vehicle_attributes` (`id`, `vehicle_id`, `engine_type`, `transmission_type`, `fuel_consumption`, `seating_capacity`, `color`, `vehicle_age`, `mileage`, `registration_number`, `insurance_validity`, `vehicle_type`, `rental_period`, `vehicle_condition`, `accessories`, `address_1`, `landmark`, `item_state`, `city`, `pincode`, `booking_instructions`) VALUES
 (1, 24, 'Diesel', 'Manual', '100.00', 7, 'Z Black', 2, '14.00', 'TR01 AB 1234', '2025-08-25', 'Standard', 'Daily', 'New', 'Stylish Alloy Wheels\r\n\r\nPremium Fog Lamps\r\n\r\nRoof Rails\r\n\r\nDesigner Seat Covers\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nFloor Mats', 'Scorpio Car Rentals', '2nd Floor, MG Road', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery'),
 (2, 25, 'Petrol', 'Manual', '18.00', 5, 'Polar White', 3, '11.00', 'TR02 XY 5678', '2025-08-27', 'Luxury', 'Daily', 'New', 'Alloy Wheels\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nSeat Covers\r\n\r\nFloor Mats\r\n\r\nFog Lamps', 'i20 Car Rentals', 'Ground Floor, HGB Road,', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery'),
-(3, 26, 'Petrol', 'Automatic', '4.00', 2, 'Black', 3, '3.00', 'RJ45DD9892', '2025-08-31', 'Luxury', 'Daily', 'New', 'Helemt', 'Vaishali nagar', 'Plot no.11', 'Rajasthan', 'Jaipur', 302021, 'No booking instructions fro S1000RR ');
+(3, 26, 'Petrol', 'Automatic', '4.00', 2, 'Black', 3, '3.00', 'RJ45DD9892', '2025-08-31', 'Luxury', 'Daily', 'New', 'Helemt', 'Vaishali nagar', 'Plot no.11', 'Rajasthan', 'Jaipur', 302021, 'No booking instructions fro S1000RR '),
+(14, 42, 'Hybrid', 'Automatic', '98.00', 17, 'Ex eveniet tempore', 38, '30.00', '979', '1976-02-22', 'Standard', 'Monthly', 'New', 'Placeat ut vitae al', '157 North Old Court', 'Inventore sint cum n', 'Quos et reprehenderi', 'Ut id qui velit vita', 47, 'Aut sapiente dolorem'),
+(16, 44, 'CNG', 'Manual', '59.00', 67, 'Labore qui nisi rem ', 59, '18.00', '483', '1982-02-22', 'Standard', 'Weekly', 'New', 'Iste non dolore dist', '191 East Hague Lane', 'Aliquip reiciendis s', 'Ratione incidunt ve', 'Vel quia deleniti qu', 38, 'Sit autem anim rem '),
+(17, 45, 'Diesel', 'Automatic', '62.00', 24, 'Doloribus ex nemo ob', 51, '48.00', '66', '2009-08-10', 'Economy', 'Daily', 'New', 'Rem natus libero eos', '926 Green Cowley Road', 'Aperiam enim amet a', 'Repellendus Modi id', 'Voluptatem Voluptat', 23, 'Autem sunt quo vel t');
 
 -- --------------------------------------------------------
 
@@ -558,7 +571,10 @@ CREATE TABLE `roh_vehicle_details` (
 INSERT INTO `roh_vehicle_details` (`id`, `service_provider_id`, `item_name`, `vehicle_description`, `category_id`, `tag_id`, `brand_id`, `model_id`, `image_ids`, `price_per_day`, `price_per_week`, `price_per_month`, `price_custom_day`, `item_status`, `admin_item_status`, `total_views`, `security_deposit`, `booking_terms`, `availability_status`, `add_date`, `edit_date`) VALUES
 (24, 50, 'Mahindra Scorpio – Power Meets Style', 'The Big Daddy SUV – Mahindra Scorpio is known for its bold looks, powerful performance, and unmatched road presence. Whether it’s a city ride or an off-road adventure, the Scorpio is built to conquer every journey with style and comfort.', 1, 2, 3, 5, '[54,55,56,57,58,59]', '2500.00', '15000.00', '45000.00', '120000.00', 1, 1, 0, '9998.00', 'Booking amount: ₹5,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes RTO, insurance, and taxes\r\n\r\nDelivery subject to stock availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:44:58', '2025-08-28 06:16:16'),
 (25, 50, 'Hyundai i20 – Premium Hatchback', 'The Hyundai i20 is a premium hatchback that blends style, comfort, and efficiency. With its modern design, advanced features, and smooth driving experience, the i20 is the perfect choice for city commutes and weekend getaways.', 1, 2, 6, 11, '[60,61,62,63,64]', '1800.00', '11000.00', '32000.00', '69998.00', 1, 1, 0, '7000.00', 'Booking amount: ₹3,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes fuel, tolls, RTO, insurance, and taxes\r\n\r\nDelivery subject to availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:56:55', '2025-08-28 06:16:19'),
-(26, 50, 'BMW S1000RR', 'The S1000RR is BMW\'s flagship sportsbike that is known for its top-end performance, modern safety electronics and excellent handling abilities. But just like other BMWs, the S1000RR is also expensive to purchase and maintain', 1, 2, 5, 9, '[65,66,67,68]', '1200.00', '8000.00', '25000.00', '45000.00', 1, 1, 0, '596.00', 'No Booking terms for S1000RR. ', 'Available', '2025-08-30 04:38:18', '2025-08-30 15:57:56');
+(26, 50, 'BMW S1000RR', 'The S1000RR is BMW\'s flagship sportsbike that is known for its top-end performance, modern safety electronics and excellent handling abilities. But just like other BMWs, the S1000RR is also expensive to purchase and maintain', 1, 2, 5, 9, '[65,66,67,68]', '1200.00', '8000.00', '25000.00', '45000.00', 1, 1, 0, '596.00', 'No Booking terms for S1000RR. ', 'Available', '2025-08-30 04:38:18', '2025-08-30 15:57:56'),
+(42, 20, 'Elizabeth Michael', 'Et do do dignissimos', 1, 1, 1, 1, '[69]', '566.00', '455.00', '94.00', '659.00', 1, 0, 0, '37.00', 'Et labore dolore et ', 'Available', '2025-09-04 01:13:26', '2025-09-04 01:13:26'),
+(44, 20, 'Linus Adkins', 'Quae reprehenderit a', 1, 1, 1, 1, '[71,72,73,74]', '582.00', '602.00', '711.00', '919.00', 1, 0, 0, '8.00', 'Facere aspernatur id', 'Available', '2025-09-04 01:47:19', '2025-09-04 01:47:19'),
+(45, 20, 'Hiram Rivers', 'Veniam nihil quod e', 1, 1, 1, 1, '[75,76,77,78]', '653.00', '967.00', '5.00', '529.00', 1, 0, 0, '12.00', 'Duis hic id minim au', 'Booked', '2025-09-04 22:19:19', '2025-09-04 22:19:19');
 
 --
 -- Indexes for dumped tables
@@ -642,13 +658,13 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
 --
 ALTER TABLE `roh_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `roh_routes`
@@ -660,7 +676,7 @@ ALTER TABLE `roh_routes`
 -- AUTO_INCREMENT for table `roh_states`
 --
 ALTER TABLE `roh_states`
-  MODIFY `state_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `state_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `roh_users`
@@ -672,13 +688,13 @@ ALTER TABLE `roh_users`
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`
 --
 ALTER TABLE `roh_vehicle_attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_details`
 --
 ALTER TABLE `roh_vehicle_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- Constraints for dumped tables

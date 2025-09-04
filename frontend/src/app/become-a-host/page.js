@@ -11,6 +11,7 @@ export default function BecomeAHostPage() {
 
   const [categories, setCategories] = useState();
   const [subCategories, setSubCategories] = useState();
+  // const [isUserServiceProvider, setIsUserServiceProvider] = useState(0);
 
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
@@ -49,6 +50,9 @@ export default function BecomeAHostPage() {
     const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
 
     if (parsedAuthUserData?.id) {
+      // if(parsedAuthUserData?.is_service_provider == 1){
+      //   setIsUserServiceProvider(1);
+      // }
       setFormData((prev) => ({
         ...prev,
         service_provider_id: parsedAuthUserData.id,
@@ -65,7 +69,13 @@ export default function BecomeAHostPage() {
       .catch((err) => console.error("Error fetching categories:", err));
   }, []);
 
-
+  // useEffect(() => {
+  //   if (isUserServiceProvider === 1) {
+  //     console.log("User is a service provider, setting current step to 3");
+  //     setCurrentStep(3);
+  //   }
+  // }, [isUserServiceProvider]);
+  
 
   /** On click of the next button */
   const handleNextStep = () => {
@@ -200,12 +210,10 @@ export default function BecomeAHostPage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-  
+    e.preventDefault();  
     try {      
       const fd = new FormData();
       
-      console.log("formData 2>> ", formData);
       // Business Info
       fd.append("service_provider_id", formData.service_provider_id || "");
       fd.append("businessName", formData.businessName || "");
@@ -218,6 +226,14 @@ export default function BecomeAHostPage() {
       fd.append("city", formData.city || "");
       fd.append("state", formData.state || "");
       fd.append("pinCode", formData.pinCode || "");
+
+      // ✅ Append images
+      if (formData.image_ids && Array.isArray(formData.image_ids)) {
+        formData.image_ids.forEach((file, index) => {
+          fd.append(`image_ids`, file);
+        });
+      }
+
   
       // ✅ Items (agar multiple vehicles hai to loop)
       if (formData.items && Array.isArray(formData.items)) {
@@ -267,7 +283,6 @@ export default function BecomeAHostPage() {
       const result = await response.json();
       if (!response.ok) throw new Error(result?.message || "API Error");
   
-      console.log("✅ API Response:", result);
       alert("Vehicle Added Successfully!");
       
       // 👇 Redirect

@@ -92,9 +92,7 @@ function hostModuleApi() {
 
     /** Main Api for Become a host Add new vehicle Coded by Vishnu August 22 2025 */
     this.addNewVehicle = async (req, res) => {
-        const connection = await pool.getConnection();
-        console.log("controller me aagya");
-      
+        const connection = await pool.getConnection();      
         try {
           const {
             service_provider_id,
@@ -123,6 +121,31 @@ function hostModuleApi() {
           await connection.beginTransaction();
       
           const createdVehicles = [];
+
+          /** Update the user business name and service provider field here */
+          // 1. Fetch user by user ID
+          const [userRows] = await connection.query(
+            `SELECT is_service_provider FROM roh_users WHERE user_id = ?`,
+            [service_provider_id]
+          );
+
+          if (userRows.length === 0) {
+            throw new Error(`User with ID ${service_provider_id} not found.`);
+          }
+
+          // 2. Update if needed
+          if (userRows[0].is_service_provider === 0) {
+            await connection.query(
+              `UPDATE roh_users SET is_service_provider = 1, business_name = ? WHERE user_id = ?`,
+              [businessName, service_provider_id]
+            );
+          } else {
+            // Just update the business name (optional)
+            await connection.query(
+              `UPDATE roh_users SET business_name = ? WHERE user_id = ?`,
+              [businessName, service_provider_id]
+            );
+          }
       
           for (const item of items) {
             const {
@@ -163,7 +186,7 @@ function hostModuleApi() {
             } = details;
       
             if (!item_name) {
-              throw new Error("item_name is required in each item");
+              throw new Error("Item name is required in each item");
             }
       
             /** 1) Save uploaded images into roh_media_gallery */
@@ -273,7 +296,6 @@ function hostModuleApi() {
       
     //   this.addNewVehicle = async (req, res) => {
     //     const connection = await pool.getConnection();
-    //     console.log("controller me aagya");
     //     try {
     //         const {
     //         service_provider_id,
@@ -346,8 +368,6 @@ function hostModuleApi() {
 
     //         /** 2) image_ids JSON (store DB IDs) */
     //         const imagesJson = JSON.stringify(mediaIds); // e.g., [12,13,14]
-
-    //         console.log("aagye query pr.");
 
     //         /** 3) Insert into roh_vehicle_details */
     //         const [vehicleResult] = await connection.query(
