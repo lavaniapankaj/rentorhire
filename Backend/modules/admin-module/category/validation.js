@@ -15,7 +15,6 @@ const validateCreateCategory = (req, res, next) => {
 
 // Update Category Validation Coded by Raj July 04 2025
 const validateDetailCategory = (req, res, next) => {
-    console.log("validation here.");
     const { id } = req.body;
 
     if (!id || isNaN(Number(id))) {

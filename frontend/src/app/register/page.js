@@ -115,7 +115,6 @@ export default function RegisterPage() {
             setFormError("Some details already exist. Please update and try again.");
             return;
           }
-          console.log(data);
           /** Fallback generic */
           throw new Error(data?.message || "Could not check availability");
         }

@@ -2,8 +2,6 @@ const pool = require("../../../config/connection");
 
 /** Add new state validation Coded by Vishnu July 04 2025 */
 const ValidateaddnewState = async (req, res, next) => {
-    console.log("Validation check here, add new state");
-
     const { state_name, state_slug } = req.body;
 
     /** Validate required fields */
@@ -61,8 +59,6 @@ const ValidategetallState = async (req, res, next) => {
 
 /** Edit state validation Coded by Vishnu July 04 2025 */
 const ValidateeditState = async (req, res, next) => {
-    console.log("Validation check here, edit state");
-
     /** Destructure the data from the request body */
     const { state_id, state_name, state_slug } = req.body;
 
@@ -77,8 +73,6 @@ const ValidateeditState = async (req, res, next) => {
 
 /** Delete state validation Coded by Vishnu July 04 2025 */
 const ValidateDeleteState = async (req, res, next) => {
-    console.log("Validation check here, delete state");
-
     /** Destructure the state_id from the request body */
     const { state_id } = req.body;
 
@@ -93,7 +87,6 @@ const ValidateDeleteState = async (req, res, next) => {
 
 /** Get single state validation Coded by Vishnu July 22 2025 */
 const ValidateSingleState = async (req, res, next) => {
-    console.log("Validation check here, get single state");
 
     /** Destructure the state_id from the request body */
     const { state_id } = req.body;
@@ -109,7 +102,6 @@ const ValidateSingleState = async (req, res, next) => {
 
 /** Get all Active state id & name validation Coded by Vishnu July 24 2025 */
 const ValidateAllActiveState = async (req, res, next) => {
-    console.log("Validation check here, get single state");
 
     /** If validation passes, call the next middleware/controller */
     next();

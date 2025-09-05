@@ -38,8 +38,6 @@ function CategoryApi() {
                 });
               }
 
-            console.log("media result>> ", mediaId);
-
             let slug = name
                 .toLowerCase()
                 .trim()
@@ -103,8 +101,6 @@ function CategoryApi() {
             }
     
         } catch (err) {
-
-            console.log("catch block error>>> ", err);
 
             let message = "Internal server error";
     

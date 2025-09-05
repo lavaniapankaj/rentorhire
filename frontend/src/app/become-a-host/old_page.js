@@ -294,7 +294,6 @@ export default function BecomeAHost() {
 
         const result = await response.json();
         if (!response.ok) throw new Error(result?.message || "API Error");
-        console.log("✅ API Response:", result);
         alert("Vehicle Added Successfully!");
       } catch (error) {
         console.error("❌ Submission Failed:", error);

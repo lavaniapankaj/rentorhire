@@ -373,11 +373,6 @@ export default function BecomeAHostPage() {
         });
       }
 
-
-      console.log("FormData content:");
-      for (let pair of fd.entries()) {
-        console.log(`${pair[0]}:`, pair[1]);
-      }
       // ✅ API Call
       const response = await fetch(
         "http://localhost:8080/api/user/becomehostaddnewvehicle",
