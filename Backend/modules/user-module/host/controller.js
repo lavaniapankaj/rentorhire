@@ -151,6 +151,9 @@ function hostModuleApi() {
             const {
               category,
               subCategory,
+              brand,
+              model,
+              tag,
               details = {}
             } = item;
       
@@ -223,9 +226,9 @@ function hostModuleApi() {
                 item_name,
                 vehicle_description || null,
                 category || null, // 👈 using category id
-                1, // tag_id (if needed later)
-                1, // brand_id
-                1, // model_id
+                tag, // tag_id (if needed later)
+                brand, // brand_id
+                model, // model_id
                 imagesJson,
                 price_per_day || null,
                 price_per_week || null,

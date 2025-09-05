@@ -13,6 +13,10 @@ export default function BecomeAHostPage() {
   const [subCategories, setSubCategories] = useState();
   // const [isUserServiceProvider, setIsUserServiceProvider] = useState(0);
 
+  const [brands, setBrands] = useState([]); // brands[index] = array of brands for that item
+  const [models, setModels] = useState([]); // same as brands/subCategories per item
+
+
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
 
@@ -34,8 +38,11 @@ export default function BecomeAHostPage() {
   
     /* Step 3 */
     items: [
-      { category: "", subCategory: "", details: "" }
+      { category: "", subCategory: "", brand: "", model: "", tag: "", details: "" }
     ],
+
+    /* Step 4 */
+    TermsAndConditionsAgree: 0
   });
 
   const getCookie = (name) => {
@@ -43,7 +50,6 @@ export default function BecomeAHostPage() {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(";").shift();
   };
-
 
   useEffect(() => {
     const authUserData = getCookie("authUser");
@@ -75,7 +81,6 @@ export default function BecomeAHostPage() {
   //     setCurrentStep(3);
   //   }
   // }, [isUserServiceProvider]);
-  
 
   /** On click of the next button */
   const handleNextStep = () => {
@@ -118,6 +123,11 @@ export default function BecomeAHostPage() {
       }
       if (!pinCode) {
         alert("Please enter the pincode");
+        return;
+      }
+
+      if (pinCode.length !== 6) {
+        alert("Please enter a valid pin code.");
         return;
       }
 
@@ -170,22 +180,104 @@ export default function BecomeAHostPage() {
     }
   };
 
-  // Subcategory selection
-  const handleSubCategorySelect = (index, sub) => {
+  /** handeling the sub organization seletion */
+  const handleSubCategorySelect = async (index, sub) => {
+    try {
+      // 1. Update formData
+      setFormData((prev) => {
+        const updatedItems = [...prev.items];
+        updatedItems[index] = {
+          ...updatedItems[index],
+          subCategory: sub.id,
+          // Reset brand if you store it in items[index]
+          brand: ""
+        };
+        return { ...prev, items: updatedItems };
+      });
+  
+      // 2. Fetch brands for the selected subcategory
+      const response = await fetch("http://localhost:8080/api/user/getallchildcategorybrands", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ child_category_id: sub.id }),
+      });
+  
+      const data = await response.json();
+  
+      // 3. Set brands — assuming you're tracking brands per index
+      setBrands((prev) => {
+        const updated = [...prev];
+        updated[index] = data;
+        return updated;
+      });
+    } catch (err) {
+      console.error("Error fetching brands:", err);
+    }
+  };
+  
+  /** Handling the brand selection */
+  const handleBrandSelect = async (index, brandId) => {
+    try {
+      // 1. Update selected brand in formData
+      setFormData((prev) => {
+        const updatedItems = [...prev.items];
+        updatedItems[index] = {
+          ...updatedItems[index],
+          brand: brandId // assuming `brand` field is for brand_id
+        };
+        return { ...prev, items: updatedItems };
+      });
+
+      // 2. Fetch models for selected brand
+      const response = await fetch("http://localhost:8080/api/user/getallchildcategorybrandsmodel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ brand_id: brandId }),
+      });
+
+      const data = await response.json();
+
+      // 3. Save models in state — assuming you're storing models per index
+      setModels((prev) => {
+        const updated = [...prev];
+        updated[index] = data;
+        return updated;
+      });      
+    } catch (err) {
+      console.error("Error fetching models:", err);
+    }
+  };
+
+  /** handeling the model selection */
+  const handleModelSelect = (index, modelId) => {
+    // Find the selected model object from models[index]
+    const selectedModel = models[index]?.find(model => model.id === modelId);
+
+    if (!selectedModel) {
+      return;
+    }
+
+    const { tag_id } = selectedModel;
+
     setFormData((prev) => {
       const updatedItems = [...prev.items];
       updatedItems[index] = {
         ...updatedItems[index],
-        subCategory: sub.id
+        model: modelId,
+        tag: tag_id ?? "" // Default to empty string if tag_id is undefined
       };
       return { ...prev, items: updatedItems };
     });
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, type, value, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === "checkbox" ? (checked ? '1' : '0') : value // or use true/false instead of '1'/'0'
+    }));
   };
+  
   
   const handleRadioChange = (e) => {
     const { name, value } = e.target;
@@ -210,7 +302,14 @@ export default function BecomeAHostPage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();  
+    e.preventDefault();
+
+    const { TermsAndConditionsAgree } = formData;
+    if(TermsAndConditionsAgree == '0' || TermsAndConditionsAgree !== '1'){
+      alert('Please accept terms and conditions.');
+      return;
+    }
+
     try {      
       const fd = new FormData();
       
@@ -240,6 +339,9 @@ export default function BecomeAHostPage() {
         formData.items.forEach((item, index) => {
           fd.append(`items[${index}][category]`, item.category || "");
           fd.append(`items[${index}][subCategory]`, item.subCategory || "");
+          fd.append(`items[${index}][brand]`, item.brand || "");
+          fd.append(`items[${index}][model]`, item.model || "");
+          fd.append(`items[${index}][tag]`, item.tag || "");
           fd.append(`items[${index}][details][item_name]`, item.details?.item_name || "");
           fd.append(`items[${index}][details][vehicle_description]`, item.details?.vehicle_description || "");
           fd.append(`items[${index}][details][price_per_day]`, item.details?.price_per_day || "");
@@ -271,6 +373,11 @@ export default function BecomeAHostPage() {
         });
       }
 
+
+      console.log("FormData content:");
+      for (let pair of fd.entries()) {
+        console.log(`${pair[0]}:`, pair[1]);
+      }
       // ✅ API Call
       const response = await fetch(
         "http://localhost:8080/api/user/becomehostaddnewvehicle",
@@ -456,7 +563,7 @@ export default function BecomeAHostPage() {
                                 </div>
                                 <div className={`${styles.mb3} ${styles.colMd6}`}>
                                   <label className={styles.formLabel}>Pin Code</label>
-                                  <input type="text" name="pinCode" className={`${styles.formControl} ${styles.reFormF}`} value={formData.pinCode} onChange={handleChange} pattern="[0-9]{6}" maxLength={6} inputMode="numeric" required />
+                                  <input type="number" name="pinCode" className={`${styles.formControl} ${styles.reFormF}`} value={formData.pinCode} onChange={handleChange} pattern="[0-9]{6}" maxLength={6} inputMode="numeric" required />
                                   <small className={`${styles.formText} ${styles.textMuted}`}>Enter your 6-digit postal code.</small>
                                 </div>
                               </div>
@@ -527,6 +634,40 @@ export default function BecomeAHostPage() {
                                     ) : null}
                                   </div>
                                   
+                                  {/* BRAND SELECTION */}
+                                    {brands[index]?.length > 0 && (
+                                      <div className="sub-categories mb-2">
+                                        <label className={styles.formLabel}>Select a Brand</label>
+                                        <div className={`${styles.dFlex} flex-wrap ${styles.gap2} ${styles.subCategoryWrap}`}>
+                                          {brands[index].map((brand) => (
+                                            <div key={brand.id}>
+                                              <input type="radio" className={styles.btnCheck} name={`brand_${index}`} id={`brand_${index}_${brand.id}`} value={brand.id} checked={item.brand === brand.id} onChange={() => handleBrandSelect(index, brand.id)}/>
+                                              <label htmlFor={`brand_${index}_${brand.id}`} className={`${styles.btn} btn-outline-secondary ${styles.wmax} ${styles.radioBtns} rounded-3 py-2 px-3 text-start`}>
+                                                {brand.brand_name}
+                                              </label>
+                                            </div>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    )}
+
+                                  {/* MODEL SELECTION */}
+                                  {models[index]?.length > 0 && (
+                                    <div className="sub-categories mb-2">
+                                      <label className={styles.formLabel}>Select a Model</label>
+                                      <div className={`${styles.dFlex} flex-wrap ${styles.gap2} ${styles.subCategoryWrap}`}>
+                                        {models[index].map((model) => (
+                                          <div key={model.id}>
+                                            <input type="radio" className={styles.btnCheck} name={`model_${index}`} id={`model_${index}_${model.id}`} value={model.id} checked={item.model === model.id} onChange={() => handleModelSelect(index, model.id)}/>
+                                            <label htmlFor={`model_${index}_${model.id}`} className={`${styles.btn} btn-outline-secondary ${styles.wmax} ${styles.radioBtns} rounded-3 py-2 px-3 text-start`}>
+                                              {model.model_name}
+                                            </label>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  )}
+
                                   {/* CHILD FORM / MESSAGE */}
                                   <div className="child-inputs">
                                     {item.category === 1 && item.subCategory ? (
@@ -643,7 +784,9 @@ export default function BecomeAHostPage() {
 
                                 {/* Terms */}
                                 <div className="form-check my-3">
-                                  <input className={styles.formCheckInput} type="checkbox" id="termsCheck"/>
+                                  {/* <input className={styles.formCheckInput} type="checkbox" id="termsCheck"/> */}
+                                  <input className={styles.formCheckInput} type="checkbox" id="termsCheck" name="TermsAndConditionsAgree" checked={formData.TermsAndConditionsAgree === '1'} onChange={handleChange}/>
+
                                   <label className={styles.formCheckLabel} htmlFor="termsCheck">
                                     I confirm that all the information provided is accurate and I agree to the
                                     <a href="#">Terms of Listing</a>
