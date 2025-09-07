@@ -108,7 +108,7 @@ function authApi() {
 
             /** Step 1: Check if email exists */
             const [emailRows] = await pool.query(`
-                SELECT user_id, email, user_name, first_name, last_name, password_hash, user_role_id, active, authorize_code, verified, is_service_provider FROM roh_users WHERE email = ?
+                SELECT user_id, email, user_name, first_name, last_name, password_hash, user_role_id, active, authorize_code, verified, is_service_provider, phone_number FROM roh_users WHERE email = ?
             `, [email]);
 
             if (emailRows.length === 0) {
@@ -163,6 +163,7 @@ function authApi() {
                     email: user.email,
                     firstName: user.first_name,
                     lastName: user.last_name,
+                    phoneNumber: user.phone_number,
                     role_id: user.user_role_id,
                     is_service_provider: user.is_service_provider
                 }

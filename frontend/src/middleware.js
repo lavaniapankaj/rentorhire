@@ -145,6 +145,35 @@ export function middleware(request) {
       return redirectToUserLogin();
     }
   } 
+
+  // --- Handle the hosting page --- 
+  if(pathname.startsWith('/hosting')){
+    // case 1: no token or no user → user login
+    if (!token || !authUser) {
+      return redirectToUserLogin();
+    }
+
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      // case 2: token expired → user login
+      if (decodedToken.exp < currentTime) {
+        return redirectToUserLogin();
+      }
+
+      // case 3: token valid
+      if (authUser.role_id == 1) {
+        // user trying to hit become a host → redirect to become a host
+        return redirectToBecomeAHost();
+      } else {
+        // normal user → allow become a host
+        return NextResponse.next();
+      }
+    } catch (err) {
+      return redirectToUserLogin();
+    }
+  } 
 }
 
 export const config = {

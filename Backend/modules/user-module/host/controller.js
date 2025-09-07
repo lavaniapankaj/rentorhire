@@ -92,7 +92,8 @@ function hostModuleApi() {
 
     /** Main Api for Become a host Add new vehicle Coded by Vishnu August 22 2025 */
     this.addNewVehicle = async (req, res) => {
-        const connection = await pool.getConnection();      
+        const connection = await pool.getConnection();
+        
         try {
           const {
             service_provider_id,
@@ -134,18 +135,19 @@ function hostModuleApi() {
           }
 
           // 2. Update if needed
-          if (userRows[0].is_service_provider === 0) {
+          if (userRows[0].is_service_provider == 0) {
             await connection.query(
               `UPDATE roh_users SET is_service_provider = 1, business_name = ? WHERE user_id = ?`,
               [businessName, service_provider_id]
             );
-          } else {
-            // Just update the business name (optional)
-            await connection.query(
-              `UPDATE roh_users SET business_name = ? WHERE user_id = ?`,
-              [businessName, service_provider_id]
-            );
           }
+          //  else {
+            // Just update the business name (optional)
+            // await connection.query(
+            //   `UPDATE roh_users SET business_name = ? WHERE user_id = ?`,
+            //   [businessName, service_provider_id]
+            // );
+          // }
       
           for (const item of items) {
             const {
@@ -235,7 +237,7 @@ function hostModuleApi() {
                 price_per_month || null,
                 price_custom_day || null,
                 1, // item_status
-                0, // admin_item_status
+                1, // admin_item_status
                 0, // total_views
                 security_deposit || null,
                 booking_terms || null,
