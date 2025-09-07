@@ -1,5 +1,5 @@
 const UserHostModuleController = require("./controller");
-const {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle, ValidateLoginServiceProviderItems, ValidateLoginServiceProviderSingleItems} = require("./validation");
+const {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle, ValidateLoginServiceProviderItems, ValidateLoginServiceProviderSingleItems, ValidateDeleteServiceProviderSingleItems} = require("./validation");
 
 const multer = require('multer');
 const path = require('path');
@@ -105,5 +105,15 @@ app.post(
     ValidateLoginServiceProviderSingleItems,
     (req, res, next) => {
         UserHostModuleController.getServiceProviderSingleListedItems(req, res, next);
+    }
+);
+
+
+/** API to delete service provider single items - Coded by Vishnu September 06 2025 */
+app.post(
+    "/api/user/deletesinglelisteditems",
+    ValidateDeleteServiceProviderSingleItems,
+    (req, res, next) => {
+        UserHostModuleController.deleteServiceProviderSingleListedItems(req, res, next);
     }
 );

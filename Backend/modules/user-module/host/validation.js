@@ -101,6 +101,17 @@ const ValidateLoginServiceProviderSingleItems = async (req, res, next) => {
     }
 }
 
+/** Validate delete service provider single item - Coded by Vishnu September 06 2025 */
+const ValidateDeleteServiceProviderSingleItems = async (req, res, next) => {
+    try {
+        const { id } = req.body;
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+}
 
 
-module.exports = {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle, ValidateLoginServiceProviderItems, ValidateLoginServiceProviderSingleItems};
+
+module.exports = {ValidategetUserActivecategory, ValidategetUserActivechildcategory, ValidategetUserActivechildcategorybrands, ValidategetUserActivechildcategorybrandsmodel, ValidateHostAddNewVehicle, ValidateLoginServiceProviderItems, ValidateLoginServiceProviderSingleItems, ValidateDeleteServiceProviderSingleItems};

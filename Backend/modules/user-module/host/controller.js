@@ -463,6 +463,7 @@ function hostModuleApi() {
                     d.category_id, 
                     d.image_ids,
                     d.item_status,
+                    d.admin_item_status,
                     a.registration_number
                 FROM roh_vehicle_details d
                 LEFT JOIN roh_vehicle_attributes a 
@@ -533,6 +534,67 @@ function hostModuleApi() {
             return res.status(500).json({ message: 'Internal server error' });
         }
     };
+
+    /** Api to delete login service providers single items - Coded by Vishnu September 06 2025 */
+    this.deleteServiceProviderSingleListedItems = async (req, res) => {
+      try {
+        const { id, action = "delete" } = req.body;
+
+        if (!id) {
+          return res.status(400).json({ message: "Missing required field: id" });
+        }
+
+        if (action === "delete") {
+          const [result] = await pool.query(
+            `UPDATE roh_vehicle_details
+            SET item_status = 0
+            WHERE id = ?`,
+            [id]
+          );
+          return res.status(200).json({
+            message: "Item soft deleted successfully",
+            result,
+          });
+        }
+
+        if (action === "reactivate") {
+          const [result] = await pool.query(
+            `UPDATE roh_vehicle_details
+            SET item_status = 1
+            WHERE id = ? AND admin_item_status = 1`,
+            [id]
+          );
+
+          if (result.affectedRows === 0) {
+            const [rows] = await pool.query(
+              `SELECT id, admin_item_status FROM roh_vehicle_details WHERE id = ?`,
+              [id]
+            );
+            if (rows.length === 0) {
+              return res.status(404).json({ message: "Item not found" });
+            }
+            if (Number(rows[0].admin_item_status) !== 1) {
+              return res.status(403).json({
+                message:
+                  "Reactivate not allowed. Admin has not approved this item yet.",
+              });
+            }
+            return res.status(400).json({ message: "Unable to reactivate item." });
+          }
+
+          return res.status(200).json({
+            message: "Item reactivated successfully",
+            result,
+          });
+        }
+
+        return res.status(400).json({ message: "Invalid action" });
+      } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error" });
+      }
+    };
+
 }
 
 module.exports = new hostModuleApi();
