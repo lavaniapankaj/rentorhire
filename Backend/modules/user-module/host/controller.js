@@ -297,7 +297,7 @@ function hostModuleApi() {
           console.error(error);
           return res.status(500).json({ message: "Internal server error" });
         }
-      };
+    };
       
     //   this.addNewVehicle = async (req, res) => {
     //     const connection = await pool.getConnection();
@@ -470,10 +470,10 @@ function hostModuleApi() {
                 FROM roh_vehicle_details d
                 LEFT JOIN roh_vehicle_attributes a 
                     ON d.id = a.vehicle_id
-                WHERE d.service_provider_id = ?`,
+                WHERE d.service_provider_id = ?
+                ORDER BY d.add_date DESC`,
                 [service_provider_id]
             );
-
             if (vehicles.length === 0) {
                 return res.status(200).json([]);
             }
