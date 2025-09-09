@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+
 import "./login.css";
 
 export default function LoginPage() {
@@ -12,6 +13,11 @@ export default function LoginPage() {
   const [userId, setUserId] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  
+const searchParams = useSearchParams();
+const redirectUrl = searchParams.get("redirect"); // e.g. ?redirect=/hosting/vehicles
+
   const router = useRouter();
 
   const onChange = (e) => {
@@ -49,7 +55,10 @@ export default function LoginPage() {
       // localStorage.setItem("token", data.token);
       document.cookie = `authToken=${data.token}; path=/`;
       document.cookie = `authUser=${JSON.stringify(data.user)}; path=/`;
-      router.push("/dashboard"); 
+      // router.push("/dashboard"); 
+
+      router.push(redirectUrl || "/dashboard");
+    
     } catch (err) {
       setError(err.message);
     } finally {

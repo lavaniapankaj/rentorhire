@@ -10,14 +10,14 @@ export default function BecomeAHostPage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [authUser, setAuthUser] = useState(null);
-  const [categories, setCategories] = useState();
+  const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState();
   const [loadingCategories, setLoadingCategories] = useState(true);
-  const [shouldJumpToStep3, setShouldJumpToStep3] = useState(true);
+  const [shouldJumpToStep3, setShouldJumpToStep3] = useState(false);
   const [brands, setBrands] = useState([]);
   const [models, setModels] = useState([]);
   const [currentStep, setCurrentStep] = useState(1);
-  const [errors, setErrors] = useState({});
+  const [itemErrors, setItemErrors] = useState([]);
 
   const [formData, setFormData] = useState({
     /* Step 1 */
@@ -52,45 +52,52 @@ export default function BecomeAHostPage() {
 
   useEffect(() => {
     setMounted(true);
-
+  
     const authUserData = getCookie("authUser");
     const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
-
-    if (parsedAuthUserData?.id) {
-      setAuthUser(parsedAuthUserData); // 👈 state me store
-
-      setFormData((prev) => ({
-        ...prev,
-        service_provider_id: parsedAuthUserData.id,
-        contactPerson: `${parsedAuthUserData.firstName} ${parsedAuthUserData.lastName}` || '',
-        whatsappNumber: parsedAuthUserData.phoneNumber || '',  
-      }));
   
-      // if (parsedAuthUserData.is_service_provider === 1) {
-      //   setCurrentStep(3);
-      // }
+    if (parsedAuthUserData?.id) {
+      const userId = parsedAuthUserData.id;
+  
+      // Fetch fresh user data from API using the ID
+      const fetchUserData = async () => {
+        try {
+          const res = await fetch("http://localhost:8080/api/user/userdetails", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id: userId }),
+          });
+          
+          if (!res.ok) throw new Error("Failed to fetch user data");
 
-      if (parsedAuthUserData.is_service_provider === 1) {
-        setShouldJumpToStep3(true);
-      } else {
-        setShouldJumpToStep3(false);
-      }
-
+          const freshUserData = await res.json();
+          setAuthUser(freshUserData);
+  
+          // Set form data from API response
+          setFormData((prev) => ({
+            ...prev,
+            service_provider_id: freshUserData.user_id,
+            contactPerson: `${freshUserData.first_name} ${freshUserData.last_name}` || '',
+            whatsappNumber: freshUserData.phone_number || '',
+          }));
+  
+          // Step logic based on real-time status
+          if (freshUserData.is_service_provider === 1) {
+            setShouldJumpToStep3(true);
+          } else {
+            setShouldJumpToStep3(false);
+          }
+        } catch (err) {
+          console.error("Error fetching user from API:", err);
+        }
+      };
+  
+      fetchUserData();
     } else {
       console.warn("No user data found in cookies");
     }
   }, []);
-
-  /** 2. Categories fetch (no mount guard needed) */
-  // useEffect(() => {
-  //   fetch("http://localhost:8080/api/user/getallactivecategory")
-  //     .then((res) => {
-  //       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  //       return res.json();
-  //     })
-  //     .then((data) => setCategories(data))
-  //     .catch((err) => console.error("Error fetching categories:", err));
-  // }, []);
+  
 
   useEffect(() => {
     let abort = new AbortController();
@@ -112,7 +119,6 @@ export default function BecomeAHostPage() {
     })();
     return () => abort.abort();
   }, []);
-
   
   useEffect(() => {
     if (!mounted) return;
@@ -120,7 +126,6 @@ export default function BecomeAHostPage() {
       setCurrentStep(3);
     }
   }, [mounted, shouldJumpToStep3, loadingCategories]);
-
   
   /** On click of the next button */
   const handleNextStep = () => {
@@ -172,12 +177,40 @@ export default function BecomeAHostPage() {
       }
 
       goToStep(currentStep + 1);
-
     }
 
-    if(currentStep === 3){
-      goToStep(currentStep + 1);
+    if (currentStep === 3) {
+      const { items } = formData;
+    
+      let errors = [];
+    
+      // Loop through items to check for errors
+      items.forEach((item, index) => {
+        let error = {};
+    
+        if (!item.category) {
+          error.category = "Please select a category.";
+        }
+    
+        if (!item.subCategory) {
+          error.subCategory = "Please select a subcategory.";
+        }
+    
+        errors[index] = error; // Store error object per item
+      });
+    
+      // Check if there are any actual errors
+      const hasErrors = errors.some(err => Object.keys(err).length > 0);
+    
+      if (hasErrors) {
+        setItemErrors(errors);
+        return; // Block going to next step
+      }
+    
+      setItemErrors([]); // Clear any previous errors
+      goToStep(currentStep + 1); // Move to step 4
     }
+    
   };
 
   /* TO change the step */
@@ -201,6 +234,15 @@ export default function BecomeAHostPage() {
         return { ...prev, items: updatedItems };
       });
       
+      setItemErrors((prevErrors) => {
+        const updatedErrors = [...prevErrors];
+        if (updatedErrors[index]) {
+          delete updatedErrors[index].category;
+          delete updatedErrors[index].subCategory;
+        }
+        return updatedErrors;
+      });
+
       // Step 2: API call for subcategories
       const res = await fetch("http://localhost:8080/api/user/getallactivechildcategory", {
         method: "POST",
@@ -233,6 +275,15 @@ export default function BecomeAHostPage() {
           brand: ""
         };
         return { ...prev, items: updatedItems };
+      });
+
+      setItemErrors((prevErrors) => {
+        const updatedErrors = [...prevErrors];
+        if (updatedErrors[index]) {
+          delete updatedErrors[index].category;
+          delete updatedErrors[index].subCategory;
+        }
+        return updatedErrors;
       });
   
       // 2. Fetch brands for the selected subcategory
@@ -318,7 +369,6 @@ export default function BecomeAHostPage() {
     }));
   };
   
-  
   const handleRadioChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -366,15 +416,14 @@ export default function BecomeAHostPage() {
       fd.append("state", formData.state || "");
       fd.append("pinCode", formData.pinCode || "");
 
-      // ✅ Append images
+      // Append images
       if (formData.image_ids && Array.isArray(formData.image_ids)) {
         formData.image_ids.forEach((file, index) => {
           fd.append(`image_ids`, file);
         });
       }
 
-  
-      // ✅ Items (agar multiple vehicles hai to loop)
+      // Items (agar multiple vehicles hai to loop)
       if (formData.items && Array.isArray(formData.items)) {
         formData.items.forEach((item, index) => {
           fd.append(`items[${index}][category]`, item.category || "");
@@ -413,7 +462,7 @@ export default function BecomeAHostPage() {
         });
       }
 
-      // ✅ API Call
+      // API Call
       const response = await fetch(
         "http://localhost:8080/api/user/becomehostaddnewvehicle",
         {
@@ -424,7 +473,6 @@ export default function BecomeAHostPage() {
   
       const result = await response.json();
       if (!response.ok) throw new Error(result?.message || "API Error");
-  
       alert("Vehicle Added Successfully!");
       
       // 👇 Redirect
@@ -665,6 +713,9 @@ export default function BecomeAHostPage() {
                                               </div>
                                             );
                                           })}
+                                          {itemErrors[index]?.category && (
+                                            <small className="text-danger">{itemErrors[index].category}</small>
+                                          )}
                                         </div>
                                       </div>
 
@@ -688,6 +739,9 @@ export default function BecomeAHostPage() {
                                                     );
                                                   })}
                                                 </div>
+                                                {itemErrors[index]?.subCategory && (
+                                                  <small className="text-danger">{itemErrors[index].subCategory}</small>
+                                                )}
                                               </>
                                             ) : (
                                               <p className="text-muted mt-2"><b>{item.category}</b> sub-categories are coming soon 🚀 </p>
@@ -733,7 +787,7 @@ export default function BecomeAHostPage() {
                                       {/* CHILD FORM / MESSAGE */}
                                       <div className="child-inputs">
                                         {item.category === 1 && item.subCategory ? (
-                                          <VehicleDetailsForm index={index} item={item} formData={formData} setFormData={setFormData} handleDetailsChange={handleDetailsChange} errors={errors}/>
+                                          <VehicleDetailsForm index={index} item={item} formData={formData} setFormData={setFormData} handleDetailsChange={handleDetailsChange} errors={itemErrors}/>
                                         ) : (
                                           item.subCategory && (
                                             <p className="text-muted mt-2"><b>coming soon 🚀</b></p>
