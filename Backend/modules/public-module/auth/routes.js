@@ -1,5 +1,5 @@
 const AuthController = require("./controller");
-const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp, ValidateGetAllActiveProducts, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetServiceProviderinfo} = require("./validation");
+const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActiveProducts, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetServiceProviderinfo} = require("./validation");
 
 
 /** Api for register user Coded by Raj July 07 2025 */
@@ -53,28 +53,28 @@ app.post(
 
 /** OTP Verification Coded by Vishnu Aug 12 2025 */
 app.post(
-    "/api/user/verifyotp",
-    validateOTP,
+    "/api/user/sign-up-verifyotp",
+    signUpvalidateOTP,
     (req, res, next) => {
-        AuthController.verifyOTP(req, res, next); /** Calling the controller */
+        AuthController.signUpverifyOTP(req, res, next); /** Calling the controller */
     }
 );
 
 /** Resend OTP Coded by Vishnu Aug 12 2025 */
 app.post(
-    "/api/user/resendotp",
+    "/api/user/verify-resendotp",
     validateResendOTP,
     (req, res, next) => {
         AuthController.resendOTP(req, res, next); /** Calling the controller */
     }
 );
 
-/** verifyOtp user login - Coded by Vishnu Aug 13 2025 */
+/** signInverifyOtp user login - Coded by Vishnu Aug 13 2025 */
 app.post(
-    "/api/user/verify-otp",
-    verifyOtp,
+    "/api/user/sign-in-verify-otp",
+    signInverifyOtp,
     (req, res, next) => {
-        AuthController.verifyOtp(req, res, next); /** Calling the controller */
+        AuthController.signInverifyOtp(req, res, next); /** Calling the controller */
     }
 );
 

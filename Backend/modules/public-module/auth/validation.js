@@ -191,7 +191,7 @@ const validateAvailabilityCheck = (req, res, next) => {
 };
 
 /** OTP Verification - Coded by Vishnu Aug 12 2025 */
-const validateOTP = (req, res, next) => {
+const signUpvalidateOTP = (req, res, next) => {
     const { otp } = req.body;
     /** Validate required fields */
     if (!otp) {
@@ -203,17 +203,17 @@ const validateOTP = (req, res, next) => {
 
 /** Resend OTP - Coded by Vishnu Aug 12 2025 */
 const validateResendOTP = (req, res, next) => {
-    const { userName } = req.body;
+    const { email } = req.body;
     /** Validate required fields */
-    if (!userName) {
+    if (!email) {
         return GLOBAL_ERROR_RESPONSE("User name can't be empty.", {}, res);
     }
     
     next();
 };
 
-/** user login verifyOtp - Coded by Vishnu Aug 13 2025 */
-const verifyOtp = (req, res, next) => {
+/** user login signInverifyOtp - Coded by Vishnu Aug 13 2025 */
+const signInverifyOtp = (req, res, next) => {
     const { userId, otp } = req.body;
     /** Validate required fields */
     if (!userId) {
@@ -269,4 +269,4 @@ const ValidateGetServiceProviderinfo = async (req, res, next) => {
 };
 
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, validateOTP, validateResendOTP, verifyOtp, ValidateGetAllActiveProducts, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetServiceProviderinfo};
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActiveProducts, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetServiceProviderinfo};
