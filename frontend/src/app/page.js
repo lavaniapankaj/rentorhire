@@ -5,9 +5,8 @@ import Link from "next/link";
 import styles from "./home.module.css";
 import Viewproductspop from "./products/components/Viewproductspop";
 
-// ---- API ENDPOINTS ----
-const RECENT_API_URL = `${process.env.NEXT_PUBLIC_API_BASE_USER_URL}/getrecentproducts`;
-const CATEGORY_API = `${process.env.NEXT_PUBLIC_API_BASE_USER_URL}/getallactivecategory`;
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
 
 // Category label (fallback)
 const CATEGORY = { 1: "Vehicle", 2: "Unknown" };
@@ -37,7 +36,7 @@ export default function RentHomePage() {
     let mounted = true;
     (async () => {
       try {
-        const res = await fetch(RECENT_API_URL, { cache: "no-store" });
+        const res = await fetch(`${API_BASE_URL}/getrecentproducts`, { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
           if (mounted) setRecent(Array.isArray(data) ? data : []);
@@ -58,7 +57,7 @@ export default function RentHomePage() {
     (async () => {
       try {
         setCatLoading(true);
-        const res = await fetch(CATEGORY_API, { cache: "no-store" });
+        const res = await fetch(`${API_BASE_URL}/getallactivecategory`, { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         if (mounted) setCategories(Array.isArray(data) ? data : []);

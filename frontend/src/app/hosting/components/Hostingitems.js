@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import styles from "../hosting.module.css";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
+
 /* ---------------- utils ---------------- */
 const getCookie = (name) => {
   try {
@@ -65,9 +67,9 @@ const ImageSlider = ({ images = [] }) => {
 /* --------------- Main Component --------------- */
 export default function Hostingitemslist() {
   const [items, setItems] = useState([]);
-  const [pageLoading, setPageLoading] = useState(false);     // list ke liye
-  const [detailLoading, setDetailLoading] = useState(false); // modal ke liye
-  const [busyId, setBusyId] = useState(null);                // delete/reactivate progress
+  const [pageLoading, setPageLoading] = useState(false);     
+  const [detailLoading, setDetailLoading] = useState(false); 
+  const [busyId, setBusyId] = useState(null);                
 
   const [selectedItem, setSelectedItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -87,7 +89,7 @@ export default function Hostingitemslist() {
 
     if (parsed?.id) {
       setPageLoading(true);
-      fetch("http://localhost:8080/api/user/getalllisteditems", {
+      fetch(`${API_BASE_URL}/getalllisteditems`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ service_provider_id: parsed.id }),
@@ -115,7 +117,7 @@ export default function Hostingitemslist() {
     setIsModalOpen(true);
     setDetailLoading(true);
     try {
-      const res = await fetch("http://localhost:8080/api/user/getallsinglelisteditems", {
+      const res = await fetch(`${API_BASE_URL}/getallsinglelisteditems`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: itemId }),
@@ -145,27 +147,32 @@ export default function Hostingitemslist() {
 
     try {
       setBusyId(itemId);
-      const res = await fetch("http://localhost:8080/api/user/deletesinglelisteditems", {
+
+      const res = await fetch(`${API_BASE_URL}/deletesinglelisteditems`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: itemId, action: "delete" }),
       });
 
       const data = await res.json();
+
       if (!res.ok) {
         console.error("Delete failed:", data);
         alert(data?.message || "Failed to delete the item.");
         return;
       }
 
+      // UI update: item ko inactive mark karo
       setItems((prev) =>
-        prev.map((it) => (it.id === itemId ? { ...it, item_status: 0 } : it))
+        prev.map((it) =>
+          it.id === itemId ? { ...it, item_status: 0 } : it
+        )
       );
       setSelectedItem((prev) =>
         prev && prev.id === itemId ? { ...prev, item_status: 0 } : prev
       );
 
-      alert("Item marked inactive.");
+      alert("Item marked as inactive (soft deleted).");
     } catch (err) {
       console.error("Error deleting item:", err);
       alert("Something went wrong while deleting.");
@@ -174,11 +181,12 @@ export default function Hostingitemslist() {
     }
   };
 
+
   // Reactivate (only if admin_item_status = 1)
   const handleReactivateClick = async (itemId) => {
     try {
       setBusyId(itemId);
-      const res = await fetch("http://localhost:8080/api/user/deletesinglelisteditems", {
+      const res = await fetch(`${API_BASE_URL}/deletesinglelisteditems`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: itemId, action: "reactivate" }),

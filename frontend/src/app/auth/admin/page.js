@@ -3,6 +3,8 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 /** Admin login - Coded by Raj - July 11 2025 */
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -37,7 +39,7 @@ export default function AdminLoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:8080/api/adminrohpnl/login`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
