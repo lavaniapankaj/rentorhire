@@ -5,6 +5,7 @@ import EditRoleForm from './EditRoleForm';
 import styles from '../admin.module.css';
 import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
 
 export default function RoleListPage() {
   const [role_roles, setRoleRoles] = useState([]);
@@ -45,7 +46,7 @@ export default function RoleListPage() {
     setRoleLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/list`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/role/list`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +90,7 @@ export default function RoleListPage() {
     if (!confirmDelete || !authToken || !authId) return;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/delete`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/role/delete`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

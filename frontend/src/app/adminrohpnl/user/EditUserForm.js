@@ -2,6 +2,8 @@ import { useState, useEffect, useMemo } from 'react';
 import styles from '../admin.module.css';
 import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 export default function EditUserForm({ user, onClose, roles: initialRoles, onSuccess }) {
   const [formData, setFormData] = useState({
     user_id: user.user_id,
@@ -46,7 +48,7 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
     if (!initialRoles || initialRoles.length === 0) {
       const fetchRoles = async () => {
         try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/roles`);
+          const res = await fetch(`${API_ADMIN_BASE_URL}/role/roles`);
           const data = await res.json();
           if (data.rcode === 0) {
             router.push('/auth/admin');
@@ -122,7 +124,7 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/user/edit`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/user/edit`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

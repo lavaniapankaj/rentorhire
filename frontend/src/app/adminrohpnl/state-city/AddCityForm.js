@@ -2,6 +2,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 export default function AddCityForm({ onSuccess, onCancel }) {
   const [cityName, setCityName] = useState('');
   const [slug, setSlug] = useState('');
@@ -22,7 +24,7 @@ export default function AddCityForm({ onSuccess, onCancel }) {
 
     const fetchStates = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/state/getall`, {
+        const res = await fetch(`${API_ADMIN_BASE_URL}/state/getall`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -69,7 +71,7 @@ export default function AddCityForm({ onSuccess, onCancel }) {
     const authid = authUser.id;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/city/add`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/city/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

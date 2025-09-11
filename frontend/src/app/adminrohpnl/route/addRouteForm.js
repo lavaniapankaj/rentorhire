@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import styles from '../admin.module.css';
 import { getAuthToken } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 export default function AddRouteForm({routeGroup, onSuccess, onClose }) {
 
     /** Getting the token from the cookies */
@@ -34,7 +36,7 @@ export default function AddRouteForm({routeGroup, onSuccess, onClose }) {
         };
     
         try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/route/create`, {
+          const res = await fetch(`${API_ADMIN_BASE_URL}/route/create`, {
             method: 'POST',
             headers: { 
               'Content-Type': 'application/json',

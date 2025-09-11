@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import styles from '../admin.module.css';
 import { getAuthToken } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 export default function EditRouteForm({ route, routeGroup, onClose, onSuccess }) {
 
   const [formData, setFormData] = useState({
@@ -48,7 +50,7 @@ export default function EditRouteForm({ route, routeGroup, onClose, onSuccess })
     };
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/route/edit`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/route/edit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
