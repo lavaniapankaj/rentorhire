@@ -8,6 +8,8 @@ import ViewCategory from './viewCategory';
 import EditCategoryForm from './EditCategoryForm';
 import { getAuthToken } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 export default function ListCategoryPage() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -38,7 +40,7 @@ export default function ListCategoryPage() {
 
     const fetchCategories = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/list`, {
+        const response = await fetch(`${API_ADMIN_BASE_URL}/category/list`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -86,7 +88,7 @@ export default function ListCategoryPage() {
   const token = getAuthToken();
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/details`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/category/details`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -118,7 +120,7 @@ export default function ListCategoryPage() {
     const token = getAuthToken();
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/delete`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/category/delete`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -155,7 +157,7 @@ export default function ListCategoryPage() {
     const token = getAuthToken();
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/details`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/category/details`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

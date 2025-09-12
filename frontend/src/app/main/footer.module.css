@@ -38,7 +38,7 @@
   background: #fff;
   border-color: #dcdfe3;
 }
-.social img { width: 18px; height: 18px; display: block; }
+.social img { width: 40px; height: 40px; display: block; }
 
 /* Column titles + lists */
 .title {
@@ -87,7 +87,10 @@
   color: #6b7280;
   font-size: 14px;
 }
-
+.h_container {
+  max-width: 1400px;
+  margin: auto;
+}
 /* Responsive tweaks */
 @media (max-width: 768px) {
   .copyText { text-align: left; margin-top: 6px; }

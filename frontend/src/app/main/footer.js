@@ -3,7 +3,7 @@ import styles from "./footer.module.css";
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer} ${styles.h_container}`} >
       <div className="container-fluid px-3 px-md-4 px-lg-5">
         <div className="row gy-4">
           {/* Brand / About */}

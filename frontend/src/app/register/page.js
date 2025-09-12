@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import "./register.css";
 import { useRouter } from "next/navigation";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080/api";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
+
 
 /** Helper: safe fetch + JSON + easy header access */
 async function fetchJSON(url, options = {}) {
@@ -111,7 +112,7 @@ export default function RegisterPage() {
     try {
       // 1) Check availability
       {
-        const { res, data } = await fetchJSON(`${API_BASE}/user/checkavailability`, {
+        const { res, data } = await fetchJSON(`${API_BASE_URL}/checkavailability`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userName: form.userName, email: form.email }),
@@ -143,7 +144,7 @@ export default function RegisterPage() {
           password: form.password,
         };
 
-        const { res, data } = await fetchJSON(`${API_BASE}/user/signup`, {
+        const { res, data } = await fetchJSON(`${API_BASE_URL}/signup`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -195,7 +196,7 @@ export default function RegisterPage() {
 
     setLoading(true);
     try {
-      const { res, data } = await fetchJSON(`${API_BASE}/user/sign-up-verifyotp`, {
+      const { res, data } = await fetchJSON(`${API_BASE_URL}/sign-up-verifyotp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -231,7 +232,7 @@ export default function RegisterPage() {
     setInfo("");
     setLoading(true);
     try {
-      const { res, data } = await fetchJSON(`${API_BASE}/user/verify-resendotp`, {
+      const { res, data } = await fetchJSON(`${API_BASE_URL}/verify-resendotp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: form.email }),

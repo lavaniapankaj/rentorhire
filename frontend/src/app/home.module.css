@@ -114,19 +114,20 @@
   box-shadow: none;
 }
 
-.location_in_wrap input,
-.search_block_inner input {
+.location_in_wrap input[type=search], .search_block_inner input[type=search], .category_in_wrap select {
   height: 41px;
   border: none;
   background-color: #fff;
 }
 
 .search_block_inner {
-  height: 50px;
+  
   display: flex;
   align-items: center;
 }
 
+.loc_block_inner ,
+.cat_block_inner ,
 .whatoftype {
   position: relative;
   font-weight: 700;
@@ -150,21 +151,20 @@
 }
 .rent_search_btn button {
   cursor: pointer;
-  font-weight: 700;
-  padding: 11px 13px;
-  border-radius: 20px;
-  background: #ff3c00;
-  color: #fff;
-  border: 1px solid transparent;
-  display: flex;
-  align-items: center;
-  font-size: 15px;
-  transition: all 0.2s;
+    font-weight: 700;
+    transition: all 0.2s;
+    padding: 11px 13px;
+    border-radius: 20px;
+    background: #2d2d2d;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
 }
 .rent_search_btn button:hover {
   background: #000;
 }
-.rent_search_btn button > svg {
+.rent_search_btn button  img {
   width: 34px;
   transition: transform 0.3s ease-in-out;
 }
@@ -209,9 +209,9 @@
 }
 
 .fleets_wrap_main {
-  max-width: none;   /* 1280px */
+  max-width: 98%;   /* 1280px */
   width: 100%;
-  margin-inline: 0;
+  margin: auto;
 }
 
 /* small star label row */
@@ -231,7 +231,7 @@
   font-weight: 800;
   letter-spacing: -0.2px;
   color: #0b1220;
-  margin: 8px 0 0;
+  margin: 8px 0 35px;
 }
 
 /* ===== Card ===== */
@@ -250,16 +250,19 @@
   box-shadow: 0 14px 36px rgba(16, 24, 40, 0.12);
 }
 
-/* top image area */
+.post_cardimg  {
+
+  height: 226px;
+}
 .fleetscard :global(.card-img-top) {
-  height: 220px;              /* adjust if needed */
+  height: 100%;              
   width: 100%;
-  object-fit: contain;
   background: #fff;
+  object-fit: cover;
+  object-position: center;
   border-radius: 28px 28px 0 0;
 }
 
-/* card body spacing/typography */
 .fleetscard :global(.card-body) {
   padding: 18px 20px 16px;
 }
@@ -326,7 +329,7 @@
   transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
 }
 
-.circl_btn button:hover {
+.ctaBtn:hover, .fleetscard:hover .ctaBtn   {
   transform: translateY(-1px);
   background: #000;
   box-shadow: 0 10px 20px rgba(0,0,0,.15);
@@ -403,4 +406,17 @@
 }
 .ctaBtn svg path {
   fill: #fff;
+}
+.ctaBtn  svg {
+   
+    transform: rotate(-30deg);
+    transition: all .3s ease-in-out;
+}
+
+.fleetscard:hover .ctaBtn svg {
+    transform: rotate(0deg);
+}
+.h_container {
+  max-width: 1400px;
+  margin: auto;
 }

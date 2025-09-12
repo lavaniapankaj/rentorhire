@@ -2,6 +2,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 export default function EditCityForm({ cityId, onSuccess, onCancel }) {
   const [formData, setFormData] = useState({
     city_name: '',
@@ -27,7 +29,7 @@ export default function EditCityForm({ cityId, onSuccess, onCancel }) {
 
     const fetchStates = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/state/getall`, {
+        const res = await fetch(`${API_ADMIN_BASE_URL}/state/getall`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -57,7 +59,7 @@ export default function EditCityForm({ cityId, onSuccess, onCancel }) {
 
     const fetchCityDetails = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/city/getsingle`, {
+        const res = await fetch(`${API_ADMIN_BASE_URL}/city/getsingle`, {
           method: 'POST', // Use POST for fetching city details
           headers: {
             'Content-Type': 'application/json',
@@ -101,7 +103,7 @@ export default function EditCityForm({ cityId, onSuccess, onCancel }) {
     setLoading(true);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/city/edit`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/city/edit`, {
         method: 'POST', // Keep POST for editing the city
         headers: {
           'Content-Type': 'application/json',

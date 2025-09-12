@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import styles from '../admin.module.css';
 import { getAuthToken } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 export default function AddCategoryForm({ onSuccess, onClose }) {
   const initialFormState = {
     category_name: "",
@@ -25,7 +27,7 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
 
     const fetchCategories = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/getParent`, {
+        const res = await fetch(`${API_ADMIN_BASE_URL}/category/getParent`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -65,7 +67,7 @@ export default function AddCategoryForm({ onSuccess, onClose }) {
     }
   
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/category/create`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/category/create`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

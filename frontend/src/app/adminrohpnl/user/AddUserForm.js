@@ -4,6 +4,8 @@ import styles from '../admin.module.css';
 import bcrypt from 'bcryptjs';
 import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 const initialFormState = {
   first_name: '',
   last_name: '',
@@ -31,16 +33,16 @@ export default function AddUserForm({ onSuccess, onClose }) {
   const authUser = JSON.parse(admindtl);
   const authid = authUser.id;
 
-  const fetchedOnce = useRef(false); // ✅ used to prevent double call
+  const fetchedOnce = useRef(false); // used to prevent double call
 
-  // ✅ Fetch roles on component mount
+  // Fetch roles on component mount
   useEffect(() => {
     if (fetchedOnce.current) return;
     fetchedOnce.current = true;
 
     const fetchRoles = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/roles`);
+        const res = await fetch(`${API_ADMIN_BASE_URL}/role/roles`);
         const data = await res.json();
         /** recode = 0 is used for the token error */
         if(data.rcode == 0){
@@ -48,7 +50,7 @@ export default function AddUserForm({ onSuccess, onClose }) {
         }
 
         if (res.ok && data.status && Array.isArray(data.data)) {
-          setRoles(data.data); // ✅ store role array
+          setRoles(data.data); //store role array
         } else {
           console.error('Failed to fetch roles:', data);
         }
@@ -93,7 +95,7 @@ const handleSubmit = async (e) => {
     payload.append('edit_id', 0);
 
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/user/create`, {
+        const res = await fetch(`${API_ADMIN_BASE_URL}/user/create`, {
             method: 'POST',
             headers: { 
                 'Authorization': `Bearer ${token}` // No Content-Type here, FormData sets it automatically

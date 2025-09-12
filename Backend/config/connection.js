@@ -1,5 +1,5 @@
 require('dotenv').config();
-const mysql = require('mysql2');  // Import mysql2 package
+const mysql = require('mysql2');
 
 // Direct DB credentials from environment variables
 const DB_HOST = process.env.DB_HOST;
@@ -13,13 +13,22 @@ const pool = mysql.createPool({
   user: DB_USER,
   password: DB_PASS,
   database: DB_NAME,
-  waitForConnections: true,  // Wait for a connection to become available
-  connectionLimit: 10,       // Max number of connections to create at a time
-  queueLimit: 0              // No limit on the number of queued connections
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 // Use the promise API for easy async/await usage
-const promisePool = pool.promise();  // Chain .promise() to enable promises
+const promisePool = pool.promise();
+
+// Test DB connection and log success or error
+promisePool.query('SELECT 1')
+  .then(() => {
+    console.log('✅ Successfully connected to the MySQL database.');
+  })
+  .catch((err) => {
+    console.error('❌ Failed to connect to the MySQL database:', err.message);
+  });
 
 // Export the promise-based pool
 module.exports = promisePool;

@@ -8,6 +8,8 @@ import EditUserForm from './EditUserForm';
 import ViewUser from './ViewUser';
 import { getAuthToken } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 export default function ListUserPage() {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
@@ -49,7 +51,7 @@ export default function ListUserPage() {
     const fetchUsers = async () => {
       if (!initialLoad) setLoading(true);
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/user/get`, {
+        const res = await fetch(`${API_ADMIN_BASE_URL}/user/get`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -75,7 +77,7 @@ export default function ListUserPage() {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/roles`);
+        const res = await fetch(`${API_ADMIN_BASE_URL}/role/roles`);
         if (!res.ok) throw new Error('Failed to fetch roles');
         const data = await res.json();
         if (data.rcode == 0) router.push('/auth/admin');
@@ -111,7 +113,7 @@ export default function ListUserPage() {
 
   const openEditModal = async (user) => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/user/view`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/user/view`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -137,7 +139,7 @@ export default function ListUserPage() {
     const confirmDelete = window.confirm("Are you sure you want to delete this user?");
     if (!confirmDelete) return;
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/user/delete`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/user/delete`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -158,7 +160,7 @@ export default function ListUserPage() {
 
   const openViewModal = async (user) => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/user/view`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/user/view`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ user_id: user.user_id }),

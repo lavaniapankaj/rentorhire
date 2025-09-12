@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 export default function AddStateForm({ onClose, onStateAdded }) {
   const [stateName, setStateName] = useState('');
   const [stateSlug, setStateSlug] = useState('');
@@ -32,7 +34,7 @@ export default function AddStateForm({ onClose, onStateAdded }) {
 
   const handleSlugChange = (e) => {
     setStateSlug(e.target.value);
-    setSlugManuallyEdited(true); // 👈 mark as manually edited
+    setSlugManuallyEdited(true); //mark as manually edited
   };
 
   const handleSubmit = async (e) => {
@@ -44,7 +46,7 @@ export default function AddStateForm({ onClose, onStateAdded }) {
     const authid = authUser.id;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/state/add`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/state/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

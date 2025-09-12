@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import VehicleDetailsForm from "./components/VehicleDetailsForm";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
+
 export default function BecomeAHostPage() {
 
   const router = useRouter();
@@ -62,7 +64,7 @@ export default function BecomeAHostPage() {
       // Fetch fresh user data from API using the ID
       const fetchUserData = async () => {
         try {
-          const res = await fetch("http://localhost:8080/api/user/userdetails", {
+          const res = await fetch(`${API_BASE_URL}/userdetails`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ user_id: userId }),
@@ -104,7 +106,7 @@ export default function BecomeAHostPage() {
     (async () => {
       try {
         setLoadingCategories(true);
-        const res = await fetch("http://localhost:8080/api/user/getallactivecategory", { signal: abort.signal });
+        const res = await fetch(`${API_BASE_URL}/getallactivecategory`, { signal: abort.signal });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         setCategories(Array.isArray(data) ? data : []);
@@ -244,7 +246,7 @@ export default function BecomeAHostPage() {
       });
 
       // Step 2: API call for subcategories
-      const res = await fetch("http://localhost:8080/api/user/getallactivechildcategory", {
+      const res = await fetch(`${API_BASE_URL}/getallactivechildcategory`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ parent_category_id: cat.id }),
@@ -287,7 +289,7 @@ export default function BecomeAHostPage() {
       });
   
       // 2. Fetch brands for the selected subcategory
-      const response = await fetch("http://localhost:8080/api/user/getallchildcategorybrands", {
+      const response = await fetch(`${API_BASE_URL}/getallchildcategorybrands`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ child_category_id: sub.id }),
@@ -320,7 +322,7 @@ export default function BecomeAHostPage() {
       });
 
       // 2. Fetch models for selected brand
-      const response = await fetch("http://localhost:8080/api/user/getallchildcategorybrandsmodel", {
+      const response = await fetch(`${API_BASE_URL}/getallchildcategorybrandsmodel`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ brand_id: brandId }),
@@ -463,11 +465,10 @@ export default function BecomeAHostPage() {
       }
 
       // API Call
-      const response = await fetch(
-        "http://localhost:8080/api/user/becomehostaddnewvehicle",
+      const response = await fetch(`${API_BASE_URL}/becomehostaddnewvehicle`,
         {
           method: "POST",
-          body: fd, // browser khud content-type set karega
+          body: fd,
         }
       );
   
@@ -475,7 +476,7 @@ export default function BecomeAHostPage() {
       if (!response.ok) throw new Error(result?.message || "API Error");
       alert("Vehicle Added Successfully!");
       
-      // 👇 Redirect
+      // Redirect
       router.push("/hosting");
     } catch (error) {
       console.error("❌ Submission Failed:", error);
