@@ -85,7 +85,7 @@ export default function RentHomePage() {
       {/* HERO */}
       <section className={styles.hero_wrap}>
         <div className={styles.hero_section}>
-          <div className={`container ${styles.hero_container}`}>
+          <div className={`container ${styles.hero_container} `}>
             <div className="row justify-content-center">
               <div className="col-12">
                 <div className={styles.main_heading}>
@@ -104,7 +104,7 @@ export default function RentHomePage() {
                 </div>
               </div>
 
-              {/* Search Bar */}
+              {/* Search Bar  */}
               <div className="col-12">
                 <div className={`container ${styles.custom_searchbar_wrap}`}>
                   <div className={styles.custom_searchbar}>
@@ -129,7 +129,7 @@ export default function RentHomePage() {
                         {/* Location */}
                         <div className={`col-lg-3 col-md-6 col-12 ${styles.border_rightF1}`}>
                           <div className="form-group w-100">
-                            <label htmlFor="location" className="loc_block_inner">Location</label>
+                            <label htmlFor="location" className={`${styles.loc_block_inner}`}>Location</label>
                             <div className={styles.location_in_wrap}>
                               <input
                                 className="w-100"
@@ -146,7 +146,7 @@ export default function RentHomePage() {
                         {/* Category */}
                         <div className={`col-lg-3 col-md-6 col-12 ${styles.border_rightF2}`}>
                           <div className="form-group w-100">
-                            <label htmlFor="category" className="cat_block_inner">Category</label>
+                            <label htmlFor="category" className={`${styles.cat_block_inner}`}>Category</label>
                             <div className={styles.category_in_wrap}>
                               <select id="category" className="text-muted w-100" defaultValue="">
                                 <option value="">Select Category</option>
@@ -154,7 +154,7 @@ export default function RentHomePage() {
                                   <option key={c.id} value={c.id}>{c.name}</option>
                                 ))}
                               </select>
-                              <img className="toggle-icon" src="/images/homepg/down.svg" alt="toggle" />
+                              <Image className="toggle-icon" src="/images/homepg/down.svg" alt="star icon" width={20} height={20} />
                             </div>
                           </div>
                         </div>
@@ -180,7 +180,8 @@ export default function RentHomePage() {
                         {/* Button */}
                         <div className="col-lg-2 col-md-12 col-12">
                           <div className={styles.rent_search_btn}>
-                            <button className="button theme-btn-new" type="submit">Search</button>
+                            <button className="button theme-btn-new" type="submit">
+                              <Image className="toggle-icon" src="/images/assets/search.svg" alt="star icon" width={34} height={34} /></button>
                           </div>
                         </div>
                       </div>
@@ -204,7 +205,7 @@ export default function RentHomePage() {
         </div>
 
         {/* Recent Products */}
-        <div className={styles.fleetswrap_inner}>
+        <div className={`${styles.fleetswrap_inner} ${styles.h_container}`} >
           <div className={styles.fleets_wrap_main}>
             <div className="d-flex justify-content-center align-items-center">
               <div className={styles.star_box}>
@@ -227,15 +228,16 @@ export default function RentHomePage() {
 
                 {!loadingRecent && recent.slice(0, 8).map((p) => (
                   <div key={p.id} className="col-12 col-sm-6 col-lg-3">
+                    
                     <div className={`card ${styles.fleetscard} h-100`}>
+                      <div className={`${styles.post_cardimg}`}>
                       <Image
                         src={p.media_gallery?.[0]?.file_path + p.media_gallery?.[0]?.file_name || "/media/host/items/placeholder.png"}
                         alt={p.item_name}
                         width={600}
                         height={360}
-                        className={`card-img-top p-4 ${styles.cardImg}`}
-                      />
-
+                        className={`card-img-top  ${styles.cardImg}`}/>
+                      </div>
                       <div className={`card-body d-flex flex-column pt-2 ${styles.cardBody}`}>
                         <div>
                           <span className="badge rounded-pill px-3 py-2 badge-car">

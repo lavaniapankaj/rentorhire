@@ -165,8 +165,51 @@ export default function Viewproductspop({ triggerId, onClose }) {
                 <p>No images available</p>
               )}
             </div>
-
+              <div className={styles.popupwrap_inner}>
             <div className={styles.detailsGrid}>
+                                <div class="d-flex justify-content-between text-dark  content_layer">
+                                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                                        <Image 
+                                          src="/lokesh/assets/images/door.svg" alt="Door Icon" width={40} height={40} />
+                                        <span>Doors</span>
+                                    </div>
+                                    <span className="text-dark fw-medium">4</span>
+                                </div>
+                                <div class="d-flex justify-content-between text-dark  content_layer">
+                                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                                        <Image src="/lokesh/assets/images/ic_passanger.svg" width={40} height={40} />
+                                        <span>Passengers</span>
+                                    </div>
+                                    <span className="text-dark fw-medium">5</span>
+                                </div>
+                                <div class="d-flex justify-content-between text-dark   content_layer">
+                                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                                        <Image src="/lokesh/assets/images/icon-transmission.svg" width={40} height={40} />
+                                        <span>Transmission</span>
+                                    </div>
+                                    <span className="text-dark fw-medium">Manual</span>
+                                </div>
+                                <div className="d-flex justify-content-between text-dark   content_layer">
+                                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                                        <Image src="/lokesh/assets/images/icon-age.svg" width={40} height={40} />
+                                        <span>Age</span>
+                                    </div>
+                                    <span className="text-dark fw-medium">Under 2 years</span>
+                                </div>
+                                <div className="d-flex justify-content-between text-dark   content_layer">
+                                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                                        <Image src="/lokesh/assets/images/icon-bags.svg" width={40} height={40} />
+                                        <span>Luggage</span>
+                                    </div>
+                                    <span className="text-dark fw-medium">2 Small Bags</span>
+                                </div>
+                                <div className="d-flex justify-content-between text-dark   content_layer">
+                                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                                        <Image src="/lokesh/assets/images/icon-transmission.svg" width={40} height={40} />
+                                        <span>Air Condition</span>
+                                    </div>
+                                    <span className="text-dark fw-medium">Yes</span>
+                                </div>
               <p>
                 <strong>Price/Day:</strong> ₹{item.price_per_day}
               </p>
@@ -201,7 +244,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
                 <strong>Condition:</strong> {item.vehicle_condition}
               </p>
             </div>
-
+              </div>
             <div className={styles.extraInfo}>
               <h4>Accessories</h4>
               <p>{item.accessories}</p>

@@ -12,11 +12,11 @@ const Header = () => {
 
   return (
     <header className={styles.headerArea}>
-      <div className={`container-fluid px-3 px-md-4 px-lg-5 ${styles.headerBlock}`}>
+      <div className={`container  px-3 px-md-4 px-lg-5 ${styles.headerBlock} ${styles.h_container}`}>
         <div className="row align-items-center">
 
           {/* Logo */}
-          <div className={`col-6 col-md-4 col-lg-2 ${styles.logoBlock}`}>
+          <div className={`col-4 col-md-2 col-lg-2 ${styles.logoBlock}`}>
             <Link href="/">
               <img
                 className={styles.logo}
@@ -27,7 +27,7 @@ const Header = () => {
           </div>
 
           {/* Navbar */}
-          <div className="col-6 col-md-4 col-lg-7 order-1 order-lg-0">
+          <div className="col-2 col-md-2 col-lg-7 order-1 order-lg-0">
             <nav className="navbar navbar-expand-lg navbar-dark bg-transparent">
               <button
                 className="navbar-toggler"
@@ -39,13 +39,13 @@ const Header = () => {
               </button>
 
               <div className="collapse navbar-collapse justify-content-start" id="navbarNav">
-                <ul className="navbar-nav w-100 justify-content-around">
+                <ul className="navbar-nav w-100 align-items-center justify-content-around">
                   <li className="nav-item">
                     <Link className={styles.navLink} href="/">Home</Link>
                   </li>
                   <li className="nav-item dropdown">
                     <a
-                      className={`nav-link dropdown-toggle ${styles.navLink}`}
+                      className={`nav-link ${styles.dropdown_toggle} ${styles.navLink}`}
                       href="/products/"
                       id="navbarDropdown"
                       role="button"
@@ -54,18 +54,18 @@ const Header = () => {
                     >
                       Services
                     </a>
-                    <ul className={`dropdown-menu ${styles.dropdownMenu}`} aria-labelledby="navbarDropdown">
-                      <li><Link className={`dropdown-item ${styles.dropdownItem}`} href="#">Vehicles</Link></li>
-                      <li><Link className={`dropdown-item ${styles.dropdownItem}`} href="#">Electronics</Link></li>
-                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Home Appliances</a></li>
-                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Tools & Equipment</a></li>
-                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Events & Party</a></li>
-                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Baby & Kids</a></li>
-                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Travel & Camping</a></li>
-                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Studio & Production</a></li>
-                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Office & Furniture</a></li>
-                      <li><a className={`dropdown-item ${styles.dropdownItem}`} href="#">Miscellaneous</a></li>
-                    </ul>
+                    <div className={`dropdown-menu ${styles.dropdown_menu}`} aria-labelledby="navbarDropdown">
+                      <Link className={`dropdown-item ${styles.dropdown_item}`} href="#">Vehicles</Link>
+                      <Link className={`dropdown-item ${styles.dropdown_item}`} href="#">Electronics</Link>
+                      <Link className={`dropdown-item ${styles.dropdown_item}`} href="#">Home Appliances</Link>
+                      <Link className={`dropdown-item ${styles.dropdown_item}`} href="#">Tools & Equipment</Link>
+                      <Link className={`dropdown-item ${styles.dropdown_item}`} href="#">Events & Party</Link>
+                      <Link className={`dropdown-item ${styles.dropdown_item}`} href="#">Baby & Kids</Link>
+                      <Link className={`dropdown-item ${styles.dropdown_item}`} href="#">Travel & Camping</Link>
+                      <Link className={`dropdown-item ${styles.dropdown_item}`} href="#">Studio & Production</Link>
+                      <Link className={`dropdown-item ${styles.dropdown_item}`} href="#">Office & Furniture</Link>
+                      <Link className={`dropdown-item ${styles.dropdown_item}`} href="#">Miscellaneous</Link>
+                    </div>
                   </li>
                   <li className="nav-item">
                     <a className={styles.navLink} href="#">How It Works</a>
@@ -85,7 +85,7 @@ const Header = () => {
           </div>
 
           {/* CTA + Dashboard */}
-          <div className="col-12 col-md-4 col-lg-3 d-flex align-items-center justify-content-end">
+          <div className="col-6 col-md-8 col-lg-3 d-flex align-items-center justify-content-end">
             <div className={`d-flex align-items-center ${styles.topBtns}`}>
               <Link href="/dashboard" className={styles.loginBtn}>
                 Dashboard
