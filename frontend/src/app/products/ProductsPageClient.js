@@ -6,9 +6,7 @@ import { useSearchParams } from "next/navigation";
 import styles from "./product.module.css";
 import Viewproductspop from "./components/Viewproductspop";
 
-// APIs
-const API_URL = `${process.env.NEXT_PUBLIC_API_BASE_USER_URL}/getallproducts`;
-const CATEGORY_API = `${process.env.NEXT_PUBLIC_API_BASE_USER_URL}/getallactivecategory`;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
 
 function formatPriceINR(v) {
   return Number(v ?? 0).toLocaleString("en-IN");
@@ -61,7 +59,9 @@ export default function ProductsPageClient() {
     (async () => {
       try {
         setCatLoading(true);
-        const res = await fetch(CATEGORY_API, { cache: "no-store" });
+        const res = await fetch(`${API_BASE_URL}/getallactivecategory`, {
+          cache: "no-store" 
+        });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         if (mounted) setCategories(Array.isArray(data) ? data : []);
@@ -81,7 +81,7 @@ export default function ProductsPageClient() {
     setLoading(true);
     (async () => {
       try {
-        const url = new URL(API_URL);
+        const url = new URL(`${API_BASE_URL}/getallproducts`);
         url.searchParams.set("page", String(initialPage));
         url.searchParams.set("limit", String(limit));
         if (initialCategory) url.searchParams.set("category", initialCategory);

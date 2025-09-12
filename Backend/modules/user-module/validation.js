@@ -39,9 +39,9 @@ const ValidateEditUserDtls = async (req, res, next) => {
         if (!pincode) {
             return res.status(400).json({ message: 'Pincode is required' });
         }
-        if (pincode.length !== 6) {
-            return res.status(400).json({ message: 'Pincode must be 6 digits' });
-        }
+        // if (pincode.length !== 6) {
+        //     return res.status(400).json({ message: 'Pincode must be 6 digits' });
+        // }
 
         next();
     } catch (err) {

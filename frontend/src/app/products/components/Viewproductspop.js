@@ -4,6 +4,8 @@ import styles from "./view.module.css";
 import Image from "next/image";
 import { jwtDecode } from "jwt-decode";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
+
 export default function Viewproductspop({ triggerId, onClose }) {
   const [loading, setLoading] = useState(false);
   const [item, setItem] = useState(null);
@@ -80,7 +82,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
     (async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_USER_URL}/viewsingleitem`,
+          `${API_BASE_URL}/viewsingleitem`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -96,7 +98,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
         // Only fetch service provider info if token/session is valid
         if (isValid && singleItem?.service_provider_id) {
           const res2 = await fetch(
-            `${process.env.NEXT_PUBLIC_API_BASE_USER_URL}/getserviceprovideinfo`,
+            `${API_BASE_URL}/getserviceprovideinfo`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },

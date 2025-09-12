@@ -24,6 +24,7 @@ function userModuleApi() {
                     phone_number,
                     user_role_id,
                     profile_picture_url,
+                    is_service_provider,
                     address_1,
                     landmark,
                     state,

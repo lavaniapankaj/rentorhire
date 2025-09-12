@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./register.css";
 import { useRouter } from "next/navigation";
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8080/api";
 
-/** Helper: safe fetch + JSON */
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
+
+
+/** Helper: safe fetch + JSON + easy header access */
 async function fetchJSON(url, options = {}) {
   const res = await fetch(url, {
     headers: { Accept: "application/json", ...(options.headers || {}) },
@@ -26,7 +28,10 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
-  const [debugOtp, setDebugOtp] = useState(""); /** for testing if backend returns OTP (can hide in prod) */
+  const [info, setInfo] = useState("");
+  const [debugOtp, setDebugOtp] = useState(""); // dev-only display
+  const [resendCooldown, setResendCooldown] = useState(0);
+
   const router = useRouter();
 
   const [form, setForm] = useState({
@@ -42,13 +47,28 @@ export default function RegisterPage() {
   const userNameRef = useRef(null);
   const otpRef = useRef(null);
 
+  /** simple toast clear */
+  useEffect(() => {
+    if (!info) return;
+    const t = setTimeout(() => setInfo(""), 4000);
+    return () => clearTimeout(t);
+  }, [info]);
+
+  /** resend cooldown ticker */
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+    const t = setInterval(() => setResendCooldown((s) => s - 1), 1000);
+    return () => clearInterval(t);
+  }, [resendCooldown]);
+
   const onChange = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
     setFieldErrors((fe) => ({ ...fe, [name]: "" }));
     setFormError("");
+    setInfo("");
 
-    /** If any core detail changes while on Step-2, drop back to Step-1 */
+    // If any core detail changes during Step-2, drop back to Step-1
     if (
       step === 2 &&
       ["userName", "email", "phone", "password", "firstName", "lastName"].includes(name)
@@ -61,32 +81,27 @@ export default function RegisterPage() {
 
   const validateStep1 = () => {
     const fe = {};
-    const cleanedPhone = form.phone.replace(/\D/g, "");
+    const cleanedPhone = (form.phone || "").replace(/\D/g, "");
     if (!form.userName.trim()) fe.userName = "Username is required.";
     if (!form.firstName.trim()) fe.firstName = "First name is required.";
     if (!form.lastName.trim()) fe.lastName = "Last name is required.";
     if (!form.email.trim()) fe.email = "Email is required.";
     else if (!/^\S+@\S+\.\S+$/.test(form.email)) fe.email = "Enter a valid email.";
-    if (!cleanedPhone) {
-      fe.phone = "Phone number is required.";
-    } else if (cleanedPhone.length !== 10) {
-      fe.phone = "Enter 10-digit number.";
-    } else {
-      form.phone = cleanedPhone; 
-    }
+    if (!cleanedPhone) fe.phone = "Phone number is required.";
+    else if (cleanedPhone.length !== 10) fe.phone = "Enter 10-digit number.";
     if (!form.password) fe.password = "Password is required.";
-    else if (form.password.length < 8)
-      fe.password = "Password must be at least 8 characters.";
-    return fe;
+    else if (form.password.length < 8) fe.password = "Password must be at least 8 characters.";
+    return { fe, cleanedPhone };
   };
 
-  /** Step-1 submit: check availability → signup (backend sets active=0 & authorize_code=OTP) */
+  /** Step-1 submit: availability → signup (backend sets active=0 & authorize_code=OTP) */
   const handleStep1Submit = async (e) => {
     e.preventDefault();
     setFormError("");
+    setInfo("");
     setFieldErrors({});
 
-    const fe = validateStep1();
+    const { fe, cleanedPhone } = validateStep1();
     if (Object.keys(fe).length) {
       setFieldErrors(fe);
       setFormError("Please fix the highlighted fields.");
@@ -95,16 +110,15 @@ export default function RegisterPage() {
 
     setLoading(true);
     try {
-      /** 1) Pre-check availability (only username & email) */
+      // 1) Check availability
       {
-        const { res, data } = await fetchJSON(`${API_BASE}/user/checkavailability`, {
+        const { res, data } = await fetchJSON(`${API_BASE_URL}/checkavailability`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userName: form.userName, email: form.email }),
         });
 
         if (!res.ok || data?.status === false) {
-          /** Backend may return { data: { taken: { userName: true, email: true } } } */
           const taken = data?.data?.taken || {};
           const newFE = {};
           if (taken.userName) newFE.userName = "User name already exists.";
@@ -115,30 +129,28 @@ export default function RegisterPage() {
             setFormError("Some details already exist. Please update and try again.");
             return;
           }
-          /** Fallback generic */
           throw new Error(data?.message || "Could not check availability");
         }
       }
 
-      /** 2) Signup → backend: active=0, authorize_code=OTP */
+      // 2) Signup
       {
         const payload = {
           userName: form.userName,
           firstName: form.firstName,
           lastName: form.lastName,
           email: form.email,
-          phone: form.phone,
+          phone: cleanedPhone, // use cleaned phone here
           password: form.password,
         };
 
-        const { res, data } = await fetchJSON(`${API_BASE}/user/signup`, {
+        const { res, data } = await fetchJSON(`${API_BASE_URL}/signup`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
 
         if (!res.ok || data?.status === false) {
-          /** handle duplicates by message */
           const msg = data?.message || "Signup failed";
           if (/user.?name.*exist|duplicate.*user.*name/i.test(msg)) {
             setFieldErrors({ userName: "User name already exists." });
@@ -151,12 +163,13 @@ export default function RegisterPage() {
           return;
         }
 
-        /** For testing only: if backend returns OTP in data, show it (alert or debug label) */
-        const otpFromServer = data?.data?.otp;
-        if (otpFromServer) {
-          setDebugOtp(String(otpFromServer));
-          // alert(`OTP: ${otpFromServer}`); // uncomment only for dev
-        }
+        // Save cleaned phone into form state (don’t mutate earlier)
+        setForm((f) => ({ ...f, phone: payload.phone }));
+
+        // Dev-only: show OTP if backend returns it
+        const otpFromServer =
+          data?.data?.otp ?? data?.otp ?? data?.data?.authorize_code ?? data?.authorize_code;
+        if (otpFromServer) setDebugOtp(String(otpFromServer));
 
         setStep(2);
         setTimeout(() => otpRef.current?.focus(), 0);
@@ -168,10 +181,11 @@ export default function RegisterPage() {
     }
   };
 
-  /** Step-2 submit: verify OTP → backend sets active=1 & clears authorize_code */
+  /** Step-2 submit: verify OTP */
   const handleVerifyAndCreate = async (e) => {
     e.preventDefault();
     setFormError("");
+    setInfo("");
     setFieldErrors((fe) => ({ ...fe, otp: "" }));
 
     if (!form.otp.trim()) {
@@ -182,11 +196,11 @@ export default function RegisterPage() {
 
     setLoading(true);
     try {
-      const { res, data } = await fetchJSON(`${API_BASE}/user/verifyotp`, {
+      const { res, data } = await fetchJSON(`${API_BASE_URL}/sign-up-verifyotp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userName: form.userName, /** verifying by username (as per your controller guidance) */
+          userName: form.userName, // verifying by username
           otp: form.otp,
         }),
       });
@@ -199,22 +213,11 @@ export default function RegisterPage() {
         return;
       }
 
-      /** Success: active=1 & authorize_code cleared */
+      // ✅ Success: directly navigate and STOP (no setState after this).
       alert("Account verified successfully. You can now log in.");
-      router.push("/login"); 
 
-      /** Reset form → back to Step-1 or redirect to login */
-      setForm({
-        userName: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        password: "",
-        otp: "",
-      });
-      setDebugOtp("");
-      setStep(1);
+      router.replace("/login");
+      return;
     } catch (err) {
       setFormError(err?.message || "OTP verification failed");
     } finally {
@@ -224,24 +227,39 @@ export default function RegisterPage() {
 
   /** Resend OTP → backend updates authorize_code with new OTP */
   const handleResendOtp = async () => {
+    if (resendCooldown > 0) return;
     setFormError("");
+    setInfo("");
     setLoading(true);
     try {
-      const { res, data } = await fetchJSON(`${API_BASE}/user/resendotp`, {
+      const { res, data } = await fetchJSON(`${API_BASE_URL}/verify-resendotp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userName: form.userName }),
+        body: JSON.stringify({ email: form.email }),
       });
 
       if (!res.ok || data?.status === false) {
         throw new Error((data && data.message) || "Failed to resend OTP");
       }
 
-      const newOtp = data?.data?.otp;
+      // Try every reasonable place for an OTP value if backend ever adds it
+      const headerOtp = res.headers.get("X-Dev-OTP"); // if you add header in dev
+      const newOtp =
+        headerOtp ||
+        data?.data?.otp ||
+        data?.otp ||
+        data?.data?.authorize_code ||
+        data?.authorize_code;
+
       if (newOtp) {
-        setDebugOtp(String(newOtp)); // for dev/testing
-        // alert(`New OTP: ${newOtp}`); // uncomment for dev
+        setDebugOtp(String(newOtp)); // show new OTP in dev note (when available)
+        setInfo("New OTP received.");
+      } else {
+        // Backend returned no OTP (current prod-safe behavior)
+        setInfo("OTP resent successfully.");
       }
+
+      setResendCooldown(30); // 30s cooldown
     } catch (err) {
       setFormError(err?.message || "Failed to resend OTP");
     } finally {
@@ -254,17 +272,15 @@ export default function RegisterPage() {
       <main className="rohuserres_shell">
         <section className="rohuserres_card">
           <h1 className="rohuserres_title">Create your account</h1>
-          <p className="rohuserres_sub">
-            {/* Rent cars, bikes, cameras and more — faster checkout next time. */}
-          </p>
+          <p className="rohuserres_sub"></p>
 
-          {/* Step indicator */}
           <div className="rohuserres_steps">
             <span className={step === 1 ? "active" : ""}></span>
             <span className={step === 2 ? "active" : ""}></span>
           </div>
 
           {formError ? <p className="rohuserres_errorTop">{formError}</p> : null}
+          {info ? <p className="rohuserres_infoTop">{info}</p> : null}
 
           {step === 1 ? (
             <form onSubmit={handleStep1Submit} className="rohuserres_form" noValidate>
@@ -273,9 +289,7 @@ export default function RegisterPage() {
                 <label className="rohuserres_label">Username</label>
                 <input
                   ref={userNameRef}
-                  className={`rohuserres_input ${
-                    fieldErrors.userName ? "rohuserres_input--invalid" : ""
-                  }`}
+                  className={`rohuserres_input ${fieldErrors.userName ? "rohuserres_input--invalid" : ""}`}
                   type="text"
                   name="userName"
                   placeholder="Username"
@@ -287,9 +301,7 @@ export default function RegisterPage() {
                   disabled={loading}
                 />
                 {fieldErrors.userName && (
-                  <span id="err-userName" className="rohuserres_error">
-                    {fieldErrors.userName}
-                  </span>
+                  <span id="err-userName" className="rohuserres_error">{fieldErrors.userName}</span>
                 )}
               </div>
 
@@ -298,9 +310,7 @@ export default function RegisterPage() {
                 <div className="rohuserres_fieldCol">
                   <label className="rohuserres_label">First Name</label>
                   <input
-                    className={`rohuserres_input ${
-                      fieldErrors.firstName ? "rohuserres_input--invalid" : ""
-                    }`}
+                    className={`rohuserres_input ${fieldErrors.firstName ? "rohuserres_input--invalid" : ""}`}
                     type="text"
                     name="firstName"
                     placeholder="First Name"
@@ -312,17 +322,13 @@ export default function RegisterPage() {
                     disabled={loading}
                   />
                   {fieldErrors.firstName && (
-                    <span id="err-firstName" className="rohuserres_error">
-                      {fieldErrors.firstName}
-                    </span>
+                    <span id="err-firstName" className="rohuserres_error">{fieldErrors.firstName}</span>
                   )}
                 </div>
                 <div className="rohuserres_fieldCol">
                   <label className="rohuserres_label">Last Name</label>
                   <input
-                    className={`rohuserres_input ${
-                      fieldErrors.lastName ? "rohuserres_input--invalid" : ""
-                    }`}
+                    className={`rohuserres_input ${fieldErrors.lastName ? "rohuserres_input--invalid" : ""}`}
                     type="text"
                     name="lastName"
                     placeholder="Last Name"
@@ -334,9 +340,7 @@ export default function RegisterPage() {
                     disabled={loading}
                   />
                   {fieldErrors.lastName && (
-                    <span id="err-lastName" className="rohuserres_error">
-                      {fieldErrors.lastName}
-                    </span>
+                    <span id="err-lastName" className="rohuserres_error">{fieldErrors.lastName}</span>
                   )}
                 </div>
               </div>
@@ -345,9 +349,7 @@ export default function RegisterPage() {
               <div className="rohuserres_fieldCol">
                 <label className="rohuserres_label">Email</label>
                 <input
-                  className={`rohuserres_input ${
-                    fieldErrors.email ? "rohuserres_input--invalid" : ""
-                  }`}
+                  className={`rohuserres_input ${fieldErrors.email ? "rohuserres_input--invalid" : ""}`}
                   type="email"
                   name="email"
                   placeholder="you@example.com"
@@ -359,9 +361,7 @@ export default function RegisterPage() {
                   disabled={loading}
                 />
                 {fieldErrors.email && (
-                  <span id="err-email" className="rohuserres_error">
-                    {fieldErrors.email}
-                  </span>
+                  <span id="err-email" className="rohuserres_error">{fieldErrors.email}</span>
                 )}
               </div>
 
@@ -369,9 +369,7 @@ export default function RegisterPage() {
               <div className="rohuserres_fieldCol">
                 <label className="rohuserres_label">Phone Number</label>
                 <input
-                  className={`rohuserres_input ${
-                    fieldErrors.phone ? "rohuserres_input--invalid" : ""
-                  }`}
+                  className={`rohuserres_input ${fieldErrors.phone ? "rohuserres_input--invalid" : ""}`}
                   type="tel"
                   name="phone"
                   placeholder="9876543210"
@@ -383,9 +381,7 @@ export default function RegisterPage() {
                   disabled={loading}
                 />
                 {fieldErrors.phone && (
-                  <span id="err-phone" className="rohuserres_error">
-                    {fieldErrors.phone}
-                  </span>
+                  <span id="err-phone" className="rohuserres_error">{fieldErrors.phone}</span>
                 )}
               </div>
 
@@ -393,9 +389,7 @@ export default function RegisterPage() {
               <div className="rohuserres_fieldCol">
                 <label className="rohuserres_label">Password</label>
                 <input
-                  className={`rohuserres_input ${
-                    fieldErrors.password ? "rohuserres_input--invalid" : ""
-                  }`}
+                  className={`rohuserres_input ${fieldErrors.password ? "rohuserres_input--invalid" : ""}`}
                   type="password"
                   name="password"
                   placeholder="At least 8 characters"
@@ -408,9 +402,7 @@ export default function RegisterPage() {
                   disabled={loading}
                 />
                 {fieldErrors.password && (
-                  <span id="err-password" className="rohuserres_error">
-                    {fieldErrors.password}
-                  </span>
+                  <span id="err-password" className="rohuserres_error">{fieldErrors.password}</span>
                 )}
               </div>
 
@@ -426,22 +418,10 @@ export default function RegisterPage() {
             <form onSubmit={handleVerifyAndCreate} className="rohuserres_form" noValidate>
               {/* Summary */}
               <div className="rohuserres_summary">
-                {/* <p>
-                  <strong>Username:</strong> {form.userName}
-                </p> */}
                 <p>
                   <strong>We just sent a code to your phone </strong>
                   (+91 {`XXXXX X${form.phone?.slice(-4)}`})
                 </p>
-
-                {/* <button
-                  type="button"
-                  className="rohuserres_linkBtn"
-                  onClick={() => setStep(1)}
-                  disabled={loading}
-                >
-                  Edit details
-                </button> */}
               </div>
 
               {/* OTP Field */}
@@ -449,9 +429,7 @@ export default function RegisterPage() {
                 <label className="rohuserres_label">Enter OTP</label>
                 <input
                   ref={otpRef}
-                  className={`rohuserres_input ${
-                    fieldErrors.otp ? "rohuserres_input--invalid" : ""
-                  }`}
+                  className={`rohuserres_input ${fieldErrors.otp ? "rohuserres_input--invalid" : ""}`}
                   type="text"
                   name="otp"
                   placeholder="6-digit OTP"
@@ -464,13 +442,11 @@ export default function RegisterPage() {
                   inputMode="numeric"
                 />
                 {fieldErrors.otp && (
-                  <span id="err-otp" className="rohuserres_error">
-                    {fieldErrors.otp}
-                  </span>
+                  <span id="err-otp" className="rohuserres_error">{fieldErrors.otp}</span>
                 )}
               </div>
 
-              {/* Dev-only helper: show OTP returned by backend for testing */}
+              {/* Dev-only helper */}
               {debugOtp ? (
                 <p className="rohuserres_note">
                   <em>Dev note:</em> OTP from server: <strong>{debugOtp}</strong>
@@ -482,9 +458,10 @@ export default function RegisterPage() {
                   type="button"
                   className="rohuserres_btn rohuserres_btn--ghost"
                   onClick={handleResendOtp}
-                  disabled={loading}
+                  disabled={loading || resendCooldown > 0}
+                  title={resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend OTP"}
                 >
-                  Resend OTP
+                  {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : "Resend OTP"}
                 </button>
                 <button type="submit" className="rohuserres_btn" disabled={loading}>
                   {loading ? "Verifying..." : "Verify & Create"}

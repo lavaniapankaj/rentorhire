@@ -108,7 +108,7 @@ function authApi() {
 
             /** Step 1: Check if email exists */
             const [emailRows] = await pool.query(`
-                SELECT user_id, email, user_name, first_name, last_name, password_hash, user_role_id, active, authorize_code, verified, is_service_provider FROM roh_users WHERE email = ?
+                SELECT user_id, email, user_name, first_name, last_name, password_hash, user_role_id, active, authorize_code, verified, is_service_provider, phone_number FROM roh_users WHERE email = ?
             `, [email]);
 
             if (emailRows.length === 0) {
@@ -163,6 +163,7 @@ function authApi() {
                     email: user.email,
                     firstName: user.first_name,
                     lastName: user.last_name,
+                    phoneNumber: user.phone_number,
                     role_id: user.user_role_id,
                     is_service_provider: user.is_service_provider
                 }
@@ -258,7 +259,7 @@ function authApi() {
     };
 
     /** OTP Verification Endpoint - Coded by Vishnu Aug 12 2025 */
-    this.verifyOTP = async (req, res) => {
+    this.signUpverifyOTP = async (req, res) => {
         try {
             const { userName, otp } = req.body;
 
@@ -286,30 +287,34 @@ function authApi() {
 
     /** Resend OTP Endpoint - Coded by Vishnu Aug 12 2025 */
     this.resendOTP = async (req, res) => {
-        try {
-            const { userName } = req.body;
+    try {
+        const { email } = req.body;
 
-            const sql = "SELECT email, authorize_code FROM roh_users WHERE user_name = ?";
-            const [rows] = await pool.query(sql, [userName]);
-
-            if (rows.length === 0) {
-                return GLOBAL_ERROR_RESPONSE("User not found", {}, res);
-            }
-
-            const user = rows[0];
-            const otp = Math.floor(100000 + Math.random() * 900000).toString();  // Generate new OTP
-
-            const updateSql = "UPDATE roh_users SET authorize_code = ? WHERE user_name = ?";
-            await pool.query(updateSql, [otp, userName]);
-
-            return GLOBAL_SUCCESS_RESPONSE("New OTP has been sent.", { otp }, res);
-        } catch (err) {
-            return GLOBAL_ERROR_RESPONSE("Failed to resend OTP", err, res);
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        return GLOBAL_ERROR_RESPONSE("Valid email is required", {}, res);
         }
+
+        const sql = "SELECT user_id FROM roh_users WHERE email = ? LIMIT 1";
+        const [rows] = await pool.query(sql, [email]);
+
+        if (rows.length === 0) {
+        return GLOBAL_ERROR_RESPONSE("User not found", {}, res);
+        }
+
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+        const updateSql = "UPDATE roh_users SET authorize_code = ? WHERE email = ?";
+        await pool.query(updateSql, [otp, email]);
+
+        
+        return GLOBAL_SUCCESS_RESPONSE("New OTP has been sent.", { otp }, res);
+    } catch (err) {
+        return GLOBAL_ERROR_RESPONSE("Failed to resend OTP", err, res);
+    }
     };
 
-    /** verifyOtp user login - Coded by Vishnu Aug 13 2025 */
-    this.verifyOtp = async (req, res) => {
+    /** signInverifyOtp user login - Coded by Vishnu Aug 13 2025 */
+    this.signInverifyOtp = async (req, res) => {
         try {
             const { userId, otp } = req.body;
 
@@ -363,7 +368,7 @@ function authApi() {
             FROM roh_vehicle_details d
             LEFT JOIN roh_vehicle_attributes a 
                 ON d.id = a.vehicle_id
-            WHERE d.item_status = 1
+            WHERE d.item_status = 1 and d.admin_item_status = 1
             ORDER BY d.add_date DESC, d.id DESC
             LIMIT 8`
             );
@@ -428,7 +433,7 @@ function authApi() {
         const locRaw = (req.query.location || "").trim();
         const locTokens = locRaw ? locRaw.split(/\s+/).filter(Boolean) : [];
 
-        let whereClauses = [`d.item_status = 1`];
+        let whereClauses = [`d.item_status = 1 and d.admin_item_status = 1`];
         let params = [];
 
         if (category) {

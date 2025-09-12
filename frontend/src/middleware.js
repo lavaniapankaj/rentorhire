@@ -144,7 +144,46 @@ export function middleware(request) {
     } catch (err) {
       return redirectToUserLogin();
     }
-  } 
+  }
+
+  // --- Handle the hosting page ---
+  if (pathname.startsWith('/hosting')) {
+
+
+    // case 1: no token or no user → redirect to login
+    if (!token || !authUser) {
+      return redirectToUserLogin();
+    }
+
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      // case 2: token expired → redirect to login
+      if (decodedToken.exp < currentTime) {
+        return redirectToUserLogin();
+      }
+
+      console.log("auth user>> ", authUser);
+
+      // case 3: token valid → check role and service provider status
+      if (authUser.role_id === 1) {
+        // Normal user → block access
+        return redirectToBecomeAHost();
+      }
+
+      // NEW CASE: Only allow if user is a service provider
+      if (authUser.is_service_provider !== 1) {
+        return redirectToBecomeAHost(); // or any "Not Allowed" page
+      }
+
+      // All checks passed → allow access
+      return NextResponse.next();
+    } catch (err) {
+      return redirectToUserLogin();
+    }
+  }
+
 }
 
 export const config = {

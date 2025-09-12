@@ -1,8 +1,12 @@
-export const metadata = { title: "ROH Products" };
-
+import { Suspense } from "react";
 import ProductsPageClient from "./ProductsPageClient";
 
+export const metadata = { title: "ROH Products" };
+
 export default function ProductsPage() {
-  /** Server component: no hooks here */
-  return <ProductsPageClient />;
+  return (
+    <Suspense fallback={<div>Loading Products...</div>}>
+      <ProductsPageClient />
+    </Suspense>
+  );
 }

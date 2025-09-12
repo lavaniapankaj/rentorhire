@@ -2,6 +2,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { getAuthToken, getAuthUser } from "../../../utils/utilities";
 
+const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
+
 export default function EditRoleForm({ roleId, onClose, onSuccess }) {
   const [roleName, setRoleName] = useState('');
   const [loading, setLoading] = useState(true);
@@ -18,7 +20,7 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
 
     const fetchRole = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/view`, {
+        const res = await fetch(`${API_ADMIN_BASE_URL}/role/view`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -52,7 +54,7 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
     const authid = authUser.id;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL}/role/update`, {
+      const res = await fetch(`${API_ADMIN_BASE_URL}/role/update`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -120,7 +122,7 @@ export default function EditRoleForm({ roleId, onClose, onSuccess }) {
   );
 }
 
-// ✅ Modal styles (scoped)
+// Modal styles (scoped)
 const modalStyles = `
 .editrole_roh_overlay {
   position: fixed;

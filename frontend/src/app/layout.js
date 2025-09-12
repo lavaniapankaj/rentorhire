@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       {/* don`t use <head> only use metadata/viewport */}
-      <body style={{ margin: 0 }}>
+      <body style={{ margin: 0 }} suppressHydrationWarning>
         <AppShell>{children}</AppShell>
       </body>
     </html>

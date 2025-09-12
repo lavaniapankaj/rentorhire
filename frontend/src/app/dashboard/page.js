@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
+
 export default function DashboardPage() {
   const [tab, setTab] = useState("details");
   const [recent, setRecent] = useState([]);
@@ -56,7 +58,7 @@ export default function DashboardPage() {
 
   async function fetchUserDetails(userId) {
     try {
-      const res = await fetch("http://localhost:8080/api/user/userdetails", {
+      const res = await fetch(`${API_BASE_URL}/userdetails`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId }),
@@ -84,7 +86,7 @@ export default function DashboardPage() {
 
   async function handleUpdateProfile() {
     try {
-      const res = await fetch("http://localhost:8080/api/user/edituserdetails", {
+      const res = await fetch(`${API_BASE_URL}/edituserdetails`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

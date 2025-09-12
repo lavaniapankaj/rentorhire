@@ -92,7 +92,8 @@ function hostModuleApi() {
 
     /** Main Api for Become a host Add new vehicle Coded by Vishnu August 22 2025 */
     this.addNewVehicle = async (req, res) => {
-        const connection = await pool.getConnection();      
+        const connection = await pool.getConnection();
+        
         try {
           const {
             service_provider_id,
@@ -134,18 +135,19 @@ function hostModuleApi() {
           }
 
           // 2. Update if needed
-          if (userRows[0].is_service_provider === 0) {
+          if (userRows[0].is_service_provider == 0) {
             await connection.query(
               `UPDATE roh_users SET is_service_provider = 1, business_name = ? WHERE user_id = ?`,
               [businessName, service_provider_id]
             );
-          } else {
-            // Just update the business name (optional)
-            await connection.query(
-              `UPDATE roh_users SET business_name = ? WHERE user_id = ?`,
-              [businessName, service_provider_id]
-            );
           }
+          //  else {
+            // Just update the business name (optional)
+            // await connection.query(
+            //   `UPDATE roh_users SET business_name = ? WHERE user_id = ?`,
+            //   [businessName, service_provider_id]
+            // );
+          // }
       
           for (const item of items) {
             const {
@@ -235,7 +237,7 @@ function hostModuleApi() {
                 price_per_month || null,
                 price_custom_day || null,
                 1, // item_status
-                0, // admin_item_status
+                1, // admin_item_status
                 0, // total_views
                 security_deposit || null,
                 booking_terms || null,
@@ -295,7 +297,7 @@ function hostModuleApi() {
           console.error(error);
           return res.status(500).json({ message: "Internal server error" });
         }
-      };
+    };
       
     //   this.addNewVehicle = async (req, res) => {
     //     const connection = await pool.getConnection();
@@ -463,14 +465,15 @@ function hostModuleApi() {
                     d.category_id, 
                     d.image_ids,
                     d.item_status,
+                    d.admin_item_status,
                     a.registration_number
                 FROM roh_vehicle_details d
                 LEFT JOIN roh_vehicle_attributes a 
                     ON d.id = a.vehicle_id
-                WHERE d.service_provider_id = ?`,
+                WHERE d.service_provider_id = ?
+                ORDER BY d.add_date DESC`,
                 [service_provider_id]
             );
-
             if (vehicles.length === 0) {
                 return res.status(200).json([]);
             }
@@ -533,6 +536,53 @@ function hostModuleApi() {
             return res.status(500).json({ message: 'Internal server error' });
         }
     };
+
+    /** Api to delete login service providers single items - Coded by Vishnu September 06 2025 */
+    this.deleteServiceProviderSingleListedItems = async (req, res) => {
+      try {
+        const { id, action = "delete" } = req.body || {};
+        if (!id) return res.status(400).json({ message: "Missing required field: id" });
+
+        if (action === "delete") {
+          const [result] = await pool.query(
+            `UPDATE roh_vehicle_details SET item_status = 0 WHERE id = ?`,
+            [id]
+          );
+          if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Item not found or already inactive" });
+          }
+          return res.status(200).json({ message: "Item soft deleted successfully", success: true });
+        }
+
+        if (action === "reactivate") {
+          const [result] = await pool.query(
+            `UPDATE roh_vehicle_details SET item_status = 1 WHERE id = ? AND admin_item_status = 1`,
+            [id]
+          );
+          if (result.affectedRows === 0) {
+            const [rows] = await pool.query(
+              `SELECT id, admin_item_status FROM roh_vehicle_details WHERE id = ?`,
+              [id]
+            );
+            if (rows.length === 0) return res.status(404).json({ message: "Item not found" });
+            if (Number(rows[0].admin_item_status) !== 1) {
+              return res.status(403).json({
+                message: "Reactivate not allowed. Admin has not approved this item yet.",
+              });
+            }
+            return res.status(400).json({ message: "Unable to reactivate item." });
+          }
+          return res.status(200).json({ message: "Item reactivated successfully", success: true });
+        }
+
+        return res.status(400).json({ message: "Invalid action" });
+      } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error" });
+      }
+    };
+
+
 }
 
 module.exports = new hostModuleApi();
