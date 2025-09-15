@@ -9,7 +9,7 @@ const fs = require('fs');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // const uploadPath = path.join(__dirname, '../../../../frontend/public/media/host/items/');
-    const uploadPath = path.join(__dirname, '../assets/uploads/media/host/items/');
+    const uploadPath = path.join(__dirname, '../../../assets/uploads/media/host/items/');
     if (!fs.existsSync(uploadPath)) {
       fs.mkdirSync(uploadPath, { recursive: true });
     }
@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
     const fileNameWithoutExt = path.basename(originalName, fileExtension);
 
     // const uploadPath = path.join(__dirname, '../../../../frontend/public/media/host/items/');
-    const uploadPath = path.join(__dirname, '../assets/uploads/media/host/items/');
+    const uploadPath = path.join(__dirname, '../../../assets/uploads/media/host/items/');
     let newFileName = originalName;
     let counter = 1;
 
