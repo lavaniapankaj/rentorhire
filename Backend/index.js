@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const path = require('path');
 
 /** Import all custom files */
 require('./config/global_constants');
@@ -15,6 +16,7 @@ app.use(express.json());
 /** Body parser middleware */
 app.use(express.json()); // <-- Use this middleware to parse JSON
 app.use(express.urlencoded({ extended: true })); // <-- For URL-encoded data (optional)
+app.use('/uploads', express.static(path.join(__dirname, 'assets/uploads')));
 
 /**  Import database connection(Directly import the promisePool here) */
 const pool = require('./config/connection');

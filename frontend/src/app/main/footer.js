@@ -12,7 +12,7 @@ export default function Footer() {
               <Link href="/" className={styles.logoLink}>
                 <img
                   src="/images/global-imgs/site-logo.png"
-                  alt="Rent or Hire"
+                  alt="Find On Rent"
                   className={styles.logo}
                 />
               </Link>
@@ -123,7 +123,7 @@ export default function Footer() {
           </div>
           <div className="col-12 col-md-6">
             <p className={styles.copyText}>
-              © 2025 <strong>Rent or Hire</strong>. All rights reserved. | Powered by WebDevOps Pvt Ltd
+              © 2025 <strong>Find On Rent</strong>. All rights reserved. | Powered by <a href="https://webdevops.ltd/" target="_blank">WebDevOps Pvt Ltd</a>
             </p>
           </div>
         </div>
