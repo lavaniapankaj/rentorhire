@@ -255,11 +255,11 @@ export default function ProductsPageClient() {
               {!loading && products.map((p) => (
                 <div key={p.id} className="col-12 col-sm-6 col-lg-3">
                   <div className={`card ${styles.fleetscard} h-100`}>
-                    <Image
+                    <img
                       src={
                         p?.media_gallery?.[0]
                           ? p.media_gallery[0].file_path + p.media_gallery[0].file_name
-                          : "/media/host/items/placeholder.png"
+                          : "/uploads/media/host/items/placeholder.png"
                       }
                       alt={p?.item_name || "Item image"}
                       width={600}

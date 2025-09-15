@@ -206,7 +206,7 @@ function hostModuleApi() {
             const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
       
             const mediaIds = [];
-            const staticPathForDB = "/media/host/items/";
+            const staticPathForDB = "/uploads/media/host/items/";
       
             for (const f of files) {
               const extFromMime =
@@ -361,7 +361,7 @@ function hostModuleApi() {
     //         const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
 
     //         const mediaIds = [];
-    //         const staticPathForDB = '/media/host/items/';
+    //         const staticPathForDB = '/uploads/media/host/items/';
 
     //         for (const f of files) {
     //         // file_type: try MIME last part or fall back to file extension

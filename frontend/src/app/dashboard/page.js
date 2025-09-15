@@ -120,6 +120,12 @@ export default function DashboardPage() {
 
   return (
     <>
+        <head>
+          <title>Dashboard | FOR</title>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="description" content="Manage your profile, view recent items, and access all your user settings in one place."/>
+        </head>
       <main style={{ ...styles.wrap, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10, padding: 30 }}>
         <h1 style={styles.h1}>Dashboard</h1>
 

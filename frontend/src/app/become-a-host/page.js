@@ -499,6 +499,13 @@ export default function BecomeAHostPage() {
   };
 
   return (
+    <>
+     <head>
+        <title>Become a Host</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Book Reliable Rentals From Locals - Fast, Easy"/>
+      </head>
     <div className="p-6">
       <div className={styles.form_section_main}>
         <div id="header"></div>
@@ -965,5 +972,6 @@ export default function BecomeAHostPage() {
     <div id="footer"></div>
   </div>
 </div>
+</>
   );
 }
