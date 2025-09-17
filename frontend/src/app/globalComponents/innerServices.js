@@ -19,7 +19,7 @@ export default function InnerServices() {
                     </div>
                 </div>
                 <h3 className={`${styles.roh_second_heading} text-center`}>Explore our wide range of <br/>rental services</h3>
-                <div class="container mt-5">
+                <div className="container mt-5">
                     <div className={`${styles.roh_main_data_wrap}`}>
                         
                             <div className={`roh_card_box`}>
@@ -32,7 +32,7 @@ export default function InnerServices() {
                                                         <img src="/images/vechiclespg/checkcar.svg"/>
                                                     </div>
                                                 </div>
-                                                <div class="media-body">
+                                                <div className="media-body">
                                                     <h5 className={`${styles.roh_media_title}`}>Cars </h5>
                                                     <p className={`${styles.roh_global_heading} ${styles.roh_gray_global_heading}`}>Hatchbacks, sedans, and SUVs with flexible pricing</p>
                                                 </div>
@@ -56,7 +56,7 @@ export default function InnerServices() {
                                                         <img src="/images/vechiclespg/allcars.svg"/>
                                                     </div>
                                                 </div>
-                                                <div class="media-body">
+                                                <div className="media-body">
                                                     <h5 className={`${styles.roh_media_title}`}>Scooters </h5>
                                                     <p className={`${styles.roh_global_heading} ${styles.roh_gray_global_heading}`}>Lightweight, economical two-wheelers</p>
                                                 </div>
@@ -79,7 +79,7 @@ export default function InnerServices() {
                                                         <img src="/images/vechiclespg/airport.svg" />
                                                     </div>
                                                 </div>
-                                                <div class="media-body">
+                                                <div className="media-body">
                                                     <h5 className={`${styles.roh_media_title}`}>Bikes </h5>
                                                     <p className={`${styles.roh_global_heading} ${styles.roh_gray_global_heading}`}>Perfect for solo commutes and road trips</p>
                                                 </div>
@@ -102,8 +102,8 @@ export default function InnerServices() {
                                                         <img src="/images/vechiclespg/driver.svg"/>
                                                     </div>
                                                 </div>
-                                                <div class="media-body">
-                                                    <h5 class="media_title">E-bikes </h5>
+                                                <div className="media-body">
+                                                    <h5 className="media_title">E-bikes </h5>
                                                     <p className={`${styles.roh_global_heading} ${styles.roh_gray_global_heading}`}>Eco-friendly rides with good battery life</p>
                                                 </div>
                                             </div>
@@ -116,12 +116,12 @@ export default function InnerServices() {
                             </div>
                         
                     </div>
-                    <div class="row pt-5">
-                        <div class="col-12">
+                    <div className="row pt-5">
+                        <div className="col-12">
                             <p className={`${styles.roh_global_heading} ${styles.roh_explore_desc} ${styles.roh_gray_global_heading}`}>Discover our range of car rental services designed to meet all your travel needs.
                                 <br/> From a diverse fleet of vehicles to flexible rental plans.</p>
                         </div>
-                        <div class="col-12">
+                        <div className="col-12">
                             <div className={`${styles.roh_btn_exprore_wrap}`}>
                                 <div className={`${styles.roh_top_btns} d-flex align-items-center justify-content-center`}>
                                     <div className={`${styles.roh_button_custom}`}><button>Contact us</button></div>
