@@ -24,10 +24,9 @@
   margin: 18px 0 0;
 }
 .social li a {
-  width: 40px; height: 40px;
+  width: 28px; height: 28px;
   border-radius: 50%;
-  background: #f5f6f8;
-  border: 1px solid #e7e8ea;
+  
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -38,7 +37,7 @@
   background: #fff;
   border-color: #dcdfe3;
 }
-.social img { width: 40px; height: 40px; display: block; }
+.social img { width: 28px; height: 28px; display: block; }
 
 /* Column titles + lists */
 .title {
@@ -88,7 +87,7 @@
   font-size: 14px;
 }
 .h_container {
-  max-width: 1400px;
+  max-width: 100%;
   margin: auto;
 }
 /* Responsive tweaks */

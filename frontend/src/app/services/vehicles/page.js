@@ -1,9 +1,10 @@
 "use client";
 import styles from './vehicles.module.css';
 import HeroSection from '../../globalComponents/heroSection';
-import WhyChooseUs from '../../globalComponents/whyChooseUs';
-import Testimonials from '../../globalComponents/testimonials';
+import AboutUs from '../../globalComponents/aboutUs';
+import FAQSection from '../../globalComponents/faqSection';
 import InnerServices from '../../globalComponents/innerServices';
+import LatestArtical from '../../globalComponents/latestArticle';
 
 export default function Vechicles() {
 
@@ -14,14 +15,14 @@ export default function Vechicles() {
             {/* Innser services section */}
             <InnerServices />
 
-            {/* Hero section component */}
-            {/* <HeroSection /> */}
+            {/* FAQ section component */}
+            <FAQSection />
 
-            {/* Why chose us component */}
-            {/* <WhyChooseUs/> */}
+            {/* about us component */}
+            <AboutUs/>
 
             {/* Testimonial component */}
-            {/* <Testimonials/> */}
+            <LatestArtical/>
 
         </div>
         </>
