@@ -34,7 +34,7 @@ function UsersApi() {
                 /** If the profile_picture_url is provided, process it */
                 const fileExtension = path.extname(profile_picture_url); /** e.g. '.webp', '.jpg' */
                 profileImageName = profile_picture_url;  /** File name from request */
-                profileImagePath = `/media/users/profile/`;
+                profileImagePath = `/uploads/media/users/profile/`;
                 profileImageType = fileExtension.slice(1);  /** Remove the dot (e.g. 'webp', 'jpg') */
     
             }
@@ -244,7 +244,7 @@ function UsersApi() {
         if (req.file) {
         const fileExtension = path.extname(req.file.filename);
         const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
-        const mediaValues = [req.file.filename, `/media/users/profile/`, fileExtension.slice(1), 1];
+        const mediaValues = [req.file.filename, `/uploads/media/users/profile/`, fileExtension.slice(1), 1];
         const [mediaResult] = await pool.promise().query(mediaQuery, mediaValues);
         finalProfileId = mediaResult.insertId;
         } else if (profile_picture_url !== undefined) {
