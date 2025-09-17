@@ -76,9 +76,10 @@ export default function RentHomePage() {
   return (
     <>
       <head>
-        <title>RentOrHire</title>
+        <title>Find On Rent</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Book Reliable Rentals From Locals - Fast, Easy"/>
       </head>
 
       {/* HERO */}
@@ -491,8 +492,8 @@ export default function RentHomePage() {
                     
                     <div className={`card ${styles.fleetscard} h-100`}>
                       <div className={`${styles.post_cardimg}`}>
-                      <Image
-                        src={p.media_gallery?.[0]?.file_path + p.media_gallery?.[0]?.file_name || "/media/host/items/placeholder.png"}
+                      <img
+                        src={p.media_gallery?.[0]?.file_path + p.media_gallery?.[0]?.file_name || "/uploads/media/host/items/placeholder.png"}
                         alt={p.item_name}
                         width={600}
                         height={360}

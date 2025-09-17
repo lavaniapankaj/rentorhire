@@ -15,7 +15,7 @@ export function middleware(request) {
   const redirectToUserDashboard = () => NextResponse.redirect(new URL('/dashboard', request.url));
   const redirectToBecomeAHost = () => NextResponse.redirect(new URL('/become-a-host', request.url));
 
-  // --- Handle `/login` ---
+  // --- Handle /login ---
   if (pathname.startsWith('/login') || pathname.startsWith('/register')) {
     if (token && authUser) {
       try {
@@ -37,7 +37,7 @@ export function middleware(request) {
     }
   }
 
-  // --- Handle `/auth/admin` ---
+  // --- Handle /auth/admin ---
   if (pathname.startsWith('/auth/admin')) {
     try {
       const decodedToken = jwtDecode(token);
@@ -147,6 +147,7 @@ export function middleware(request) {
   }
 
   // --- Handle the hosting page ---
+  /*
   if (pathname.startsWith('/hosting')) {
 
 
@@ -183,7 +184,7 @@ export function middleware(request) {
       return redirectToUserLogin();
     }
   }
-
+  */
 }
 
 export const config = {

@@ -137,8 +137,15 @@ function hostModuleApi() {
           // 2. Update if needed
           if (userRows[0].is_service_provider == 0) {
             await connection.query(
-              `UPDATE roh_users SET is_service_provider = 1, business_name = ? WHERE user_id = ?`,
-              [businessName, service_provider_id]
+              `UPDATE roh_users SET is_service_provider = 1, business_name = ?, address_1 = ?, landmark = ?, state = ?, city = ?, pincode = ? WHERE user_id = ?`,[
+                businessName,
+                streetAddress,
+                landmark,
+                state,
+                city,
+                pinCode,
+                service_provider_id
+              ]
             );
           }
           //  else {
@@ -199,7 +206,7 @@ function hostModuleApi() {
             const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
       
             const mediaIds = [];
-            const staticPathForDB = "/media/host/items/";
+            const staticPathForDB = "/uploads/media/host/items/";
       
             for (const f of files) {
               const extFromMime =
@@ -354,7 +361,7 @@ function hostModuleApi() {
     //         const mediaQuery = `INSERT INTO roh_media_gallery (file_name, file_path, file_type, active) VALUES (?, ?, ?, ?)`;
 
     //         const mediaIds = [];
-    //         const staticPathForDB = '/media/host/items/';
+    //         const staticPathForDB = '/uploads/media/host/items/';
 
     //         for (const f of files) {
     //         // file_type: try MIME last part or fall back to file extension
