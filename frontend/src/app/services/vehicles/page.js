@@ -1,5 +1,5 @@
 "use client";
-import styles from './vechiclepage.module.css';
+import styles from './vehicles.module.css';
 import HeroSection from '../../globalComponents/heroSection';
 import WhyChooseUs from '../../globalComponents/whyChooseUs';
 import Testimonials from '../../globalComponents/testimonials';
