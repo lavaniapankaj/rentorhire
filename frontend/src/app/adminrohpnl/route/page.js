@@ -55,7 +55,7 @@ export default function ListRoutePage() {
       const data = await response.json();
   
       if (data.rcode == 0) {
-        router.push('/auth/admin');
+        window.location.href = "/auth/admin";
       }
   
       setRoutes(data.data.routes || []);
@@ -92,7 +92,7 @@ export default function ListRoutePage() {
 
       /** recode = 0 is used for the token error */
       if(data.rcode == 0){
-        router.push('/auth/admin');
+        window.location.href = "/auth/admin";
       }
       const routeData = data.data;
       setViewRoute(routeData);
@@ -121,7 +121,7 @@ export default function ListRoutePage() {
 
       /** recode = 0 is used for the token error */
       if(data.rcode == 0){
-        router.push('/auth/admin');
+        window.location.href = "/auth/admin";
       }
 
       if (!res.ok) throw new Error('Failed to delete route.');
@@ -153,7 +153,7 @@ export default function ListRoutePage() {
       const data = await res.json();
       /** recode = 0 is used for the token error */
       if(data.rcode == 0){
-        router.push('/auth/admin');
+        window.location.href = "/auth/admin";
       }
       const routeData = data.data;
       setEditRoute(routeData);

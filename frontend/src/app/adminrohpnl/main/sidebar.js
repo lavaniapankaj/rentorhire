@@ -19,7 +19,7 @@ export default function Sidebar() {
     localStorage.removeItem('authUser');
     document.cookie = 'authToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
     document.cookie = 'authUser=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
-    router.push('/auth/admin');
+    window.location.href = "/auth/admin";
   };
 
   return (

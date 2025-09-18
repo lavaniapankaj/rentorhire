@@ -147,9 +147,7 @@ export function middleware(request) {
   }
 
   // --- Handle the hosting page ---
-  /*
   if (pathname.startsWith('/hosting')) {
-
 
     // case 1: no token or no user → redirect to login
     if (!token || !authUser) {
@@ -184,7 +182,6 @@ export function middleware(request) {
       return redirectToUserLogin();
     }
   }
-  */
 }
 
 export const config = {

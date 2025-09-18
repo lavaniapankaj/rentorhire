@@ -51,7 +51,7 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
           const res = await fetch(`${API_ADMIN_BASE_URL}/role/roles`);
           const data = await res.json();
           if (data.rcode === 0) {
-            router.push('/auth/admin');
+            window.location.href = "/auth/admin";
           }
 
           if (res.ok && data.status && Array.isArray(data.data)) {
@@ -134,7 +134,7 @@ export default function EditUserForm({ user, onClose, roles: initialRoles, onSuc
 
       const data = await res.json();
       if (data.rcode === 0) {
-        router.push('/auth/admin');
+        window.location.href = "/auth/admin";
       }
 
       if (!res.ok || data.status === false) {

@@ -40,7 +40,7 @@ export default function EditCategoryForm({ category, onClose, onSuccess }) {
 
         const data = await res.json();
         if (data.rcode === 0) {
-          router.push('/auth/admin');
+          window.location.href = "/auth/admin";
         }
 
         if (res.ok && data.status === true && Array.isArray(data.data.categories)) {
@@ -87,7 +87,7 @@ export default function EditCategoryForm({ category, onClose, onSuccess }) {
       const data = await res.json();
 
       if (data.rcode === 0) {
-        router.push('/auth/admin');
+        window.location.href = "/auth/admin";
       }
 
       if (!res.ok || data.status === false) {

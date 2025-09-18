@@ -86,9 +86,8 @@ const redirectUrl = searchParams.get("redirect"); // e.g. ?redirect=/hosting/veh
 
       document.cookie = `authToken=${data.token}; path=/`;
       document.cookie = `authUser=${JSON.stringify(data.user)}; path=/`;
-      // router.push("/dashboard"); 
 
-      router.push(redirectUrl || "/dashboard");
+      window.location.href = redirectUrl || "/dashboard";
     
     } catch (err) {
       setError(err.message);

@@ -8,6 +8,20 @@ export const getClientCookie = (name) => {
   return null;
 };
 
+export const setClientCookie = (name, value, days = 7) => {
+  if (typeof document === "undefined") return; // Prevent server errors
+
+  let expires = "";
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+
+  document.cookie = `${name}=${encodeURIComponent(value)}${expires}; path=/`;
+};
+
+
 export const getAuthToken = () => getClientCookie("authToken");
 export const getAuthUser = () => getClientCookie("authUser");
 

@@ -19,7 +19,9 @@ export default function BecomeAHostPage() {
   const [brands, setBrands] = useState([]);
   const [models, setModels] = useState([]);
   const [currentStep, setCurrentStep] = useState(1);
+  
   const [itemErrors, setItemErrors] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const [formData, setFormData] = useState({
     /* Step 1 */
@@ -135,49 +137,57 @@ export default function BecomeAHostPage() {
     if (currentStep === 1) {
 
       const { businessName, contactPerson, whatsappNumber, deliveryAvailable } = formData;
+      let newErrors = {};
+
       if (!businessName.trim()) {
-        alert("Please enter Business Name");
-        return;
+        newErrors.businessName = "Please enter Business Name";
       }
       if (!contactPerson.trim()) {
-        alert("Please enter Owner/Contact Person Name");
-        return;
+        newErrors.contactPerson = "Please enter Owner/Contact Person Name";
       }
       if (!whatsappNumber.trim()) {
-        alert("Please enter Contact Number");
-        return;
+        newErrors.whatsappNumber = "Please enter Contact Number";
       }
       if (!deliveryAvailable) {
-        alert("Please select Delivery Availability");
+        newErrors.deliveryAvailable = "Please select Delivery Availability";
+      }
+
+      // agar errors hai to set kardo and return
+      if (Object.keys(newErrors).length > 0) {
+        setItemErrors(newErrors);
         return;
       }
+
+      // errors clear kardo
+      setItemErrors({});
       goToStep(currentStep + 1);
     }
 
     if(currentStep === 2){
       const { streetAddress, city, state, pinCode } = formData;
+      let newErrors = {};
+  
       if (!streetAddress.trim()) {
-        alert("Please enter the Street address");
-        return;
+        newErrors.streetAddress = "Please enter the Street address";
       }
       if (!city.trim()) {
-        alert("Please enter the city name");
-        return;
+        newErrors.city = "Please enter the City name";
       }
       if (!state.trim()) {
-        alert("Please select the state");
-        return;
+        newErrors.state = "Please select the State";
       }
       if (!pinCode) {
-        alert("Please enter the pincode");
+        newErrors.pinCode = "Please enter the Pincode";
+      } else if (pinCode.length !== 6) {
+        newErrors.pinCode = "Please enter a valid 6-digit Pincode";
+      }
+  
+      if (Object.keys(newErrors).length > 0) {
+        setItemErrors(newErrors);
         return;
       }
-
-      if (pinCode.length !== 6) {
-        alert("Please enter a valid pin code.");
-        return;
-      }
-
+  
+      setItemErrors({});
       goToStep(currentStep + 1);
     }
 
@@ -186,7 +196,6 @@ export default function BecomeAHostPage() {
     
       let errors = [];
     
-      // Loop through items to check for errors
       items.forEach((item, index) => {
         let error = {};
     
@@ -198,21 +207,52 @@ export default function BecomeAHostPage() {
           error.subCategory = "Please select a subcategory.";
         }
     
-        errors[index] = error; // Store error object per item
+        // 👇 Example child form validations
+        if (item.category === 1 && item.subCategory) {
+          if (!item.details?.item_name?.trim()) {
+            error.item_name = "Please enter item name.";
+          }
+          if (!item.details?.price_per_day) {
+            error.price_per_day = "Please enter price per day.";
+          }
+          if (!item.details?.availability_status) {
+            error.availability_status = "Please select availability.";
+          }
+          if (!item.details?.registration_number) {
+            error.registration_number = "Please enter the registration number.";
+          }
+          if (!item.details?.vehicle_type) {
+            error.vehicle_type = "Please select the vehicle type.";
+          }
+          if (!item.details?.address_1) {
+            error.address_1 = "Please enter the street address.";
+          }
+          if (!item.details?.item_state) {
+            error.item_state = "Please enter the status.";
+          }
+          if (!item.details?.city) {
+            error.city = "Please enter the city.";
+          }
+          if (!item.details?.pincode) {
+            error.pincode = "Please enter the pincode.";
+          } else if(item.details?.pincode.length !== 6){
+            error.pincode = "Please enter a valid 6-digit Pincode.";
+          }
+        }
+    
+        errors[index] = error;
       });
     
-      // Check if there are any actual errors
       const hasErrors = errors.some(err => Object.keys(err).length > 0);
     
       if (hasErrors) {
         setItemErrors(errors);
-        return; // Block going to next step
+        return;
       }
     
-      setItemErrors([]); // Clear any previous errors
-      goToStep(currentStep + 1); // Move to step 4
+      setItemErrors([]);
+      goToStep(currentStep + 1);
     }
-    
   };
 
   /* TO change the step */
@@ -237,13 +277,17 @@ export default function BecomeAHostPage() {
       });
       
       setItemErrors((prevErrors) => {
-        const updatedErrors = [...prevErrors];
+        // agar array nahi hai to empty array le lo
+        const safePrev = Array.isArray(prevErrors) ? prevErrors : [];
+        const updatedErrors = [...safePrev];
+      
         if (updatedErrors[index]) {
           delete updatedErrors[index].category;
           delete updatedErrors[index].subCategory;
         }
         return updatedErrors;
       });
+      
 
       // Step 2: API call for subcategories
       const res = await fetch(`${API_BASE_URL}/getallactivechildcategory`, {
@@ -279,13 +323,10 @@ export default function BecomeAHostPage() {
         return { ...prev, items: updatedItems };
       });
 
-      setItemErrors((prevErrors) => {
-        const updatedErrors = [...prevErrors];
-        if (updatedErrors[index]) {
-          delete updatedErrors[index].category;
-          delete updatedErrors[index].subCategory;
-        }
-        return updatedErrors;
+      setModels((prev) => {
+        const updated = [...prev];
+        updated[index] = []; // clear models for this item
+        return updated;
       });
   
       // 2. Fetch brands for the selected subcategory
@@ -396,11 +437,22 @@ export default function BecomeAHostPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let newErrors = {};
+
     const { TermsAndConditionsAgree } = formData;
-    if(TermsAndConditionsAgree == '0' || TermsAndConditionsAgree !== '1'){
-      alert('Please accept terms and conditions.');
+  
+    if (TermsAndConditionsAgree !== "1") {
+      newErrors.TermsAndConditionsAgree = "Please accept terms and conditions.";
+    }
+  
+    // Agar error hai to state me set kardo aur return
+    if (Object.keys(newErrors).length > 0) {
+      setItemErrors(newErrors);
       return;
     }
+  
+    // errors clear
+    setItemErrors({});
 
     try {      
       const fd = new FormData();
@@ -471,15 +523,23 @@ export default function BecomeAHostPage() {
           body: fd,
         }
       );
-  
-      const result = await response.json();
-      if (!response.ok) throw new Error(result?.message || "API Error");
-      alert("Vehicle Added Successfully!");
-      
-      // Redirect
-      router.push("/hosting");
+    
+        const result = await response.json();
+        if (!response.ok) throw new Error(result?.message || "API Error");
+        alert("Vehicle Added Successfully!");
+        
+        
+      const authUserData = getCookie("authUser");
+      const parsedAuthUserData = authUserData ? JSON.parse(authUserData) : null;
+    
+      if (parsedAuthUserData?.is_service_provider == 0) {
+        console.log("test");
+      }
+
+        // Redirect
+        window.location.href = "/hosting";
     } catch (error) {
-      console.error("❌ Submission Failed:", error);
+      console.error("Submission Failed:", error);
       alert("Error submitting vehicle data");
     }
   };
@@ -500,24 +560,24 @@ export default function BecomeAHostPage() {
 
   return (
     <>
-     <head>
+      <head>
         <title>Become a Host</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Book Reliable Rentals From Locals - Fast, Easy"/>
       </head>
-    <div className="p-6">
-      <div className={styles.form_section_main}>
-        <div id="header"></div>
-          <section className={`${styles.form_section_main} ${styles.py5}`}>
-            <div className={styles.container}>
-              <div className={styles.row}>
-                <div className={styles.col12}>
-                  <div className={`${styles.border} ${styles.rowwhite}`}>
-                    <div className={`${styles.px4} ${styles.pxmd5}`}>
-                      <div className={styles.py5}>
-                        <h2 className={`${styles.mb3} ${styles.textCenter} fw-bold`}>List Your Business. Get More Rentals.</h2>
-                        <div className={`${styles.titleSepertor} mb-5`}></div>
+      <div className="p-6">
+        <div className={styles.form_section_main}>
+          <div id="header"></div>
+            <section className={`${styles.form_section_main} ${styles.py5}`}>
+              <div className={styles.container}>
+                <div className={styles.row}>
+                  <div className={styles.col12}>
+                    <div className={`${styles.border} ${styles.rowwhite}`}>
+                      <div className={`${styles.px4} ${styles.pxmd5}`}>
+                        <div className={styles.py5}>
+                          <h2 className={`${styles.mb3} ${styles.textCenter} fw-bold`}>List Your Business. Get More Rentals.</h2>
+                          <div className={`${styles.titleSepertor} mb-5`}></div>
 
                           {/* Showing the laoder while setting up the steps */}
                           {shouldJumpToStep3 && loadingCategories && (
@@ -527,175 +587,179 @@ export default function BecomeAHostPage() {
                             </div>
                           )}
 
+                          <h4 className={`my-4 step_btn_fr mb-2 ${styles.main_steps}`}> Step {currentStep}: Tell Us About Your Business</h4>
+                          <div className={`${styles.progress} ${styles.mb4}`}>
+                            <div className={styles.progressBar} role="progressbar" style={{ width: `${(currentStep / 4) * 100}%`,}}> Step {currentStep} of 4 </div>
+                          </div>
 
+                          {/* Step 1 */}
+                          {currentStep === 1 && !shouldJumpToStep3 && (
+                            <div id="step1" className="step">      
+                              <form id="providerForm">
+                                <div className={styles.row}>
+                                  <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                    <label className={styles.formLabel}>Business Name</label>
+                                    <input type="text" name="businessName" className={`${styles.formControl} ${styles.reFormF}`} value={formData.businessName} onChange={handleChange} required />
+                                    <small className={`${styles.formText} ${styles.textMuted}`}> Enter the name as it appears on official documents. </small>
+                                    {itemErrors.businessName && (
+                                      <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.businessName} </div>
+                                    )}
+                                  </div>
+                                  <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                    <label className={styles.formLabel}>Owner/Contact Person</label>
+                                    <input type="text" name="contactPerson" className={`${styles.formControl} ${styles.reFormF}`} value={ formData.contactPerson || (authUser ? `${authUser.firstName} ${authUser.lastName}` : "")} onChange={handleChange} />
+                                    <small className={`${styles.formText} ${styles.textMuted}`}> Who should we get in touch with? </small>
+                                    {itemErrors.contactPerson && (
+                                      <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.contactPerson} </div>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className={styles.row}>
+                                  <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                    <label className={styles.formLabel}>Contact Number</label>
+                                    <input type="tel" name="whatsappNumber" className={`${styles.formControl} ${styles.reFormF}`} placeholder="+91-" value={formData.whatsappNumber || authUser?.phoneNumber || ""} onChange={handleChange} />
+                                    <small className={`${styles.formText} ${styles.textMuted}`}> Number for customer communication. </small>
+                                    {itemErrors.whatsappNumber && (
+                                      <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.whatsappNumber} </div>
+                                    )}
+                                  </div>
+                                </div>
 
-                              <h4 className={`my-4 step_btn_fr mb-2 ${styles.main_steps}`}> Step {currentStep}: Tell Us About Your Business</h4>
-                              <div className={`${styles.progress} ${styles.mb4}`}>
-                                <div className={styles.progressBar} role="progressbar" style={{ width: `${(currentStep / 4) * 100}%`,}}> Step {currentStep} of 4 </div>
-                              </div>
+                                <div className={styles.row}>
+                                  <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                    <label className={styles.formLabel}>GST Number (if applicable)</label>
+                                    <input type="text" name="gstNumber" className={`${styles.formControl} ${styles.reFormF}`} value={formData.gstNumber} onChange={handleChange} />
+                                    <small className={`${styles.formText} ${styles.textMuted}`}> Leave blank if you're not GST registered. </small>
+                                  </div>
+                                </div>
 
-                              {/* Step 1 */}
-                              {currentStep === 1 && !shouldJumpToStep3 && (
-                                <div id="step1" className="step">      
-                                  <form id="providerForm">
-                                    <div className={styles.row}>
-                                      <div className={`${styles.mb3} ${styles.colMd6}`}>
-                                        <label className={styles.formLabel}>Business Name</label>
-                                        <input type="text" name="businessName" className={`${styles.formControl} ${styles.reFormF}`} value={formData.businessName} onChange={handleChange} required />
-                                        <small className={`${styles.formText} ${styles.textMuted}`}>
-                                          Enter the name as it appears on official documents.
-                                        </small>
-                                      </div>
-                                      <div className={`${styles.mb3} ${styles.colMd6}`}>
-                                        <label className={styles.formLabel}>Owner/Contact Person</label>
-                                        <input type="text" name="contactPerson" className={`${styles.formControl} ${styles.reFormF}`}
-                                        //  value={formData.contactPerson}
-                                        value={
-                                          formData.contactPerson ||
-                                          (authUser ? `${authUser.firstName} ${authUser.lastName}` : "")
-                                        }
-                                         onChange={handleChange} />
-                                        <small className={`${styles.formText} ${styles.textMuted}`}>
-                                          Who should we get in touch with?
-                                        </small>
-                                      </div>
-                                    </div>
-
-                                    <div className={styles.row}>
-                                      <div className={`${styles.mb3} ${styles.colMd6}`}>
-                                        <label className={styles.formLabel}>Contact Number</label>
-                                        <input type="tel" name="whatsappNumber" className={`${styles.formControl} ${styles.reFormF}`} placeholder="+91-"
-                                        // value={formData.whatsappNumber}
-                                        value={formData.whatsappNumber || authUser?.phoneNumber || ""}
-                                        onChange={handleChange} />
-                                        <small className={`${styles.formText} ${styles.textMuted}`}>
-                                          Number for customer communication.
-                                        </small>
-                                      </div>
-                                    </div>
-
-                                    <div className={styles.row}>
-                                      <div className={`${styles.mb3} ${styles.colMd6}`}>
-                                        <label className={styles.formLabel}>GST Number (if applicable)</label>
-                                        <input type="text" name="gstNumber" className={`${styles.formControl} ${styles.reFormF}`} value={formData.gstNumber} onChange={handleChange} />
-                                        <small className={`${styles.formText} ${styles.textMuted}`}>
-                                          Leave blank if you're not GST registered.
-                                        </small>
-                                      </div>
-                                    </div>
-
-                                    <div className={styles.row}>
-                                      <div className={`${styles.mb3} ${styles.colMd6}`}>
-                                        <label className={styles.formLabel}>Is Delivery Available?</label>
-                                        <div className={`${styles.dFlex} flex-wrap ${styles.gap2} category-wrap`}>
-                                          {["Yes", "No", "Paid Delivery"].map((option) => (
-                                            <div key={option}>
-                                              <input type="radio" name="deliveryAvailable" value={option} className={styles.btnCheck} id={`da_${option.replace(/\s/g, "").toLowerCase()}`} checked={formData.deliveryAvailable === option} onChange={handleRadioChange} />
-                                              <label htmlFor={`da_${option.replace(/\s/g, "").toLowerCase()}`} className={`${styles.btn} btn-outline-secondary ${styles.wmax} ${styles.radioBtns} rounded-3 py-1 px-3 text-start`} > {option} </label>
-                                            </div>
-                                          ))}
+                                <div className={styles.row}>
+                                  <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                    <label className={styles.formLabel}>Is Delivery Available?</label>
+                                    <div className={`${styles.dFlex} flex-wrap ${styles.gap2} category-wrap`}>
+                                      {["Yes", "No", "Paid Delivery"].map((option) => (
+                                        <div key={option}>
+                                          <input type="radio" name="deliveryAvailable" value={option} className={styles.btnCheck} id={`da_${option.replace(/\s/g, "").toLowerCase()}`} checked={formData.deliveryAvailable === option} onChange={handleRadioChange} />
+                                          <label htmlFor={`da_${option.replace(/\s/g, "").toLowerCase()}`} className={`${styles.btn} btn-outline-secondary ${styles.wmax} ${styles.radioBtns} rounded-3 py-1 px-3 text-start`} > {option} </label>
                                         </div>
-                                      </div>
+                                      ))}
                                     </div>
-
-                                    <div className={`${styles.footerSepertor} mt-3 ${styles.mb4}`}></div>
-                                    <div className="text-end">
-                                      <button type="button" className={`${styles.btn} btn-primary ${styles.nextStep}`} onClick={handleNextStep}> Next </button>
-                                    </div>
-                                  </form>
-                                </div>
-                              )}
-
-                              {/* Step 2: Verify Phone Number */}
-                              {currentStep === 2 && (
-                                <div id="step2" className="step">        
-                                  <div className={styles.row}>
-                                    <div className={`${styles.mb3} ${styles.colMd6}`}>
-                                      <label className={styles.formLabel}>Street Address</label>
-                                      <input type="text" className={`${styles.formControl} ${styles.reFormF}`} name="streetAddress" value={formData.streetAddress} onChange={handleChange} required />
-                                      <small className={`${styles.formText} ${styles.textMuted}`}>Your building number, shop name, or street name.</small>
-                                    </div>
-                                  </div>
-                                  <div className={styles.row}>
-                                    <div className={`${styles.mb3} ${styles.colMd6}`}>
-                                      <label className={styles.formLabel}>Landmark</label>
-                                      <input type="text" className={`${styles.formControl} ${styles.reFormF}`} name="landmark" value={formData.landmark} onChange={handleChange} />
-                                      <small className={`${styles.formText} ${styles.textMuted}`}>Nearby point of reference to help locate your address.</small>
-                                    </div>
-                                    <div className={`${styles.mb3} ${styles.colMd6}`}>
-                                      <label className={styles.formLabel}>City</label>
-                                      <input type="text" className={`${styles.formControl} ${styles.reFormF}`} name="city" value={formData.city} onChange={handleChange} required />
-                                      <small className={`${styles.formText} ${styles.textMuted}`}>Your city of operation.</small>
-                                    </div>
-                                  </div>
-                                  <div className={styles.row}>
-                                    <div className={`${styles.mb3} ${styles.colMd6}`}>
-                                      <label className={styles.formLabel}>State</label>
-                                      <select id="state" name="state" required className={`${styles.formControl} ${styles.reFormF}`} value={formData.state} onChange={handleChange}>
-                                        <option value="">Select State</option>
-                                        <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                        <option value="Assam">Assam</option>
-                                        <option value="Bihar">Bihar</option>
-                                        <option value="Chhattisgarh">Chhattisgarh</option>
-                                        <option value="Goa">Goa</option>
-                                        <option value="Gujarat">Gujarat</option>
-                                        <option value="Haryana">Haryana</option>
-                                        <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                        <option value="Jharkhand">Jharkhand</option>
-                                        <option value="Karnataka">Karnataka</option>
-                                        <option value="Kerala">Kerala</option>
-                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                        <option value="Maharashtra">Maharashtra</option>
-                                        <option value="Manipur">Manipur</option>
-                                        <option value="Meghalaya">Meghalaya</option>
-                                        <option value="Mizoram">Mizoram</option>
-                                        <option value="Nagaland">Nagaland</option>
-                                        <option value="Odisha">Odisha</option>
-                                        <option value="Punjab">Punjab</option>
-                                        <option value="Rajasthan">Rajasthan</option>
-                                        <option value="Sikkim">Sikkim</option>
-                                        <option value="Tamil Nadu">Tamil Nadu</option>
-                                        <option value="Telangana">Telangana</option>
-                                        <option value="Tripura">Tripura</option>
-                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                        <option value="Uttarakhand">Uttarakhand</option>
-                                        <option value="West Bengal">West Bengal</option>
-                                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                                        <option value="Chandigarh">Chandigarh</option>
-                                        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
-                                        <option value="Delhi">Delhi</option>
-                                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                                        <option value="Ladakh">Ladakh</option>
-                                        <option value="Lakshadweep">Lakshadweep</option>
-                                        <option value="Puducherry">Puducherry</option>
-                                      </select>
-                                      <small className={`${styles.formText} ${styles.textMuted}`}>Select from the dropdown.</small>
-                                    </div>
-                                    <div className={`${styles.mb3} ${styles.colMd6}`}>
-                                      <label className={styles.formLabel}>Pin Code</label>
-                                      <input type="number" name="pinCode" className={`${styles.formControl} ${styles.reFormF}`} value={formData.pinCode} onChange={handleChange} pattern="[0-9]{6}" maxLength={6} inputMode="numeric" required />
-                                      <small className={`${styles.formText} ${styles.textMuted}`}>Enter your 6-digit postal code.</small>
-                                    </div>
-                                  </div>
-                                  <div className={`${styles.footerSepertor} mt-3 ${styles.mb4}`}></div>
-                                    <div className={`${styles.dFlex} justify-content-between ${styles.gap2}`}>
-                                      <button type="button" className={`${styles.btn} ${styles.prevStep}`} onClick={() => goToStep(1)}>Back</button>
-                                      <button type="button" className={`${styles.btn} ${styles.nextStep}`} onClick={handleNextStep}>Next Step</button>
+                                    {itemErrors.deliveryAvailable && (
+                                      <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.deliveryAvailable} </div>
+                                    )}
                                   </div>
                                 </div>
-                              )}
 
-                              {/* Step 3: List Your Items */}
-                              {currentStep === 3 && (
-                                <div id="step3" className="step">
-                                  {/* Loader / Empty State */}
-                                  {loadingCategories ? (
-                                    <p className="text-muted">Loading categories…</p>
-                                  ) : categories.length === 0 ? (
-                                    <p className="text-muted">No categories found.</p>
-                                  ) : (
-                                    <>
+                                <div className={`${styles.footerSepertor} mt-3 ${styles.mb4}`}></div>
+                                <div className="text-end">
+                                  <button type="button" className={`${styles.btn} btn-primary ${styles.nextStep}`} onClick={handleNextStep}> Next </button>
+                                </div>
+                              </form>
+                            </div>
+                          )}
+
+                          {/* Step 2: Verify Phone Number */}
+                          {currentStep === 2 && (
+                            <div id="step2" className="step">        
+                              <div className={styles.row}>
+                                <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                  <label className={styles.formLabel}>Street Address</label>
+                                  <input type="text" className={`${styles.formControl} ${styles.reFormF}`} name="streetAddress" value={formData.streetAddress} onChange={handleChange} required />
+                                  <small className={`${styles.formText} ${styles.textMuted}`}>Your building number, shop name, or street name.</small>
+                                  {itemErrors.streetAddress && (
+                                    <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.streetAddress} </div>
+                                  )}
+                                </div>
+                              </div>
+                              <div className={styles.row}>
+                                <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                  <label className={styles.formLabel}>Landmark</label>
+                                  <input type="text" className={`${styles.formControl} ${styles.reFormF}`} name="landmark" value={formData.landmark} onChange={handleChange} />
+                                  <small className={`${styles.formText} ${styles.textMuted}`}>Nearby point of reference to help locate your address.</small>
+                                </div>
+                                <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                  <label className={styles.formLabel}>City</label>
+                                  <input type="text" className={`${styles.formControl} ${styles.reFormF}`} name="city" value={formData.city} onChange={handleChange} required />
+                                  <small className={`${styles.formText} ${styles.textMuted}`}>Your city of operation.</small>
+                                  {itemErrors.city && (
+                                    <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.city} </div>
+                                  )}
+                                </div>
+                              </div>
+                              <div className={styles.row}>
+                                <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                  <label className={styles.formLabel}>State</label>
+                                  <select id="state" name="state" required className={`${styles.formControl} ${styles.reFormF}`} value={formData.state} onChange={handleChange}>
+                                    <option value="">Select State</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Jharkhand">Jharkhand</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Manipur">Manipur</option>
+                                    <option value="Meghalaya">Meghalaya</option>
+                                    <option value="Mizoram">Mizoram</option>
+                                    <option value="Nagaland">Nagaland</option>
+                                    <option value="Odisha">Odisha</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Sikkim">Sikkim</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Tripura">Tripura</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="Uttarakhand">Uttarakhand</option>
+                                    <option value="West Bengal">West Bengal</option>
+                                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                    <option value="Chandigarh">Chandigarh</option>
+                                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                    <option value="Ladakh">Ladakh</option>
+                                    <option value="Lakshadweep">Lakshadweep</option>
+                                    <option value="Puducherry">Puducherry</option>
+                                  </select>
+                                  <small className={`${styles.formText} ${styles.textMuted}`}>Select from the dropdown.</small>
+                                  {itemErrors.state && (
+                                    <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.state} </div>
+                                  )}
+                                </div>
+                                <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                  <label className={styles.formLabel}>Pin Code</label>
+                                  <input type="number" name="pinCode" className={`${styles.formControl} ${styles.reFormF}`} value={formData.pinCode} onChange={handleChange} pattern="[0-9]{6}" maxLength={6} inputMode="numeric" required />
+                                  <small className={`${styles.formText} ${styles.textMuted}`}>Enter your 6-digit postal code.</small>
+                                  {itemErrors.pinCode && (
+                                    <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.pinCode} </div>
+                                  )}
+                                </div>
+                              </div>
+                              <div className={`${styles.footerSepertor} mt-3 ${styles.mb4}`}></div>
+                              <div className={`${styles.dFlex} justify-content-between ${styles.gap2}`}>
+                                <button type="button" className={`${styles.btn} ${styles.prevStep}`} onClick={() => goToStep(1)}>Back</button>
+                                <button type="button" className={`${styles.btn} ${styles.nextStep}`} onClick={handleNextStep}>Next Step</button>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Step 3: List Your Items */}
+                          {currentStep === 3 && (
+                            <div id="step3" className="step">
+                              {/* Loader / Empty State */}
+                              {loadingCategories ? (
+                                <p className="text-muted">Loading categories…</p>
+                              ) : categories.length === 0 ? (
+                                <p className="text-muted">No categories found.</p>
+                              ) : (
+                                <>
                                   {formData.items.map((item, index) => (
                                     <div key={index} className={`${styles.card} ${styles.mb4} p-3 ${styles.repeaterItem} bgTransparent positionRelative`}>
                                       {/* REMOVE BUTTON */}
@@ -721,9 +785,7 @@ export default function BecomeAHostPage() {
                                               </div>
                                             );
                                           })}
-                                          {itemErrors[index]?.category && (
-                                            <small className="text-danger">{itemErrors[index].category}</small>
-                                          )}
+                                          {itemErrors[index]?.category && ( <small className="text-danger">{itemErrors[index].category}</small> )}
                                         </div>
                                       </div>
 
@@ -759,21 +821,21 @@ export default function BecomeAHostPage() {
                                       </div>
                                       
                                       {/* BRAND SELECTION */}
-                                        {brands[index]?.length > 0 && (
-                                          <div className="sub-categories mb-2">
-                                            <label className={styles.formLabel}>Select a Brand</label>
-                                            <div className={`${styles.dFlex} flex-wrap ${styles.gap2} ${styles.subCategoryWrap}`}>
-                                              {brands[index].map((brand) => (
-                                                <div key={brand.id}>
-                                                  <input type="radio" className={styles.btnCheck} name={`brand_${index}`} id={`brand_${index}_${brand.id}`} value={brand.id} checked={item.brand === brand.id} onChange={() => handleBrandSelect(index, brand.id)}/>
-                                                  <label htmlFor={`brand_${index}_${brand.id}`} className={`${styles.btn} btn-outline-secondary ${styles.wmax} ${styles.radioBtns} rounded-3 py-2 px-3 text-start`}>
-                                                    {brand.brand_name}
-                                                  </label>
-                                                </div>
-                                              ))}
-                                            </div>
+                                      {brands[index]?.length > 0 && (
+                                        <div className="sub-categories mb-2">
+                                          <label className={styles.formLabel}>Select a Brand</label>
+                                          <div className={`${styles.dFlex} flex-wrap ${styles.gap2} ${styles.subCategoryWrap}`}>
+                                            {brands[index].map((brand) => (
+                                              <div key={brand.id}>
+                                                <input type="radio" className={styles.btnCheck} name={`brand_${index}`} id={`brand_${index}_${brand.id}`} value={brand.id} checked={item.brand === brand.id} onChange={() => handleBrandSelect(index, brand.id)}/>
+                                                <label htmlFor={`brand_${index}_${brand.id}`} className={`${styles.btn} btn-outline-secondary ${styles.wmax} ${styles.radioBtns} rounded-3 py-2 px-3 text-start`}>
+                                                  {brand.brand_name}
+                                                </label>
+                                              </div>
+                                            ))}
                                           </div>
-                                        )}
+                                        </div>
+                                      )}
 
                                       {/* MODEL SELECTION */}
                                       {models[index]?.length > 0 && (
@@ -792,8 +854,24 @@ export default function BecomeAHostPage() {
                                         </div>
                                       )}
 
+                                      {currentStep === 3 &&
+                                        formData.items.map((item, index) => (
+                                          item.category == 1 && item.subCategory ? (   // ✅ condition
+                                            <VehicleDetailsForm
+                                              key={index}
+                                              index={index}
+                                              item={item}
+                                              formData={formData}
+                                              setFormData={setFormData}
+                                              handleDetailsChange={handleDetailsChange}
+                                              errors={itemErrors[index] || {}}
+                                            />
+                                          ) : null
+                                        ))
+                                      }
+
                                       {/* CHILD FORM / MESSAGE */}
-                                      <div className="child-inputs">
+                                      {/* <div className="child-inputs">
                                         {item.category === 1 && item.subCategory ? (
                                           <VehicleDetailsForm index={index} item={item} formData={formData} setFormData={setFormData} handleDetailsChange={handleDetailsChange} errors={itemErrors}/>
                                         ) : (
@@ -801,7 +879,7 @@ export default function BecomeAHostPage() {
                                             <p className="text-muted mt-2"><b>coming soon 🚀</b></p>
                                           )
                                         )}
-                                      </div>
+                                      </div> */}
                                     </div>
                                   ))}
                                   
@@ -818,8 +896,8 @@ export default function BecomeAHostPage() {
 
                                     <button type="button" className={`${styles.btn} ${styles.nextStep}`} onClick={handleNextStep}> Next Step </button>
                                   </div>
-                                  </>
-                                  )}
+                                </>
+                              )}
                                 </div>
                               )}
 
@@ -830,7 +908,7 @@ export default function BecomeAHostPage() {
                                     <p> Please review your business and rental item details below. If everything looks good, hit Submit to publish your listing. </p>
 
                                     {/* Business Info */}
-                                    <div className={`card ${styles.mb3} bg-transparent`}>
+                                    {/* <div className={`card ${styles.mb3} bg-transparent`}>
                                       <div className="card-body">
                                         <h5 className="card-title"> {formData.businessName || "N/A"} </h5>
                                         <p className="card-text">
@@ -846,7 +924,7 @@ export default function BecomeAHostPage() {
                                           {formData.state || "N/A"} - {formData.pinCode || "N/A"}
                                         </p>
                                       </div>
-                                    </div>
+                                    </div> */}
 
                                     {/* Rental Items */}
                                     {formData.items?.map((item, idx) => {
@@ -940,6 +1018,9 @@ export default function BecomeAHostPage() {
                                         I confirm that all the information provided is accurate and I agree to the
                                         <a href="#">Terms of Listing</a>
                                       </label>
+                                      {itemErrors.TermsAndConditionsAgree && (
+                                        <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.TermsAndConditionsAgree} </div>
+                                      )}
                                     </div>
 
                                     <div className={`${styles.footerSepertor} mt-3 ${styles.mb4}`}></div>

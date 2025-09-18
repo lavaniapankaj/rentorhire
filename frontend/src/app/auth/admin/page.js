@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
       
         if (decodedToken.exp > currentTime) {
           // localStorage.clear();
-          router.push('/adminrohpnl');
+          window.location.href = "/adminrohpnl";
         }
       } 
     }, []); 
@@ -58,8 +58,7 @@ export default function AdminLoginPage() {
       
       document.cookie = `authToken=${data.token}; path=/`;
       document.cookie = `authUser=${JSON.stringify(data.user)}; path=/`;
-
-      router.push('/adminrohpnl');
+      window.location.href = "/adminrohpnl";
     } catch (error) {
       console.error("Login error:", error);          // default error log
       console.error("Error message:", error.message);
