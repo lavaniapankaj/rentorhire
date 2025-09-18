@@ -534,6 +534,11 @@ export default function BecomeAHostPage() {
     
       if (parsedAuthUserData?.is_service_provider == 0) {
         console.log("test");
+        // Update key
+        parsedAuthUserData.is_service_provider = 1;
+
+        // Set cookie again
+        setCookie("authUser", JSON.stringify(parsedAuthUserData), 7);
       }
 
         // Redirect
@@ -542,6 +547,20 @@ export default function BecomeAHostPage() {
       console.error("Submission Failed:", error);
       alert("Error submitting vehicle data");
     }
+  };
+
+  const setCookie = (name, value, days = 7) => {
+    if (typeof document === "undefined") return;
+  
+    let expires = "";
+    if (days) {
+      const date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      expires = "; expires=" + date.toUTCString();
+    }
+  
+    // ⚠️ No encodeURIComponent here → raw JSON will be saved
+    document.cookie = `${name}=${value}${expires}; path=/`;
   };
   
   const addItem = () => {
