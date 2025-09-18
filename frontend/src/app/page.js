@@ -87,7 +87,7 @@ export default function RentHomePage() {
       const params = new URLSearchParams();
       if (qVal) params.set("q", qVal);
       if (locVal) params.set("location", locVal);
-      url = `/products?${params.toString()}`;
+      //url = `/products?${params.toString()}`;
     }
 
     window.location.href = url;
