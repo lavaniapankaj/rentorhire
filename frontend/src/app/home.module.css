@@ -208,11 +208,11 @@
   padding-block: 24px 40px;
 }
 
-.fleets_wrap_main {
-  max-width: 98%;   /* 1280px */
+/* .fleets_wrap_main {
   width: 100%;
+  max-width: 70%;   
   margin: auto;
-}
+} */
 
 /* small star label row */
 .star_box {
@@ -417,6 +417,6 @@
     transform: rotate(0deg);
 }
 .h_container {
-  max-width: 1400px;
+  max-width: 100%;
   margin: auto;
 }

@@ -154,7 +154,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
             <div className={styles.imageWrap}>
               {item.media_gallery && item.media_gallery.length > 0 ? (
                 item.media_gallery.map((media) => (
-                  <Image
+                  <img
                     key={media.id}
                     src={`${media.file_path}${media.file_name}`}
                     alt={item.item_name}

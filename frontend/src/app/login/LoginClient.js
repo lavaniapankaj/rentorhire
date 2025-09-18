@@ -246,37 +246,6 @@ const redirectUrl = searchParams.get("redirect"); // e.g. ?redirect=/hosting/veh
           )}
         </section>
       </main>
-
-      <style jsx>{`
-        .rohuserlogn_info {
-          margin: 12px 0;
-          padding: 10px 12px;
-          border-radius: 8px;
-          background: #e8fff1;
-          color: #0b7a3b;
-          font-size: 14px;
-        }
-        .rohuserlogn_resendRow {
-          margin-top: 12px;
-          display: flex;
-          gap: 12px;
-          align-items: center;
-        }
-        .rohuserlogn_linkbtn {
-          background: transparent;
-          border: none;
-          padding: 0;
-          font: inherit;
-          color: #2f6fef;
-          cursor: pointer;
-          text-decoration: underline;
-        }
-        .rohuserlogn_linkbtn[aria-disabled="true"] {
-          color: #93a0b5;
-          cursor: not-allowed;
-          text-decoration: none;
-        }
-      `}</style>
     </>
   );
 }

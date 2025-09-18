@@ -4,7 +4,7 @@ import styles from "./footer.module.css";
 export default function Footer() {
   return (
     <footer className={`${styles.footer} ${styles.h_container}`} >
-      <div className="container-fluid px-3 px-md-4 px-lg-5">
+      <div className="container">
         <div className="row gy-4">
           {/* Brand / About */}
           <div className="col-12 col-md-12 col-lg-4">
@@ -27,7 +27,7 @@ export default function Footer() {
                 <li>
                   <Link href="#">
                     <img
-                      src="https://webcarelogics.com/lokesh/assets/images/facebook.svg"
+                      src="/images/facebook.svg"
                       alt="Facebook"
                     />
                   </Link>
@@ -35,7 +35,7 @@ export default function Footer() {
                 <li>
                   <Link href="#">
                     <img
-                      src="https://webcarelogics.com/lokesh/assets/images/twitter.svg"
+                      src="/images/twitter.svg"
                       alt="X / Twitter"
                     />
                   </Link>
@@ -43,7 +43,7 @@ export default function Footer() {
                 <li>
                   <Link href="#">
                     <img
-                      src="https://webcarelogics.com/lokesh/assets/images/linkedin.svg"
+                      src="/images/linkedin.svg"
                       alt="LinkedIn"
                     />
                   </Link>
@@ -51,7 +51,7 @@ export default function Footer() {
                 <li>
                   <Link href="#">
                     <img
-                      src="https://webcarelogics.com/lokesh/assets/images/social.svg"
+                      src="/images/social.svg"
                       alt="Instagram"
                     />
                   </Link>
@@ -76,7 +76,7 @@ export default function Footer() {
           <div className="col-6 col-md-3 col-lg-2">
             <h3 className={styles.title}>Services</h3>
             <ul className={styles.list}>
-              <li><Link href="#">Vehicles</Link></li>
+              <li><Link href="/products/">Vehicles</Link></li>
               <li><Link href="#">Electronics</Link></li>
               <li><Link href="#">Home Appliances</Link></li>
               <li><Link href="#">Events &amp; Party</Link></li>
