@@ -17,7 +17,11 @@
 .circl_btn button svg path {
   fill: #fff;
 }
-
+.star_title {
+    color: #FF3600;
+    font-size: 16px;
+    font-weight: 600;
+}
 .egg_img1 .eggimg1,
 .egg_img2 .eggimg2 {
     max-width: 100%;

@@ -48,7 +48,7 @@ const Header = () => {
           </div>
  
           {/* Navbar */}
-          <div className={`col-8 col-md-9 d-flex d-md-flex justify-content-end justify-content-md-end d-lg-block justify-content-lg-center col-lg-7 order-1 order-lg-0 ${styles.col_lg_7}`}>
+          <div className={`col-8 col-md-9 d-flex d-md-flex justify-content-end justify-content-md-end d-lg-block justify-content-lg-center col-lg-6 order-1 order-lg-0 ${styles.col_lg_7}`}>
             <nav className={`navbar navbar-expand-lg navbar-dark bg-transparent ${styles.navbar_n}`}>
               <button
                 className={`navbar-toggler ${styles.navbar_toggler}`}
@@ -106,7 +106,7 @@ const Header = () => {
           </div>
  
           {/* CTA + Dashboard */}
-          <div className={`col-6 col-md-8 col-lg-3 d-none d-md-none d-lg-flex  justify-content-end ${styles.col_lg_2}  `}>
+          <div className={`col-6 col-md-8 col-lg-4 d-none d-md-none d-lg-flex  justify-content-end ${styles.col_lg_2}  `}>
             <div className={`d-flex align-items-center ${styles.topBtns}`}>
               <Link href="/dashboard" className={styles.loginBtn}>
                 Dashboard
