@@ -6,10 +6,10 @@ export default function FAQSection() {
 
     return (
         <>
-           <section className={`mt-5 ${styles.faq_wrap}`}>
-      <div className={styles.faq_inner}>
+           <section className={`mt-5  ${styles.faq_wrap}`}>
+      <div className={`py-5 ${styles.faq_inner}`}>
         <div className={styles.faq_wrap_main}>
-          <div className="container mt-5 position-relative">
+          <div className="container  position-relative">
             <div className="row">
               {/* Left Column */}
               <div className="col-12 col-md-6 col-lg-6">
@@ -54,7 +54,7 @@ export default function FAQSection() {
                         width={24}
                         height={24}
                       />
-                      <span className={`star_title`}>Frequently Asked Questions</span>
+                      <span className={styles.star_title}>Frequently Asked Questions</span>
                     </div>
                   </div>
                 </div>

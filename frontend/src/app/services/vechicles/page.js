@@ -5,12 +5,18 @@ import AboutUs from '../../globalComponents/aboutUs';
 import FAQSection from '../../globalComponents/faqSection';
 import InnerServices from '../../globalComponents/innerServices';
 import LatestArtical from '../../globalComponents/latestArticle';
+import Testimonials from '../../globalComponents/testimonials';
+import WhyChooseUs from '../../globalComponents/whyChooseUs';
+import NeedHelp from '../../globalComponents/needHelp';
 
 export default function Vechicles() {
 
     return (
         <>
         <div class="container-fluid">
+
+            {/* Hero section */}
+            <HeroSection />
 
             {/* Innser services section */}
             <InnerServices />
@@ -21,8 +27,17 @@ export default function Vechicles() {
             {/* about us component */}
             <AboutUs/>
 
-            {/* Testimonial component */}
+            {/* latest artical component */}
             <LatestArtical/>
+            
+            {/* Testimonial component */}
+            <Testimonials/>
+            
+            {/* why choose us component */}
+            <WhyChooseUs/>
+            
+            {/* need help component */}
+            <NeedHelp/>
 
         </div>
         </>
