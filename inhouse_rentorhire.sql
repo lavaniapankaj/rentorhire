@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 10, 2025 at 02:29 PM
+-- Generation Time: Sep 18, 2025 at 06:51 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -75,12 +75,13 @@ CREATE TABLE `roh_categories` (
 --
 
 INSERT INTO `roh_categories` (`id`, `name`, `description`, `slug`, `parent_category_id`, `active`, `add_id`, `edit_id`, `add_date`, `edit_date`) VALUES
-(1, 'Vehicle', 'A broad category that includes all types of transport modes, such as cars, bikes, trucks, and recreational vehicles. Vehicles are essential for personal, commercial, and leisure travel, offering diverse options for different purposes, from daily commuting to long-distance journeys and business logistics.', 'vehicle', NULL, 1, 1, 1, '2025-08-05 17:11:45', '2025-08-05 17:21:24'),
+(1, 'Vehicles', 'A broad category that includes all types of transport modes, such as cars, bikes, trucks, and recreational vehicles. Vehicles are essential for personal, commercial, and leisure travel, offering diverse options for different purposes, from daily commuting to long-distance journeys and business logistics.', 'vehicles', NULL, 1, 1, 1, '2025-08-05 17:11:45', '2025-09-16 18:03:32'),
 (2, 'Cars', 'A wide range of vehicles for personal transportation, including various types like sedans, hatchbacks, and SUVs. Suitable for everyday commuting, family trips, and more.', 'cars', 1, 1, 1, 1, '2025-08-05 17:12:34', '2025-08-05 17:12:34'),
 (3, 'Bikes', 'Includes motorcycles and bicycles for personal use, from high-speed sports bikes to commuter-friendly models. Ideal for short trips, daily commutes, or adventure riding.', 'bikes', 1, 1, 1, 1, '2025-08-05 17:12:53', '2025-08-05 17:12:53'),
 (4, 'Commercial Vehicles', 'Vehicles designed for business purposes such as trucks, delivery vans, and buses. Used for transporting goods, passengers, or as part of a fleet for logistics and service industries.', 'commercial-vehicles', 1, 1, 1, 1, '2025-08-05 17:13:28', '2025-08-05 17:13:28'),
 (5, 'Luxury Vehicles', 'High-end cars and bikes offering exceptional comfort, performance, and design. Includes premium brands and models meant for those who seek an elite driving experience.', 'luxury-vehicles', 1, 1, 1, 1, '2025-08-05 17:13:51', '2025-08-05 17:13:51'),
-(6, 'Recreational Vehicles', 'Vehicles designed for leisure activities, including motorhomes, campervans, and RVs. Perfect for road trips, outdoor adventures, and extended vacations.', 'recreational-vehicles', 1, 1, 1, 1, '2025-08-05 17:14:11', '2025-08-05 17:14:11');
+(6, 'Recreational Vehicles', 'Vehicles designed for leisure activities, including motorhomes, campervans, and RVs. Perfect for road trips, outdoor adventures, and extended vacations.', 'recreational-vehicles', 1, 1, 1, 1, '2025-08-05 17:14:11', '2025-08-05 17:14:11'),
+(7, 'Furniture', 'A broad category that includes all types of transport modes.', 'furniture', NULL, 1, 1, 1, '2025-09-16 17:11:45', '2025-09-16 17:34:34');
 
 -- --------------------------------------------------------
 
@@ -269,8 +270,18 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 (83, 'images.jpeg', '/media/host/items/', 'jpeg', 1, '2025-09-04 17:28:46', '2025-09-04 17:28:46'),
 (87, '20230130052131_Screenshot_20230130_171913-3.avif', '/media/host/items/', 'avif', 1, '2025-09-06 17:45:26', '2025-09-06 17:45:26'),
 (88, 'Mahindra_Scorpio_N_1662098067527.webp', '/media/host/items/', 'webp', 1, '2025-09-07 15:56:33', '2025-09-07 15:56:33'),
-(89, '22hsvty9zgbw0jx-7ked0763o1.webp', '/media/host/items/', 'webp', 1, '2025-09-10 12:12:52', '2025-09-10 12:12:52'),
-(90, 'product-jpeg-500x500.webp', '/media/host/items/', 'webp', 1, '2025-09-10 12:12:52', '2025-09-10 12:12:52');
+(89, '20230130052131_Screenshot_20230130_171913-4.avif', '/media/host/items/', 'avif', 1, '2025-09-12 15:52:49', '2025-09-12 15:52:49'),
+(90, '20230130052131_Screenshot_20230130_171913-5.avif', '/media/host/items/', 'avif', 1, '2025-09-12 19:22:31', '2025-09-12 19:22:31'),
+(91, 'creta-1.jpg', '/media/host/items/', 'jpeg', 1, '2025-09-12 19:22:31', '2025-09-12 19:22:31'),
+(92, 'images (1)-1.jpeg', '/media/host/items/', 'jpeg', 1, '2025-09-12 19:22:31', '2025-09-12 19:22:31'),
+(93, 'images (3)-1.jpeg', '/media/host/items/', 'jpeg', 1, '2025-09-12 19:22:31', '2025-09-12 19:22:31'),
+(94, 'classic-modified-car-with-dark-smokie-background-ai-generative-free-photo.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-15 16:39:29', '2025-09-15 16:39:29'),
+(95, 'Aston-Martin-DB11-Exterior-115405.avif', '/uploads/media/host/items/', 'avif', 1, '2025-09-15 16:44:25', '2025-09-15 16:44:25'),
+(97, 'Aston-Martin-DB11-Exterior-115405-1.avif', '/uploads/media/host/items/', 'avif', 1, '2025-09-15 16:54:40', '2025-09-15 16:54:40'),
+(98, 'furniture.webp', '/media/category/', 'webp', 1, '2025-09-16 17:30:14', '2025-09-16 17:30:14'),
+(99, 'furniture-1.webp', '/media/category/', 'webp', 1, '2025-09-16 17:30:27', '2025-09-16 17:30:27'),
+(100, 'furniture-2.webp', '/media/category/', 'webp', 1, '2025-09-16 17:33:35', '2025-09-16 17:33:35'),
+(101, 'furniture-3.webp', '/media/category/', 'webp', 1, '2025-09-16 17:33:44', '2025-09-16 17:33:44');
 
 -- --------------------------------------------------------
 
@@ -495,12 +506,27 @@ INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `ema
 (47, 'bitugoxe', 'Amity', 'Schultz', 'perikop@mailinator.com', '4869643856', '$2b$10$Ecgs/LNcxCFKv/CqgQ7C.uS0W9Ox3moJ9z0G1XRC0mOffe6sVtXOO', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '497910', 0, 0, NULL, NULL, 0, '2025-08-27 16:44:32', '2025-08-27 16:51:00'),
 (48, 'soruke', 'Chadwick', 'Dalton', 'qugenehiv@mailinator.com', '4625174203', '$2b$10$dxqghMmEVZujsUIPSeDF7uPStFFsuvOfKL.J6onRbs1jlB6l4ohQK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '677190', 0, 0, NULL, NULL, 0, '2025-08-27 16:53:58', '2025-08-27 16:53:58'),
 (49, 'qyqaluvuqu', 'Isaac', 'Hall', 'bobyhiz@mailinator.com', '2883996366', '$2b$10$StXcohwoZNeRIjOSwwfJPeMWH8EAC8c5Q79f4B3noutl1mZIaPNJW', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '110654', 0, 0, NULL, NULL, 0, '2025-08-27 16:54:55', '2025-08-27 16:54:55'),
-(50, 'rent_or_hire', 'Den', 'Cook', 'roh@hosting.com', '9876543219', '$2b$10$TwK0imHqaYotk9QvtG0aiu65rXvC4gBHxAnm26vXGY77eWDNkOMZq', 3, NULL, 'Zahir Gallegos', 'Jaipur', '', '', '', 302012, '999000', 1, 1, NULL, NULL, 1, '2025-08-27 17:16:42', '2025-09-10 11:32:53'),
+(50, 'rent_or_hire', 'Den', 'Cook', 'roh@hosting.com', '9876543219', '$2b$10$TwK0imHqaYotk9QvtG0aiu65rXvC4gBHxAnm26vXGY77eWDNkOMZq', 3, NULL, 'Zahir Gallegos', 'Jaipur', '', '', '', 302012, '999000', 1, 1, NULL, NULL, 1, '2025-08-27 17:16:42', '2025-09-07 15:56:33'),
 (51, 'vedoq', 'Jenette', 'Cannon', 'huqinileju@mailinator.com', '5317534899', '$2b$10$VFU5t7sxh9TVa8Jd.dmUiuKQtDU8sS13QWmqmC3WZKnytHuoIum5W', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-08-27 17:18:00', '2025-08-27 17:20:13'),
-(52, 'pidawoh', 'Lunea', 'Nolan', 'lyhede@mailinator.com', '1982856472', '$2b$10$GY2KBR7dPhpa.RMI3KziIuoLXQkQFTtiSIJ0edp8JuKzHZXTAmtBm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-08-27 17:21:52', '2025-08-27 17:22:01'),
+(52, 'lyhede@mailinator.com', 'Lunea', 'Nolan', 'lyhede@mailinator.com', '1982856472', '$2b$10$GY2KBR7dPhpa.RMI3KziIuoLXQkQFTtiSIJ0edp8JuKzHZXTAmtBm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '123456', 0, 0, NULL, NULL, 0, '2025-08-27 17:21:52', '2025-09-09 16:35:32'),
 (53, 'boviqafih', 'Dominique', 'Conner', 'qazitug@mailinator.com', '(294) 719-9133', '$2b$10$5FMyQTqpP3nZacqeoyWjDOVoigrhcxRLp4SZo.XfDTt7O9r7tD3C2', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '662670', 0, 0, NULL, NULL, 0, '2025-08-28 01:25:33', '2025-08-28 01:25:33'),
 (54, 'numuzufot', 'Slade', 'Dixon', 'zupejyton@mailinator.com', '9815618907', '$2b$10$Ya8bGxm9dJgUdYsYwp/eQ.XSK3sWfPhf4Gp0xrcLFBdpWQTRlc2vO', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '161043', 0, 0, NULL, NULL, 0, '2025-08-28 01:30:28', '2025-08-28 01:30:28'),
-(55, 'faxapevy', 'Orlando', 'Cochran', 'jeluse@mailinator.com', '3241124441', '$2b$10$6I8.P6V462iIwn4u5o3HOub4g7A6Vi173.J60NrYoIM79qHeAJ0dC', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-10 10:28:35', '2025-09-10 10:32:38');
+(55, 'wuwyteteki', 'Danielle', 'Garrison', 'wupynyte@mailinator.com', '5268741408', '$2b$10$pSmv5wkr1NgB2cMZAEFfsOnfVy86.Hbi73i2aezW/wvlFRIDx7hqu', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-09 16:30:44', '2025-09-09 16:30:50'),
+(56, 'cixaxexyn', 'Barrett', 'Clayton', 'jurux@mailinator.com', '8213089685', '$2b$10$50uuNXjgwRjMv1LsS4oJmukmDrJl1SnXX1dtANRhqmnmlb/rXKSje', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-09 16:31:51', '2025-09-09 16:32:01'),
+(57, 'caned', 'Elaine', 'Cervantes', 'vicatace@mailinator.com', '8587037752', '$2b$10$QlDOgg0EvBjduU/jmjM89e8yiQz9OpBs6Rf48sJNzq18KmLLx7M7C', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-09 16:50:28', '2025-09-09 16:50:54'),
+(58, 'kedunabe', 'Dennis', 'Martinez', 'kedunabe@mailinator.com', '4183834925', '$2b$10$8TDpt19v2YtfNF1ueuZL8e0Ayfe3.kvU3PS3VD0uCj/aDi.ODZaBq', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-09 16:51:10', '2025-09-09 17:15:44'),
+(59, 'diwibycibu', 'Channing', 'Rodriquez', 'solabyk@mailinator.com', '8734536205', '$2b$10$9hwXp8DXv3wggIK6spivIerGHPSW0JwM0RHPJRRffSX2S.sIWz8m.', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '342086', 0, 0, NULL, NULL, 0, '2025-09-09 17:32:39', '2025-09-09 17:38:04'),
+(60, 'caqyw', 'Libby', 'Herman', 'bedi@mailinator.com', '1228426608', '$2b$10$YyDKfWL7VVT82dL559eZMOURktGXszd7UXGBD1iJye.f.SGcKf4Ea', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '956185', 0, 0, NULL, NULL, 0, '2025-09-09 17:49:52', '2025-09-09 18:25:12'),
+(61, 'xyzaw', 'Isadora', 'Luna', 'midohoxuz@mailinator.com', '3262737222', '$2b$10$iGxsa.yqKhhCrkG4JgQZJO9/Cfp10Bsss96dqnH5LfG5lwWHZIkzS', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-09 18:17:11', '2025-09-09 18:23:14'),
+(62, 'sykyfiq', 'Fredericka', 'Riggs', 'hydymijal@mailinator.com', '5978936215', '$2b$10$cMkOLa6yuYy6oRzC7au6zOv6prMTFSCM5Z9hcwmHr2SN.y0SO1/sq', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-09 18:23:42', '2025-09-09 18:23:52'),
+(63, 'sysifim', 'Stephen', 'Reid', 'qypedyv@mailinator.com', '4115098506', '$2b$10$9zq6jJkGxMeBtmIGX6Os4Oucx6D5TLe2iojtYaidYH1ZV1pUekzjS', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-09 18:25:52', '2025-09-09 18:25:58'),
+(64, 'jotobu', 'Candice', 'Blackwell', 'manyk@mailinator.com', '5973614759', '$2b$10$SG8zhdLniaKCKlZQDVo6veagS7ce.vD7kJgend.6Wr4E6eTgi8uAa', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-09 18:27:55', '2025-09-09 18:29:06'),
+(65, 'xaheruwije', 'Tatyana', 'Jennings', 'vizi@mailinator.com', '2011031301', '$2b$10$EdsC8FFO/KkZx9jmL.w3Ve29hOgJAfbIl3pqdpZzg5S1TFeIWFi..', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-09 18:34:35', '2025-09-09 18:35:50'),
+(66, 'tzdgdfgd', 'Ashton', 'Pace', 'giqaruvur@mailinator.com', '3484117644', '$2b$10$3R9p5o7LXZ5Y1GUVK21t6uiK3qq6nGogKvQjs80Gmehg5N/yRImpS', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-09 18:38:19', '2025-09-09 18:38:35'),
+(67, 'vuzatanipi', 'Dorothy', 'Mccall', 'siti@mailinator.com', '2953553424', '$2b$10$9r8TQgysS4GIvxuQvXmbUuXtCHAxFn02KF3PMTGl933Myh8F8xXKG', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-09 18:45:05', '2025-09-09 18:45:53'),
+(68, 'xonohuruh', 'Kylie', 'Lott', 'quxedi@mailinator.com', '7539361021', '$2b$10$g8L.RL0zlbomBJy8GAMjBOQpnlCKGPceF4LtUsu5fgttssCmNIItO', 3, NULL, 'WDO Sub', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, 1, '2025-09-12 15:50:20', '2025-09-12 15:52:49'),
+(69, 'kedajot', 'Quyn', 'Lang', 'sixaciv@mailinator.com', '6351714873', '$2b$10$5EeQN/RCrwlJbSPAQxV8reMyfEqGJrxdX481eFRQ.He.7ejKix8nC', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-12 16:56:33', '2025-09-12 16:56:44'),
+(70, 'kusokinony', 'Quinn', 'Chambers', 'bera@mailinator.com', '9895796519', '$2b$10$Fk6yYkXsVdni4viADHnkYOcDZOU0JHPp0pAgLnirS.j3tPeEDn.FS', 3, NULL, 'Autumn Walters', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, 1, '2025-09-12 19:19:27', '2025-09-12 19:22:31');
 
 -- --------------------------------------------------------
 
@@ -546,7 +572,11 @@ INSERT INTO `roh_vehicle_attributes` (`id`, `vehicle_id`, `engine_type`, `transm
 (18, 46, 'CNG', 'Manual', 33.00, 77, 'Lorem dolores labore', 13, 19.00, '330', '1991-11-05', 'Economy', 'Custom', 'Used', 'Proident dolorum su', '33 West Old Freeway', 'A atque error non mi', 'Laborum sint beatae', 'Incidunt officia et', 452000, 'In necessitatibus pr'),
 (19, 47, 'Petrol', 'Manual', 81.00, 16, 'Aliqua Molestias pe', 54, 51.00, '451', '1989-04-16', 'Standard', 'Daily', 'Refurbished', 'Dicta corrupti illu', '815 Old Avenue', 'Cupiditate earum sit', 'Dolor ipsum nostrum', 'Esse commodo qui ani', 35, 'Sequi temporibus non'),
 (20, 48, 'CNG', 'Automatic', 4.00, 59, 'Illo exercitation ir', 4, 97.00, '284', '1987-07-27', 'Economy', 'Daily', 'New', 'Ducimus voluptatem ', '21 East Nobel Extension', 'Minus reiciendis dui', 'Nobis quisquam volup', 'Non est nostrud haru', 332121, 'In labore autem blan'),
-(21, 49, 'Diesel', 'Automatic', 15.00, 56, 'Quo laboris exercita', 10, 17.00, '30', '2017-10-05', 'Standard', 'Monthly', 'New', 'Dignissimos cum veli', '697 Cowley Freeway', 'Itaque amet quo mol', 'Animi est mollit du', 'Illum nemo quis ad ', 132222, 'Voluptatem Dolor pe');
+(21, 49, 'Electric', 'Manual', 76.00, 19, 'Est consequatur Qu', 46, 91.00, '180', '2017-07-09', 'Standard', 'Monthly', 'Refurbished', 'Ut aut deleniti temp', '623 Nobel Parkway', 'Expedita nisi volupt', 'Sit nemo in delectus', 'Dolor ad laudantium', 642211, 'Nesciunt est sunt c'),
+(22, 50, 'CNG', 'Manual', 45.00, 89, 'Sunt fuga Officia ', 22, 36.00, '156', '2015-01-03', 'Standard', 'Daily', 'Refurbished', 'Nulla quam illo qui ', '12 West Green Old Road', 'Quam quis consequat', 'Sequi inventore accu', 'Mollit aut nisi sint', 813222, 'Est sint aut exerci'),
+(23, 51, 'CNG', 'Automatic', 8.00, 21, 'Explicabo Quis sed ', 93, 97.00, '252', '1973-09-10', 'Luxury', 'Monthly', 'Used', 'Dolorum quo corrupti', '466 White Nobel Extension', 'Quis in modi in et e', 'Error quibusdam dist', 'Similique cupiditate', 122321, 'Omnis dolor aut non '),
+(24, 52, 'CNG', 'Manual', 44.00, 34, 'Qui ullamco mollit m', 66, 77.00, '116', '1987-06-16', 'Standard', 'Daily', 'New', 'Asperiores neque vel', '96 East Nobel Drive', 'Et consequatur harum', 'Aut esse ea est elig', 'Fugiat distinctio ', 736766, 'Et minima magni eius'),
+(25, 53, 'Hybrid', 'Manual', 96.00, 73, 'Rerum aut hic exerci', 87, 13.00, '921', '1986-02-01', 'Standard', 'Weekly', 'Used', 'Atque architecto cum', '44 Clarendon Parkway', 'Sed debitis molestia', 'Quia elit animi be', 'Eu maiores minim bea', 383333, 'Ea fuga Saepe velit');
 
 -- --------------------------------------------------------
 
@@ -589,10 +619,14 @@ INSERT INTO `roh_vehicle_details` (`id`, `service_provider_id`, `item_name`, `ve
 (42, 20, 'Elizabeth Michael', 'Et do do dignissimos', 1, 1, 1, 1, '[69]', 566.00, 455.00, 94.00, 659.00, 1, 1, 0, 37.00, 'Et labore dolore et ', 'Available', '2025-09-04 01:13:26', '2025-09-06 21:58:55'),
 (44, 20, 'Linus Adkins', 'Quae reprehenderit a', 1, 1, 1, 1, '[71,72,73,74]', 582.00, 602.00, 711.00, 919.00, 1, 1, 0, 8.00, 'Facere aspernatur id', 'Available', '2025-09-04 01:47:19', '2025-09-06 21:58:58'),
 (45, 20, 'Hiram Rivers', 'Veniam nihil quod e', 1, 1, 1, 1, '[75,76,77,78]', 653.00, 967.00, 5.00, 529.00, 1, 1, 0, 12.00, 'Duis hic id minim au', 'Booked', '2025-09-04 22:19:19', '2025-09-06 21:59:01'),
-(46, 50, 'Chancellor Cain', 'Dolore cum eos nisi', 1, 1, 1, 1, '[79,80,81,82,83]', 87.00, 597.00, 358.00, 62.00, 1, 1, 0, 56.00, 'Harum deleniti qui d', 'Available', '2025-09-04 22:58:46', '2025-09-10 16:49:47'),
+(46, 50, 'Chancellor Cain', 'Dolore cum eos nisi', 1, 1, 1, 1, '[79,80,81,82,83]', 87.00, 597.00, 358.00, 62.00, 1, 1, 0, 56.00, 'Harum deleniti qui d', 'Available', '2025-09-04 22:58:46', '2025-09-06 23:45:09'),
 (47, 50, 'Declan Hester', 'Vel earum ratione te', 1, 1, 3, 5, '[87]', 532.00, 411.00, 39.00, 533.00, 1, 1, 0, 69.00, 'Illum quisquam elit', 'Available', '2025-09-06 23:15:26', '2025-09-07 20:58:17'),
-(48, 50, 'Clio Garza', 'Excepteur laudantium', 1, 1, 3, 6, '[88]', 854.00, 850.00, 794.00, 649.00, 1, 1, 0, 40.00, 'Mollit dolor nostrum', 'Booked', '2025-09-07 21:26:33', '2025-09-07 21:32:03'),
-(49, 50, 'Vincent Walker', 'Odit incididunt occa', 1, 1, 3, 6, '[89,90]', 346.00, 776.00, 945.00, 112.00, 1, 1, 0, 62.00, 'Do et quis a enim qu', 'Booked', '2025-09-10 17:42:52', '2025-09-10 17:42:52');
+(48, 50, 'Clio Garza', 'Excepteur laudantium', 1, 1, 3, 6, '[88]', 854.00, 850.00, 794.00, 649.00, 1, 1, 0, 40.00, 'Mollit dolor nostrum', 'Booked', '2025-09-07 21:26:33', '2025-09-08 21:58:53'),
+(49, 68, 'Olga King', 'Sed ipsum iste volup', 1, 1, 3, 6, '[89]', 548.00, 272.00, 374.00, 677.00, 1, 1, 0, 23.00, 'Proident do dolor d', 'Booked', '2025-09-12 21:22:49', '2025-09-12 21:22:49'),
+(50, 70, 'Katelyn Beach', 'Rerum neque facilis ', 1, 1, 3, 6, '[90,91,92,93]', 232.00, 496.00, 203.00, 839.00, 1, 1, 0, 66.00, 'Quo suscipit officia', 'Unavailable', '2025-09-13 00:52:31', '2025-09-13 00:52:31'),
+(51, 50, 'Dustin Cherry', 'Nisi veniam dolore ', 1, 1, 3, 5, '[94]', 132.00, 672.00, 539.00, 728.00, 1, 1, 0, 91.00, 'Lorem non provident', 'Unavailable', '2025-09-15 22:09:29', '2025-09-15 22:09:29'),
+(52, 50, 'Susan Parks', 'Est iusto sed expedi', 1, 1, 3, 6, '[95]', 745.00, 216.00, 436.00, 994.00, 1, 1, 0, 80.00, 'Ea sed nostrud animi', 'Unavailable', '2025-09-15 22:14:25', '2025-09-15 22:14:25'),
+(53, 50, 'Seth Garza', 'Duis pariatur Quis ', 1, 1, 3, 6, '[97]', 158.00, 803.00, 409.00, 548.00, 1, 1, 0, 82.00, 'Repellendus Odio ei', 'Booked', '2025-09-15 22:24:40', '2025-09-15 22:24:40');
 
 --
 -- Indexes for dumped tables
@@ -688,7 +722,7 @@ ALTER TABLE `roh_brands`
 -- AUTO_INCREMENT for table `roh_categories`
 --
 ALTER TABLE `roh_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `roh_cities`
@@ -700,7 +734,7 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `roh_models`
@@ -736,19 +770,19 @@ ALTER TABLE `roh_tags`
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`
 --
 ALTER TABLE `roh_vehicle_attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_details`
 --
 ALTER TABLE `roh_vehicle_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- Constraints for dumped tables

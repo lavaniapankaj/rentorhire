@@ -92,7 +92,7 @@ const Header = () => {
                     <a className={styles.navLink} href="#">How It Works</a>
                   </li>
                   <li className="nav-item">
-                    <Link className={styles.navLink} href="/lokesh/faq.html">FAQs</Link>
+                    <Link className={styles.navLink} href="#">FAQs</Link>
                   </li>
                   <li className="nav-item">
                     <a className={styles.navLink} href="#">About Us</a>
