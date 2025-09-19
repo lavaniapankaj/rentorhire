@@ -61,7 +61,7 @@ export default function ListUserPage() {
         });
         if (!res.ok) throw new Error('Failed to fetch users');
         const data = await res.json();
-        if (data.rcode == 0) router.push('/auth/admin');
+        if (data.rcode == 0) window.location.href = "/auth/admin";
         setUsers(data.data.users || []);
         setTotalPages(data.data.totalPages || 1);
       } catch (err) {
@@ -80,7 +80,7 @@ export default function ListUserPage() {
         const res = await fetch(`${API_ADMIN_BASE_URL}/role/roles`);
         if (!res.ok) throw new Error('Failed to fetch roles');
         const data = await res.json();
-        if (data.rcode == 0) router.push('/auth/admin');
+        if (data.rcode == 0) window.location.href = "/auth/admin";
         setRoles(data.data || []);
       } catch (err) {
         console.error('Role fetch error:', err);
@@ -122,7 +122,7 @@ export default function ListUserPage() {
         body: JSON.stringify({ user_id: user.user_id }),
       });
       const data = await res.json();
-      if (data.rcode == 0) router.push('/auth/admin');
+      if (data.rcode == 0)  window.location.href = "/auth/admin";
       setEditUser(data.data[0]);
       setIsEditModalOpen(true);
     } catch (err) {
@@ -148,7 +148,7 @@ export default function ListUserPage() {
         body: JSON.stringify({ user_id }),
       });
       const data = await res.json();
-      if (data.rcode == 0) router.push('/auth/admin');
+      if (data.rcode == 0) window.location.href = "/auth/admin";
       if (!res.ok) throw new Error('Failed to delete user');
       alert('User deleted successfully');
       setFilters({ ...filters }); // refresh
@@ -166,7 +166,7 @@ export default function ListUserPage() {
         body: JSON.stringify({ user_id: user.user_id }),
       });
       const data = await res.json();
-      if (data.rcode == 0) router.push('/auth/admin');
+      if (data.rcode == 0)  window.location.href = "/auth/admin";
       setViewUser(data.data[0]);
       setIsViewModalOpen(true);
     } catch (err) {

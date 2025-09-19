@@ -36,7 +36,7 @@ export default function AdminDashboard() {
 
     if (!token || isTokenExpired || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
       // Redirect to the login page
-      router.push('/auth/admin');
+      window.location.href = "/auth/admin";
     }
   }, []); 
   /** Admin login token check - Coded by Raj - July 15 2025 END */

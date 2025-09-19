@@ -56,7 +56,7 @@ export default function ListCategoryPage() {
         const data = await response.json();
         /** recode = 0 is used for the token error */
         if(data.rcode == 0){
-          router.push('/auth/admin');
+          window.location.href = "/auth/admin";  
         }
   
         setCategories(data.data.category || []);
@@ -101,7 +101,7 @@ export default function ListCategoryPage() {
 
       /** recode = 0 is used for the token error */
       if(data.rcode == 0){
-        router.push('/auth/admin');
+        window.location.href = "/auth/admin";
       }
       const categoryData = data.data;
       setViewCategory(categoryData);
@@ -132,7 +132,7 @@ export default function ListCategoryPage() {
       const data = await res.json();
       /** recode = 0 is used for the token error */
       if(data.rcode == 0){
-        router.push('/auth/admin');
+        window.location.href = "/auth/admin";
       }
 
       if (!res.ok) throw new Error('Failed to delete category');
@@ -170,7 +170,7 @@ export default function ListCategoryPage() {
 
       /** recode = 0 is used for the token error */
       if(data.rcode == 0){
-        router.push('/auth/admin');
+        window.location.href = "/auth/admin";
       }
       const categoryData = data.data;
       setEditCategory(categoryData);

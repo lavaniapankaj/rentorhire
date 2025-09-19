@@ -38,7 +38,7 @@ export default function ListCategoryPage() {
 
     if (!token || isTokenExpired || (parsedAuthUserData && parsedAuthUserData.role_id !== 1)) {
       // Redirect to the login page
-      router.push('/auth/admin');
+      window.location.href = "/auth/admin";
     }
 
     const fetchCategories = async () => {

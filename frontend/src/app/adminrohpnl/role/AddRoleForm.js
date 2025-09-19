@@ -40,7 +40,7 @@ export default function AddRoleForm({ onClose, onSuccess }) {
       const data = await res.json();
       /** recode = 0 is used for the token error */
       if (data.rcode == 0) {
-        router.push('/auth/admin');
+        window.location.href = "/auth/admin";
       }
 
       if (!res.ok || !data.status) {

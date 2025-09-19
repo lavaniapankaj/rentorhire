@@ -148,13 +148,6 @@ function hostModuleApi() {
               ]
             );
           }
-          //  else {
-            // Just update the business name (optional)
-            // await connection.query(
-            //   `UPDATE roh_users SET business_name = ? WHERE user_id = ?`,
-            //   [businessName, service_provider_id]
-            // );
-          // }
       
           for (const item of items) {
             const {
