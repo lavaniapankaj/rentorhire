@@ -136,3 +136,16 @@ ease-in-out;
 .hero_btns .button_custom:hover~.circl_btn button svg path, .hero_btns .circl_btn button:hover svg path {
     fill: #fff;
 }
+
+@media screen and (max-width:440px) {
+    .button_custom button, .extrabtn button {
+        font-size: 11px;
+    }
+    .circl_btn button svg {
+        width: 25px;
+        height: 25px;
+    }
+        .hero_btns {
+            gap: 8px !important;
+        }
+}
