@@ -12,5 +12,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Say Hello
-        run: echo "CI/CD pipeline is running on branch development"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14'
+          
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm i
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm ci
+
+      
