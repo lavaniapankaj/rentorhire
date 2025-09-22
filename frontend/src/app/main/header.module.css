@@ -1,32 +1,50 @@
-.headerArea {
-  background: #fff;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-  z-index: 999;
-  position: sticky;
-  top: 0;
-  padding: 12px 0;
+.roh_header_area {
+  position: absolute;
+  width: 100%;
+  top: 1px;
+  z-index: 1;
 }
-
-
-.headerBlock {
- 
-}
-
-.logoBlock .logo {
+.roh_logo {
   width: 100%;
   max-width: 100px;
   transition: all 0.3s;
-  object-fit: contain;
 }
+body.sticky_top .header-area .roh_logo_block img.roh_logo {
+  max-width: 80px;
+}
+.roh_is_sticky{
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 444;
+    background: #fff;
+    transition: all 0.4s;
+    animation: fadeInDown 0.5s ease-in-out;
+    box-shadow: 0px 3px 25.16px 0.84px rgba(0, 0, 0, 0.09);
+  }
 
+  .roh_header_block {
+    background-color: #fff;
+    border-radius: 35px;
+  }
 
-.navLink {
+  .roh_is_sticky .roh_header_block {
+    box-shadow: none;
+}
+header .roh_navBar .roh_navLink {
   color: #000;
-  font-weight: 500;
+  font-family: "DM Sans", sans-serif;
   font-size: 16px;
-  padding: 0.5rem 1rem;
-  transition: color 0.3s ease;
-  text-decoration: none;
+  line-height: 1.6em;
+  letter-spacing: normal;
+  font-weight: 500;
+  text-transform: capitalize;
+  padding: 10px 10px 10px 10px;
+  transition: all .4s ease;
+}
+header .roh_navBar .roh_navLink:hover, header .roh_navBar .roh_navLink:focus-within,header .roh_navBar .roh_navLink.dropdown_toggle.show {
+  color: #FF3600;
 }
 
 .dropdown_toggle:hover,
@@ -34,206 +52,197 @@
   color: #ff4500 !important;
   text-decoration: none;
 }
-
-.dropdownMenu {
-  border-radius: 0;
-  padding: 0.5rem 0;
-  font-size: 15px;
+.roh_navLink.dropdown_toggle::after {
+  display: inline-block;
+  margin-left: .255em;
+  vertical-align: .255em;
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  border-bottom: 0;
+  border-left: .3em solid transparent;
+}
+.roh_navBar .roh_dropdown_menu {
+  background-color: #FF3600;
+  border-style: none;
+  border-radius: 20px 20px 20px 20px;
+  min-width: 220px;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
-.dropdownItem {
-  padding: 0.4rem 1rem;
-  transition: background 0.3s ease;
-}
-
-.dropdownItem:hover {
-  background-color: #f8f9fa;
-}
-
-.topBtns {
-  gap: 12px;
-}
-
-.buttonCustom button {
-  background-color: #ff3c00;
-  color: #fff;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 30px;
-  font-weight: 600;
-  font-size: 15px;
-  transition: background 0.3s ease;
-}
-
-.buttonCustom button:hover {
-  background-color: #e23300;
-}
-
-.circlBtn button {
-  background-color: #ff3c00;
-  color: #fff;
-  border: none;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  transition: background 0.3s ease;
-}
-
-.circlBtn button:hover {
-  background-color: #e23300;
-}
-
-.circlBtn svg {
-  width: 16px;
-  height: 16px;
-}
-.circlBtn button svg {
-    width: 30px;
-    height: 30px;
-    transform: rotate(-30deg);
-    transition: all .3s ease-in-out;
-}
-
-.circlBtn button:hover svg,
-.buttonCustom:hover~.circlBtn button svg {
-    transform: rotate(0deg);
-}
- .buttonCustom:hover~.circlBtn button,
- .circlBtn button:hover {
-    background: #000;
-    color: #fff;
-}
-.circlBtn button svg path {
-fill: #fff;
-}
-/* Logout button styling */
-.logoutBtn {
-  background: transparent;
-  border: 1px solid #ddd;
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 14px;
-  margin-right: 10px;   /* space before CTA */
-  cursor: pointer;
-}
-.logoutBtn:hover {
-  border-color: #bbb;
-}
-
-.loginBtn {
-  background: transparent;
-  border: 1px solid #ff3c00;
-  color: #ff3c00;
-  padding: 8px 14px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 14px;
-  margin-right: 10px;   /* CTA se pehle gap */
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-}
-
-.loginBtn:hover {
-  background: #fff3ee;
-  border-color: #e23300;
-  color: #e23300;
-}
-header .dropdown_item {
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.7em;
-    padding: 8px 20px 8px 20px;
-}
-header  .dropdown_menu {
-    background-color: #FF3600;
-    border-style: none;
-    border-radius: 20px 20px 20px 20px;
-    min-width: 220px;
-    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
-}
-.navbar_toggler{
-  background-color: #000;
-}
-
-.h_container {
-  /* max-width: 1400px; */
-  /* margin: auto; */
-}
-.topbarBlock {
-display: none;
-}
-
-
-.roh_navbarNav .dropdown:hover .dropdown_menu {
+.roh_navBar .roh_dropdown:hover .roh_dropdown_menu {
   display: block;
 }
 
-.dashboardbtn {
-  border: 1px solid #ff3c00;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  width: 100%;
-  color: #ff3c00;
-  text-align: center;
+header .roh_navBar .roh_dropdown_menu a.roh_dropdown_item {
+  color: #fff;
+  font-family: "DM Sans", sans-serif;
   font-size: 16px;
-  background-color: #fff;
-  padding: 4px 15px;
- 
+  font-weight: 600;
+  line-height: 1.7em;
+  padding: 8px 20px 8px 20px;
 }
-@media screen and (max-width:991px){
-  .topbarBlock {
-    display: flex;
+header .roh_navBar .roh_dropdown_menu a.roh_dropdown_item:hover{
+  color: #000;
+  background-color: transparent;
+}
+
+/* Orange Button  with Arrow  */
+
+.roh_top_btns .roh_circl_btn button, .roh_top_btns .roh_button_custom button {
+  background: #FF3600;
+  color: #fff;
+}
+.roh_button_custom button, .roh_extrabtn button {
+  width: max-content;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+  padding: 9px 25px 9px 25px;
+  border-radius: 50px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all .4s ease-in-out;
+}
+.roh_circl_btn button {
+  width: max-content;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+  padding: 5px;
+  border-radius: 50px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all .3s ease-in-out;
+}
+.roh_circl_btn button img {
+  width: 30px;
+  height: 30px;
+  transform: rotate(-30deg);
+  transition: all .3s ease-in-out;
+}
+
+.roh_circl_btn button:hover img,
+.roh_button_custom:hover~.roh_circl_btn button img{
+    transform: rotate(0deg);
+}
+.roh_circl_btn button:hover,
+.roh_button_custom:hover~.roh_circl_btn button{
+    background-color: #000;
+}
+.roh_headerRight_button {
+  gap: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.roh_profile_box button {
+  background-color: #FF3600;
+  width: max-content;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+  padding: 5px;
+  border-radius: 50px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all .3s ease-in-out;
+}
+.roh_profile_box button img{
+  width: 30px;
+  height: 30px;
+}
+.roh_profile_box button:hover{
+  background-color: #000;
+}
+
+
+.roh_mobileMenu {
+  display: none;
+}
+
+.roh_mobileMenu button{
+  border: none;
+  background-color: transparent;
+}
+
+.roh_offcanvas_header {
+  border-bottom: 1px solid #ebebeb;
+}
+.roh_offcanvas_body {
+  text-align: start;
+}
+.roh_adrop_box_wrap .roh_adrop_list li a {
+  padding: 15px 25px;
+  display: flex;
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid #f1f1f1;
+  font-size: 14px;
+  align-items: center;
+  gap: 8px;
+  transition: all .3s ease-in-out;
+}
+.roh_adrop_box_wrap .roh_adrop_list li {
+  list-style: none;
+}
+.roh_adrop_box_wrap .roh_adrop_list  {
+  margin: 0;
+  padding: 0;
+}
+.roh_adrop_box_wrap .roh_adrop_list li a:hover {
+  background-color: #EDEDED;
+  color: #000;
+}
+@media (max-width: 991px) {
+  .roh_desktop_headerNav {
+    display: none;
   }
-  .buttonCustom button {
-     padding: 6px 15px;
-  }
-  .circlBtn button {
-    width: 33px;
-    height: 33px;
-  }
-  .circlBtn svg {
-  width: 16px;
-  height: 16px;
-}
-  .circlBtn button svg {
-    width: 30px;
-    height: 30px;
-    transform: rotate(-30deg);
-    transition: all .3s ease-in-out;
-}
-.navbar_n {
-  position:inherit !important;
-}
-.navbarNav_n {
-    position: absolute;
-    top: 116px;
+  .roh_header_block {
     width: 100%;
-    left: 0;
-    background-color: #fff;
-}
-}
-@media screen and (min-width:992px) and (max-width:1399px){
-  .col_lg_7 {
-    width: 100% !important;
-    order: 3 !important;
+    max-width: 991px;
   }
-      .col_lg_2 {
-       
-        width: 74% !important;
-    }
+
+ .roh_navbarNav {
+     display: none;
+  }
+  .roh_mobileMenu {
+    display: block;
+  }
+  .roh_header_nav {
+    display: flex;
+    justify-content: end;
+  }
 }
-@media screen and (max-width: 576px) {
-    .container, .container-sm {
-        max-width: 95% !important;
-    }
+
+@media screen and (max-width: 768px) {
+  .roh_button_custom button {
+      padding: 6px 12px;
+      font-size: 13px;
+  }
+  .roh_circl_btn button img {
+    width: 20px;
+  height: 20px;
+  }
+  .roh_profile_box button img{
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 575px) {
+  .roh_navbarNav {
+      width: 100%;
+  }
 }
