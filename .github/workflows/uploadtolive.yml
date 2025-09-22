@@ -1,0 +1,16 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ development ]
+
+jobs:
+  test-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Say Hello
+        run: echo "CI/CD pipeline is running on branch development"
