@@ -15,11 +15,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.14'
-          
+          node-version: '18.x'  # Change to latest stable LTS
+
       - name: Install frontend dependencies
         working-directory: ./frontend
-        run: npm i
+        run: npm ci
 
       - name: Build frontend
         working-directory: ./frontend
@@ -29,4 +29,7 @@ jobs:
         working-directory: ./backend
         run: npm ci
 
-      
+      # Optional: Run backend build or tests if you have any
+      # - name: Build backend
+      #   working-directory: ./backend
+      #   run: npm run build
