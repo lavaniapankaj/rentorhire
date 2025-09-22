@@ -29,7 +29,7 @@ function hostModuleApi() {
             }
 
             const [rows] = await pool.query(
-                'SELECT id, name, slug, parent_category_id FROM `roh_categories` WHERE `active` = 1 AND `parent_category_id` = ?',
+                'SELECT id, name, slug, description, parent_category_id FROM `roh_categories` WHERE `active` = 1 AND `parent_category_id` = ?',
                 [parent_category_id]
             );
 

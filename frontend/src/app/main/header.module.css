@@ -13,10 +13,9 @@
 }
 
 .logoBlock .logo {
-  max-height: 40px;   /* height control */
-  max-width: 120px;   /* width control */
-  height: auto;
-  width: auto;
+  width: 100%;
+  max-width: 100px;
+  transition: all 0.3s;
   object-fit: contain;
 }
 
@@ -170,6 +169,12 @@ header  .dropdown_menu {
 .topbarBlock {
 display: none;
 }
+
+
+.roh_navbarNav .dropdown:hover .dropdown_menu {
+  display: block;
+}
+
 .dashboardbtn {
   border: 1px solid #ff3c00;
   border-radius: 10px;

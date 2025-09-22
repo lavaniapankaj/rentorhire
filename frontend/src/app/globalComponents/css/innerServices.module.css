@@ -188,7 +188,10 @@ display: block;
 {
     transform: rotate(0deg);
 }
-
+.roh_card_box_inner a {
+    color: #000;
+    text-decoration: none;
+}
 
 
 

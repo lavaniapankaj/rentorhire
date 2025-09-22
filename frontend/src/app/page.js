@@ -29,7 +29,7 @@ export default function RentHomePage() {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
 
-        // अब हर parent category के लिए children लाना
+        /** Now get the children for each parent category */
         const withChildren = await Promise.all(
           (Array.isArray(data) ? data : []).map(async (parent) => {
             try {
@@ -87,7 +87,7 @@ export default function RentHomePage() {
       const params = new URLSearchParams();
       if (qVal) params.set("q", qVal);
       if (locVal) params.set("location", locVal);
-      url = `/products?${params.toString()}`;
+      //url = `/products?${params.toString()}`;
     }
 
     window.location.href = url;

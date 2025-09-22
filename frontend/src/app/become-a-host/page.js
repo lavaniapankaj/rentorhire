@@ -13,7 +13,7 @@ export default function BecomeAHostPage() {
   const [mounted, setMounted] = useState(false);
   const [authUser, setAuthUser] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState();
+  const [subCategories, setSubCategories] = useState([]);
   const [loadingCategories, setLoadingCategories] = useState(true);
   const [shouldJumpToStep3, setShouldJumpToStep3] = useState(false);
   const [brands, setBrands] = useState([]);
@@ -814,9 +814,19 @@ export default function BecomeAHostPage() {
                                           <>
                                             {subCategories ? (
                                               <>
+
+{/* <pre>
+    {JSON.stringify(subCategories, null, 2)}
+  </pre>
+
+  {Array.isArray(subCategories?.[index?.toString()]) &&
+ subCategories[index.toString()].map((sub) => (
+   <div key={sub.id}>{sub.name}</div>
+ ))} */}
+
                                                 <label className={styles.formLabel}>Select a Sub Category</label>
                                                 <div className={`${styles.dFlex} flex-wrap ${styles.gap2} ${styles.subCategoryWrap}`}>
-                                                  {subCategories[index].map((sub, subIndex) => {
+                                                  {/* {subCategories[index].map((sub, subIndex) => {
                                                     const subId = `sub_${index}_${sub.id}`;
                                                     return (
                                                       <div key={sub.id}>
@@ -826,7 +836,18 @@ export default function BecomeAHostPage() {
                                                         </label>
                                                       </div>
                                                     );
-                                                  })}
+                                                  })} */}
+                                                  {Array.isArray(subCategories?.[index?.toString()]) && subCategories[index.toString()].map((sub, subIndex) => {
+                                                      const subId = `sub_${index}_${sub.id}`;
+                                                      return (
+                                                        <div key={sub.id}>
+                                                          <input type="radio" className={styles.btnCheck} name={`subCategory_${index}`} id={subId} value={sub.id} checked={item.subCategory === sub.id} onChange={() => handleSubCategorySelect(index, sub)}/>
+                                                          <label htmlFor={subId} className={`${styles.btn} btn-outline-secondary ${styles.wmax} ${styles.radioBtns} rounded-3 py-2 px-3 text-start`}>
+                                                            <span>{sub.name}</span>
+                                                          </label>
+                                                        </div>
+                                                      );
+                                                    })}
                                                 </div>
                                                 {itemErrors[index]?.subCategory && (
                                                   <small className="text-danger">{itemErrors[index].subCategory}</small>
@@ -873,7 +894,27 @@ export default function BecomeAHostPage() {
                                         </div>
                                       )}
 
-                                      {currentStep === 3 &&
+{currentStep === 3 &&
+  formData.items.map((item, index) => {
+    if (item.category == 1 && item.subCategory) {
+      console.log('Render VehicleDetailsForm for index:', index);
+      return (
+        <VehicleDetailsForm
+          key={item.id ?? index}
+          index={index}
+          item={item}
+          formData={formData}
+          setFormData={setFormData}
+          handleDetailsChange={handleDetailsChange}
+          errors={itemErrors[index] || {}}
+        />
+      );
+    }
+    return null;
+  })}
+
+
+                                      {/* {currentStep === 3 &&
                                         formData.items.map((item, index) => (
                                           item.category == 1 && item.subCategory ? (   // ✅ condition
                                             <VehicleDetailsForm
@@ -887,7 +928,7 @@ export default function BecomeAHostPage() {
                                             />
                                           ) : null
                                         ))
-                                      }
+                                      } */}
 
                                       {/* CHILD FORM / MESSAGE */}
                                       {/* <div className="child-inputs">

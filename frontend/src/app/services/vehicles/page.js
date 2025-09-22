@@ -8,6 +8,7 @@ import LatestArtical from '../../globalComponents/latestArticle';
 import Testimonials from '../../globalComponents/testimonials';
 import WhyChooseUs from '../../globalComponents/whyChooseUs';
 import NeedHelp from '../../globalComponents/needHelp';
+import ReadyToRide from '../../globalComponents/readyToRide';
 
 export default function Vechicles() {
 
@@ -38,6 +39,9 @@ export default function Vechicles() {
             
             {/* need help component */}
             <NeedHelp/>
+
+            {/* ready to ride component */}
+            <ReadyToRide/>
 
         </div>
         </>
