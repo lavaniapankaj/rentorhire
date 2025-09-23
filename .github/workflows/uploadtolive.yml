@@ -2,7 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ development ]
+    # branches: [ development ]
 
 jobs:
   test-run:
@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x'  # Change to latest stable LTS
+          node-version: '20.x'
 
       - name: Install frontend dependencies
         working-directory: ./frontend
@@ -29,7 +29,33 @@ jobs:
         working-directory: ./backend
         run: npm ci
 
-      # Optional: Run backend build or tests if you have any
-      # - name: Build backend
-      #   working-directory: ./backend
-      #   run: npm run build
+      
+      # Install backend deps (no build step)
+      - name: 📦 Install backend dependencies
+        working-directory: ./backend
+          run: npm ci
+
+      # Setup SSH Agent
+      - name: 🔐 Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+
+      # Deploy files to the server
+      - name: 📤 Sync project to server
+        run: |
+          rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.PROJECT_DIR }}
+
+      # Restart backend service (e.g., via PM2)
+      - name: 🔁 Restart backend on server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
+            cd ${{ secrets.PROJECT_DIR }}/backend
+            npm install --omit=dev
+            pm2 restart all
+
+
+EOF
