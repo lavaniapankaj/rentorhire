@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import styles from "./view.module.css";
+import globalStyles from "../../globalComponents/css/globalCSS.module.css";
 import Image from "next/image";
 import { jwtDecode } from "jwt-decode";
 
@@ -126,169 +127,572 @@ export default function Viewproductspop({ triggerId, onClose }) {
   if (!triggerId) return null;
 
   return (
-    <div
-      className={`${styles.modalOverlay} ${styles.active}`}
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose}
-    >
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
-          ✕
-        </button>
+    <>
+      <div
+        className={`${styles.modalOverlay} ${styles.active}`}
+        role="dialog"
+        aria-modal="true"
+        onClick={onClose}
+      >
+        <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
+            ✕
+          </button>
 
-        {/* Loading */}
-        {loading && (
-          <div className={styles.loadingWrap}>
-            <div className={styles.spinner}></div>
-            <span className={styles.loadingText}>Loading…</span>
-          </div>
-        )}
-
-        {/* Item view */}
-        {!loading && item && (
-          <div className={styles.itemWrap}>
-            <h2 className={styles.itemTitle}>{item.item_name}</h2>
-            <p className={styles.itemDesc}>{item.vehicle_description}</p>
-
-            <div className={styles.imageWrap}>
-              {item.media_gallery && item.media_gallery.length > 0 ? (
-                item.media_gallery.map((media) => (
-                  <img
-                    key={media.id}
-                    src={`${media.file_path}${media.file_name}`}
-                    alt={item.item_name}
-                    width={280}
-                    height={180}
-                    className={styles.itemImg}
-                  />
-                ))
-              ) : (
-                <p>No images available</p>
-              )}
+          {/* Loading */}
+          {loading && (
+            <div className={styles.loadingWrap}>
+              <div className={styles.spinner}></div>
+              <span className={styles.loadingText}>Loading…</span>
             </div>
-              <div className={styles.popupwrap_inner}>
-            <div className={styles.detailsGrid}>
-                                <div class="d-flex justify-content-between text-dark  content_layer">
-                                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                                        <Image 
-                                          src="/lokesh/assets/images/door.svg" alt="Door Icon" width={40} height={40} />
-                                        <span>Doors</span>
-                                    </div>
-                                    <span className="text-dark fw-medium">4</span>
-                                </div>
-                                <div class="d-flex justify-content-between text-dark  content_layer">
-                                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                                        <Image src="/lokesh/assets/images/ic_passanger.svg" width={40} height={40} />
-                                        <span>Passengers</span>
-                                    </div>
-                                    <span className="text-dark fw-medium">5</span>
-                                </div>
-                                <div class="d-flex justify-content-between text-dark   content_layer">
-                                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                                        <Image src="/lokesh/assets/images/icon-transmission.svg" width={40} height={40} />
-                                        <span>Transmission</span>
-                                    </div>
-                                    <span className="text-dark fw-medium">Manual</span>
-                                </div>
-                                <div className="d-flex justify-content-between text-dark   content_layer">
-                                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                                        <Image src="/lokesh/assets/images/icon-age.svg" width={40} height={40} />
-                                        <span>Age</span>
-                                    </div>
-                                    <span className="text-dark fw-medium">Under 2 years</span>
-                                </div>
-                                <div className="d-flex justify-content-between text-dark   content_layer">
-                                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                                        <Image src="/lokesh/assets/images/icon-bags.svg" width={40} height={40} />
-                                        <span>Luggage</span>
-                                    </div>
-                                    <span className="text-dark fw-medium">2 Small Bags</span>
-                                </div>
-                                <div className="d-flex justify-content-between text-dark   content_layer">
-                                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                                        <Image src="/lokesh/assets/images/icon-transmission.svg" width={40} height={40} />
-                                        <span>Air Condition</span>
-                                    </div>
-                                    <span className="text-dark fw-medium">Yes</span>
-                                </div>
-              <p>
-                <strong>Price/Day:</strong> ₹{item.price_per_day}
-              </p>
-              <p>
-                <strong>Price/Week:</strong> ₹{item.price_per_week}
-              </p>
-              <p>
-                <strong>Price/Month:</strong> ₹{item.price_per_month}
-              </p>
-              <p>
-                <strong>Security Deposit:</strong> ₹{item.security_deposit}
-              </p>
-              <p>
-                <strong>Availability:</strong> {item.availability_status}
-              </p>
-              <p>
-                <strong>Fuel:</strong> {item.engine_type}
-              </p>
-              <p>
-                <strong>Transmission:</strong> {item.transmission_type}
-              </p>
-              <p>
-                <strong>Seats:</strong> {item.seating_capacity}
-              </p>
-              <p>
-                <strong>Color:</strong> {item.color}
-              </p>
-              <p>
-                <strong>Mileage:</strong> {item.mileage ?? "N/A"} kmpl
-              </p>
-              <p>
-                <strong>Condition:</strong> {item.vehicle_condition}
-              </p>
-            </div>
+          )}
+
+          {/* Item view */}
+          {!loading && item && (
+            <div className={styles.itemWrap}>
+              <div className={`${styles.roh_prouct_hero_wrap}`}>
+                <div className={`${styles.roh_prouct_hero_inner}`}>
+                  <div className={`${styles.roh_prouct_hero}`} style={{ backgroundImage: `url(/images/product-popup/services.jpg)` }} >
+                    <div className={`container ${styles.roh_service_banner}`}>
+                      <div className={`${styles.roh_Zindex}`}>
+                        <div className={`${styles.roh_hero_heading}`}>
+                          <h1 className={styles.itemTitle} data-wow-duration="2s">{item.item_name}</h1>
+                          <p className={styles.itemDesc}>{item.vehicle_description}</p>
+                        </div>
+                        <div className="d-flex justify-content-center align-items-center">
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            <div className={styles.extraInfo}>
-              <h4>Accessories</h4>
-              <p>{item.accessories}</p>
 
-              <h4>Booking Terms</h4>
-              <p>{item.booking_terms}</p>
-
-              <h4>Booking Instructions</h4>
-              <p>{item.booking_instructions}</p>
-            </div>
-
-            <div className={styles.serProInfo}>
-              {serviceProvider ? (
-                isAuthenticated ? (
-                  // Valid token → direct contact
-                  <a href={`tel:${serviceProvider.phone_number}`}>
-                    <button>
-                      Contact {serviceProvider.first_name} {serviceProvider.last_name} (
-                      {serviceProvider.phone_number})
-                    </button>
-                  </a>
+              <div className={`d-none ${styles.imageWrap}`}>
+                {item.media_gallery && item.media_gallery.length > 0 ? (
+                  item.media_gallery.map((media) => (
+                    <img
+                      key={media.id}
+                      src={`${media.file_path}${media.file_name}`}
+                      alt={item.item_name}
+                      width={280}
+                      height={180}
+                      className={styles.itemImg}
+                    />
+                  ))
                 ) : (
-                  // No/expired token → ask login with redirect
+                  <p>No images available</p>
+                )}
+              </div>
+              <section className="py-5">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-12 col-md-4 col-lg-4">
+                      <div className={`${styles.roh_left_slide_wrap}`}>
+                        <div className={`${styles.roh_left_slide_inner}`}>
+                          <div className={`${styles.roh_sidebar_pricing}`}>
+                            <h2>₹{item.price_per_day}<span>/Per Day</span></h2>
+
+                          </div>
+                          <div className={`${styles.roh_fleets_single_sidebar_list}`}>
+
+                            <div class="accordion" id="accordionExample">
+                              <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                  <Image src="/images/product-popup/30-days.svg" alt="Door" width={20} height={20} /> Price:
+                                  </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                  <div class="accordion-body">
+                                    <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+
+                                      <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                       <span>Per/Week:</span>
+                                      </div>
+                                      <span className="text-dark fw-medium">₹{item.price_per_week}</span>
+                                    </div>
+                                    <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                                      <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                         <span>Per/Month:</span>
+                                      </div>
+                                      <span className="text-dark fw-medium">₹{item.price_per_month}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+
+                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                <Image src="/images/product-popup/7-days.svg" alt="Door" width={28} height={20} />
+                                <span>Price/Week:</span>
+                              </div>
+                              <span className="text-dark fw-medium">₹{item.price_per_week}</span>
+                            </div>
+                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                <Image src="/images/product-popup/30-days.svg" alt="Door" width={20} height={20} />
+                                <span>Price/Month:</span>
+                              </div>
+                              <span className="text-dark fw-medium">₹{item.price_per_month}</span>
+                            </div>
+                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                <Image src="/images/product-popup/car-security-deposit.svg" alt="Door" width={20} height={20} />
+                                <span>Security Deposit:</span>
+                              </div>
+                              <span className="text-dark fw-medium">₹{item.security_deposit}</span>
+                            </div>
+                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                <Image src="/images/product-popup/car-availability.svg" alt="Door" width={20} height={20} />
+                                <span>Availability:</span>
+                              </div>
+                              <span className="text-dark fw-medium">{item.availability_status}</span>
+                            </div>
+                          </div>
+                          <div className="sidebar-bottom-btns">
+                            <div className="btn_singlepage_wrap d-flex align-items-center flex-wrap justify-content-around gap-2">
+                              <div className={`d-flex align-items-center justify-content-center ${styles.roh_top_btns}`}>
+                                <div className={`${styles.roh_button_custom}`}><button>Contact us</button></div>
+                                <div className={`${styles.roh_circl_btn}`}>
+                                  <button><Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} /></button>
+                                </div>
+                              </div>
+                              <div><span className="text-muted">OR</span></div>
+                              <div className="">
+                                <div className={`${styles.roh_single_pageCircle}`}>
+                                  <button><Image src="/whatsapp.svg" alt="WhatsApp" width={30} height={30} /></button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-12 col-md-8 col-lg-8">
+                      <div id="mainslider" className="owl-carousel owl-theme owl-loaded owl-drag d-none">
+
+
+
+
+                        <div className="owl-stage-outer owl-height" style={{ height: '283.422px' }}><div className="owl-stage" style={{ transform: 'translate3d(-1685px, 0px, 0px)', transition: 'linear', width: '3371px' }}><div className="owl-item cloned" style={{ width: '421.328px' }}><div className="item p-1">
+                          <div className="right_slide_imgwrap">
+                            <img src="/lokesh/assets/images/slide3.jpg" />
+                          </div>
+                        </div></div><div className="owl-item cloned" style={{ width: '421.328px' }} ><div className="item p-1">
+                          <div className="right_slide_imgwrap">
+                            <img src="/lokesh/assets/images/slide4.jpg" />
+                          </div>
+                        </div></div><div className="owl-item" style={{ width: '421.328px' }}><div className="item p-1">
+                          <div className="right_slide_imgwrap">
+                            <img src="/lokesh/assets/images/slide1.jpg" />
+                          </div>
+                        </div></div><div className="owl-item" style={{ width: '421.328px' }}><div className="item p-1">
+                          <div className="right_slide_imgwrap">
+                            <img src="/lokesh/assets/images/slide2.jpg" />
+                          </div>
+                        </div></div><div className="owl-item active" style={{ width: '421.328px' }}><div className="item p-1">
+                          <div className="right_slide_imgwrap">
+                            <img src="/lokesh/assets/images/slide3.jpg" />
+                          </div>
+                        </div></div><div className="owl-item active" style={{ width: '421.328px' }}><div className="item p-1">
+                          <div className="right_slide_imgwrap">
+                            <img src="/lokesh/assets/images/slide4.jpg" />
+                          </div>
+                        </div></div><div className="owl-item cloned" style={{ width: '421.328px' }}><div className="item p-1">
+                          <div className="right_slide_imgwrap">
+                            <img src="/lokesh/assets/images/slide1.jpg" />
+                          </div>
+                        </div></div><div className="owl-item cloned" style={{ width: '421.328px' }}><div className="item p-1">
+                          <div className="right_slide_imgwrap">
+                            <img src="/lokesh/assets/images/slide2.jpg" />
+                          </div>
+                        </div></div></div></div><div className="owl-nav disabled"><button type="button" role="presentation" className="owl-prev"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" className="owl-next"><span aria-label="Next">›</span></button></div><div className="owl-dots"><button role="button" className="owl-dot"><span></span></button><button role="button" className="owl-dot active"><span></span></button></div></div>
+                      <div className={`${styles.roh_about_list_wrap}`}>
+                        <div className="star_box">
+                          <div className="star_inner d-flex align-items-center gap-1">
+                            <Image src="/star.svg" alt="Star" width={19} height={17} />
+                            <span className={`${globalStyles.roh_star_title}`}>Vendor Information</span>
+                          </div>
+                        </div>
+                        <h2 className={`${globalStyles.roh_headingH2}`}>Listed By: Urban Drive Rentals, Delhi NCR</h2>
+
+                        <ul className={`${styles.roh_about_media_list} ${styles.roh_vendor_info}`}>
+                          <li>
+                            <div className={`media ${styles.roh_media}`}>
+                              <div className="media_imgbox">
+                                <div className={`${styles.roh_back_circle}`}>
+                                  <Image src="/images/product-popup/location-icon.svg" alt="Location" width={60} height={60} />
+                                </div>
+                              </div>
+                              <div className="media-body">
+                                <h5 className={`${styles.roh_media_title}`}>Location</h5>
+                                <p className="global_heading media_desc gray_global_heading pb-0 mb-0">Karol Bagh, New Delhi</p>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div className={`media ${styles.roh_media}`}>
+                              <div className="media_imgbox">
+                                <div className={`${styles.roh_back_circle}`}>
+                                  <Image src="/images/product-popup/call-icon.svg" alt="Call" width={60} height={60} />
+                                </div>
+                              </div>
+                              <div className="media-body">
+                                <h5 className={`${styles.roh_media_title}`}>Contact</h5>
+                                <p className="global_heading gray_global_heading media_desc pb-0 mb-0">+91-9876543210</p>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div className={`media ${styles.roh_media}`}>
+                              <div className="media_imgbox">
+                                <div className={`${styles.roh_back_circle}`}>
+                                  <Image src="/images/product-popup/calendar-icon.svg" alt="Calendar" width={60} height={60} />
+                                </div>
+                              </div>
+                              <div className="media-body">
+                                <h5 className={`${styles.roh_media_title}`}>Active Since:</h5>
+                                <p className="global_heading gray_global_heading media_desc pb-0 mb-0">2022</p>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div className={`media ${styles.roh_media}`}>
+                              <div className="media_imgbox">
+                                <div className={`${styles.roh_back_circle}`}>
+                                  <Image src="/images/product-popup/rating-icon.svg" alt="Rating" width={60} height={60} />
+                                </div>
+                              </div>
+                              <div className="media-body">
+                                <h5 className={`${styles.roh_media_title}`}>Vendor Rating:</h5>
+                                <p className="global_heading gray_global_heading media_desc pb-0 mb-0">
+                                  <span className="fa fa-star checked"></span>
+                                  <span className="fa fa-star checked"></span>
+                                  <span className="fa fa-star checked"></span>
+                                  <span className="fa fa-star"></span>
+                                  <span className="fa fa-star"></span>(4.8/5 – 120+ Rentals)</p>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className={`${styles.roh_general_info_wrap}`}>
+                        <div className="star_box">
+                          <div className="star_inner d-flex align-items-center gap-1">
+                            <Image src="/star.svg" alt="Star" width={19} height={17} />
+                            <span className={`${globalStyles.roh_star_title}`}>Included Services</span>
+                          </div>
+                        </div>
+                        <h2 className={`${globalStyles.roh_headingH2}`}>Overview – About this Car</h2>
+                        <p className="global_heading gray_global_heading media_desc ">Experience the thrill of zipping through the city with the Maruti Suzuki Swift — a stylish and reliable hatchback designed for comfort, fuel efficiency, and a great driving experience. Whether it’s a short weekend trip or daily city commuting, this Swift is your perfect companion.</p>
+                        <ul className={`${styles.roh_check_list}`}>
+                          <li>
+                            <div className={`${styles.roh_featureList}`}>
+                              <Image src="/images/product-popup/car-engine.svg" alt="Door" width={28} height={28} />
+                              <h6>Fuel: <span>{item.engine_type}</span></h6>
+                            </div>
+                          </li>
+                          <li>
+                            <div className={`${styles.roh_featureList}`}>
+                              <Image src="/images/product-popup/car-transmission.svg" alt="Transmission" width={28} height={28} />
+                              <h6>Transmission: <span>{item.transmission_type}</span></h6>
+                            </div>
+                          </li>
+                          <li>
+                            <div className={`${styles.roh_featureList}`}>
+                              <Image src="/images/product-popup/car-seats.svg" alt="Age" width={28} height={28} />
+                              <h6>Seats: <span>{item.seating_capacity}</span></h6>
+                            </div>
+                          </li>
+                          <li>
+                            <div className={`${styles.roh_featureList}`}>
+                              <Image src="/images/product-popup/car-color.svg" alt="Luggage" width={28} height={28} />
+                              <h6>Color: <span>{item.color}</span></h6>
+                            </div>
+                          </li>
+                          <li>
+                            <div className={`${styles.roh_featureList}`}>
+                              <Image src="/images/product-popup/car-mileage.svg" alt="Air Condition" width={28} height={28} />
+                              <h6>Mileage: <span>{item.mileage ?? "N/A"} kmpl</span></h6>
+                            </div>
+                          </li>
+                          <li>
+                            <div className={`${styles.roh_featureList}`}>
+                              <Image src="/images/product-popup/car-condition.svg" alt="Air Condition" width={28} height={28} />
+                              <h6>Condition: <span>{item.vehicle_condition}</span></h6>
+                            </div>
+                          </li>
+
+
+                        </ul>
+                      </div>
+                      <div className="general_info_twowrap">
+                        <div className="star_box">
+                          <div className="star_inner d-flex align-items-center gap-1">
+                            <Image src="/star.svg" alt="Star" width={19} height={17} />
+                            <span className={`${globalStyles.roh_star_title}`}>Amenities</span>
+                          </div>
+                        </div>
+                        <h3 className="second_heading mgnB20">Premium Amenities &amp; Features</h3>
+                        <ul className="check_list new_checklist">
+                          <li>
+                            <a href="#">
+                              <img></img>
+                              <span>Music System</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <img></img>
+                              <span>Bluetooth + Aux Support</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <img></img>
+                              <span>Full Air Conditioning</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <img></img>
+                              <span>Boot Space: 268L</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <img></img>
+                              <span>Spare Tyre</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <img></img>
+                              <span>Toolkit</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <img></img>
+                              <span>Power Steering</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <img></img>
+                              <span>USB Charging Port</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <img></img>
+                              <span>ABS + Dual Airbags</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <img></img>
+                              <span>Reverse Parking Sensors</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="general_info_twowrap">
+                        <div className="star_box">
+                          <div className="star_inner d-flex align-items-center gap-1">
+                            <Image src="/star.svg" alt="Star" width={19} height={17} />
+                            <span className={`${globalStyles.roh_star_title}`}>Rental Conditions</span>
+                          </div>
+                        </div>
+                        <h3 className="second_heading mgnB20">Policies and agreement</h3>
+                        <div className="accordion">
+                          <div className="accordion-item active">
+                            <div className="accordion-header">
+                              <span>Driver’s License Requirements</span>
+                              <span className="icon-toggle">−</span>
+                            </div>
+                            <div className="accordion-content" style={{ maxHeight: '700px', paddingTop: '15px', paddingBottom: '15px' }}>
+                              <p className="mb-0"> Upload valid ID proof &amp; driver’s license before pickup.</p>
+                            </div>
+                          </div>
+
+                          <div className="accordion-item">
+                            <div className="accordion-header">
+                              <span>Insurance and Coverage Policy</span>
+                              <span className="icon-toggle">+</span>
+                            </div>
+                            <div className="accordion-content" style={{ maxHeight: '0px', paddingTop: '0px', paddingBottom: '0px' }}>
+                              <p className="mb-0">Basic third-party insurance included. Additional coverage available.</p>
+                            </div>
+                          </div>
+                          <div className="accordion-item">
+                            <div className="accordion-header">
+                              <span>Available Payment Methods</span>
+                              <span className="icon-toggle">+</span>
+                            </div>
+                            <div className="accordion-content" style={{ maxHeight: '0px', paddingTop: '0px', paddingBottom: '0px' }}>
+                              <p className="mb-0"> UPI, Cards, Net Banking, or Cash on Pickup</p>
+                            </div>
+                          </div>
+                          <div className="accordion-item">
+                            <div className="accordion-header">
+                              <span>Cancellation &amp; Modification Policy</span>
+                              <span className="icon-toggle">+</span>
+                            </div>
+                            <div className="accordion-content" style={{ maxHeight: '0px', paddingTop: '0px', paddingBottom: '0px' }}>
+                              <p className="mb-0">Free cancelation up to 24 hrs. Last-minute cancelation incurs ₹200 fee.</p>
+                            </div>
+                          </div>
+                          <div className="accordion-item">
+                            <div className="accordion-header">
+                              <span>Smoking &amp; Pet Policy</span>
+                              <span className="icon-toggle">+</span>
+                            </div>
+                            <div className="accordion-content" style={{ maxHeight: '0px', paddingTop: '0px', paddingBottom: '0px' }}>
+                              <p className="mb-0">Smoking not allowed. Pets allowed with prior vendor approval.</p>
+                            </div>
+                          </div>
+                          <div className="accordion-item">
+                            <div className="accordion-header">
+                              <span>Minimum Age Requirement</span>
+                              <span className="icon-toggle">+</span>
+                            </div>
+                            <div className="accordion-content" style={{ maxHeight: '0px', paddingTop: '0px', paddingBottom: '0px' }}>
+                              <p className="mb-0"> Must be 18+ with 1+ year of driving experience.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div></section>
+
+              <div className={`mt-5 d-none ${styles.popupwrap_inner}`}>
+                <div className={styles.detailsGrid}>
+                  <div className="d-flex justify-content-between text-dark  content_layer">
+                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                      <Image
+                        src="/lokesh/assets/images/door.svg" alt="Door Icon" width={40} height={40} />
+                      <span>Doors</span>
+                    </div>
+                    <span className="text-dark fw-medium">4</span>
+                  </div>
+                  <div className="d-flex justify-content-between text-dark  content_layer">
+                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                      <Image src="/lokesh/assets/images/ic_passanger.svg" width={40} height={40} />
+                      <span>Passengers</span>
+                    </div>
+                    <span className="text-dark fw-medium">5</span>
+                  </div>
+                  <div className="d-flex justify-content-between text-dark   content_layer">
+                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                      <Image src="/lokesh/assets/images/icon-transmission.svg" width={40} height={40} />
+                      <span>Transmission</span>
+                    </div>
+                    <span className="text-dark fw-medium">Manual</span>
+                  </div>
+                  <div className="d-flex justify-content-between text-dark   content_layer">
+                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                      <Image src="/lokesh/assets/images/icon-age.svg" width={40} height={40} />
+                      <span>Age</span>
+                    </div>
+                    <span className="text-dark fw-medium">Under 2 years</span>
+                  </div>
+                  <div className="d-flex justify-content-between text-dark   content_layer">
+                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                      <Image src="/lokesh/assets/images/icon-bags.svg" width={40} height={40} />
+                      <span>Luggage</span>
+                    </div>
+                    <span className="text-dark fw-medium">2 Small Bags</span>
+                  </div>
+                  <div className="d-flex justify-content-between text-dark   content_layer">
+                    <div className="d-flex align-items-center gap-1 feets_data_list">
+                      <Image src="/lokesh/assets/images/icon-transmission.svg" width={40} height={40} />
+                      <span>Air Condition</span>
+                    </div>
+                    <span className="text-dark fw-medium">Yes</span>
+                  </div>
+                  <p>
+                    <strong>Price/Day:</strong> ₹{item.price_per_day}
+                  </p>
+                  <p>
+                    <strong>Price/Week:</strong> ₹{item.price_per_week}
+                  </p>
+                  <p>
+                    <strong>Price/Month:</strong> ₹{item.price_per_month}
+                  </p>
+                  <p>
+                    <strong>Security Deposit:</strong> ₹{item.security_deposit}
+                  </p>
+                  <p>
+                    <strong>Availability:</strong> {item.availability_status}
+                  </p>
+                  <p>
+                    <strong>Fuel:</strong> {item.engine_type}
+                  </p>
+                  <p>
+                    <strong>Transmission:</strong> {item.transmission_type}
+                  </p>
+                  <p>
+                    <strong>Seats:</strong> {item.seating_capacity}
+                  </p>
+                  <p>
+                    <strong>Color:</strong> {item.color}
+                  </p>
+                  <p>
+                    <strong>Mileage:</strong> {item.mileage ?? "N/A"} kmpl
+                  </p>
+                  <p>
+                    <strong>Condition:</strong> {item.vehicle_condition}
+                  </p>
+                </div>
+              </div>
+              <div className={styles.extraInfo}>
+                <h4>Accessories</h4>
+                <p>{item.accessories}</p>
+
+                <h4>Booking Terms</h4>
+                <p>{item.booking_terms}</p>
+
+                <h4>Booking Instructions</h4>
+                <p>{item.booking_instructions}</p>
+              </div>
+
+              <div className={styles.serProInfo}>
+                {serviceProvider ? (
+                  isAuthenticated ? (
+                    // Valid token → direct contact
+                    <a href={`tel:${serviceProvider.phone_number}`}>
+                      <button>
+                        Contact {serviceProvider.first_name} {serviceProvider.last_name} (
+                        {serviceProvider.phone_number})
+                      </button>
+                    </a>
+                  ) : (
+                    // No/expired token → ask login with redirect
+                    <a
+                      href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}
+                    >
+                      <button>Contact Seller</button>
+                    </a>
+                  )
+                ) : isAuthenticated ? (
+                  <button disabled>Loading contact…</button>
+                ) : (
                   <a
                     href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}
                   >
                     <button>Contact Seller</button>
                   </a>
-                )
-              ) : isAuthenticated ? (
-                <button disabled>Loading contact…</button>
-              ) : (
-                <a
-                  href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}
-                >
-                  <button>Contact Seller</button>
-                </a>
-              )}
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -1,0 +1,22 @@
+.roh_headingH2{
+    font-family: "DM Sans", sans-serif; 
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2em;
+    margin-bottom: 20px;
+}
+
+
+.roh_star_title {
+    color: #FF3600;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+@media (max-width: 991px) {
+    .roh_headingH2 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+}

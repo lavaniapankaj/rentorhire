@@ -22,19 +22,26 @@
 .modalContent {
   background: #fff;
   border-radius: 14px;
-  max-width: 850px;
-  width: 90%;
-  max-height: 90vh;
+  max-width: 100%;
+  width: 100%;
+  max-height: 98vh;
   overflow-y: auto;
   position: relative;
   padding: 24px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   animation: slideUp 0.25s ease;
 }
 
 @keyframes slideUp {
-  from { transform: translateY(40px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .closeBtn {
@@ -52,6 +59,7 @@
   text-align: center;
   transition: background 0.2s;
 }
+
 .closeBtn:hover {
   background: #ddd;
 }
@@ -66,11 +74,12 @@
   margin-bottom: 6px;
 }
 
+/* 
 .itemDesc {
-  color: #555;
+  color: #ffffff !important;
   margin-bottom: 14px;
   line-height: 1.5;
-}
+} */
 
 .imageWrap {
   display: flex;
@@ -135,22 +144,373 @@
 }
 
 @keyframes pulse {
-  0% { background-color: #f0f0f0; }
-  50% { background-color: #e0e0e0; }
-  100% { background-color: #f0f0f0; }
+  0% {
+    background-color: #f0f0f0;
+  }
+
+  50% {
+    background-color: #e0e0e0;
+  }
+
+  100% {
+    background-color: #f0f0f0;
+  }
 }
 
 .serProInfo button {
-    background-color: #ff3c00;
-    color: #fff;
-    border: none;
-    padding: 10px 24px;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 15px;
-    transition: background 0.3s ease;
-}.popupwrap_inner {
-    background-color: #FFF8F6;
-    border-radius: 30px;
-    padding: 40px;
+  background-color: #ff3c00;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background 0.3s ease;
+}
+
+.popupwrap_inner {
+  background-color: #FFF8F6;
+  border-radius: 30px;
+  padding: 40px;
+}
+
+
+
+
+/*----------------------- R_R Pop CSS---------------------- */
+
+.roh_prouct_hero_wrap {
+  margin-top: 50px;
+}
+
+.roh_prouct_hero_inner {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 96%;
+}
+
+.roh_prouct_hero {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 46px 46px 46px 46px;
+  padding-top: 130px;
+  padding-bottom: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+}
+
+.roh_prouct_hero::before {
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  content: '';
+  background-image: linear-gradient(180deg, #00000080 13.62%, #00000080 68.99%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 46px 46px 46px 46px;
+}
+
+.roh_service_banner {
+  margin-block: 80px;
+}
+
+.roh_Zindex {
+  z-index: 1;
+  position: relative;
+  text-align: center;
+}
+
+.roh_hero_heading h1 {
+  font-size: 60px;
+  line-height: 1.2em;
+  color: #fff;
+  text-align: center;
+  font-family: "Epilogue", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  position: relative;
+}
+
+.roh_hero_heading .itemDesc {
+  font-family: "DM Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1em;
+  color: #fff;
+  margin-bottom: 14px;
+}
+
+/* ---------------Pop Up inner Css ----------- */
+
+.roh_left_slide_wrap {
+  position: sticky;
+  z-index: 9;
+  top: 70px;
+}
+
+.roh_left_slide_inner {
+  background-color: #FFF8F6;
+  border-radius: 30px;
+  padding: 40px;
+}
+
+.roh_sidebar_pricing {
+  border-bottom: 1px solid #ECECEC;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+}
+
+.roh_sidebar_pricing h2 {
+  font-family: "DM Sans", sans-serif;
+  font-size: 50px !important;
+}
+
+.roh_sidebar_pricing h2 span {
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #616161;
+}
+
+.roh_fleets_single_sidebar_list {
+  border-bottom: 1px solid #ECECEC;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+}
+
+.roh_feets_data_list span,
+.roh_content_layer span {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+}
+
+.roh_content_layer {
+  margin-bottom: 25px;
+}
+
+.roh_feets_data_list img {
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+}
+
+/* Orange Button  with Arrow  */
+
+.roh_top_btns .roh_circl_btn button,
+.roh_top_btns .roh_button_custom button {
+  background: #FF3600;
+  color: #fff;
+}
+
+.roh_button_custom button {
+  width: max-content;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+  padding: 9px 25px 9px 25px;
+  border-radius: 50px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all .4s ease-in-out;
+}
+
+.roh_circl_btn button,
+.roh_single_pageCircle button {
+  width: max-content;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+  padding: 5px;
+  border-radius: 50px;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all .3s ease-in-out;
+}
+
+.roh_circl_btn button img {
+  width: 30px;
+  height: 30px;
+  transform: rotate(-30deg);
+  transition: all .3s ease-in-out;
+}
+
+.roh_circl_btn button:hover img,
+.roh_button_custom:hover~.roh_circl_btn button img {
+  transform: rotate(0deg);
+}
+
+.roh_circl_btn button:hover,
+.roh_button_custom:hover~.roh_circl_btn button {
+  background-color: #000;
+}
+
+
+.roh_single_pageCircle button {
+  padding: 9px;
+  background-color: #FF3600;
+}
+
+.roh_single_pageCircle button img {
+  width: 30px;
+  height: 30px;
+}
+
+.roh_single_pageCircle button:hover {
+  background-color: #000;
+}
+
+
+/*---------------------POP-up Right Inner Content CSS----------------------  */
+.roh_about_list_wrap {
+  margin-top: 60px;
+}
+
+.roh_about_media_list {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin: 0px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.roh_vendor_info {
+  background-color: #FFF8F6;
+}
+
+.roh_about_media_list li {
+  list-style: none;
+  border-bottom: none;
+  margin-bottom: 0px;
+  cursor: pointer;
+}
+
+.roh_back_circle {
+  position: relative;
+  padding: 10px;
+  width: 75px;
+}
+
+.roh_back_circle img {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.roh_back_circle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #FF3600;
+  opacity: 10%;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  z-index: 0;
+  transition: all 0.4s ease-in-out;
+}
+
+.roh_about_media_list li:hover .roh_back_circle::before {
+  opacity: 70%;
+}
+
+.roh_about_media_list li .roh_media {
+  display: flex;
+  align-items: start;
+  gap: 15px;
+}
+
+.roh_media_title {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.2em;
+}
+
+.roh_general_info_wrap {
+  padding-block: 30px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.roh_check_list {
+  padding: 0px;
+  margin: 0px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.roh_check_list li {
+  list-style: none;
+}
+
+.roh_check_list li .roh_featureList img {
+  width: 28px;
+  height: 28px;
+}
+
+.roh_featureList {
+  text-decoration: none;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #000;
+}
+
+.roh_featureList h6 {
+  font-weight: 500;
+  font-size: 19px;
+}
+.roh_featureList span{
+  font-weight: 400;
+}
+
+@media (max-width: 991px) {
+  .roh_prouct_hero {
+    padding-top: 50px;
+  }
+
+  .roh_hero_heading h1 {
+    font-size: 30px;
+  }
+
+  .roh_back_circle img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .roh_service_banner {
+    margin-block: 24px;
+  }
+
+  .roh_button_custom button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .roh_circl_btn button img,
+  .roh_single_pageCircle button img {
+    width: 20px;
+    height: 20px;
+  }
 }

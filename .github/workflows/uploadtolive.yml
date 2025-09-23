@@ -28,12 +28,7 @@ jobs:
       - name: Install backend dependencies
         working-directory: ./backend
         run: npm ci
-
-      
-      # Install backend deps (no build step)
-      - name: 📦 Install backend dependencies
-        working-directory: ./backend
-          run: npm ci
+        
 
       # Setup SSH Agent
       - name: 🔐 Setup SSH

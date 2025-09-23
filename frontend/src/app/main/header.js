@@ -128,10 +128,10 @@ const Header = () => {
                     <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
                       <Image src="/menu-icon.svg" alt="Mobile Menu" width={30} height={30} />
                     </button>
-                    <div className={`offcanvas offcanvas-start`} data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                    <div className={`offcanvas offcanvas-start`} data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
                       <div className={`offcanvas-header ${styles.roh_offcanvas_header}`}>
                         <Image className={styles.roh_logo} src="/images/global-imgs/site-logo.png" alt="Logo" width={100} height={36} />
-                        <button type="button" class={`btn-close`} data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <button type="button" className={`btn-close`} data-bs-dismiss="offcanvas" aria-label="Close"></button>
                       </div>
                       <div className={`offcanvas-body ${styles.roh_offcanvas_body}`}>
                       <ul className={`navbar-nav w-100 justify-content-around ${styles.roh_navBar}`}>
