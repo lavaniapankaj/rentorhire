@@ -2,6 +2,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import styles from "./home.module.css";
+import saveUserLocation from "../utils/saveLocation";
+
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
 
@@ -12,6 +14,11 @@ export default function RentHomePage() {
   // categories with children
   const [categories, setCategories] = useState([]);
   const [catLoading, setCatLoading] = useState(true);
+
+  // 🔹 Save user location on page load
+  useEffect(() => {
+    saveUserLocation();
+  }, []);
 
   // Rotate words
   useEffect(() => {
