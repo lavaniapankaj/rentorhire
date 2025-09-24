@@ -416,37 +416,31 @@ function authApi() {
         }
     };
 
-    /** Get all Active products on product archive page - Coded by Vishnu Aug 29 2025 */
-    this.getActiveProducts = async (req, res) => {
+    /** Get all Active vehicles -- card on vehicles/cars page - Coded by Vishnu Aug 29 2025 */
+    this.getActivevehiclesCars = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 4;
         const offset = (page - 1) * limit;
 
-        const category = req.query.category ? parseInt(req.query.category) : null;
-
-        // item_name search
         const qRaw = (req.query.q || "").trim();
         const qLike = qRaw ? `%${qRaw}%` : null;
 
-        // location: address_1, landmark, item_state, city, pincode (attributes table)
         const locRaw = (req.query.location || "").trim();
         const locTokens = locRaw ? locRaw.split(/\s+/).filter(Boolean) : [];
 
-        let whereClauses = [`d.item_status = 1 and d.admin_item_status = 1`];
+        let whereClauses = [`d.item_status = 1 AND d.admin_item_status = 1`];
         let params = [];
 
-        if (category) {
-        whereClauses.push(`d.category_id = ?`);
-        params.push(category);
-        }
+        // only cars (sub_cat_id = 2)
+        whereClauses.push(`d.sub_cat_id = ?`);
+        params.push(2);
 
         if (qLike) {
         whereClauses.push(`d.item_name LIKE ?`);
         params.push(qLike);
         }
 
-        // ---- LOCATION FILTER ----
         if (locTokens.length) {
         const groups = [];
         for (const tok of locTokens) {
@@ -464,10 +458,10 @@ function authApi() {
             params.push(like, like, like, like);
             }
         }
-        whereClauses.push(`(${groups.join(' AND ')})`);
+        whereClauses.push(`(${groups.join(" AND ")})`);
         }
 
-        const whereSQL = whereClauses.length ? `WHERE ${whereClauses.join(" AND ")}` : "";
+        const whereSQL = `WHERE ${whereClauses.join(" AND ")}`;
 
         // ---- FETCH PRODUCTS ----
         const [products] = await pool.query(
@@ -477,6 +471,7 @@ function authApi() {
             d.service_provider_id,
             d.item_name,
             d.category_id,
+            d.sub_cat_id,
             d.image_ids,
             d.item_status,
             d.add_date,
@@ -490,8 +485,7 @@ function authApi() {
             a.city,
             a.pincode
         FROM roh_vehicle_details d
-        LEFT JOIN roh_vehicle_attributes a 
-            ON d.id = a.vehicle_id
+        LEFT JOIN roh_vehicle_attributes a ON d.id = a.vehicle_id
         ${whereSQL}
         ORDER BY d.add_date DESC, d.id DESC
         LIMIT ? OFFSET ?
@@ -505,11 +499,12 @@ function authApi() {
 
         // ---- TOTAL COUNT ----
         const [[{ total }]] = await pool.query(
-        `SELECT COUNT(*) AS total 
+        `
+        SELECT COUNT(*) AS total 
         FROM roh_vehicle_details d
-        LEFT JOIN roh_vehicle_attributes a 
-            ON d.id = a.vehicle_id
-        ${whereSQL}`,
+        LEFT JOIN roh_vehicle_attributes a ON d.id = a.vehicle_id
+        ${whereSQL}
+        `,
         params
         );
 
@@ -545,6 +540,7 @@ function authApi() {
         return res.status(500).json({ message: "Internal server error" });
     }
     };
+
 
     /** Api to view single items - Coded by Vishnu August 30 2025 */
     this.getsingleListedItemsVie = async (req, res) => {

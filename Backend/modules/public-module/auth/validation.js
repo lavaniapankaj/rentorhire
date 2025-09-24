@@ -226,8 +226,8 @@ const signInverifyOtp = (req, res, next) => {
     next();
 };
 
-/** Validate get all active products - Coded by Vishnu August 29 2025 */
-const ValidateGetAllActiveProducts = async (req, res, next) => {
+/** Validate get all active vehicles cars - Coded by Vishnu August 29 2025 */
+const ValidateGetAllActivevehiclesCars = async (req, res, next) => {
     try {
         next();
     } catch (err) {
@@ -269,4 +269,4 @@ const ValidateGetServiceProviderinfo = async (req, res, next) => {
 };
 
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActiveProducts, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetServiceProviderinfo};
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetServiceProviderinfo};
