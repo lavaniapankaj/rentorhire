@@ -206,6 +206,14 @@ export default function BecomeAHostPage() {
         if (!item.subCategory) {
           error.subCategory = "Please select a subcategory.";
         }
+        
+        if (!item.brand) {
+          error.brand = "Please select a brand.";
+        }
+        
+        if (!item.model) {
+          error.model = "Please select a model.";
+        }
     
         // 👇 Example child form validations
         if (item.category === 1 && item.subCategory) {
@@ -814,29 +822,8 @@ export default function BecomeAHostPage() {
                                           <>
                                             {subCategories ? (
                                               <>
-
-{/* <pre>
-    {JSON.stringify(subCategories, null, 2)}
-  </pre>
-
-  {Array.isArray(subCategories?.[index?.toString()]) &&
- subCategories[index.toString()].map((sub) => (
-   <div key={sub.id}>{sub.name}</div>
- ))} */}
-
                                                 <label className={styles.formLabel}>Select a Sub Category</label>
                                                 <div className={`${styles.dFlex} flex-wrap ${styles.gap2} ${styles.subCategoryWrap}`}>
-                                                  {/* {subCategories[index].map((sub, subIndex) => {
-                                                    const subId = `sub_${index}_${sub.id}`;
-                                                    return (
-                                                      <div key={sub.id}>
-                                                        <input type="radio" className={styles.btnCheck} name={`subCategory_${index}`} id={subId} value={sub.id} checked={item.subCategory === sub.id} onChange={() => handleSubCategorySelect(index, sub)}/>
-                                                        <label htmlFor={subId} className={`${styles.btn} btn-outline-secondary ${styles.wmax} ${styles.radioBtns} rounded-3 py-2 px-3 text-start`}>
-                                                          <span>{sub.name}</span>
-                                                        </label>
-                                                      </div>
-                                                    );
-                                                  })} */}
                                                   {Array.isArray(subCategories?.[index?.toString()]) && subCategories[index.toString()].map((sub, subIndex) => {
                                                       const subId = `sub_${index}_${sub.id}`;
                                                       return (
@@ -874,6 +861,9 @@ export default function BecomeAHostPage() {
                                               </div>
                                             ))}
                                           </div>
+                                          {itemErrors[index]?.brand && (
+                                            <small className="text-danger">{itemErrors[index].brand}</small>
+                                          )}
                                         </div>
                                       )}
 
@@ -891,34 +881,19 @@ export default function BecomeAHostPage() {
                                               </div>
                                             ))}
                                           </div>
+                                          {itemErrors[index]?.model && (
+                                            <small className="text-danger">{itemErrors[index].model}</small>
+                                          )}
                                         </div>
                                       )}
 
-{currentStep === 3 &&
-  formData.items.map((item, index) => {
-    if (item.category == 1 && item.subCategory) {
-      console.log('Render VehicleDetailsForm for index:', index);
-      return (
-        <VehicleDetailsForm
-          key={item.id ?? index}
-          index={index}
-          item={item}
-          formData={formData}
-          setFormData={setFormData}
-          handleDetailsChange={handleDetailsChange}
-          errors={itemErrors[index] || {}}
-        />
-      );
-    }
-    return null;
-  })}
-
-
-                                      {/* {currentStep === 3 &&
-                                        formData.items.map((item, index) => (
-                                          item.category == 1 && item.subCategory ? (   // ✅ condition
+                                    {currentStep === 3 &&
+                                      formData.items.map((item, index) => {
+                                        if (item.category == 1 && item.subCategory) {
+                                          console.log('Render VehicleDetailsForm for index:', index);
+                                          return (
                                             <VehicleDetailsForm
-                                              key={index}
+                                              key={item.id ?? index}
                                               index={index}
                                               item={item}
                                               formData={formData}
@@ -926,26 +901,12 @@ export default function BecomeAHostPage() {
                                               handleDetailsChange={handleDetailsChange}
                                               errors={itemErrors[index] || {}}
                                             />
-                                          ) : null
-                                        ))
-                                      } */}
-
-                                      {/* CHILD FORM / MESSAGE */}
-                                      {/* <div className="child-inputs">
-                                        {item.category === 1 && item.subCategory ? (
-                                          <VehicleDetailsForm index={index} item={item} formData={formData} setFormData={setFormData} handleDetailsChange={handleDetailsChange} errors={itemErrors}/>
-                                        ) : (
-                                          item.subCategory && (
-                                            <p className="text-muted mt-2"><b>coming soon 🚀</b></p>
-                                          )
-                                        )}
-                                      </div> */}
+                                          );
+                                        }
+                                        return null;
+                                      })}
                                     </div>
                                   ))}
-                                  
-                                  {/* ADD ITEM BTN */}
-                                  {/* <button type="button" className={`${styles.btn} mb-3 addMoreBtn`} onClick={addItem}> + Add Item </button> */}
-                                  {/* <div className={`${styles.footerSepertor} mt-3 ${styles.mb4}`}></div> */}
                                   
                                   {/* FOOTER BTNS */}
                                   <div className={`${styles.dFlex} justify-content-between ${styles.gap2}`}>
@@ -966,25 +927,6 @@ export default function BecomeAHostPage() {
                                 <div id="step5" className="step">
                                   <div id="summary">
                                     <p> Please review your business and rental item details below. If everything looks good, hit Submit to publish your listing. </p>
-
-                                    {/* Business Info */}
-                                    {/* <div className={`card ${styles.mb3} bg-transparent`}>
-                                      <div className="card-body">
-                                        <h5 className="card-title"> {formData.businessName || "N/A"} </h5>
-                                        <p className="card-text">
-                                          <strong>Contact Person:</strong>{" "}
-                                          {formData.contactPerson || "N/A"} <br />
-                                          <strong>Phone:</strong> {formData.whatsappNumber || "N/A"} <br />
-                                          <strong>GST:</strong> {formData.gstNumber || "N/A"} <br />
-                                          <strong>Delivery:</strong>{" "}
-                                          {formData.deliveryAvailable || "N/A"} <br />
-                                          <strong>Address:</strong> {formData.streetAddress || "N/A"},{" "}
-                                          {formData.landmark || "N/A"},{" "}
-                                          {formData.city || "N/A"},{" "}
-                                          {formData.state || "N/A"} - {formData.pinCode || "N/A"}
-                                        </p>
-                                      </div>
-                                    </div> */}
 
                                     {/* Rental Items */}
                                     {formData.items?.map((item, idx) => {
