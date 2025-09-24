@@ -3,8 +3,10 @@
   min-height: 70vh;
   display: grid;
   place-items: center;
-  padding: 48px 16px;
-  background: radial-gradient(1200px 600px at 50% -200px, #eef2ff 0%, transparent 70%);
+  padding: 180px 16px 100px 16px;
+  background-image: url('/images/homepg/bg-img-3.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* Card */
@@ -130,6 +132,12 @@
 }
 
 /* Responsive */
+
+@media (max-width: 991px) {
+  .rohuserlogn_wrap {
+    padding: 150px 16px 100px 16px;}
+
+}
 @media (max-width: 640px) {
   .rohuserlogn_card { padding: 22px; border-radius: 14px; }
   .rohuserlogn_title { font-size: 24px; }

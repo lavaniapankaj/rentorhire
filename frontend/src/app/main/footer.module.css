@@ -6,6 +6,7 @@
 .footer {
   background: #fff;
   padding: 48px 0 0 6px;
+  border-top: solid 1px #f3f3f3d9;
 }
 
 /* Brand / left block */

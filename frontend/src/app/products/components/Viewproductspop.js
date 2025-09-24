@@ -185,44 +185,45 @@ export default function Viewproductspop({ triggerId, onClose }) {
                 )}
               </div>
               <section className="py-5">
-                <div className="container">
+                <div className={`container ${styles.roh_container}`}>
                   <div className="row">
-                    <div className="col-12 col-md-4 col-lg-4">
+                    <div className="col-12 col-md-6 col-lg-4">
                       <div className={`${styles.roh_left_slide_wrap}`}>
                         <div className={`${styles.roh_left_slide_inner}`}>
                           <div className={`${styles.roh_sidebar_pricing}`}>
                             <h2>₹{item.price_per_day}<span>/Per Day</span></h2>
+                            <div className={`${styles.roh_productPrice}`}>
+                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                <span>Per/Week:</span>
+                              </div>
+                              <span className="text-dark fw-medium">₹{item.price_per_week}</span>
+                            </div>
+                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                <span>Per/Month:</span>
+                              </div>
+                              <span className="text-dark fw-medium">₹{item.price_per_month}</span>
+                            </div>
+                            </div>
 
                           </div>
                           <div className={`${styles.roh_fleets_single_sidebar_list}`}>
-
-                            <div class="accordion" id="accordionExample">
-                              <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                  <Image src="/images/product-popup/30-days.svg" alt="Door" width={20} height={20} /> Price:
-                                  </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                    <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
-
-                                      <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
-                                       <span>Per/Week:</span>
-                                      </div>
-                                      <span className="text-dark fw-medium">₹{item.price_per_week}</span>
-                                    </div>
-                                    <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
-                                      <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
-                                         <span>Per/Month:</span>
-                                      </div>
-                                      <span className="text-dark fw-medium">₹{item.price_per_month}</span>
-                                    </div>
-                                  </div>
-                                </div>
+                            {/* <div className={`${styles.roh_productPrice}`}>
+                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                <span>Per/Week:</span>
                               </div>
+                              <span className="text-dark fw-medium">₹{item.price_per_week}</span>
                             </div>
                             <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                <span>Per/Month:</span>
+                              </div>
+                              <span className="text-dark fw-medium">₹{item.price_per_month}</span>
+                            </div>
+                            </div> */}
+                            {/* <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
 
                               <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
                                 <Image src="/images/product-popup/7-days.svg" alt="Door" width={28} height={20} />
@@ -236,7 +237,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
                                 <span>Price/Month:</span>
                               </div>
                               <span className="text-dark fw-medium">₹{item.price_per_month}</span>
-                            </div>
+                            </div> */}
                             <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
                               <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
                                 <Image src="/images/product-popup/car-security-deposit.svg" alt="Door" width={20} height={20} />
@@ -271,7 +272,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
                         </div>
                       </div>
                     </div>
-                    <div className="col-12 col-md-8 col-lg-8">
+                    <div className="col-12 col-md-6 col-lg-8">
                       <div id="mainslider" className="owl-carousel owl-theme owl-loaded owl-drag d-none">
 
 
@@ -369,11 +370,13 @@ export default function Viewproductspop({ triggerId, onClose }) {
                               <div className="media-body">
                                 <h5 className={`${styles.roh_media_title}`}>Vendor Rating:</h5>
                                 <p className="global_heading gray_global_heading media_desc pb-0 mb-0">
-                                  <span className="fa fa-star checked"></span>
-                                  <span className="fa fa-star checked"></span>
-                                  <span className="fa fa-star checked"></span>
-                                  <span className="fa fa-star"></span>
-                                  <span className="fa fa-star"></span>(4.8/5 – 120+ Rentals)</p>
+                                <Image src="/images/product-popup/star-fill.svg" alt="Rating" width={14} height={14}/>
+                                <Image src="/images/product-popup/star-fill.svg" alt="Rating" width={14} height={14}/>
+                                <Image src="/images/product-popup/star-fill.svg" alt="Rating" width={14} height={14}/>
+
+                                <Image src="/images/product-popup/star-fill-dark.svg" alt="Rating" width={14} height={14}/>
+                                <Image src="/images/product-popup/star-fill-dark.svg" alt="Rating" width={14} height={14}/>                             
+                                  (4.8/5 – 120+ Rentals)</p>
                               </div>
                             </div>
                           </li>
@@ -429,139 +432,123 @@ export default function Viewproductspop({ triggerId, onClose }) {
 
                         </ul>
                       </div>
-                      <div className="general_info_twowrap">
+                      <div className={`${styles.roh_general_info_twowrap}`}>
                         <div className="star_box">
                           <div className="star_inner d-flex align-items-center gap-1">
                             <Image src="/star.svg" alt="Star" width={19} height={17} />
                             <span className={`${globalStyles.roh_star_title}`}>Amenities</span>
                           </div>
                         </div>
-                        <h3 className="second_heading mgnB20">Premium Amenities &amp; Features</h3>
-                        <ul className="check_list new_checklist">
+                        <h2 className={`${globalStyles.roh_headingH2}`}>Premium Amenities &amp; Features</h2>
+                        <ul className={`${styles.roh_check_list} ${styles.roh_new_checklist}`}>
                           <li>
-                            <a href="#">
-                              <img></img>
+                            <div className={`${styles.roh_premiumFeaturelist}`}>
+                              <Image src="/images/product-popup/music-system.svg" alt="Music System" width={35} height={35} />
                               <span>Music System</span>
-                            </a>
+                            </div>
                           </li>
                           <li>
-                            <a href="#">
-                              <img></img>
+                            <div className={`${styles.roh_premiumFeaturelist}`}>
+                              <Image src="/images/product-popup/bluetooth-aux-support.svg" alt="Bluetooth + Aux Support" width={35} height={35} />
                               <span>Bluetooth + Aux Support</span>
-                            </a>
+                            </div>
                           </li>
                           <li>
-                            <a href="#">
-                              <img></img>
+                            <div className={`${styles.roh_premiumFeaturelist}`}>
+                              <Image src="/images/product-popup/full-air-conditioning.svg" alt="Full Air Conditioning" width={35} height={35} />
                               <span>Full Air Conditioning</span>
-                            </a>
+                            </div>
                           </li>
                           <li>
-                            <a href="#">
-                              <img></img>
+                            <div className={`${styles.roh_premiumFeaturelist}`}>
+                              <Image src="/images/product-popup/boot-space-268L.svg" alt="Boot Space: 268L" width={35} height={35} />
                               <span>Boot Space: 268L</span>
-                            </a>
+                            </div>
                           </li>
                           <li>
-                            <a href="#">
-                              <img></img>
+                            <div className={`${styles.roh_premiumFeaturelist}`}>
+                              <Image src="/images/product-popup/spare-tyre.svg" alt="Spare Tyre" width={35} height={35} />
                               <span>Spare Tyre</span>
-                            </a>
+                            </div>
                           </li>
                           <li>
-                            <a href="#">
-                              <img></img>
+                            <div className={`${styles.roh_premiumFeaturelist}`}>
+                              <Image src="/images/product-popup/toolkit.svg" alt="Toolkit" width={35} height={35} />
                               <span>Toolkit</span>
-                            </a>
+                            </div>
                           </li>
                           <li>
-                            <a href="#">
-                              <img></img>
+                            <div className={`${styles.roh_premiumFeaturelist}`}>
+                              <Image src="/images/product-popup/power-steering.svg" alt="Power Steering" width={35} height={35} />
                               <span>Power Steering</span>
-                            </a>
+                            </div>
                           </li>
                           <li>
-                            <a href="#">
-                              <img></img>
+                            <div className={`${styles.roh_premiumFeaturelist}`}>
+                              <Image src="/images/product-popup/usb-charging-port.svg" alt="USB Charging Port" width={35} height={35} />
                               <span>USB Charging Port</span>
-                            </a>
+                            </div>
                           </li>
                           <li>
-                            <a href="#">
-                              <img></img>
+                            <div className={`${styles.roh_premiumFeaturelist}`}>
+                              <Image src="/images/product-popup/abs-dual-airbags.svg" alt="ABS + Dual Airbags" width={35} height={35} />
                               <span>ABS + Dual Airbags</span>
-                            </a>
+                            </div>
                           </li>
                           <li>
-                            <a href="#">
-                              <img></img>
+                            <div className={`${styles.roh_premiumFeaturelist}`}>
+                              <Image src="/images/product-popup/reverse-parking-sensors.svg" alt="Reverse Parking Sensors" width={35} height={35} />
                               <span>Reverse Parking Sensors</span>
-                            </a>
+                            </div>
                           </li>
+
                         </ul>
                       </div>
-                      <div className="general_info_twowrap">
+                      <div className={`${styles.roh_general_info_twowrap}`}>
                         <div className="star_box">
                           <div className="star_inner d-flex align-items-center gap-1">
                             <Image src="/star.svg" alt="Star" width={19} height={17} />
                             <span className={`${globalStyles.roh_star_title}`}>Rental Conditions</span>
                           </div>
                         </div>
-                        <h3 className="second_heading mgnB20">Policies and agreement</h3>
-                        <div className="accordion">
-                          <div className="accordion-item active">
-                            <div className="accordion-header">
-                              <span>Driver’s License Requirements</span>
-                              <span className="icon-toggle">−</span>
+                        <h3 className={`${globalStyles.roh_headingH2}`}>Policies and agreement</h3>
+                        <div className={`${styles.roh_policy_terms}`}>
+                          <div className="accordion" id="accordionExample">
+                            <div className="accordion-item">
+                              <h4 className="accordion-header">
+                                <button className={`accordion-button ${styles.roh_accordion_button}`} type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                  Accessories
+                                </button>
+                              </h4>
+                              <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                <div className="accordion-body">
+                                  <p>{item.accessories}</p>
+                                </div>
+                              </div>
                             </div>
-                            <div className="accordion-content" style={{ maxHeight: '700px', paddingTop: '15px', paddingBottom: '15px' }}>
-                              <p className="mb-0"> Upload valid ID proof &amp; driver’s license before pickup.</p>
+                            <div className="accordion-item">
+                              <h4 className="accordion-header">
+                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  Booking Terms
+                                </button>
+                              </h4>
+                              <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div className="accordion-body">
+                                  <p>{item.booking_terms}</p>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-
-                          <div className="accordion-item">
-                            <div className="accordion-header">
-                              <span>Insurance and Coverage Policy</span>
-                              <span className="icon-toggle">+</span>
-                            </div>
-                            <div className="accordion-content" style={{ maxHeight: '0px', paddingTop: '0px', paddingBottom: '0px' }}>
-                              <p className="mb-0">Basic third-party insurance included. Additional coverage available.</p>
-                            </div>
-                          </div>
-                          <div className="accordion-item">
-                            <div className="accordion-header">
-                              <span>Available Payment Methods</span>
-                              <span className="icon-toggle">+</span>
-                            </div>
-                            <div className="accordion-content" style={{ maxHeight: '0px', paddingTop: '0px', paddingBottom: '0px' }}>
-                              <p className="mb-0"> UPI, Cards, Net Banking, or Cash on Pickup</p>
-                            </div>
-                          </div>
-                          <div className="accordion-item">
-                            <div className="accordion-header">
-                              <span>Cancellation &amp; Modification Policy</span>
-                              <span className="icon-toggle">+</span>
-                            </div>
-                            <div className="accordion-content" style={{ maxHeight: '0px', paddingTop: '0px', paddingBottom: '0px' }}>
-                              <p className="mb-0">Free cancelation up to 24 hrs. Last-minute cancelation incurs ₹200 fee.</p>
-                            </div>
-                          </div>
-                          <div className="accordion-item">
-                            <div className="accordion-header">
-                              <span>Smoking &amp; Pet Policy</span>
-                              <span className="icon-toggle">+</span>
-                            </div>
-                            <div className="accordion-content" style={{ maxHeight: '0px', paddingTop: '0px', paddingBottom: '0px' }}>
-                              <p className="mb-0">Smoking not allowed. Pets allowed with prior vendor approval.</p>
-                            </div>
-                          </div>
-                          <div className="accordion-item">
-                            <div className="accordion-header">
-                              <span>Minimum Age Requirement</span>
-                              <span className="icon-toggle">+</span>
-                            </div>
-                            <div className="accordion-content" style={{ maxHeight: '0px', paddingTop: '0px', paddingBottom: '0px' }}>
-                              <p className="mb-0"> Must be 18+ with 1+ year of driving experience.</p>
+                            <div className="accordion-item">
+                              <h4 className="accordion-header">
+                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                  Booking Instructions
+                                </button>
+                              </h4>
+                              <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div className="accordion-body">
+                                  <p>{item.booking_instructions}</p>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -582,35 +569,35 @@ export default function Viewproductspop({ triggerId, onClose }) {
                   </div>
                   <div className="d-flex justify-content-between text-dark  content_layer">
                     <div className="d-flex align-items-center gap-1 feets_data_list">
-                      <Image src="/lokesh/assets/images/ic_passanger.svg" width={40} height={40} />
+                      <Image src="/lokesh/assets/images/ic_passanger.svg" alt="" width={40} height={40} />
                       <span>Passengers</span>
                     </div>
                     <span className="text-dark fw-medium">5</span>
                   </div>
                   <div className="d-flex justify-content-between text-dark   content_layer">
                     <div className="d-flex align-items-center gap-1 feets_data_list">
-                      <Image src="/lokesh/assets/images/icon-transmission.svg" width={40} height={40} />
+                      <Image src="/lokesh/assets/images/icon-transmission.svg" alt="" width={40} height={40} />
                       <span>Transmission</span>
                     </div>
                     <span className="text-dark fw-medium">Manual</span>
                   </div>
                   <div className="d-flex justify-content-between text-dark   content_layer">
                     <div className="d-flex align-items-center gap-1 feets_data_list">
-                      <Image src="/lokesh/assets/images/icon-age.svg" width={40} height={40} />
+                      <Image src="/lokesh/assets/images/icon-age.svg" alt="" width={40} height={40} />
                       <span>Age</span>
                     </div>
                     <span className="text-dark fw-medium">Under 2 years</span>
                   </div>
                   <div className="d-flex justify-content-between text-dark   content_layer">
                     <div className="d-flex align-items-center gap-1 feets_data_list">
-                      <Image src="/lokesh/assets/images/icon-bags.svg" width={40} height={40} />
+                      <Image src="/lokesh/assets/images/icon-bags.svg" alt="" width={40} height={40} />
                       <span>Luggage</span>
                     </div>
                     <span className="text-dark fw-medium">2 Small Bags</span>
                   </div>
                   <div className="d-flex justify-content-between text-dark   content_layer">
                     <div className="d-flex align-items-center gap-1 feets_data_list">
-                      <Image src="/lokesh/assets/images/icon-transmission.svg" width={40} height={40} />
+                      <Image src="/lokesh/assets/images/icon-transmission.svg" alt="" width={40} height={40} />
                       <span>Air Condition</span>
                     </div>
                     <span className="text-dark fw-medium">Yes</span>
@@ -649,8 +636,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
                     <strong>Condition:</strong> {item.vehicle_condition}
                   </p>
                 </div>
-              </div>
-              <div className={styles.extraInfo}>
+                <div className={styles.extraInfo}>
                 <h4>Accessories</h4>
                 <p>{item.accessories}</p>
 
@@ -689,6 +675,8 @@ export default function Viewproductspop({ triggerId, onClose }) {
                   </a>
                 )}
               </div>
+              </div>
+             
             </div>
           )}
         </div>

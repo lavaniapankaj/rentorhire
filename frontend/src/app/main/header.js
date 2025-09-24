@@ -101,7 +101,7 @@ const Header = () => {
       </li>
       <li>
         <a href="#">
-        <Image src="chat.svg" alt="Inbox" width={20} height={20} /> Inbox </a>
+        <Image src="/chat.svg" alt="Inbox" width={20} height={20} /> Inbox </a>
       </li>
       <li>
         <a href="#">

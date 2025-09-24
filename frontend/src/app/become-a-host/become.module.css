@@ -153,12 +153,12 @@ select.reFormF {
   margin-bottom: 1.5rem !important;
 }
 .py5 {
-  padding-top: 3rem !important;
-  padding-bottom: 3rem !important;
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
 }
 .px4 {
-  padding-left: 1.5rem !important;
-  padding-right: 1.5rem !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
 }
 .pxmd5 {
   padding-left: 3rem !important;
@@ -254,4 +254,11 @@ select.reFormF {
 .vehicleForm select {
   background: #fff;
   cursor: pointer;
+}
+
+@media screen and (max-width:768px) {
+  .form_section_main {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
 }

@@ -224,7 +224,7 @@ export default function DashboardPage() {
 }
 
 const styles = {
-  wrap: { maxWidth: 800, margin: "30px auto", padding: 30, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10 },
+  wrap: { maxWidth: 800, margin: "100px auto", padding: 30, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10 },
   h1: { fontSize: 28, marginBottom: 30 },
   tabs: { display: "flex", gap: "1rem", marginBottom: 30 },
   tabBtn: {

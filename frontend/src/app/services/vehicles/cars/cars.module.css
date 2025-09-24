@@ -251,9 +251,10 @@
 
 /* top image area */
 .fleetscard :global(.card-img-top) {
-  height: 220px;              /* adjust if needed */
+  height: 350px;              /* adjust if needed */
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   background: #fff;
   border-radius: 28px 28px 0 0;
 }
@@ -355,7 +356,7 @@
 }
 @media (max-width: 575px) {
   .fleetscard { border-radius: 22px; }
-  .fleetscard :global(.card-img-top) { height: 180px; }
+  .fleetscard :global(.card-img-top) { height: 250px; }
   .priceStrong { font-size: 24px; }
 }
 
