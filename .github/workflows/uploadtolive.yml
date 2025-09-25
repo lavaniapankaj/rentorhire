@@ -23,6 +23,10 @@ jobs:
           script: |
             cd /var/www/findonrent.com/html
 
+            # Update code from GitHub
+            git reset --hard
+            git pull origin development
+
             # Build frontend
             cd frontend
             npm install --legacy-peer-deps
