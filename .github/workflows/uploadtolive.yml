@@ -1,22 +1,56 @@
-name: CI/CD Connection Test
+name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ development ]
+    # branches: [ development ]
 
 jobs:
-  ssh-test:
+  test-run:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm ci
+        
+
+      # Setup SSH Agent
       - name: 🔐 Setup SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      - name: 🔗 Test SSH Connection
+
+      # Deploy files to the server
+      - name: 📤 Sync project to server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "echo '✅ SSH connection successful to $(hostname)'"
+          rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.PROJECT_DIR }}
+
+      # Restart backend service (e.g., via PM2)
+      - name: 🔁 Restart backend on server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
+            cd ${{ secrets.PROJECT_DIR }}/backend
+            npm install --omit=dev
+            pm2 restart all
+
+
+EOF
