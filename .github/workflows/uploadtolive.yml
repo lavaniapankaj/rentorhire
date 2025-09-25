@@ -51,6 +51,3 @@ jobs:
             cd ${{ secrets.PROJECT_DIR }}/backend
             npm install --omit=dev
             pm2 restart all
-
-
-EOF
