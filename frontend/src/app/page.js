@@ -116,7 +116,7 @@ export default function RentHomePage() {
         <div className={styles.hero_section}>
           <div className={`container ${styles.hero_container}`}>
             <div className="row justify-content-center">
-              <div className="col-12 wdo_raj">
+              <div className="col-12 wdo_raj_test">
                 <div className={styles.main_heading}>
                   <h1>
                     Book Reliable Rentals From Locals - Fast, Easy, and{" "}
