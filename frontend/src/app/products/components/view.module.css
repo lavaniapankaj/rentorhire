@@ -74,13 +74,6 @@
   margin-bottom: 6px;
 }
 
-/* 
-.itemDesc {
-  color: #ffffff !important;
-  margin-bottom: 14px;
-  line-height: 1.5;
-} */
-
 .imageWrap {
   display: flex;
   gap: 10px;
@@ -110,8 +103,8 @@
   font-weight: 600;
 }
 
-
 /* Skeleton Loader */
+
 .skeleton {
   display: flex;
   flex-direction: column;
@@ -156,26 +149,6 @@
     background-color: #f0f0f0;
   }
 }
-
-.serProInfo button {
-  background-color: #ff3c00;
-  color: #fff;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 30px;
-  font-weight: 600;
-  font-size: 15px;
-  transition: background 0.3s ease;
-}
-
-.popupwrap_inner {
-  background-color: #FFF8F6;
-  border-radius: 30px;
-  padding: 40px;
-}
-
-
-
 
 /*----------------------- R_R Pop CSS---------------------- */
 
@@ -308,79 +281,6 @@
 .roh_productPrice .roh_content_layer {
   margin-bottom: 0px;
 }
-/* Orange Button  with Arrow  */
-
-.roh_top_btns .roh_circl_btn button,
-.roh_top_btns .roh_button_custom button {
-  background: #FF3600;
-  color: #fff;
-}
-
-.roh_button_custom button {
-  width: max-content;
-  cursor: pointer;
-  font-family: "DM Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  transition: all 0.2s;
-  padding: 9px 25px 9px 25px;
-  border-radius: 50px;
-  border: 1px solid transparent;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: all .4s ease-in-out;
-}
-
-.roh_circl_btn button,
-.roh_single_pageCircle button {
-  width: max-content;
-  cursor: pointer;
-  font-family: "DM Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  transition: all 0.2s;
-  padding: 5px;
-  border-radius: 50px;
-  border: 1px solid transparent;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: all .3s ease-in-out;
-}
-
-.roh_circl_btn button img {
-  width: 30px;
-  height: 30px;
-  transform: rotate(-30deg);
-  transition: all .3s ease-in-out;
-}
-
-.roh_circl_btn button:hover img,
-.roh_button_custom:hover~.roh_circl_btn button img {
-  transform: rotate(0deg);
-}
-
-.roh_circl_btn button:hover,
-.roh_button_custom:hover~.roh_circl_btn button {
-  background-color: #000;
-}
-
-
-.roh_single_pageCircle button {
-  padding: 9px;
-  background-color: #FF3600;
-}
-
-.roh_single_pageCircle button img {
-  width: 30px;
-  height: 30px;
-}
-
-.roh_single_pageCircle button:hover {
-  background-color: #000;
-}
-
 
 /*---------------------POP-up Right Inner Content CSS----------------------  */
 .roh_about_list_wrap {
@@ -575,7 +475,7 @@
   }
 
   .roh_circl_btn button img,
-  .roh_single_pageCircle button img {
+  .roh_icon a img {
     width: 20px;
     height: 20px;
   }

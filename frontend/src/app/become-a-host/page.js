@@ -220,6 +220,9 @@ export default function BecomeAHostPage() {
           if (!item.details?.item_name?.trim()) {
             error.item_name = "Please enter item name.";
           }
+          // if (!item.image_ids || item.image_ids.length == 0) {
+          //   error.image_ids = "Please upload at least one image.";
+          // }
           if (!item.details?.price_per_day) {
             error.price_per_day = "Please enter price per day.";
           }
@@ -352,6 +355,17 @@ export default function BecomeAHostPage() {
         updated[index] = data;
         return updated;
       });
+
+      setItemErrors((prevErrors) => {
+        const updatedErrors = [...prevErrors];
+        updatedErrors[index] = {
+          ...updatedErrors[index], // retain other errors at the index
+          subCategory: '',
+          brand: '',
+          model: '',
+        };
+        return updatedErrors;
+      });
     } catch (err) {
       console.error("Error fetching brands:", err);
     }
@@ -384,7 +398,16 @@ export default function BecomeAHostPage() {
         const updated = [...prev];
         updated[index] = data;
         return updated;
-      });      
+      }); 
+      
+      setItemErrors((prevErrors) => {
+        const updatedErrors = [...prevErrors];
+        updatedErrors[index] = {
+          brand: '',
+          model: '',
+        };
+        return updatedErrors;
+      });
     } catch (err) {
       console.error("Error fetching models:", err);
     }
@@ -409,6 +432,15 @@ export default function BecomeAHostPage() {
         tag: tag_id ?? "" // Default to empty string if tag_id is undefined
       };
       return { ...prev, items: updatedItems };
+    });
+
+    setItemErrors((prevErrors) => {
+      const updatedErrors = [...prevErrors];
+      updatedErrors[index] = {
+        ...updatedErrors[index], // retain other errors at the index
+        model: '',
+      };
+      return updatedErrors;
     });
   };
 
@@ -890,7 +922,6 @@ export default function BecomeAHostPage() {
                                     {currentStep === 3 &&
                                       formData.items.map((item, index) => {
                                         if (item.category == 1 && item.subCategory) {
-                                          console.log('Render VehicleDetailsForm for index:', index);
                                           return (
                                             <VehicleDetailsForm
                                               key={item.id ?? index}
@@ -945,14 +976,7 @@ export default function BecomeAHostPage() {
                                             {formData.image_ids && formData.image_ids.length > 0 ? (
                                               <div className={styles.imageWrap}>
                                                 {formData.image_ids.map((file, index) => (
-                                                  <img
-                                                    key={index}
-                                                    src={URL.createObjectURL(file)}
-                                                    alt={`Uploaded Image ${index + 1}`}
-                                                    width={280}
-                                                    height={180}
-                                                    className={styles.itemImg}
-                                                  />
+                                                  <img key={index} src={URL.createObjectURL(file)} alt={`Uploaded Image ${index + 1}`} width={280} height={180} className={styles.itemImg}/>
                                                 ))}
                                               </div>
                                             ) : (

@@ -14,7 +14,7 @@ export default function Vechicles() {
 
     return (
         <>
-        <div class="container-fluid">
+        <div className="container-fluid">
 
             {/* Hero section */}
             <HeroSection />

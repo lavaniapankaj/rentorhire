@@ -1,5 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
+import style from "./dashboard.module.css";
+import Link from "next/link";
+import Image from 'next/image';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
 
@@ -158,9 +161,9 @@ export default function DashboardPage() {
                 <div style={styles.infoRow}><span style={styles.key}>Pincode</span><span style={styles.val}>{user.pincode}</span></div>
 
                 <div style={{ display: "flex", gap: "10px", marginTop: 20 }}>
-                  <button onClick={() => setShowModal(true)} style={styles.btnPrimary}>Edit Profile</button>
-                  <a href="/hosting"><button style={styles.btnPrimary}>Switch to hosting</button></a>
-                  <button onClick={handleLogout} style={styles.btnGhostSm}>Logout</button>
+                  <button onClick={() => setShowModal(true)} style={styles.btnPrimary}>Edit Profile </button>
+                  <Link href="/hosting" style={styles.btnPrimary}>Switch to hosting </Link>
+                  <button onClick={handleLogout} style={styles.btnGhostSm}>Logout </button>
                 </div>
               </>
             ) : (
@@ -200,7 +203,7 @@ export default function DashboardPage() {
       {showModal && (
         <div style={styles.modalBackdrop}>
           <div style={styles.modal}>
-            <h2>Edit Profile</h2>
+            <h4>Edit Profile</h4>
 
             <input placeholder="First Name" value={formData.first_name} onChange={(e) => setFormData({ ...formData, first_name: e.target.value })} style={styles.input} />
             <input placeholder="Last Name" value={formData.last_name} onChange={(e) => setFormData({ ...formData, last_name: e.target.value })} style={styles.input} />
@@ -224,14 +227,14 @@ export default function DashboardPage() {
 }
 
 const styles = {
-  wrap: { maxWidth: 800, margin: "100px auto", padding: 30, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10 },
+  wrap: { maxWidth: 800, margin: "10vw auto", padding: 30, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10 },
   h1: { fontSize: 28, marginBottom: 30 },
-  tabs: { display: "flex", gap: "1rem", marginBottom: 30 },
+  tabs: { display: "flex", gap: "1rem", marginBottom: 10 },
   tabBtn: {
-    padding: "10px 20px", background: "#e2e8f0",
+    padding: "8px 14px", fontSize: "14px",background: "#e2e8f0", fontFamily: "DM Sans, sans-serif",
     border: "none", borderRadius: 8, cursor: "pointer"
   },
-  tabActive: { background: "#ff3c00", color: "#fff" },
+  tabActive: { background: "#ff3c00", color: "#fff", borderRadius: 8 },
   panel: { padding: 20, border: "1px solid #e5e7eb", borderRadius: 10, backgroundColor: "#fff" },
   infoRow: {
     display: "flex", justifyContent: "space-between",
@@ -240,19 +243,20 @@ const styles = {
   key: { color: "#6b7280" },
   val: { fontWeight: "bold" },
   btnPrimary: {
-    background: "#ff3c00",
+    background: "#ff3c00", fontFamily: "DM Sans, sans-serif", fontWeight: "700",
     color: "#fff", padding: "10px 20px",
-    borderRadius: 8, border: "none", cursor: "pointer"
+    textDecoration:"None",
+    borderRadius: 100, border: "none", cursor: "pointer"
   },
   btnPrimarySm: {
-    background: "#ff3c00", color: "#fff",
-    padding: "6px 12px", fontSize: 14,
-    borderRadius: 6, border: "none", cursor: "pointer"
+    background: "#ff3c00", color: "#fff", fontFamily: "DM Sans, sans-serif", fontWeight: "700",
+    padding: "9px 25px", fontSize: 14, lineHeight: "1em",
+    borderRadius: 100, border: "none", cursor: "pointer"
   },
   btnGhostSm: {
-    background: "red", color: "#ffffff",
-    padding: "6px 12px", fontSize: 14,
-    borderRadius: 6, border: "none", cursor: "pointer"
+    background: "red", color: "#ffffff", fontFamily: "DM Sans, sans-serif", fontWeight: "700",
+    padding: "9px 25px", fontSize: 14, lineHeight: "1em",
+    borderRadius: 100, border: "none", cursor: "pointer"
   },
   cardGrid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 },
   card: { padding: 20, border: "1px solid #ddd", borderRadius: 10 },

@@ -247,8 +247,8 @@ export default function Vehiclescars() {
                 Explore our perfect and <br /> extensive fleet
               </h3>
     
-              <div className="container-fluid px-2 px-md-3 px-lg-3 position-relative mt-5">
-                <div className="row g-4">
+              <div className={`container-fluid px-2 px-md-3 px-lg-3 position-relative mt-5 ${styles.roh_container98}`}>
+                <div className="row d-flex justify-content-start g-4">
                   {loading && (
                     <div className="col-12">
                       <p className="text-center text-muted m-0">Loading items…</p>
@@ -257,8 +257,8 @@ export default function Vehiclescars() {
     
                   {!loading && products.map((p) => (
                     <div key={p.id} className="col-12 col-sm-6 col-lg-3">
-                      <div className={`card ${styles.fleetscard} h-100`}>
-                        <img
+                      <div className={`card p-4 ${styles.fleetscard} h-100`}>
+                        <Image
                           src={
                             p?.media_gallery?.[0]
                               ? p.media_gallery[0].file_path + p.media_gallery[0].file_name
@@ -267,9 +267,9 @@ export default function Vehiclescars() {
                           alt={p?.item_name || "Item image"}
                           width={600}
                           height={360}
-                          className={`card-img-top p-4 ${styles.cardImg}`}
+                          className={`card-img-top ${styles.cardImg}`}
                         />
-                        <div className={`card-body d-flex flex-column pt-2 ${styles.cardBody}`}>
+                        <div className={`card-body d-flex flex-column pt-3 ${styles.cardBody}`}>
                           <div>
                             <span className="badge rounded-pill px-3 py-2 badge-car">
                               {categoryNameById(p?.category_id)}

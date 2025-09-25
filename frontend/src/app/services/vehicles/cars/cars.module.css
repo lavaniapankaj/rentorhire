@@ -203,6 +203,11 @@
 
 /** Products section css start ***/
 /* ===== Section wrapper ===== */
+
+
+.roh_container98 {
+  max-width: 90%;
+}
 .fleetswrap_inner {
   padding-block: 24px 40px;
 }
@@ -250,13 +255,13 @@
 }
 
 /* top image area */
-.fleetscard :global(.card-img-top) {
-  height: 350px;              /* adjust if needed */
+.fleetscard img {
   width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center;
-  background: #fff;
-  border-radius: 28px 28px 0 0;
+  aspect-ratio: 1/1;
+  border-radius: 12px;
+
 }
 
 /* card body spacing/typography */
@@ -352,19 +357,12 @@
 /* responsive tweaks */
 @media (max-width: 991px) {
   .second_heading { font-size: 28px; }
-  .fleetscard :global(.card-img-top) { height: 200px; }
+ 
 }
 @media (max-width: 575px) {
   .fleetscard { border-radius: 22px; }
-  .fleetscard :global(.card-img-top) { height: 250px; }
   .priceStrong { font-size: 24px; }
 }
-
-
-.cardImg { width:100%; height:220px; object-fit:contain; background:#fff; }
-@media (max-width: 991px){ .cardImg{ height:200px; } }
-@media (max-width: 575px){ .cardImg{ height:180px; } }
-
 
 /* CTA link wrapper (Next <Link>) */
 .ctaLink {

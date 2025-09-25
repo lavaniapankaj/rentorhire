@@ -1,9 +1,10 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import '../../globals.css';
 import styles from "./view.module.css";
-import globalStyles from "../../globalComponents/css/globalCSS.module.css";
 import Image from "next/image";
 import { jwtDecode } from "jwt-decode";
+import Link from "next/link";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
 
@@ -255,16 +256,16 @@ export default function Viewproductspop({ triggerId, onClose }) {
                           </div>
                           <div className="sidebar-bottom-btns">
                             <div className="btn_singlepage_wrap d-flex align-items-center flex-wrap justify-content-around gap-2">
-                              <div className={`d-flex align-items-center justify-content-center ${styles.roh_top_btns}`}>
-                                <div className={`${styles.roh_button_custom}`}><button>Contact us</button></div>
-                                <div className={`${styles.roh_circl_btn}`}>
-                                  <button><Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} /></button>
+                              <div className="d-flex align-items-center justify-content-center roh_redBtns">
+                                <div className="roh_button_custom"><Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>Contact Seller</Link></div>
+                                <div className="roh_circl_btn">
+                                  <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}><Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} /></Link>
                                 </div>
                               </div>
                               <div><span className="text-muted">OR</span></div>
                               <div className="">
-                                <div className={`${styles.roh_single_pageCircle}`}>
-                                  <button><Image src="/whatsapp.svg" alt="WhatsApp" width={30} height={30} /></button>
+                                <div className="roh_iconBtn">
+                                  <Link href="https://wa.me/919876543210?text=Hello%20there!"><Image src="/whatsapp.svg" alt="WhatsApp" width={30} height={30} /></Link>
                                 </div>
                               </div>
                             </div>
@@ -315,10 +316,10 @@ export default function Viewproductspop({ triggerId, onClose }) {
                         <div className="star_box">
                           <div className="star_inner d-flex align-items-center gap-1">
                             <Image src="/star.svg" alt="Star" width={19} height={17} />
-                            <span className={`${globalStyles.roh_star_title}`}>Vendor Information</span>
+                            <span className={`roh_star_title`}>Vendor Information</span>
                           </div>
                         </div>
-                        <h2 className={`${globalStyles.roh_headingH2}`}>Listed By: Urban Drive Rentals, Delhi NCR</h2>
+                        <h2 >Listed By: Urban Drive Rentals, Delhi NCR</h2>
 
                         <ul className={`${styles.roh_about_media_list} ${styles.roh_vendor_info}`}>
                           <li>
@@ -386,10 +387,10 @@ export default function Viewproductspop({ triggerId, onClose }) {
                         <div className="star_box">
                           <div className="star_inner d-flex align-items-center gap-1">
                             <Image src="/star.svg" alt="Star" width={19} height={17} />
-                            <span className={`${globalStyles.roh_star_title}`}>Included Services</span>
+                            <span className={`roh_star_title`}>Included Services</span>
                           </div>
                         </div>
-                        <h2 className={`${globalStyles.roh_headingH2}`}>Overview – About this Car</h2>
+                        <h2>Overview – About this Car</h2>
                         <p className="global_heading gray_global_heading media_desc ">Experience the thrill of zipping through the city with the Maruti Suzuki Swift — a stylish and reliable hatchback designed for comfort, fuel efficiency, and a great driving experience. Whether it’s a short weekend trip or daily city commuting, this Swift is your perfect companion.</p>
                         <ul className={`${styles.roh_check_list}`}>
                           <li>
@@ -436,10 +437,10 @@ export default function Viewproductspop({ triggerId, onClose }) {
                         <div className="star_box">
                           <div className="star_inner d-flex align-items-center gap-1">
                             <Image src="/star.svg" alt="Star" width={19} height={17} />
-                            <span className={`${globalStyles.roh_star_title}`}>Amenities</span>
+                            <span className={`roh_star_title`}>Amenities</span>
                           </div>
                         </div>
-                        <h2 className={`${globalStyles.roh_headingH2}`}>Premium Amenities &amp; Features</h2>
+                        <h2>Premium Amenities &amp; Features</h2>
                         <ul className={`${styles.roh_check_list} ${styles.roh_new_checklist}`}>
                           <li>
                             <div className={`${styles.roh_premiumFeaturelist}`}>
@@ -508,10 +509,10 @@ export default function Viewproductspop({ triggerId, onClose }) {
                         <div className="star_box">
                           <div className="star_inner d-flex align-items-center gap-1">
                             <Image src="/star.svg" alt="Star" width={19} height={17} />
-                            <span className={`${globalStyles.roh_star_title}`}>Rental Conditions</span>
+                            <span className={`roh_star_title`}>Rental Conditions</span>
                           </div>
                         </div>
-                        <h3 className={`${globalStyles.roh_headingH2}`}>Policies and agreement</h3>
+                        <h3>Policies and agreement</h3>
                         <div className={`${styles.roh_policy_terms}`}>
                           <div className="accordion" id="accordionExample">
                             <div className="accordion-item">
@@ -555,9 +556,10 @@ export default function Viewproductspop({ triggerId, onClose }) {
                       </div>
                     </div>
                   </div>
-                </div></section>
+                </div>
+                </section>
 
-              <div className={`mt-5 d-none ${styles.popupwrap_inner}`}>
+              <div className={`mt-5 d-none  ${styles.popupwrap_inner}`}>
                 <div className={styles.detailsGrid}>
                   <div className="d-flex justify-content-between text-dark  content_layer">
                     <div className="d-flex align-items-center gap-1 feets_data_list">

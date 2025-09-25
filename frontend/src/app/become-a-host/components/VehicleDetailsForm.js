@@ -47,7 +47,7 @@ export default function VehicleDetailsForm({ index, item, formData, setFormData,
       </div>
       
       <div>
-      <label className={styles.formLabel}>Add Image</label>
+        <label className={styles.formLabel}>Add Image</label>
         <input type="file" name="image_ids" multiple onChange={handleChange}/>
         {errors.image_ids && (
           <div style={{ color: "red", marginTop: "4px" }}>
