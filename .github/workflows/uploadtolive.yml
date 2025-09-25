@@ -12,20 +12,6 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v3
 
-      # Setup SSH Agent for rsync
-      - name: 🔐 Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
-
-      # Upload project files to the server
-      - name: 📤 Upload code to server
-        run: |
-          rsync -avz --delete \
-            -e "ssh -o StrictHostKeyChecking=no" \
-            ./ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/findonrent.com/html
-
-      # Run build + restart on the server
       - name: 🔐 Connect to server and deploy
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -47,5 +33,5 @@ jobs:
             npm install --omit=dev
 
             # Restart services
-            pm2 restart frontend || pm2 start npm --name "frontend" -- run start
-            pm2 restart backend || pm2 start npm --name "backend" -- run start
+            pm2 restart frontend
+            pm2 restart backend
