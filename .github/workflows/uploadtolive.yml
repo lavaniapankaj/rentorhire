@@ -23,18 +23,14 @@ jobs:
           script: |
             cd /var/www/findonrent.com/html
 
-            # Pull latest code
-            git reset --hard
-            git pull origin development
-
             # Build frontend
             cd frontend
-            # npm install --legacy-peer-deps
+            npm install --legacy-peer-deps
             npm run build
 
             # Build backend
             cd ../backend
-            # npm install --omit=dev
+            npm install --omit=dev
 
             # Restart services
             pm2 restart frontend
