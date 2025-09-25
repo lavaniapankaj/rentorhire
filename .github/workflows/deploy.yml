@@ -26,3 +26,4 @@ jobs:
             npm run build
             pm2 restart frontend
             pm2 restart backend
+            
