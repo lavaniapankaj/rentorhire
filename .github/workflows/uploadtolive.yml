@@ -1,53 +1,40 @@
-name: CI/CD Pipeline
+name: FindOnRent Deployment
 
 on:
   push:
-    # branches: [ development ]
+    branches: [ "development" ]
 
 jobs:
-  test-run:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: 🔐 Connect to server and deploy
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          node-version: '20.x'
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          script: |
+            cd /var/www/findonrent.com/html
 
-      - name: Install frontend dependencies
-        working-directory: ./frontend
-        run: npm ci
+            # Pull latest code
+            git reset --hard
+            git pull origin development
 
-      - name: Build frontend
-        working-directory: ./frontend
-        run: npm run build
+            # Build frontend
+            cd frontend
+            # npm install --legacy-peer-deps
+            npm run build
 
-      - name: Install backend dependencies
-        working-directory: ./backend
-        run: npm ci
-        
+            # Build backend
+            cd ../backend
+            # npm install --omit=dev
 
-      # Setup SSH Agent
-      - name: 🔐 Setup SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
-
-
-      # Deploy files to the server
-      - name: 📤 Sync project to server
-        run: |
-          rsync -avz --delete \
-            -e "ssh -o StrictHostKeyChecking=no" \
-            ./ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.PROJECT_DIR }}
-
-      # Restart backend service (e.g., via PM2)
-      - name: 🔁 Restart backend on server
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << 'EOF'
-            cd ${{ secrets.PROJECT_DIR }}/backend
-            npm install --omit=dev
-            pm2 restart all
+            # Restart services
+            pm2 restart frontend
+            pm2 restart backend
