@@ -42,7 +42,7 @@
 }
 .about_media_list li .media {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     gap: 15px;
 }
 .whychoose_wrap .back_circle {

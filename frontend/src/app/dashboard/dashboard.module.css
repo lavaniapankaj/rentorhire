@@ -1,3 +1,10 @@
+.roh_dashboard_content {
+    background-image: url(/images/homepg/bg-img-3.svg;);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center center;
+}
+
 .btnPrimarySm:hover, .btnGhostSm:hover {
     background-color: #000;
 }

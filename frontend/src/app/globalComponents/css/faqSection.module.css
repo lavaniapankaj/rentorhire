@@ -88,7 +88,7 @@
 }
 .faq_wrap .accordion_button {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     padding-inline: 0px !important;
     font-weight: 600;
     font-size: 22px;
