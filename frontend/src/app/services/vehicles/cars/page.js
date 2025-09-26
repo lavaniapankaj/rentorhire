@@ -205,13 +205,13 @@ export default function Vehiclescars() {
                           </div>
     
                           {/* Button */}
-                          <div className="col-lg-2 col-md-12 col-12">
-                            <div className={styles.rent_search_btn}>
-                              <button className="button theme-btn-new" type="submit" aria-label="Search">
-                                Search
-                              </button>
-                            </div>
+                          {/* Button */}
+                        <div className="col-lg-2 col-md-12 col-12">
+                          <div className={styles.rent_search_btn}>
+                            <button className="button theme-btn-new" type="submit">
+                              <Image className="toggle-icon" src="/images/assets/search.svg" alt="star icon" width={34} height={34} /></button>
                           </div>
+                        </div>
                         </div>
                       </form>
                     </div>

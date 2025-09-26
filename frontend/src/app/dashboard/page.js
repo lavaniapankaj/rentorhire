@@ -123,84 +123,85 @@ export default function DashboardPage() {
 
   return (
     <>
-        <head>
-          <title>Dashboard | FOR</title>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <meta name="description" content="Manage your profile, view recent items, and access all your user settings in one place."/>
-        </head>
+      <head>
+        <title>Dashboard | FOR</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Manage your profile, view recent items, and access all your user settings in one place." />
+      </head>
 
-        <div className={`${style.roh_dashboard_content}`}></div>
-      <main style={{ ...styles.wrap, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10, padding: 30 }}>
-        <h1 style={styles.h1}>Dashboard</h1>
+      <div className={`${style.roh_dashboard_content}`}>
+        <main style={{ ...styles.wrap, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10, padding: 30 }}>
+          <h1 style={styles.h1}>Dashboard</h1>
 
-        <div style={styles.tabs}>
-          <button
-            onClick={() => setTab("details")}
-            style={{ ...styles.tabBtn, ...(tab === "details" ? styles.tabActive : {}) }}
-          >
-            User Details
-          </button>
-          <button
-            onClick={() => setTab("recent")}
-            style={{ ...styles.tabBtn, ...(tab === "recent" ? styles.tabActive : {}) }}
-          >
-            Recently Viewed
-          </button>
-        </div>
+          <div style={styles.tabs}>
+            <button
+              onClick={() => setTab("details")}
+              style={{ ...styles.tabBtn, ...(tab === "details" ? styles.tabActive : {}) }}
+            >
+              User Details
+            </button>
+            <button
+              onClick={() => setTab("recent")}
+              style={{ ...styles.tabBtn, ...(tab === "recent" ? styles.tabActive : {}) }}
+            >
+              Recently Viewed
+            </button>
+          </div>
 
-        {tab === "details" ? (
-          <section style={styles.panel}>
-            {user ? (
-              <>
-                <div style={styles.infoRow}><span style={styles.key}>Name</span><span style={styles.val}>{user.first_name} {user.last_name}</span></div>
-                <div style={styles.infoRow}><span style={styles.key}>Email</span><span style={styles.val}>{user.email}</span></div>
-                <div style={styles.infoRow}><span style={styles.key}>Phone</span><span style={styles.val}>{user.phone_number}</span></div>
-                <div style={styles.infoRow}><span style={styles.key}>Address</span><span style={styles.val}>{user.address_1}</span></div>
-                <div style={styles.infoRow}><span style={styles.key}>Landmark</span><span style={styles.val}>{user.landmark}</span></div>
-                <div style={styles.infoRow}><span style={styles.key}>City</span><span style={styles.val}>{user.city}</span></div>
-                <div style={styles.infoRow}><span style={styles.key}>State</span><span style={styles.val}>{user.state}</span></div>
-                <div style={styles.infoRow}><span style={styles.key}>Pincode</span><span style={styles.val}>{user.pincode}</span></div>
+          {tab === "details" ? (
+            <section style={styles.panel}>
+              {user ? (
+                <>
+                  <div style={styles.infoRow}><span style={styles.key}>Name</span><span style={styles.val}>{user.first_name} {user.last_name}</span></div>
+                  <div style={styles.infoRow}><span style={styles.key}>Email</span><span style={styles.val}>{user.email}</span></div>
+                  <div style={styles.infoRow}><span style={styles.key}>Phone</span><span style={styles.val}>{user.phone_number}</span></div>
+                  <div style={styles.infoRow}><span style={styles.key}>Address</span><span style={styles.val}>{user.address_1}</span></div>
+                  <div style={styles.infoRow}><span style={styles.key}>Landmark</span><span style={styles.val}>{user.landmark}</span></div>
+                  <div style={styles.infoRow}><span style={styles.key}>City</span><span style={styles.val}>{user.city}</span></div>
+                  <div style={styles.infoRow}><span style={styles.key}>State</span><span style={styles.val}>{user.state}</span></div>
+                  <div style={styles.infoRow}><span style={styles.key}>Pincode</span><span style={styles.val}>{user.pincode}</span></div>
 
-                <div style={{ display: "flex", gap: "10px", marginTop: 20 }}>
-                  <button onClick={() => setShowModal(true)} style={styles.btnPrimary}>Edit Profile </button>
-                  <Link href="/hosting" style={styles.btnPrimary}>Switch to hosting </Link>
-                  <button onClick={handleLogout} style={styles.btnGhostSm}>Logout </button>
+                  <div style={{ display: "flex", gap: "10px", marginTop: 20 }}>
+                    <button onClick={() => setShowModal(true)} className={`${style.roh_redbtn}`}>Edit Profile </button>
+                    <Link href="/hosting" className={`${style.roh_redbtn}`}>Switch to hosting </Link>
+                    <button onClick={handleLogout} className={`${style.roh_redbtn}`}>Logout </button>
+                  </div>
+                </>
+              ) : (
+                <p>Loading user details...</p>
+              )}
+            </section>
+          ) : (
+            <section style={styles.panel}>
+              {recent.length === 0 ? (
+                <p style={{ margin: 0, color: "#64748b" }}>No items viewed yet.</p>
+              ) : (
+                <div style={styles.cardGrid}>
+                  {recent.map((item) => (
+                    <article key={item.id} style={styles.card}>
+                      <div style={styles.cardHead}>
+                        <span style={styles.badge}>{item.type}</span>
+                        <strong style={{ fontSize: 16 }}>{item.title}</strong>
+                      </div>
+                      <div style={styles.metaRow}>
+                        <span style={styles.meta}>📍 {item.location}</span>
+                        {"pricePerDay" in item && (
+                          <span style={styles.price}>₹{item.pricePerDay}/day</span>
+                        )}
+                      </div>
+                      <div style={styles.cardCtas}>
+                        <a href="#"><button style={styles.btnPrimarySm}>View</button></a>
+                        <a href="#"><button style={styles.btnGhostSm}>Remove</button></a>
+                      </div>
+                    </article>
+                  ))}
                 </div>
-              </>
-            ) : (
-              <p>Loading user details...</p>
-            )}
-          </section>
-        ) : (
-          <section style={styles.panel}>
-            {recent.length === 0 ? (
-              <p style={{ margin: 0, color: "#64748b" }}>No items viewed yet.</p>
-            ) : (
-              <div style={styles.cardGrid}>
-                {recent.map((item) => (
-                  <article key={item.id} style={styles.card}>
-                    <div style={styles.cardHead}>
-                      <span style={styles.badge}>{item.type}</span>
-                      <strong style={{ fontSize: 16 }}>{item.title}</strong>
-                    </div>
-                    <div style={styles.metaRow}>
-                      <span style={styles.meta}>📍 {item.location}</span>
-                      {"pricePerDay" in item && (
-                        <span style={styles.price}>₹{item.pricePerDay}/day</span>
-                      )}
-                    </div>
-                    <div style={styles.cardCtas}>
-                      <a href="#"><button style={styles.btnPrimarySm}>View</button></a>
-                      <a href="#"><button style={styles.btnGhostSm}>Remove</button></a>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            )}
-          </section>
-        )}
-      </main>
+              )}
+            </section>
+          )}
+        </main>
+      </div>
 
       {showModal && (
         <div style={styles.modalBackdrop}>
@@ -233,7 +234,7 @@ const styles = {
   h1: { fontSize: 28, marginBottom: 30 },
   tabs: { display: "flex", gap: "1rem", marginBottom: 10 },
   tabBtn: {
-    padding: "8px 14px", fontSize: "14px",background: "#e2e8f0", fontFamily: "DM Sans, sans-serif",
+    padding: "8px 14px", fontSize: "14px", background: "#e2e8f0", fontFamily: "DM Sans, sans-serif",
     border: "none", borderRadius: 8, cursor: "pointer"
   },
   tabActive: { background: "#ff3c00", color: "#fff", borderRadius: 8 },
@@ -247,7 +248,7 @@ const styles = {
   btnPrimary: {
     background: "#ff3c00", fontFamily: "DM Sans, sans-serif", fontWeight: "700",
     color: "#fff", padding: "10px 20px",
-    textDecoration:"None",
+    textDecoration: "None",
     borderRadius: 100, border: "none", cursor: "pointer"
   },
   btnPrimarySm: {
