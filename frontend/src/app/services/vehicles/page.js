@@ -14,36 +14,36 @@ export default function Vechicles() {
 
     return (
         <>
-        <div className="container-fluid">
+            <div className="container-fluid">
 
-            {/* Hero section */}
-            <HeroSection />
+                {/* Hero section */}
+                <HeroSection />
 
-            {/* Innser services section */}
-            <InnerServices />
+                {/* Innser services section */}
+                <InnerServices />
 
-            {/* FAQ section component */}
-            <FAQSection />
+                {/* FAQ section component */}
+                <FAQSection />
 
-            {/* about us component */}
-            <AboutUs/>
+                {/* about us component */}
+                <AboutUs/>
 
-            {/* latest artical component */}
-            <LatestArtical/>
-            
-            {/* Testimonial component */}
-            <Testimonials/>
-            
-            {/* why choose us component */}
-            <WhyChooseUs/>
-            
-            {/* need help component */}
-            <NeedHelp/>
+                {/* latest artical component */}
+                <LatestArtical/>
+                
+                {/* Testimonial component */}
+                <Testimonials/>
+                
+                {/* why choose us component */}
+                <WhyChooseUs/>
+                
+                {/* need help component */}
+                <NeedHelp/>
 
-            {/* ready to ride component */}
-            <ReadyToRide/>
+                {/* ready to ride component */}
+                <ReadyToRide/>
 
-        </div>
+            </div>
         </>
     );
 

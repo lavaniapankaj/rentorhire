@@ -6,6 +6,7 @@
     const path = require('path');
     const fs = require('fs');
 
+    // added to check 
     /** Set storage engine for multer */
     const storage = multer.diskStorage({
     destination: (req, file, cb) => {

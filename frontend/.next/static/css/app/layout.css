@@ -303,6 +303,11 @@ header .header_roh_navBar__0UMa_ .header_roh_dropdown_menu__d_a9E a.header_roh_d
   gap: 10px;
   transition: all .3s ease-in-out;
 }
+.header_dropdown-menu__GrSGN.header_show__ZhHNI {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
 .header_roh_profile_box__rUEZs button img{
   width: 30px;
   height: 30px;

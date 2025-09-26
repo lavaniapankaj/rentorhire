@@ -150,7 +150,7 @@
 /* Search button */
 .product_rent_search_btn__7Q52D {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 .product_rent_search_btn__7Q52D button {

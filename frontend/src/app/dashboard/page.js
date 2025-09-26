@@ -129,6 +129,8 @@ export default function DashboardPage() {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="description" content="Manage your profile, view recent items, and access all your user settings in one place."/>
         </head>
+
+        <div className={`${style.roh_dashboard_content}`}></div>
       <main style={{ ...styles.wrap, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10, padding: 30 }}>
         <h1 style={styles.h1}>Dashboard</h1>
 
@@ -227,7 +229,7 @@ export default function DashboardPage() {
 }
 
 const styles = {
-  wrap: { maxWidth: 800, margin: "10vw auto", padding: 30, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10 },
+  wrap: { maxWidth: 800, margin: "auto", padding: 30, backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10 },
   h1: { fontSize: 28, marginBottom: 30 },
   tabs: { display: "flex", gap: "1rem", marginBottom: 10 },
   tabBtn: {

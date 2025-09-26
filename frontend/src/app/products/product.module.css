@@ -145,7 +145,7 @@
 /* Search button */
 .rent_search_btn {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 .rent_search_btn button {

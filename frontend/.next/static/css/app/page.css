@@ -151,7 +151,7 @@
 /* Search button */
 .home_rent_search_btn__Lw7KA {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 .home_rent_search_btn__Lw7KA button {

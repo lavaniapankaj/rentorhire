@@ -108,6 +108,11 @@ header .roh_navBar .roh_dropdown_menu a.roh_dropdown_item:hover{
   gap: 10px;
   transition: all .3s ease-in-out;
 }
+.dropdown-menu.show {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
 .roh_profile_box button img{
   width: 30px;
   height: 30px;
