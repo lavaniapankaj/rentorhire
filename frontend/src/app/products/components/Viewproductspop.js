@@ -256,29 +256,83 @@ export default function Viewproductspop({ triggerId, onClose }) {
                           </div>
                           <div className="sidebar-bottom-btns">
                             <div className="btn_singlepage_wrap d-flex align-items-center flex-wrap justify-content-around gap-2">
-                              <div className="d-flex align-items-center justify-content-center roh_redBtns">
-                                <div className="roh_button_custom"><Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>Contact Seller</Link></div>
-                                <div className="roh_circl_btn">
-                                  <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}><Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} /></Link>
+                              {serviceProvider ? (
+                                isAuthenticated ? (
+                                  // Valid token → direct contact
+                                  <div className="d-flex align-items-center justify-content-center roh_redBtns">
+                                    <div className="roh_button_custom">
+                                      <span className="">Service provider: {serviceProvider.first_name} {serviceProvider.last_name}</span>
+                                      <Link href={`tel:${serviceProvider.phone_number}`}>
+                                        Contact ({serviceProvider.phone_number})
+                                      </Link>
+                                    </div>
+                                    <div className="roh_circl_btn">
+                                      <Link href={`tel:${serviceProvider.phone_number}`}>
+                                        <Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} />
+                                      </Link>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  // No/expired token → ask login with redirect
+                                  <div className="d-flex align-items-center justify-content-center roh_redBtns">
+                                    <div className="roh_button_custom">
+                                      <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>Contact Seller</Link>
+                                    </div>
+                                    <div className="roh_circl_btn">
+                                      <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>
+                                        <Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} />
+                                      </Link>
+                                    </div>
+                                  </div>
+                                )
+                              ) : isAuthenticated ? (
+                                // If service provider is still loading
+                                <div className="d-flex align-items-center justify-content-center roh_redBtns">
+                                  <div className="roh_button_custom">
+                                    <button disabled>Loading contact…</button>
+                                  </div>
+                                  <div className="roh_circl_btn">
+                                    <Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} />
+                                  </div>
                                 </div>
-                              </div>
+                              ) : (
+                                // If not authenticated and no service provider
+                                <div className="d-flex align-items-center justify-content-center roh_redBtns">
+                                  <div className="roh_button_custom">
+                                    <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>Contact Seller</Link>
+                                  </div>
+                                  <div className="roh_circl_btn">
+                                    <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>
+                                      <Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} />
+                                    </Link>
+                                  </div>
+                                </div>
+                              )}
+
                               <div><span className="text-muted">OR</span></div>
-                              <div className="">
+
+                              {/* WhatsApp Link with Authentication Check */}
+                              {isAuthenticated ? (
                                 <div className="roh_iconBtn">
-                                  <Link href="https://wa.me/919876543210?text=Hello%20there!"><Image src="/whatsapp.svg" alt="WhatsApp" width={30} height={30} /></Link>
+                                  <Link href={`https://wa.me/${serviceProvider?.phone_number}?text=Hello%20there!`}>
+                                    <Image src="/whatsapp.svg" alt="WhatsApp" width={30} height={30} />
+                                  </Link>
                                 </div>
-                              </div>
+                              ) : (
+                                <div className="roh_iconBtn">
+                                  <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>
+                                    <Image src="/whatsapp.svg" alt="WhatsApp" width={30} height={30} />
+                                  </Link>
+                                </div>
+                              )}
                             </div>
                           </div>
+
                         </div>
                       </div>
                     </div>
                     <div className="col-12 col-md-6 col-lg-8">
                       <div id="mainslider" className="owl-carousel owl-theme owl-loaded owl-drag d-none">
-
-
-
-
                         <div className="owl-stage-outer owl-height" style={{ height: '283.422px' }}><div className="owl-stage" style={{ transform: 'translate3d(-1685px, 0px, 0px)', transition: 'linear', width: '3371px' }}><div className="owl-item cloned" style={{ width: '421.328px' }}><div className="item p-1">
                           <div className="right_slide_imgwrap">
                             <img src="/lokesh/assets/images/slide3.jpg" />

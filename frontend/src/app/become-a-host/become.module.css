@@ -262,3 +262,21 @@ select.reFormF {
     padding-bottom: 1rem;
   }
 }
+
+
+
+
+/* Become a host Section new CSS */
+.roh_beacome_host {
+  background-image: url(/images/homepg/bg-img-3.svg); 
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center center;
+  padding: 100px 30px 100px 30px ;
+}
+
+@media screen and (max-width:991px) {
+  .roh_beacome_host {
+    padding: 50px 20px 50px 20px ;
+  }
+}
