@@ -4,16 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
-
     "build": "npm run build --prefix frontend",
-
     "start": "concurrently \"npm:serve:backend\" \"npm:serve:frontend\"",
     "serve:backend": "npm run start --prefix backend",
     "serve:frontend": "npm run start --prefix frontend",
-
     "postinstall": "npm ci --prefix backend && npm ci --prefix frontend"
   },
   "devDependencies": {
-    "concurrently": "^9.2.0"
+    "concurrently": "^9.2.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "jwt-simple": "^0.5.6"
   }
 }
