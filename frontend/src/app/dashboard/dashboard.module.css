@@ -1,10 +1,60 @@
 .roh_dashboard_content {
-    background-image: url(/images/homepg/bg-img-3.svg;);
+    background-image: url(/images/homepg/bg-img-3.svg);
     background-size: cover; 
     background-repeat: no-repeat; 
     background-position: center center;
+    padding: 180px 30px 100px 30px;
 }
 
+.roh_redbtn {
+    background: #FF3600;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1em;
+    font-weight: 700;
+    padding: 9px 25px;
+    border-radius: 100px;
+    border: none;
+    transition: all 0.3s all ease-in-out;
+}
+.roh_redbtn:hover{
+    background-color: #000;
+}
 .btnPrimarySm:hover, .btnGhostSm:hover {
     background-color: #000;
+}
+
+@media screen and (max-width:991px) {
+    .roh_dashboard_content {
+        padding: 150px 20px 100px 20px;
+    }
+   
+}
+
+@media screen and (max-width:768px) {
+    .roh_dashboard_content {
+        padding: 100px 20px 50px 20px;
+    }
+    .roh_redbtn{
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+    .roh_dashboard_content main{
+        padding: 20px !important; 
+    }
+
+    .roh_dashboard_content main .panel {
+        padding: 15PX;
+    }
+}
+
+@media screen and (max-width:440px) {
+    .roh_redbtn{
+        padding: 8px 10px;
+        font-size: 11px;
+        text-align: center;
+    }
 }

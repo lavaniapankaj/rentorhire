@@ -269,6 +269,7 @@ export default function RegisterPage() {
 
   return (
     <>
+    <div className="roh_register_content">
       <main className="rohuserres_shell">
         <section className="rohuserres_card">
           <h1 className="rohuserres_title">Create your account</h1>
@@ -475,6 +476,7 @@ export default function RegisterPage() {
           )}
         </section>
       </main>
+      </div>
     </>
   );
 }

@@ -176,7 +176,7 @@ header .roh_navBar .roh_dropdown_menu a.roh_dropdown_item:hover{
   }
   .roh_header_nav {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
   }
 }
 
