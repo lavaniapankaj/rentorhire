@@ -12,13 +12,15 @@
   flex-wrap: wrap;
   margin: 0 -0.5rem;
 }
-.col12, .colMd6 {
+.col12, .roh_inoputField {
   padding: 0 0.5rem;
 }
-.border.rowwhite {
+.border.roh_rowwhite {
   border-radius: 30px;
   border: 1px solid #dee2e6;
   background-color: #fff;
+  width: 100%;
+  max-width: 1200px;
 }
 
 /* Headings & Text */
@@ -199,7 +201,7 @@ select.reFormF {
 .vehicleForm {
   display: flex;
   flex-direction: column;
-  gap: 16px; /* spacing between fields */
+  gap: 16px; 
   padding: 20px;
   background: #fff;
   border-radius: 12px;
@@ -238,11 +240,11 @@ select.reFormF {
 }
 
 /* Grouped Inputs (Address etc.) */
-.vehicleForm div {
+/* .vehicleForm div {
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
+} */
 
 /* Error Text */
 .vehicleForm span {
@@ -274,9 +276,28 @@ select.reFormF {
   background-position: center center;
   padding: 100px 30px 100px 30px ;
 }
+.roh_fields {
+  display: flex;
+  justify-content: space-between;
+}
+.roh_fields .roh_inoputField{
+  width: 50%;
+  
+}
 
 @media screen and (max-width:991px) {
   .roh_beacome_host {
     padding: 50px 20px 50px 20px ;
   }
+}
+
+
+@media screen and (max-width:767px) {
+  .roh_fields .roh_inoputField{
+    width: 100%;    
+  } 
+  .pxmd5 {
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
 }
