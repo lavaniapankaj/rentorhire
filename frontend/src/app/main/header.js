@@ -82,7 +82,7 @@ const Header = () => {
                       <div className="dropdown">
                         <button type="button" data-bs-toggle="dropdown" aria-expanded="false"><Image src="/user.svg" alt="User" width={30} height={30} /></button>
 
-                        <div className={`dropdown-menu profil-dropdown p-0`}>
+                        <div className={`dropdown-menu profil-dropdown p-0 ${styles.dropdownmob_menu}`}>
                           <div className={`roh_adrop_outer`} style={{ display: 'block' }}>
                             <div className={`${styles.roh_adrop_box_wrap}`}>
                               <ul className={`${styles.roh_adrop_list}`}>
