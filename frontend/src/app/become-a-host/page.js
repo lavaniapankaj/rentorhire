@@ -631,8 +631,8 @@ export default function BecomeAHostPage() {
             <section className={`${styles.form_section_main} ${styles.py5}`}>
               <div className={styles.container}>
                 <div className={styles.row}>
-                  <div className={styles.col12}>
-                    <div className={`${styles.border} ${styles.rowwhite}`}>
+                  <div className={`w-100 {styles.col12}`}>
+                    <div className={`${styles.border} ${styles.roh_rowwhite}`}>
                       <div className={`${styles.px4} ${styles.pxmd5}`}>
                         <div className={styles.py5}>
                           <h2 className={`${styles.mb3} ${styles.textCenter} fw-bold`}>List Your Business. Get More Rentals.</h2>
@@ -655,8 +655,8 @@ export default function BecomeAHostPage() {
                           {currentStep === 1 && !shouldJumpToStep3 && (
                             <div id="step1" className="step">      
                               <form id="providerForm">
-                                <div className={styles.row}>
-                                  <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                <div className={`${styles.row} ${styles.roh_fields}`}>
+                                  <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
                                     <label className={styles.formLabel}>Business Name</label>
                                     <input type="text" name="businessName" className={`${styles.formControl} ${styles.reFormF}`} value={formData.businessName} onChange={handleChange} required />
                                     <small className={`${styles.formText} ${styles.textMuted}`}> Enter the name as it appears on official documents. </small>
@@ -664,7 +664,7 @@ export default function BecomeAHostPage() {
                                       <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.businessName} </div>
                                     )}
                                   </div>
-                                  <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                  <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
                                     <label className={styles.formLabel}>Owner/Contact Person</label>
                                     <input type="text" name="contactPerson" className={`${styles.formControl} ${styles.reFormF}`} value={ formData.contactPerson || (authUser ? `${authUser.firstName} ${authUser.lastName}` : "")} onChange={handleChange} />
                                     <small className={`${styles.formText} ${styles.textMuted}`}> Who should we get in touch with? </small>
@@ -673,8 +673,8 @@ export default function BecomeAHostPage() {
                                     )}
                                   </div>
                                 </div>
-                                <div className={styles.row}>
-                                  <div className={`${styles.mb3} ${styles.colMd6}`}>
+                               <div className={`${styles.row} ${styles.roh_fields}`}>
+                                  <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
                                     <label className={styles.formLabel}>Contact Number</label>
                                     <input type="tel" name="whatsappNumber" className={`${styles.formControl} ${styles.reFormF}`} placeholder="+91-" value={formData.whatsappNumber || authUser?.phoneNumber || ""} onChange={handleChange} />
                                     <small className={`${styles.formText} ${styles.textMuted}`}> Number for customer communication. </small>
@@ -682,18 +682,15 @@ export default function BecomeAHostPage() {
                                       <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.whatsappNumber} </div>
                                     )}
                                   </div>
-                                </div>
-
-                                <div className={styles.row}>
-                                  <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                   <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
                                     <label className={styles.formLabel}>GST Number (if applicable)</label>
                                     <input type="text" name="gstNumber" className={`${styles.formControl} ${styles.reFormF}`} value={formData.gstNumber} onChange={handleChange} />
                                     <small className={`${styles.formText} ${styles.textMuted}`}> Leave blank if you're not GST registered. </small>
                                   </div>
                                 </div>
 
-                                <div className={styles.row}>
-                                  <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                <div className={`${styles.row} ${styles.roh_fields}`}>
+                                  <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
                                     <label className={styles.formLabel}>Is Delivery Available?</label>
                                     <div className={`${styles.dFlex} flex-wrap ${styles.gap2} category-wrap`}>
                                       {["Yes", "No", "Paid Delivery"].map((option) => (
@@ -720,8 +717,8 @@ export default function BecomeAHostPage() {
                           {/* Step 2: Verify Phone Number */}
                           {currentStep === 2 && (
                             <div id="step2" className="step">        
-                              <div className={styles.row}>
-                                <div className={`${styles.mb3} ${styles.colMd6}`}>
+                              <div className={`${styles.row} ${styles.roh_fields}`}>
+                                <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
                                   <label className={styles.formLabel}>Street Address</label>
                                   <input type="text" className={`${styles.formControl} ${styles.reFormF}`} name="streetAddress" value={formData.streetAddress} onChange={handleChange} required />
                                   <small className={`${styles.formText} ${styles.textMuted}`}>Your building number, shop name, or street name.</small>
@@ -729,14 +726,14 @@ export default function BecomeAHostPage() {
                                     <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.streetAddress} </div>
                                   )}
                                 </div>
-                              </div>
-                              <div className={styles.row}>
-                                <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
                                   <label className={styles.formLabel}>Landmark</label>
                                   <input type="text" className={`${styles.formControl} ${styles.reFormF}`} name="landmark" value={formData.landmark} onChange={handleChange} />
                                   <small className={`${styles.formText} ${styles.textMuted}`}>Nearby point of reference to help locate your address.</small>
                                 </div>
-                                <div className={`${styles.mb3} ${styles.colMd6}`}>
+                              </div>
+                              <div className={`${styles.row} ${styles.roh_fields}`}>                                
+                                <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
                                   <label className={styles.formLabel}>City</label>
                                   <input type="text" className={`${styles.formControl} ${styles.reFormF}`} name="city" value={formData.city} onChange={handleChange} required />
                                   <small className={`${styles.formText} ${styles.textMuted}`}>Your city of operation.</small>
@@ -744,9 +741,7 @@ export default function BecomeAHostPage() {
                                     <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.city} </div>
                                   )}
                                 </div>
-                              </div>
-                              <div className={styles.row}>
-                                <div className={`${styles.mb3} ${styles.colMd6}`}>
+                                <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
                                   <label className={styles.formLabel}>State</label>
                                   <select id="state" name="state" required className={`${styles.formControl} ${styles.reFormF}`} value={formData.state} onChange={handleChange}>
                                     <option value="">Select State</option>
@@ -792,7 +787,10 @@ export default function BecomeAHostPage() {
                                     <div style={{ color: "red", marginTop: "4px" }}> {itemErrors.state} </div>
                                   )}
                                 </div>
-                                <div className={`${styles.mb3} ${styles.colMd6}`}>
+                              </div>
+                             <div className={`${styles.row} ${styles.roh_fields}`}>
+                                
+                                <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
                                   <label className={styles.formLabel}>Pin Code</label>
                                   <input type="number" name="pinCode" className={`${styles.formControl} ${styles.reFormF}`} value={formData.pinCode} onChange={handleChange} pattern="[0-9]{6}" maxLength={6} inputMode="numeric" required />
                                   <small className={`${styles.formText} ${styles.textMuted}`}>Enter your 6-digit postal code.</small>
