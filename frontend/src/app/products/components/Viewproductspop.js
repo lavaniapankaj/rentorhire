@@ -254,6 +254,15 @@ export default function Viewproductspop({ triggerId, onClose }) {
                               <span className="text-dark fw-medium">{item.availability_status}</span>
                             </div>
                           </div>
+                          {/* Service Provider Name OUTSIDE the sidebar-bottom-btns */}
+                          {serviceProvider && (
+                            <div className="mb-2">
+                              <span className="">
+                                Service provider: {serviceProvider.first_name} {serviceProvider.last_name}
+                              </span>
+                            </div>
+                          )}
+
                           <div className="sidebar-bottom-btns">
                             <div className="btn_singlepage_wrap d-flex align-items-center flex-wrap justify-content-around gap-2">
                               {serviceProvider ? (
@@ -261,7 +270,6 @@ export default function Viewproductspop({ triggerId, onClose }) {
                                   // Valid token → direct contact
                                   <div className="d-flex align-items-center justify-content-center roh_redBtns">
                                     <div className="roh_button_custom">
-                                      <span className="">Service provider: {serviceProvider.first_name} {serviceProvider.last_name}</span>
                                       <Link href={`tel:${serviceProvider.phone_number}`}>
                                         Contact ({serviceProvider.phone_number})
                                       </Link>
@@ -276,7 +284,9 @@ export default function Viewproductspop({ triggerId, onClose }) {
                                   // No/expired token → ask login with redirect
                                   <div className="d-flex align-items-center justify-content-center roh_redBtns">
                                     <div className="roh_button_custom">
-                                      <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>Contact Seller</Link>
+                                      <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>
+                                        Contact Seller
+                                      </Link>
                                     </div>
                                     <div className="roh_circl_btn">
                                       <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>
@@ -299,7 +309,9 @@ export default function Viewproductspop({ triggerId, onClose }) {
                                 // If not authenticated and no service provider
                                 <div className="d-flex align-items-center justify-content-center roh_redBtns">
                                   <div className="roh_button_custom">
-                                    <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>Contact Seller</Link>
+                                    <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>
+                                      Contact Seller
+                                    </Link>
                                   </div>
                                   <div className="roh_circl_btn">
                                     <Link href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}>
