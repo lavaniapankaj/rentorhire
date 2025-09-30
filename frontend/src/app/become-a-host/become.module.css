@@ -1,8 +1,8 @@
 /* Form Wrapper & Layout */
-.form_section_main {
+/* .form_section_main {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
+} */
 .container {
   max-width: 1200px;
   margin-inline: auto;
@@ -21,6 +21,7 @@
   background-color: #fff;
   width: 100%;
   max-width: 1200px;
+  padding: 25px 20px 25px 20px;
 }
 
 /* Headings & Text */
@@ -49,7 +50,7 @@
   font-size: 1rem;
 }
 .reFormF {
-  background-color: #fff;
+  background-color: #dbdfeb1f;
 }
 select.reFormF {
   appearance: none;
@@ -71,6 +72,7 @@ select.reFormF {
   background-color: #FF3600;
   color: #fff;
   border: none;
+  border-radius: 100px;
 }
 .nextStep:hover, .prevStep:hover, .submitBtn:hover {
   background-color: #cc2f00;
@@ -127,9 +129,9 @@ select.reFormF {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.25rem 0.75rem;
-  border: 1px solid #dee2e6;
+  border: 1px solid #fce1d9;
   border-radius: 0.5rem;
-  transition: background-color 0.3s, border-color 0.3s;
+  transition: background-color 0.2s, border-color 0.3s;
 }
 .wmax {
   width: max-content;
@@ -149,15 +151,15 @@ select.reFormF {
   color: #6c757d !important;
 }
 .mb3 {
-  margin-bottom: 1rem !important;
+  margin-bottom: 4px !important;
 }
 .mb4 {
   margin-bottom: 1.5rem !important;
 }
-.py5 {
+/* .py5 {
   padding-top: 1rem !important;
   padding-bottom: 1rem !important;
-}
+} */
 .px4 {
   padding-left: 1rem !important;
   padding-right: 1rem !important;
@@ -274,7 +276,7 @@ select.reFormF {
   background-size: cover; 
   background-repeat: no-repeat; 
   background-position: center center;
-  padding: 100px 30px 100px 30px ;
+  padding: 180px 30px 100px 30px ;
 }
 .roh_fields {
   display: flex;
@@ -282,12 +284,59 @@ select.reFormF {
 }
 .roh_fields .roh_inoputField{
   width: 50%;
-  
 }
+.reFormF:focus {
+    background-color: #ffffff47 !important;
+    border-color: transparent !important;
+    box-shadow: 0px 0px 3px #ff3600 !important;
+    outline: none;
+}
+
+.roh_vehicleDform_heighlight {
+  background-color: #fffbfa;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+
+.roh_chooseImagebtn {
+    cursor: pointer;
+    min-height: 150px;
+    background-color: #ffffff;
+    border: 4px dotted #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 8px;
+}
+.roh_chooseImagebtn:focus{
+  outline: none;
+}
+.roh_chooseImage_comtent {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+
+}
+
+.roh_imageUpload_btn, .roh_mainimage {
+    width: 70px;
+    height: 70px;
+    position: relative;
+}
+.roh_pick {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+.roh_chooseImage_innerText span{
+  font-size: 16px;
+}
+
 
 @media screen and (max-width:991px) {
   .roh_beacome_host {
-    padding: 50px 20px 50px 20px ;
+    padding: 100px 20px 50px 20px ;
   }
 }
 
@@ -299,5 +348,15 @@ select.reFormF {
   .pxmd5 {
   padding-left: 1.5rem !important;
   padding-right: 1.5rem !important;
+}
+}
+@media screen and (max-width:640px) {
+  .roh_chooseImage_comtent {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: center;
+gap: 10px;
+
 }
 }

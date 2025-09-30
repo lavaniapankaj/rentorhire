@@ -628,13 +628,13 @@ export default function BecomeAHostPage() {
       <div className="p-6">
         <div className={styles.form_section_main}>
           <div id="header"></div>
-            <section className={`${styles.form_section_main} ${styles.py5}`}>
+            <section className={`${styles.form_section_main}`}>
               <div className={styles.container}>
                 <div className={styles.row}>
                   <div className={`w-100 {styles.col12}`}>
                     <div className={`${styles.border} ${styles.roh_rowwhite}`}>
                       <div className={`${styles.px4} ${styles.pxmd5}`}>
-                        <div className={styles.py5}>
+                        <div>
                           <h2 className={`${styles.mb3} ${styles.textCenter} fw-bold`}>List Your Business. Get More Rentals.</h2>
                           <div className={`${styles.titleSepertor} mb-5`}></div>
 
@@ -826,6 +826,7 @@ export default function BecomeAHostPage() {
                                       <h4 className={styles.mb3}>What Are You Renting?</h4>
                                       <p> Let us know what type of item you are listing, along with its key details and documents. You can add multiple items.</p>
 
+                                      <div className={`${styles.roh_vehicleDform_heighlight}`}>
                                       {/* CATEGORY SELECTION */}
                                       <div className="mb-2">
                                         <label className={styles.formLabel}>Select a Category</label>
@@ -896,6 +897,7 @@ export default function BecomeAHostPage() {
                                           )}
                                         </div>
                                       )}
+                                        </div>
 
                                       {/* MODEL SELECTION */}
                                       {models[index]?.length > 0 && (
