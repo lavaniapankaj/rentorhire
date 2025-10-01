@@ -9,6 +9,8 @@ export default function VehicleDetailsForm({ index, item, formData, setFormData,
   /** useStaet for image preview */
   const [previews, setPreviews] = useState([]);
   const fileInputRef = useRef(null); // Reference for hidden file input
+  /** New state for address checkbox */
+  const [showAddress, setShowAddress] = useState(false);
 
 
   useEffect(() => {
@@ -292,62 +294,95 @@ export default function VehicleDetailsForm({ index, item, formData, setFormData,
       <label className={styles.formLabel}>Accessories</label>
       <textarea className={`${styles.formControl} ${styles.reFormF}`} name="accessories" placeholder="Accessories" value={item.details?.accessories || ""} onChange={(e) => handleDetailsChange(index, "accessories", e.target.value)}/>
       </div>
-      {/* Address */}
-       <div className={`${styles.row} ${styles.roh_fields}`}>
-      <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
-      <label className={styles.formLabel}>Address Line 1</label>
-        <input className={`${styles.formControl} ${styles.reFormF}`} type="text" name="address_1" placeholder="Address Line 1" value={item.details?.address_1 || ""} onChange={(e) => handleDetailsChange(index, "address_1", e.target.value)}/>
-        {errors.address_1 && (
-          <div style={{ color: "red", marginTop: "4px" }}>
-            <span>{errors.address_1}</span>
-          </div>
-        )}
-      </div>
-      <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
-      <label className={styles.formLabel}>Landmark</label>
-        <input className={`${styles.formControl} ${styles.reFormF}`} type="text" name="landmark" placeholder="Landmark" value={item.details?.landmark || ""} onChange={(e) => handleDetailsChange(index, "landmark", e.target.value)}/>
-        {errors.landmark && (
-          <div style={{ color: "red", marginTop: "4px" }}>
-            <span>{errors.landmark}</span>
-          </div>
-        )}
-      </div>
-      </div>
-       <div className={`${styles.row} ${styles.roh_fields}`}>
-      <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
-      <label className={styles.formLabel}>State</label>
-        <input className={`${styles.formControl} ${styles.reFormF}`} type="text" name="item_state" placeholder="State" value={item.details?.item_state || ""} onChange={(e) => handleDetailsChange(index, "item_state", e.target.value)}/>
-        {errors.item_state && (
-          <div style={{ color: "red", marginTop: "4px" }}>
-            <span>{errors.item_state}</span>
-          </div>
-        )}
-      </div>
-      <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
-      <label className={styles.formLabel}>City</label>
-        <input className={`${styles.formControl} ${styles.reFormF}`} type="text" name="city" placeholder="City" value={item.details?.city || ""} onChange={(e) => handleDetailsChange(index, "city", e.target.value)}/>
-        {errors.city && (
-          <div style={{ color: "red", marginTop: "4px" }}>
-            <span>{errors.city}</span>
-          </div>
-        )}
-      </div>
-      </div>
-      <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
-      <label className={styles.formLabel}>Pincode</label>
-        <input className={`${styles.formControl} ${styles.reFormF}`} type="number" name="pincode" placeholder="Pincode" value={item.details?.pincode || ""} onChange={(e) => handleDetailsChange(index, "pincode", e.target.value)}/>
-        {errors.pincode && (
-          <div style={{ color: "red", marginTop: "4px" }}>
-            <span>{errors.pincode}</span>
-          </div>
-        )}
-      </div>
 
       {/* Instructions */}
       <div>
       <label className={styles.formLabel}>Booking Instructions</label>
       <textarea className={`${styles.formControl} ${styles.reFormF}`} name="booking_instructions" placeholder="Booking Instructions" value={item.details?.booking_instructions || ""} onChange={(e) => handleDetailsChange(index, "booking_instructions", e.target.value)}/>
       </div>
+      {/* Checkbox for Address */}
+      <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
+        <label className={styles.formLabel}>
+          <input
+            type="checkbox"
+            checked={showAddress}
+            onChange={(e) => setShowAddress(e.target.checked)}
+            style={{ marginRight: "8px" }}
+          />
+          Vehicle is at a different location
+        </label>
+      </div>
+      {/* Conditional Address Fields */}
+      {showAddress && (
+        <>
+          <div className={`${styles.row} ${styles.roh_fields}`}>
+            <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
+              <label className={styles.formLabel}>Address Line 1</label>
+              <input
+                className={`${styles.formControl} ${styles.reFormF}`}
+                type="text"
+                name="address_1"
+                placeholder="Address Line 1"
+                value={item.details?.address_1 || ""}
+                onChange={(e) => handleDetailsChange(index, "address_1", e.target.value)}
+              />
+              {errors.address_1 && <div style={{ color: "red" }}>{errors.address_1}</div>}
+            </div>
+            <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
+              <label className={styles.formLabel}>Landmark</label>
+              <input
+                className={`${styles.formControl} ${styles.reFormF}`}
+                type="text"
+                name="landmark"
+                placeholder="Landmark"
+                value={item.details?.landmark || ""}
+                onChange={(e) => handleDetailsChange(index, "landmark", e.target.value)}
+              />
+              {errors.landmark && <div style={{ color: "red" }}>{errors.landmark}</div>}
+            </div>
+          </div>
+
+          <div className={`${styles.row} ${styles.roh_fields}`}>
+            <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
+              <label className={styles.formLabel}>State</label>
+              <input
+                className={`${styles.formControl} ${styles.reFormF}`}
+                type="text"
+                name="item_state"
+                placeholder="State"
+                value={item.details?.item_state || ""}
+                onChange={(e) => handleDetailsChange(index, "item_state", e.target.value)}
+              />
+              {errors.item_state && <div style={{ color: "red" }}>{errors.item_state}</div>}
+            </div>
+            <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
+              <label className={styles.formLabel}>City</label>
+              <input
+                className={`${styles.formControl} ${styles.reFormF}`}
+                type="text"
+                name="city"
+                placeholder="City"
+                value={item.details?.city || ""}
+                onChange={(e) => handleDetailsChange(index, "city", e.target.value)}
+              />
+              {errors.city && <div style={{ color: "red" }}>{errors.city}</div>}
+            </div>
+          </div>
+
+          <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
+            <label className={styles.formLabel}>Pincode</label>
+            <input
+              className={`${styles.formControl} ${styles.reFormF}`}
+              type="number"
+              name="pincode"
+              placeholder="Pincode"
+              value={item.details?.pincode || ""}
+              onChange={(e) => handleDetailsChange(index, "pincode", e.target.value)}
+            />
+            {errors.pincode && <div style={{ color: "red" }}>{errors.pincode}</div>}
+          </div>
+        </>
+      )}
     </form>
   );
 }
