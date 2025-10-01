@@ -190,6 +190,9 @@ function hostModuleApi() {
               booking_instructions,
             } = details;
       
+            // console.log("item>>> ", item);
+            // return;
+
             if (!item_name) {
               throw new Error("Item name is required in each item");
             }
@@ -221,13 +224,14 @@ function hostModuleApi() {
             /** 2) Insert into roh_vehicle_details */
             const [vehicleResult] = await connection.query(
               `INSERT INTO roh_vehicle_details 
-                (service_provider_id, item_name, vehicle_description, category_id, tag_id, brand_id, model_id, image_ids, price_per_day, price_per_week, price_per_month, price_custom_day, item_status, admin_item_status, total_views, security_deposit, booking_terms, availability_status)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                (service_provider_id, item_name, vehicle_description, category_id, sub_cat_id, tag_id, brand_id, model_id, image_ids, price_per_day, price_per_week, price_per_month, price_custom_day, item_status, admin_item_status, total_views, security_deposit, booking_terms, availability_status)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
               [
                 service_provider_id,
                 item_name,
                 vehicle_description || null,
                 category || null, // 👈 using category id
+                subCategory || null, // subCategory id
                 tag, // tag_id (if needed later)
                 brand, // brand_id
                 model, // model_id

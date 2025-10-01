@@ -232,23 +232,23 @@ export default function BecomeAHostPage() {
           if (!item.details?.registration_number) {
             error.registration_number = "Please enter the registration number.";
           }
-          if (!item.details?.vehicle_type) {
-            error.vehicle_type = "Please select the vehicle type.";
-          }
-          if (!item.details?.address_1) {
-            error.address_1 = "Please enter the street address.";
-          }
-          if (!item.details?.item_state) {
-            error.item_state = "Please enter the status.";
-          }
-          if (!item.details?.city) {
-            error.city = "Please enter the city.";
-          }
-          if (!item.details?.pincode) {
-            error.pincode = "Please enter the pincode.";
-          } else if(item.details?.pincode.length !== 6){
-            error.pincode = "Please enter a valid 6-digit Pincode.";
-          }
+          // if (!item.details?.vehicle_type) {
+          //   error.vehicle_type = "Please select the vehicle type.";
+          // }
+          // if (!item.details?.address_1) {
+          //   error.address_1 = "Please enter the street address.";
+          // }
+          // if (!item.details?.item_state) {
+          //   error.item_state = "Please enter the status.";
+          // }
+          // if (!item.details?.city) {
+          //   error.city = "Please enter the city.";
+          // }
+          // if (!item.details?.pincode) {
+          //   error.pincode = "Please enter the pincode.";
+          // } else if(item.details?.pincode.length !== 6){
+          //   error.pincode = "Please enter a valid 6-digit Pincode.";
+          // }
         }
     
         errors[index] = error;
@@ -921,7 +921,7 @@ export default function BecomeAHostPage() {
 
                                     {currentStep === 3 &&
                                       formData.items.map((item, index) => {
-                                        if (item.category == 1 && item.subCategory) {
+                                        if (item.category == 1 && item.subCategory && item.brand && item.model) {
                                           return (
                                             <VehicleDetailsForm
                                               key={item.id ?? index}
@@ -991,10 +991,10 @@ export default function BecomeAHostPage() {
                                               <strong>Price/Day:</strong> ₹ {item.details?.price_per_day || "N/A"}<br/>
                                               <strong>Price/Week:</strong> ₹ {item.details?.price_per_week || "N/A"}<br/>
                                               <strong>Price/Month:</strong> ₹ {item.details?.price_per_month || "N/A"}<br/>
-                                              <strong>Custom Day Price:</strong> ₹ {item.details?.price_custom_day || "N/A"}<br/>
+                                              {/* <strong>Custom Day Price:</strong> ₹ {item.details?.price_custom_day || "N/A"}<br/> */}
                                               <strong>Security Deposit:</strong> ₹ {item.details?.security_deposit || "N/A"}<br/>
-                                              <strong>Booking Terms:</strong>{" "}
-                                              {item.details?.booking_terms || "N/A"}<br/>
+                                              {/* <strong>Booking Terms:</strong>{" "}
+                                              {item.details?.booking_terms || "N/A"}<br/> */}
                                               <strong>Availability:</strong>{" "}
                                               {item.details?.availability_status || "N/A"}<br/>
                                               <strong>Engine Type:</strong>{" "}
@@ -1003,30 +1003,30 @@ export default function BecomeAHostPage() {
                                               {item.details?.transmission_type || "N/A"}<br/>
                                               <strong>Fuel Consumption:</strong>{" "}
                                               {item.details?.fuel_consumption || "N/A"}<br/>
-                                              <strong>Seating Capacity:</strong>{" "}
-                                              {item.details?.seating_capacity || "N/A"}<br/>
-                                              <strong>Color:</strong> {item.details?.color || "N/A"}<br/>
-                                              <strong>Vehicle Age:</strong>{" "}
-                                              {item.details?.vehicle_age || "N/A"}<br/>
-                                              <strong>Mileage:</strong> {item.details?.mileage || "N/A"}<br/>
+                                              {/* <strong>Seating Capacity:</strong>{" "}
+                                              {item.details?.seating_capacity || "N/A"}<br/> */}
+                                              {/* <strong>Color:</strong> {item.details?.color || "N/A"}<br/> */}
+                                              {/* <strong>Vehicle Age:</strong>{" "}
+                                              {item.details?.vehicle_age || "N/A"}<br/> */}
+                                              {/* <strong>Mileage:</strong> {item.details?.mileage || "N/A"}<br/> */}
                                               <strong>Registration No:</strong>{" "}
                                               {item.details?.registration_number || "N/A"}<br/>
-                                              <strong>Insurance Validity:</strong>{" "}
-                                              {item.details?.insurance_validity || "N/A"}<br/>
-                                              <strong>Vehicle Type:</strong>{" "}
-                                              {item.details?.vehicle_type || "N/A"}<br/>
-                                              <strong>Rental Period:</strong>{" "}
-                                              {item.details?.rental_period || "N/A"}<br/>
+                                              {/* <strong>Insurance Validity:</strong>{" "}
+                                              {item.details?.insurance_validity || "N/A"}<br/> */}
+                                              {/* <strong>Vehicle Type:</strong>{" "}
+                                              {item.details?.vehicle_type || "N/A"}<br/> */}
+                                              {/* <strong>Rental Period:</strong>{" "}
+                                              {item.details?.rental_period || "N/A"}<br/> */}
                                               <strong>Condition:</strong>{" "}
                                               {item.details?.vehicle_condition || "N/A"}<br/>
-                                              <strong>Accessories:</strong>{" "}
-                                              {item.details?.accessories || "N/A"}<br/>
-                                              <strong>Pickup Address:</strong>{" "}
+                                              {/* <strong>Accessories:</strong>{" "}
+                                              {item.details?.accessories || "N/A"}<br/> */}
+                                              {/* <strong>Pickup Address:</strong>{" "}
                                               {item.details?.address_1 || "N/A"},{" "}
                                               {item.details?.landmark || "N/A"},{" "}
                                               {item.details?.city || "N/A"},{" "}
                                               {item.details?.item_state || "N/A"} -{" "}
-                                              {item.details?.pincode || "N/A"}<br />
+                                              {item.details?.pincode || "N/A"}<br /> */}
                                               <strong>Booking Instructions:</strong>{" "}
                                               {item.details?.booking_instructions || "N/A"}
                                             </p>
