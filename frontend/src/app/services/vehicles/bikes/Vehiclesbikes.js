@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./cars.module.css";
+import styles from "./bikes.module.css";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -12,7 +12,7 @@ function formatPriceINR(v) {
   return Number(v ?? 0).toLocaleString("en-IN");
 }
 
-export default function Vehiclescars() {
+export default function Vehiclesbikes() {
 
     const searchParams = useSearchParams();
     
@@ -82,7 +82,7 @@ export default function Vehiclescars() {
         setLoading(true);
         (async () => {
           try {
-            const url = new URL(`${API_BASE_URL}/getallvehiclescars`);
+            const url = new URL(`${API_BASE_URL}/getallvehiclesbikes`);
             url.searchParams.set("page", String(initialPage));
             url.searchParams.set("limit", String(limit));
             if (initialCategory) url.searchParams.set("category", initialCategory);
@@ -115,7 +115,7 @@ export default function Vehiclescars() {
               <div className="row justify-content-center">
                 <div className="col-12">
                   <div className={styles.main_heading}>
-                    <h1>Products</h1>
+                    <h1>Bikes</h1>
                   </div>
                 </div>
     

@@ -2,7 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import styles from "./home.module.css";
-import saveUserLocation from "../utils/saveLocation";
+// import saveUserLocation from "../utils/saveLocation";
 
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
@@ -15,10 +15,6 @@ export default function RentHomePage() {
   const [categories, setCategories] = useState([]);
   const [catLoading, setCatLoading] = useState(true);
 
-  // 🔹 Save user location on page load
-  useEffect(() => {
-    saveUserLocation();
-  }, []);
 
   // Rotate words
   useEffect(() => {
@@ -176,6 +172,7 @@ export default function RentHomePage() {
                                         value={parent.slug}
                                         data-child="false"
                                         data-parent={parent.slug}
+                                        className={`${styles.parent_category}`}
                                       >
                                         {parent.name}
                                       </option>
@@ -186,7 +183,8 @@ export default function RentHomePage() {
                                           data-child="true"
                                           data-parent={parent.slug}
                                         >
-                                          &nbsp;&nbsp;– {child.name}
+                                          {/* &nbsp;&nbsp;– {child.name} */}
+                                          {child.name}
                                         </option>
                                       ))}
                                     </React.Fragment>

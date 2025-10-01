@@ -1,6 +1,14 @@
 // utils/saveLocation.js
 export default async function saveUserLocation() {
   try {
+    /** Check if already saved */
+    const existing = localStorage.getItem("user_location");
+    if (existing) {
+      //console.log("Location already exists in localStorage:", JSON.parse(existing));
+      return;
+    }
+
+    /** Otherwise fetch new location */
     const res = await fetch("https://ipapi.co/json/");
     if (!res.ok) return;
 
@@ -18,8 +26,8 @@ export default async function saveUserLocation() {
     };
 
     localStorage.setItem("user_location", JSON.stringify(loc));
-    console.log("✅ Location saved:", loc);
+    console.log("Location saved:", loc);
   } catch (err) {
-    console.error("❌ Location fetch failed:", err);
+    console.error("Location fetch failed:", err);
   }
 }

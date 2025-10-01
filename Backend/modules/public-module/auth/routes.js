@@ -1,5 +1,5 @@
 const AuthController = require("./controller");
-const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetServiceProviderinfo} = require("./validation");
+const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetServiceProviderinfo} = require("./validation");
 
 
 /** Api for register user Coded by Raj July 07 2025 */
@@ -94,6 +94,15 @@ app.get(
     ValidateGetAllActivevehiclesCars,
     (req, res, next) => {
         AuthController.getActivevehiclesCars(req, res, next); /** Calling the controller */
+    }
+);
+
+/** Get all active vehicles bikes vehicles--bikes page - Coded by Vishnu Oct 01 2025 */
+app.get(
+    "/api/user/getallvehiclesbikes",
+    ValidateGetAllActivevehiclesBikes,
+    (req, res, next) => {
+        AuthController.getActivevehiclesBikes(req, res, next); /** Calling the controller */
     }
 );
 
