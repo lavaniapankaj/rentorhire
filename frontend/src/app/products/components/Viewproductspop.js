@@ -192,7 +192,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
                       <div className={`${styles.roh_left_slide_wrap}`}>
                         <div className={`${styles.roh_left_slide_inner}`}>
                           <div className={`${styles.roh_sidebar_pricing}`}>
-                            <h2>₹{item.price_per_day}<span>/Per Day</span></h2>
+                            <h2><sup><span>Starting </span></sup> ₹{item.price_per_day}<span>/Per Day</span></h2>
                             <div className={`${styles.roh_productPrice}`}>
                             <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
                               <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
@@ -210,35 +210,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
 
                           </div>
                           <div className={`${styles.roh_fleets_single_sidebar_list}`}>
-                            {/* <div className={`${styles.roh_productPrice}`}>
-                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
-                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
-                                <span>Per/Week:</span>
-                              </div>
-                              <span className="text-dark fw-medium">₹{item.price_per_week}</span>
-                            </div>
-                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
-                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
-                                <span>Per/Month:</span>
-                              </div>
-                              <span className="text-dark fw-medium">₹{item.price_per_month}</span>
-                            </div>
-                            </div> */}
-                            {/* <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
-
-                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
-                                <Image src="/images/product-popup/7-days.svg" alt="Door" width={28} height={20} />
-                                <span>Price/Week:</span>
-                              </div>
-                              <span className="text-dark fw-medium">₹{item.price_per_week}</span>
-                            </div>
-                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
-                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
-                                <Image src="/images/product-popup/30-days.svg" alt="Door" width={20} height={20} />
-                                <span>Price/Month:</span>
-                              </div>
-                              <span className="text-dark fw-medium">₹{item.price_per_month}</span>
-                            </div> */}
+                           
                             <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
                               <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
                                 <Image src="/images/product-popup/car-security-deposit.svg" alt="Door" width={20} height={20} />
@@ -256,10 +228,10 @@ export default function Viewproductspop({ triggerId, onClose }) {
                           </div>
                           {/* Service Provider Name OUTSIDE the sidebar-bottom-btns */}
                           {serviceProvider && (
-                            <div className="mb-2">
-                              <span className="">
-                                Service provider: {serviceProvider.first_name} {serviceProvider.last_name}
-                              </span>
+                            <div className={`${styles.roh_providerName}`}>
+                              <h6>
+                                Service provider: <span>{serviceProvider.first_name} {serviceProvider.last_name}</span>
+                              </h6>
                             </div>
                           )}
 

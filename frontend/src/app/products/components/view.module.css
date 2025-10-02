@@ -281,7 +281,17 @@
 .roh_productPrice .roh_content_layer {
   margin-bottom: 0px;
 }
-
+.roh_providerName{
+  margin-bottom: 10px;
+}
+.roh_providerName h6 {
+  font-size: 16px;font-weight: 600;
+  line-height: 1em;
+  font-family: "DM Sans", sans-serif;
+}
+.roh_providerName span {
+  font-weight: 400;
+}
 /*---------------------POP-up Right Inner Content CSS----------------------  */
 .roh_about_list_wrap {
   margin-top: 60px;

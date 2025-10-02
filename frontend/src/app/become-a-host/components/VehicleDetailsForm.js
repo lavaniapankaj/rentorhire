@@ -84,8 +84,9 @@ export default function VehicleDetailsForm({ index, item, formData, setFormData,
             <div className={`${styles.roh_imageUpload_btn}`}>
             <Image className={`${styles.roh_mainimage}`} src="/picture.svg" alt="Picture" width={70} height={70}/>
             <Image className={`${styles.roh_pick}`} src="/pick.svg" alt="Pick" width={25} height={25}/>
-            </div> <div className={`${styles.roh_chooseImage_innerText}`}> <p class="text-muted mb-2">Drag &amp; drop images here or <span class="text-info fw-bold">click to upload</span></p> 
-            <p class="text-muted mb-0">Support: JPG, PNG</p>
+            </div> 
+            <div className={`${styles.roh_chooseImage_innerText}`}> <p className="text-muted mb-2">Drag &amp; drop images here or <span className="text-info fw-bold">click to upload</span></p> 
+            <p className="text-muted mb-0">Support: JPG, PNG</p>
             </div>
             </div>
         </button>
@@ -301,16 +302,14 @@ export default function VehicleDetailsForm({ index, item, formData, setFormData,
       <textarea className={`${styles.formControl} ${styles.reFormF}`} name="booking_instructions" placeholder="Booking Instructions" value={item.details?.booking_instructions || ""} onChange={(e) => handleDetailsChange(index, "booking_instructions", e.target.value)}/>
       </div>
       {/* Checkbox for Address */}
-      <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
-        <label className={styles.formLabel}>
+      <div className={` d-flex ${styles.mb3} ${styles.roh_inoputField}`}>
           <input
             type="checkbox"
             checked={showAddress}
             onChange={(e) => setShowAddress(e.target.checked)}
-            style={{ marginRight: "8px" }}
+            style={{ marginRight: "8px" }} className="w-auto"
           />
-          Vehicle is at a different location
-        </label>
+        <label className={styles.formLabel}>< div className="fw-normal text-dark" style={{ color:"#000", fontSize:"14px" }}>Vehicle is at a different location</div></label>
       </div>
       {/* Conditional Address Fields */}
       {showAddress && (

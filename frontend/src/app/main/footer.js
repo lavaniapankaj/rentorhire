@@ -77,7 +77,7 @@ export default function Footer() {
           <div className={`col-6 col-md-3 col-lg-2`}>
             <h3 className={styles.roh_title}>Services</h3>
             <ul className={styles.roh_list}>
-              <li><Link href="/products/">Vehicles</Link></li>
+              <li><Link href="/services/vehicles">Vehicles</Link></li>
               <li><Link href="#">Electronics</Link></li>
               <li><Link href="#">Home Appliances</Link></li>
               <li><Link href="#">Events &amp; Party</Link></li>

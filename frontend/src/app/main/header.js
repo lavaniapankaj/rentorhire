@@ -40,10 +40,10 @@ const Header = () => {
                         </a>
                         <div className={`dropdown-menu ${styles.roh_dropdown_menu}`} aria-labelledby="navbarDropdown">
                           <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="/services/vehicles/">Vehicles</Link>
-                          <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="/services/electronics/">Electronics</Link>
-                          <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="/services/home-appliances/">Home Appliances</Link>
-                          <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="/services/tools-and-equipment/">Tools & Equipment</Link>
-                          <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="/services/events-and-party/">Events & Party</Link>
+                          <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Electronics</Link>
+                          <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Home Appliances</Link>
+                          <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Tools & Equipment</Link>
+                          <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Events & Party</Link>
                           <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Baby & Kids</Link>
                           <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Travel & Camping</Link>
                           <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Studio & Production</Link>
@@ -53,16 +53,16 @@ const Header = () => {
                       </li>
 
                       <li className={`nav-item`}>
-                        <a className={`nav-link ${styles.roh_navLink}`} href="/how-it-works/">How It Works</a>
+                        <a className={`nav-link ${styles.roh_navLink}`} href="#">How It Works</a>
                       </li>
                       <li className={`nav-item`}>
-                        <a className={`nav-link ${styles.roh_navLink}`} href="/faq/">FAQs</a>
+                        <a className={`nav-link ${styles.roh_navLink}`} href="#">FAQs</a>
                       </li>
                       <li className={`nav-item`}>
-                        <a className={`nav-link ${styles.roh_navLink}`} href="/about-us/">About Us</a>
+                        <a className={`nav-link ${styles.roh_navLink}`} href="#">About Us</a>
                       </li>
                       <li className={`nav-item`}>
-                        <a className={`nav-link ${styles.roh_navLink}`} href="/contact-us/">Contact Us</a>
+                        <a className={`nav-link ${styles.roh_navLink}`} href="#">Contact Us</a>
                       </li>
                     </ul>
                   </div>
@@ -139,9 +139,9 @@ const Header = () => {
                             </a>
                             <div className={`dropdown-menu ${styles.roh_dropdown_menu}`} aria-labelledby="navbarDropdown">
                               <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="/services/vehicles/">Vehicles</Link>
-                              <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="/services/electronics/">Electronics</Link>
-                              <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="/services/home-appliances/">Home Appliances</Link>
-                              <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="/services/tools-and-equipment/">Tools & Equipment</Link>
+                              <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Electronics</Link>
+                              <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Home Appliances</Link>
+                              <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Tools & Equipment</Link>
                               <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Events & Party</Link>
                               <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Baby & Kids</Link>
                               <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="#">Travel & Camping</Link>
