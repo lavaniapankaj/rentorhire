@@ -1,5 +1,10 @@
 /* frontend/src/app/home.module.css */
 
+.parent_category {
+  display: none;
+}
+
+
 /* Hero section */
 .hero_wrap {
   position: relative;

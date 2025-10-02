@@ -541,6 +541,131 @@ function authApi() {
     }
     };
 
+    /** Get all Active vehicles -- card on vehicles/bikes page - Coded by Vishnu Oct 01 2025 */
+    this.getActivevehiclesBikes = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 4;
+        const offset = (page - 1) * limit;
+
+        const qRaw = (req.query.q || "").trim();
+        const qLike = qRaw ? `%${qRaw}%` : null;
+
+        const locRaw = (req.query.location || "").trim();
+        const locTokens = locRaw ? locRaw.split(/\s+/).filter(Boolean) : [];
+
+        let whereClauses = [`d.item_status = 1 AND d.admin_item_status = 1`];
+        let params = [];
+
+        // only bikes (sub_cat_id = 3)
+        whereClauses.push(`d.sub_cat_id = ?`);
+        params.push(3);
+
+        if (qLike) {
+        whereClauses.push(`d.item_name LIKE ?`);
+        params.push(qLike);
+        }
+
+        if (locTokens.length) {
+        const groups = [];
+        for (const tok of locTokens) {
+            const like = `%${tok}%`;
+            if (/^\d{4,6}$/.test(tok)) {
+            groups.push(`(a.pincode LIKE ?)`);
+            params.push(like);
+            } else {
+            groups.push(`(
+                a.address_1 LIKE ? OR 
+                a.landmark LIKE ? OR 
+                a.item_state LIKE ? OR 
+                a.city LIKE ?
+            )`);
+            params.push(like, like, like, like);
+            }
+        }
+        whereClauses.push(`(${groups.join(" AND ")})`);
+        }
+
+        const whereSQL = `WHERE ${whereClauses.join(" AND ")}`;
+
+        // ---- FETCH PRODUCTS ----
+        const [products] = await pool.query(
+        `
+        SELECT 
+            d.id,
+            d.service_provider_id,
+            d.item_name,
+            d.category_id,
+            d.sub_cat_id,
+            d.image_ids,
+            d.item_status,
+            d.add_date,
+            d.availability_status,
+            d.price_per_day,
+            a.registration_number,
+            a.rental_period,
+            a.address_1,
+            a.landmark,
+            a.item_state,
+            a.city,
+            a.pincode
+        FROM roh_vehicle_details d
+        LEFT JOIN roh_vehicle_attributes a ON d.id = a.vehicle_id
+        ${whereSQL}
+        ORDER BY d.add_date DESC, d.id DESC
+        LIMIT ? OFFSET ?
+        `,
+        [...params, limit, offset]
+        );
+
+        if (!products || products.length === 0) {
+        return res.status(200).json({ products: [], total: 0 });
+        }
+
+        // ---- TOTAL COUNT ----
+        const [[{ total }]] = await pool.query(
+        `
+        SELECT COUNT(*) AS total 
+        FROM roh_vehicle_details d
+        LEFT JOIN roh_vehicle_attributes a ON d.id = a.vehicle_id
+        ${whereSQL}
+        `,
+        params
+        );
+
+        // ---- ENHANCE: media_gallery ----
+        const enhancedProducts = await Promise.all(
+        products.map(async (product) => {
+            let imageIds = [];
+            try {
+            imageIds = JSON.parse(product.image_ids || "[]");
+            } catch {
+            console.warn("Invalid JSON for product id:", product.id);
+            }
+
+            let mediaGallery = [];
+            if (imageIds.length > 0) {
+            const placeholders = imageIds.map(() => "?").join(",");
+            const [mediaResult] = await pool.query(
+                `SELECT id, file_name, file_path 
+                FROM roh_media_gallery 
+                WHERE id IN (${placeholders})`,
+                imageIds
+            );
+            mediaGallery = mediaResult;
+            }
+
+            return { ...product, media_gallery: mediaGallery };
+        })
+        );
+
+        return res.status(200).json({ products: enhancedProducts, total });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+    };
+
 
     /** Api to view single items - Coded by Vishnu August 30 2025 */
     this.getsingleListedItemsVie = async (req, res) => {

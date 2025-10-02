@@ -5,12 +5,19 @@ import Link from 'next/link';
 import '../globals.css';
 import styles from './header.module.css';
 import Image from 'next/image';
+import saveUserLocation from '../../utils/saveLocation';
 
 const Header = () => {
   useEffect(() => {
     /** Load Bootstrap JS on client side for navbar toggles and dropdowns */
     import('bootstrap/dist/js/bootstrap.bundle.min.js');
   }, []);
+
+  // Save user location on page load
+  useEffect(() => {
+    saveUserLocation();
+  }, []);
+
 
   return (
     <>

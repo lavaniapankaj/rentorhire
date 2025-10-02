@@ -53,9 +53,6 @@ app.post(
 );
 
 
-
-
-
 /** Api to get all active parent category - Coded by Vishnu August 19 2025 */
 app.get(
     "/api/user/getallactivecategory",

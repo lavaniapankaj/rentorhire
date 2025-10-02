@@ -115,7 +115,7 @@ export default function Vehiclescars() {
               <div className="row justify-content-center">
                 <div className="col-12">
                   <div className={styles.main_heading}>
-                    <h1>Products</h1>
+                    <h1>Cars</h1>
                   </div>
                 </div>
     
