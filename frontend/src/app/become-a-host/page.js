@@ -548,6 +548,7 @@ export default function BecomeAHostPage() {
           fd.append(`items[${index}][details][rental_period]`, item.details?.rental_period || "");
           fd.append(`items[${index}][details][vehicle_condition]`, item.details?.vehicle_condition || "");
           fd.append(`items[${index}][details][accessories]`, item.details?.accessories || "");
+          fd.append(`items[${index}][details][other_location]`, item.details?.other_location || "");
           fd.append(`items[${index}][details][address_1]`, item.details?.address_1 || "");
           fd.append(`items[${index}][details][landmark]`, item.details?.landmark || "");
           fd.append(`items[${index}][details][city]`, item.details?.city || "");
@@ -1093,6 +1094,13 @@ export default function BecomeAHostPage() {
                                         </div>
                                       </div>
                                     </div>
+                                    <strong>Pickup Address:</strong>{" "}
+                                    {item.details?.address_1 || "N/A"},{" "}
+                                    {item.details?.landmark || "N/A"},{" "}
+                                    {item.details?.city || "N/A"},{" "}
+                                    {item.details?.item_state || "N/A"} -{" "}
+                                    {item.details?.pincode || "N/A"}<br />
+
                                     <div className="card-body d-none">
 
                                       <p className="card-text">

@@ -182,6 +182,7 @@ function hostModuleApi() {
               rental_period,
               vehicle_condition,
               accessories,
+              other_location,
               address_1,
               landmark,
               city,
@@ -190,9 +191,9 @@ function hostModuleApi() {
               booking_instructions,
             } = details;
       
-            // console.log("item>>> ", item);
-            // return;
-
+            // console.log("other_location>>> ", other_location);
+            // console.log("details>>> ", details);
+       
             if (!item_name) {
               throw new Error("Item name is required in each item");
             }
