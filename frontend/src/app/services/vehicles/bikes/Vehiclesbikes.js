@@ -78,32 +78,38 @@ export default function Vehiclesbikes() {
     
       // fetch products on first paint
       useEffect(() => {
-        let mounted = true;
-        setLoading(true);
-        (async () => {
-          try {
-            const url = new URL(`${API_BASE_URL}/getallvehiclesbikes`);
-            url.searchParams.set("page", String(initialPage));
-            url.searchParams.set("limit", String(limit));
-            if (initialCategory) url.searchParams.set("category", initialCategory);
-            if (initialQuery) url.searchParams.set("q", initialQuery);
-            if (initialLocation) url.searchParams.set("location", initialLocation);
-    
-            const res = await fetch(url.toString(), { cache: "no-store" });
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const data = await res.json();
-            if (!mounted) return;
-            setProducts(data?.products || []);
-            setTotal(Number(data?.total || 0));
-          } catch (e) {
-            console.error("Fetch products failed:", e);
-            if (mounted) { setProducts([]); setTotal(0); }
-          } finally {
-            if (mounted) setLoading(false);
-          }
-        })();
-        return () => { mounted = false; };
-      }, []); 
+          let mounted = true;
+          setLoading(true);
+          (async () => {
+            try {
+              const url = new URL(`${API_BASE_URL}/getallvehiclesbikes`);
+              url.searchParams.set("page", String(initialPage));
+              url.searchParams.set("limit", String(limit));
+              if (initialCategory) url.searchParams.set("category", initialCategory);
+              if (initialQuery) url.searchParams.set("q", initialQuery);
+              if (initialLocation) url.searchParams.set("location", initialLocation);
+      
+              /** Add user city from localStorage */
+              const loc = JSON.parse(localStorage.getItem("user_location") || "{}");
+              if (loc.city) {
+                url.searchParams.set("user_city", loc.city);
+              }
+      
+              const res = await fetch(url.toString(), { cache: "no-store" });
+              if (!res.ok) throw new Error(`HTTP ${res.status}`);
+              const data = await res.json();
+              if (!mounted) return;
+              setProducts(data?.products || []);
+              setTotal(Number(data?.total || 0));
+            } catch (e) {
+              console.error("Fetch products failed:", e);
+              if (mounted) { setProducts([]); setTotal(0); }
+            } finally {
+              if (mounted) setLoading(false);
+            }
+          })();
+          return () => { mounted = false; };
+      }, []);
     
       const categoryNameById = (id) =>
         categories.find((c) => String(c.id) === String(id))?.name ?? "Item";

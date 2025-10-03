@@ -429,10 +429,12 @@ function authApi() {
         const locRaw = (req.query.location || "").trim();
         const locTokens = locRaw ? locRaw.split(/\s+/).filter(Boolean) : [];
 
+        const userCity = (req.query.user_city || "").trim(); /** user city from query */
+
         let whereClauses = [`d.item_status = 1 AND d.admin_item_status = 1`];
         let params = [];
 
-        // only cars (sub_cat_id = 2)
+        /** only cars (sub_cat_id = 2) */
         whereClauses.push(`d.sub_cat_id = ?`);
         params.push(2);
 
@@ -487,10 +489,13 @@ function authApi() {
         FROM roh_vehicle_details d
         LEFT JOIN roh_vehicle_attributes a ON d.id = a.vehicle_id
         ${whereSQL}
-        ORDER BY d.add_date DESC, d.id DESC
+        ORDER BY 
+            CASE WHEN a.city = ? THEN 0 ELSE 1 END, 
+            d.add_date DESC, 
+            d.id DESC
         LIMIT ? OFFSET ?
         `,
-        [...params, limit, offset]
+        [...params, userCity, limit, offset] /** add userCity in params */
         );
 
         if (!products || products.length === 0) {
@@ -541,8 +546,9 @@ function authApi() {
     }
     };
 
+
     /** Get all Active vehicles -- card on vehicles/bikes page - Coded by Vishnu Oct 01 2025 */
-    this.getActivevehiclesBikes = async (req, res) => {
+   this.getActivevehiclesBikes = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 4;
@@ -553,6 +559,8 @@ function authApi() {
 
         const locRaw = (req.query.location || "").trim();
         const locTokens = locRaw ? locRaw.split(/\s+/).filter(Boolean) : [];
+
+        const userCity = (req.query.user_city || "").trim(); /** user city from query */
 
         let whereClauses = [`d.item_status = 1 AND d.admin_item_status = 1`];
         let params = [];
@@ -612,10 +620,13 @@ function authApi() {
         FROM roh_vehicle_details d
         LEFT JOIN roh_vehicle_attributes a ON d.id = a.vehicle_id
         ${whereSQL}
-        ORDER BY d.add_date DESC, d.id DESC
+        ORDER BY 
+            CASE WHEN a.city = ? THEN 0 ELSE 1 END, 
+            d.add_date DESC, 
+            d.id DESC
         LIMIT ? OFFSET ?
         `,
-        [...params, limit, offset]
+        [...params, userCity, limit, offset] /** add userCity in params */
         );
 
         if (!products || products.length === 0) {
@@ -665,6 +676,7 @@ function authApi() {
         return res.status(500).json({ message: "Internal server error" });
     }
     };
+
 
 
     /** Api to view single items - Coded by Vishnu August 30 2025 */

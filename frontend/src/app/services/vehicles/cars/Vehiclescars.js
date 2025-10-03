@@ -89,6 +89,12 @@ export default function Vehiclescars() {
         if (initialQuery) url.searchParams.set("q", initialQuery);
         if (initialLocation) url.searchParams.set("location", initialLocation);
 
+        /** Add user city from localStorage */
+        const loc = JSON.parse(localStorage.getItem("user_location") || "{}");
+        if (loc.city) {
+          url.searchParams.set("user_city", loc.city);
+        }
+
         const res = await fetch(url.toString(), { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
@@ -104,6 +110,7 @@ export default function Vehiclescars() {
     })();
     return () => { mounted = false; };
   }, []);
+
 
   const categoryNameById = (id) =>
     categories.find((c) => String(c.id) === String(id))?.name ?? "Item";
