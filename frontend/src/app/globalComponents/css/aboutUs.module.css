@@ -10,11 +10,11 @@
   box-shadow: 0 6px 14px rgba(255, 74, 22, .35);
   transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
 }
-.circl_btn button svg {
+.circl_btn button img {
   width: 20px;
   height: 20px;
 }
-.circl_btn button svg path {
+.circl_btn button img path {
   fill: #fff;
 }
 .star_title {
@@ -82,42 +82,97 @@
 }
 
 .body_img_egg {
-    background-image: url("https://webcarelogics.com/lokesh/assets/images/backsvg.svg");
+    background-image: url("https://webcarelogics.com/lokesh/assets/images/backimg.svg");
     background-position: 142px 59px;
     background-repeat: no-repeat;
     background-size: 51% 91%;
     padding-bottom: 111px;
    
 }
-.buttonCustom button {
-  background-color: #ff3c00;
-  color: #fff;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 30px;
-  font-weight: 600;
-  font-size: 15px;
-  transition: background 0.3s ease;
+.roh_redBtns .roh_circl_btn a,
+.roh_redBtns .roh_circl_btn a,
+.roh_redBtns .roh_button_custom a, .roh_redBtn a {
+    background: #FF3600;
+    color: #fff;
+    text-decoration: none;
+}
+.roh_redBtns .roh_button_custom a:hover{
+    color: #ffff;
+}
+.roh_button_custom a, .roh_redBtn a, .roh_whiteBtn a {
+    width: max-content;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    transition: all 0.2s;
+    padding: 9px 25px 9px 25px;
+    border-radius: 50px;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all .4s ease-in-out;
 }
 
-.buttonCustom button:hover {
-  background-color: #e23300;
+.roh_circl_btn a {
+    width: max-content;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    transition: all 0.2s;
+    padding: 5px;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all .3s ease-in-out;
 }
-.circl_btn button svg {
+
+.roh_circl_btn a img {
     width: 30px;
     height: 30px;
     transform: rotate(-30deg);
     transition: all .3s ease-in-out;
 }
-.circl_btn button:hover svg,
-.buttonCustom:hover~.circl_btn button svg {
+
+.roh_circl_btn a:hover img,
+.roh_button_custom:hover~.roh_circl_btn a img {
     transform: rotate(0deg);
 }
- .buttonCustom:hover~.circl_btn button,
- .circl_btn button:hover {
-    background: #000;
-    color: #fff;
+
+.roh_redBtns .roh_circl_btn a:hover,
+.roh_redBtns .roh_button_custom:hover~.roh_circl_btn a {
+    background-color: #000;
 }
+.roh_whiteBtns .roh_circl_btn a:hover,
+.roh_whiteBtns .roh_button_custom:hover~.roh_circl_btn a {
+    background-color: #FF3600;
+}
+.roh_iconBtn a {
+    background-color: #FF3600;
+    width: max-content;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 100px;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    transition: all .3s ease-in-out;
+}
+.roh_iconBtn a:hover {
+    background-color: #000;
+}
+.roh_iconBtn a img {
+    width: 30px;
+    height: 30px;
+    transition: all .3s ease-in-out;
+  }
 .about_media_list li:hover .back_circle::before {
     opacity: 70%;
 }
@@ -160,4 +215,17 @@
   letter-spacing: -0.2px;
   color: #0b1220;
   margin: 8px 0 5px;
+}
+
+
+@media screen and (max-width:768px) {
+    .roh_button_custom a, .roh_redBtn a, .roh_whiteBtn a {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+
+    .roh_circl_btn a img, .roh_iconBtn a img {
+        width: 20px;
+        height: 20px;
+    }
 }

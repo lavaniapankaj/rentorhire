@@ -245,7 +245,7 @@ export default function Vehiclescommercial() {
                 Explore our perfect and <br /> extensive fleet
               </h3>
     
-              <div className={`container-fluid px-2 px-md-3 px-lg-3 position-relative mt-5 ${styles.roh_container98}`}>
+              <div className={`container px-2 px-md-3 px-lg-3 position-relative mt-5`}>
                 <div className="row d-flex justify-content-start g-4">
                   {loading && (
                     <div className="col-12">
@@ -297,16 +297,12 @@ export default function Vehiclescommercial() {
                               <span className={styles.priceMuted}> /Per Day</span>
                             </div>
     
-                            <button
+                            <a
                               className={styles.ctaBtn}
                               aria-label={`View item ${p?.item_name ?? ""}`}
                               onClick={() => setSelectedId(p.id)}
-                            >
-                              <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4 16a1 1 0 0 1 1-1h22a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1z" />
-                                <path d="M17.293 6.293a1 1 0 0 1 1.414 0l9 9a1 1 0 0 1 0 1.414l-9 9a1 1 0 1 1-1.414-1.414L24.586 17l-7.293-7.293a1 1 0 0 1 0-1.414z" />
-                              </svg>
-                            </button>
+                            > <Image src="/arrow.svg" alt="Arrow" width={30} height={30}/>
+                            </a>
                           </div>
                         </div>
                       </div>

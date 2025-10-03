@@ -168,7 +168,7 @@
   width: 34px;
   transition: transform 0.3s ease-in-out;
 }
-.rent_search_btn button > svg {
+.rent_search_btn button > img {
   width: 34px;
   transition: transform 0.3s ease-in-out;
 }
@@ -209,11 +209,11 @@
 /* ===== Section wrapper ===== */
 
 
-.roh_container98 {
+/* .roh_container98 {
   max-width: 90%;
-}
+} */
 .fleetswrap_inner {
-  padding-block: 24px 40px;
+  padding-block: 48px 20px;
 }
 
 .fleets_wrap_main {
@@ -251,6 +251,7 @@
   transition: transform .18s ease, box-shadow .18s ease;
   background: #fff;
   height: 100%;
+  cursor: pointer;
 }
 
 .fleetscard:hover {
@@ -291,7 +292,13 @@
   padding: 6px 12px;
   border-radius: 999px;
 }
+.fleetscard:hover .ctaBtn {
+  background-color: #000;
 
+}
+.fleetscard:hover .ctaBtn img {
+  transform: rotate(0deg);
+}
 /* feature rows (icon + label on left, value on right) */
 .fleetscard :global(.feets_data_list) {
   color: #7a8a9a;              /* muted like screenshot */
@@ -323,16 +330,14 @@
 
 /* circular CTA on right */
 .circl_btn button {
-  width: 44px;
-  height: 44px;
+  padding: 5px;
   border-radius: 999px;
   border: none;
   display: grid;
   place-items: center;
-  background: #ff4a16;           /* orange */
+  background: #ff4a16;
   cursor: pointer;
-  box-shadow: 0 6px 14px rgba(255, 74, 22, .35);
-  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+  transition: transform .15s ease, background .15s ease, box-shadow .3s ease;
 }
 
 .circl_btn button:hover {
@@ -342,11 +347,11 @@
 }
 
 /* ensure arrow inside button looks white */
-.circl_btn button svg {
+.circl_btn button img {
   width: 20px;
   height: 20px;
 }
-.circl_btn button svg path {
+.circl_btn button img path {
   fill: #fff;
 }
 
@@ -376,15 +381,13 @@
 
 /* Round orange CTA button */
 .ctaBtn {
-  width: 44px;
-  height: 44px;
+  padding: 5px;
   border: 0;
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: #ff4a16;
+  background: #FF3600;
   cursor: pointer;
-  box-shadow: 0 6px 14px rgba(255, 74, 22, 0.35);
   transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
 }
 
@@ -398,13 +401,15 @@
 }
 
 /* Icon inside */
-.ctaBtn svg {
-  width: 18px;
-  height: 18px;
+.ctaBtn img {
+  width: 30px;
+  height: 30px;
   display: block;
+  transform: rotate(-30deg);
+  transition: all .3s ease-in-out;
 }
-.ctaBtn svg path {
-  fill: #fff;
+.ctaBtn img:hover{
+  transform: rotate(0deg);
 }
 
 /** Products page pagination */
@@ -468,4 +473,12 @@
 .rohproducts_btn_page:hover {
   background-color: #f0f0f0;
   transform: scale(1.05);
+}
+
+@media screen and (max-width: 768px) {
+  .ctaBtn img{
+    width: 20px;
+    height: 20px;
+  }
+
 }

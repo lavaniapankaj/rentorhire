@@ -20,6 +20,7 @@
   margin-inline: auto;
   text-align: center;
 }
+
 .main_heading h1 {
   font-size: 36px;
   color: var(--blackcolor);
@@ -27,6 +28,7 @@
   text-transform: uppercase;
   font-weight: 900;
 }
+
 .main_heading h2 {
   font-size: 23px;
   color: var(--blackcolor);
@@ -41,6 +43,7 @@
   position: relative;
   overflow: hidden;
 }
+
 .cdWordsWrapper b {
   position: absolute;
   top: 0;
@@ -48,6 +51,7 @@
   opacity: 0;
   white-space: nowrap;
 }
+
 .cdWordsWrapper b.isVisible {
   opacity: 1;
   position: relative;
@@ -57,12 +61,14 @@
   display: inline-block;
   white-space: nowrap;
 }
+
 .cdLetters i {
   display: inline-block;
   opacity: 0;
   transform: translateY(-20px);
   animation: waveIn 0.5s forwards;
 }
+
 @keyframes waveIn {
   to {
     opacity: 1;
@@ -75,6 +81,7 @@
   margin-top: 60px;
   position: relative;
 }
+
 .custom_searchbar {
   background-color: #ffffff;
   box-shadow: 0px 3px 25.16px 0.84px rgba(0, 0, 0, 0.09);
@@ -98,7 +105,8 @@
 }
 
 .category_in_wrap select {
-  appearance: none;          /* simple standard property */
+  appearance: none;
+  /* simple standard property */
   min-width: 170px;
   border: none;
   background-color: #fff;
@@ -129,6 +137,7 @@
   position: relative;
   font-weight: 700;
 }
+
 .whatoftype::after {
   position: absolute;
   content: '';
@@ -147,26 +156,30 @@
   justify-content: flex-end;
   align-items: center;
 }
+
 .rent_search_btn button {
   cursor: pointer;
-    font-weight: 700;
-    transition: all 0.2s;
-    padding: 11px 13px;
-    border-radius: 20px;
-    background: #2d2d2d;
-    border: 1px solid transparent;
-    display: flex;
-    align-items: center;
-    font-size: 15px;
+  font-weight: 700;
+  transition: all 0.2s;
+  padding: 11px 13px;
+  border-radius: 20px;
+  background: #2d2d2d;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
 }
+
 .rent_search_btn button:hover {
   background: #000;
 }
-.rent_search_btn button  img {
+
+.rent_search_btn button img {
   width: 34px;
   transition: transform 0.3s ease-in-out;
 }
-.rent_search_btn button > svg {
+
+.rent_search_btn button>img {
   width: 34px;
   transition: transform 0.3s ease-in-out;
 }
@@ -191,6 +204,7 @@
   margin: 20px 0;
   padding: 0;
 }
+
 .list_bottom li {
   list-style: none;
   padding-inline: 10px;
@@ -198,6 +212,7 @@
   font-size: 16px;
   text-transform: uppercase;
 }
+
 .list_bottom li:nth-child(2) {
   border-inline: solid 1px #8e8b8b;
 }
@@ -207,15 +222,16 @@
 /* ===== Section wrapper ===== */
 
 
-.roh_container98 {
+/* .roh_container98 {
   max-width: 90%;
-}
+} */
 .fleetswrap_inner {
-  padding-block: 24px 40px;
+  padding-block: 48px 20px;
 }
 
 .fleets_wrap_main {
-  max-width: none;   /* 1280px */
+  max-width: none;
+  /* 1280px */
   width: 100%;
   margin-inline: 0;
 }
@@ -224,6 +240,7 @@
 .star_box {
   margin-bottom: 8px;
 }
+
 .star_title {
   font-weight: 600;
   font-size: 14px;
@@ -249,6 +266,7 @@
   transition: transform .18s ease, box-shadow .18s ease;
   background: #fff;
   height: 100%;
+  cursor: pointer;
 }
 
 .fleetscard:hover {
@@ -290,12 +308,23 @@
   border-radius: 999px;
 }
 
+.fleetscard:hover .ctaBtn {
+  background-color: #000;
+
+}
+
+.fleetscard:hover .ctaBtn img {
+  transform: rotate(0deg);
+}
+
 /* feature rows (icon + label on left, value on right) */
 .fleetscard :global(.feets_data_list) {
-  color: #7a8a9a;              /* muted like screenshot */
+  color: #7a8a9a;
+  /* muted like screenshot */
   font-weight: 600;
   font-size: 16px;
 }
+
 .fleetscard :global(.feets_data_list img) {
   width: 20px;
   height: 20px;
@@ -312,6 +341,7 @@
   font-weight: 900;
   color: #0b1220;
 }
+
 .priceMuted {
   font-size: 16px;
   font-weight: 600;
@@ -321,30 +351,29 @@
 
 /* circular CTA on right */
 .circl_btn button {
-  width: 44px;
-  height: 44px;
+  padding: 5px;
   border-radius: 999px;
   border: none;
   display: grid;
   place-items: center;
-  background: #ff4a16;           /* orange */
+  background: #ff4a16;
   cursor: pointer;
-  box-shadow: 0 6px 14px rgba(255, 74, 22, .35);
-  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+  transition: transform .15s ease, background .15s ease, box-shadow .3s ease;
 }
 
 .circl_btn button:hover {
   transform: translateY(-1px);
   background: #000;
-  box-shadow: 0 10px 20px rgba(0,0,0,.15);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .15);
 }
 
 /* ensure arrow inside button looks white */
-.circl_btn button svg {
+.circl_btn button img {
   width: 20px;
   height: 20px;
 }
-.circl_btn button svg path {
+
+.circl_btn button img path {
   fill: #fff;
 }
 
@@ -352,37 +381,45 @@
 .fleetswrap_inner :global(.owl-carousel .item) {
   padding: 12px;
 }
+
 .fleetswrap_inner :global(.owl-carousel .owl-stage-outer) {
   padding: 4px;
 }
 
 /* responsive tweaks */
 @media (max-width: 991px) {
-  .second_heading { font-size: 28px; }
- 
+  .second_heading {
+    font-size: 28px;
+  }
+
 }
+
 @media (max-width: 575px) {
-  .fleetscard { border-radius: 22px; }
-  .priceStrong { font-size: 24px; }
+  .fleetscard {
+    border-radius: 22px;
+  }
+
+  .priceStrong {
+    font-size: 24px;
+  }
 }
 
 /* CTA link wrapper (Next <Link>) */
 .ctaLink {
   text-decoration: none;
-  display: inline-grid;      /* size collapse na ho */
+  display: inline-grid;
+  /* size collapse na ho */
 }
 
 /* Round orange CTA button */
 .ctaBtn {
-  width: 44px;
-  height: 44px;
+  padding: 5px;
   border: 0;
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: #ff4a16;
+  background: #FF3600;
   cursor: pointer;
-  box-shadow: 0 6px 14px rgba(255, 74, 22, 0.35);
   transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
 }
 
@@ -391,18 +428,21 @@
 .ctaBtn:focus-visible {
   transform: translateY(-1px);
   background: #000;
-  box-shadow: 0 10px 20px rgba(0,0,0,.15);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .15);
   outline: none;
 }
 
 /* Icon inside */
-.ctaBtn svg {
-  width: 18px;
-  height: 18px;
+.ctaBtn img {
+  width: 30px;
+  height: 30px;
   display: block;
+  transform: rotate(-30deg);
+  transition: all .3s ease-in-out;
 }
-.ctaBtn svg path {
-  fill: #fff;
+
+.ctaBtn img:hover {
+  transform: rotate(0deg);
 }
 
 /** Products page pagination */
@@ -418,26 +458,33 @@
 
 /* General button styling */
 .rohproducts_btn {
-  background-color: #ff3c00; /* Background color */
-  color: #ffffff; /* Text color */
+  background-color: #ff3c00;
+  /* Background color */
+  color: #ffffff;
+  /* Text color */
   padding: 8px 16px;
-  border: 2px solid #ff3c00; /* Border color */
+  border: 2px solid #ff3c00;
+  /* Border color */
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .rohproducts_btn:hover {
-  background-color: #000000; /* Black on hover */
+  background-color: #000000;
+  /* Black on hover */
   border: #000000;
-  color: #ffffff; /* Text remains white on hover */
+  color: #ffffff;
+  /* Text remains white on hover */
 }
 
 /* Active page button */
 .rohproducts_btn_active {
-  background-color: #000000; /* Black color for active button */
+  background-color: #000000;
+  /* Black color for active button */
   color: #ffffff;
-  border: 2px solid #000000; /* Border color to match */
+  border: 2px solid #000000;
+  /* Border color to match */
 }
 
 /* Inactive page button */
@@ -466,4 +513,12 @@
 .rohproducts_btn_page:hover {
   background-color: #f0f0f0;
   transform: scale(1.05);
+}
+
+@media screen and (max-width: 768px) {
+  .ctaBtn img {
+    width: 20px;
+    height: 20px;
+  }
+
 }

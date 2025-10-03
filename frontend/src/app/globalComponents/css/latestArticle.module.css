@@ -4,7 +4,7 @@
 .articles_inner {
 
 }
-.circl_btn button {
+.circl_btn a {
     width: max-content;
     cursor: pointer;
     font-weight: 700;
@@ -18,23 +18,21 @@
     gap: 10px;
     transition: all .3s ease-in-out;
 }
-.circl_btn button svg {
+.circl_btn a img {
     width: 30px;
     height: 30px;
     transform: rotate(-30deg);
     transition: all .3s 
 ease-in-out;
 }
-.circl_btn button svg path {
-    fill: #fff;
-}
-.sub_card:hover .read_link .circl_btn button svg,
-.read-link:hover .circl_btn button svg,
-.main_card:hover .circl_btn button svg {
+
+.sub_card:hover .read_link .circl_btn a img,
+.read-link:hover .circl_btn a img,
+.main_card:hover .circl_btn a img {
     transform: rotate(0deg);
 }
 .read_link:hover .circl_btn button,
-.sub_card:hover .read_link .circl_btn button {
+.sub_card:hover .read_link .circl_btn a {
     background: #000;
     color: #fff;
 }
@@ -168,16 +166,16 @@ ease-in-out;
     height: 15px;
 }
 
-.read_link .circl_btn button {
+.read_link .circl_btn a {
     padding: 3px;
     background-color: #FF3600;
 }
 
-.read_more_btn .circl_btn button {
+.read_more_btn .circl_btn a {
     background-color: #FF3600;
 }
 
-.read_link .circl_btn button svg {
+.read_link .circl_btn a img {
     width: 18px;
     height: 18px;
 }
