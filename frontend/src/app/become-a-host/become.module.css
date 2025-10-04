@@ -428,7 +428,20 @@ gap: 10px;
   font-family:  "DM Sans", sans-serif;
   font-weight: 400;
 }
- 
+
+.roh_step4th_form {
+  padding: 20px 25px;
+  border-top: 1px solid #ccc;
+    margin-top: 20px;
+  }
+
+  .formCheckLabel .roh_aLink{
+    color: #FF3600;
+    text-decoration: none;
+  }
+  .formCheckLabel .roh_aLink:hover{
+    text-decoration: underline;
+  }
 @media screen and (max-width:991px) {
   .roh_beacome_host {
     padding: 100px 20px 50px 20px ;
@@ -460,6 +473,5 @@ flex-wrap: wrap;
 align-items: center;
 justify-content: center;
 gap: 10px;
-
 }
 }

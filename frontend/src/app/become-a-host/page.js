@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import VehicleDetailsForm from "./components/VehicleDetailsForm";
+import Link from "next/link";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
 
@@ -1094,8 +1095,8 @@ export default function BecomeAHostPage() {
                                     </div>
 
                                     {item.details?.other_location && (
-                                      <div>
-                                        <strong>Pickup Address:</strong> 
+                                      <div className={`${styles.roh_step4th_form}`}>
+                                        <strong>Pickup Address: </strong> 
                                         {item.details?.address_1 || "N/A"}, 
                                         {item.details?.landmark || "N/A"}, 
                                         {item.details?.city || "N/A"}, 
@@ -1164,7 +1165,7 @@ export default function BecomeAHostPage() {
 
                                 <label className={styles.formCheckLabel} htmlFor="termsCheck">
                                   I confirm that all the information provided is accurate and I agree to the
-                                  <a href="#">Terms of Listing</a>
+                                  <Link href="#" className={`${styles.roh_aLink}`}> Terms of Listing</Link>
                                 </label>
                                 {itemErrors.TermsAndConditionsAgree && (
                                   <div style={{ color: "red", marginTop: "4px", fontSize: "14px" }}> {itemErrors.TermsAndConditionsAgree} </div>

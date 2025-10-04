@@ -2,7 +2,8 @@
 
 }
 .articles_inner {
-
+padding-top: 3rem;
+padding-bottom: 3rem;
 }
 .circl_btn a {
     width: max-content;

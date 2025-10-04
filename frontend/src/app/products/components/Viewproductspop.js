@@ -421,7 +421,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
                           </li>
                         </ul>
                       </div>
-                      <div className={`${styles.roh_general_info_wrap}`}>
+                      <div className={` ${styles.roh_general_info_wrap}`}>
                         <div className="star_box">
                           <div className="star_inner d-flex align-items-center gap-1">
                             <Image src="/star.svg" alt="Star" width={19} height={17} />
@@ -471,7 +471,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
 
                         </ul>
                       </div>
-                      <div className={`${styles.roh_general_info_twowrap}`}>
+                      <div className={`d-none ${styles.roh_general_info_twowrap}`}>
                         <div className="star_box">
                           <div className="star_inner d-flex align-items-center gap-1">
                             <Image src="/star.svg" alt="Star" width={19} height={17} />

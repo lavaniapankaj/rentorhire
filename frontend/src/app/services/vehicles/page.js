@@ -28,20 +28,20 @@ export default function Vechicles() {
                 {/* about us component */}
                 <AboutUs/>
 
-                {/* latest artical component */}
-                <LatestArtical/>
-                
                 {/* Testimonial component */}
                 <Testimonials/>
                 
+                {/* latest artical component */}
+                <LatestArtical/>                
+                
                 {/* why choose us component */}
                 <WhyChooseUs/>
-                
-                {/* need help component */}
-                <NeedHelp/>
 
                 {/* ready to ride component */}
                 <ReadyToRide/>
+                
+                {/* need help component */}
+                <NeedHelp/>
 
             </div>
         </>
