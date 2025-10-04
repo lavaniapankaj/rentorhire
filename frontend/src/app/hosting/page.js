@@ -4,7 +4,7 @@ import styles from "./hosting.module.css";
 import Hostingitems from "./components/Hostingitems";
 
 export default function BecomeAHosting() {
-  const [activeTab, setActiveTab] = useState("hostingHub");
+  const [activeTab, setActiveTab] = useState("listing");
 
   useEffect(() => {
     // Set full page background
@@ -24,34 +24,35 @@ export default function BecomeAHosting() {
 
   const renderTabContent = () => {
     switch (activeTab) {
-      case "hostingHub":
-        return <div className={styles.rohhostpnlhostinh_tabContent}>This is the Hosting Hub.</div>;
       case "listing":
-        return <div className={styles.rohhostpnlhostinh_tabContent}>
-          <Hostingitems />
-        </div>;
+        return (
+          <div className={styles.rohhostpnlhostinh_tabContent}>
+            <Hostingitems />
+          </div>
+        );
       case "calendar":
-        return <div className={styles.rohhostpnlhostinh_tabContent}>This is your Calendar.</div>;
+        return (
+          <div className={styles.rohhostpnlhostinh_tabContent}>
+            This is your Calendar.
+          </div>
+        );
       default:
-        return <div className={styles.rohhostpnlhostinh_tabContent}>Please select a tab.</div>;
+        return (
+          <div className={styles.rohhostpnlhostinh_tabContent}>
+            Please select a tab.
+          </div>
+        );
     }
   };
 
   return (
-    <div className={styles.rohhostpnlhostinh_container} style={{ backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10, padding: 30 }}>
+    <div
+      className={styles.rohhostpnlhostinh_container}
+      style={{ backgroundColor: "rgba(255,255,255,0.85)", borderRadius: 10, padding: 30 }}
+    >
       {/* Tabs */}
       <div className={styles.rohhostpnlhostinh_tabs} role="tablist" aria-label="Hosting navigation">
-        <div
-          role="tab"
-          tabIndex={0}
-          className={`${styles.rohhostpnlhostinh_tab} ${
-            activeTab === "hostingHub" ? styles.rohhostpnlhostinh_active : ""
-          }`}
-          onClick={() => setActiveTab("hostingHub")}
-          onKeyDown={(e) => e.key === "Enter" && setActiveTab("hostingHub")}
-        >
-          Hosting Hub
-        </div>
+
         <div
           role="tab"
           tabIndex={0}
@@ -63,6 +64,7 @@ export default function BecomeAHosting() {
         >
           Listing
         </div>
+
         <div
           role="tab"
           tabIndex={0}
@@ -74,10 +76,13 @@ export default function BecomeAHosting() {
         >
           Calendar
         </div>
+
       </div>
 
       {/* Tab Content */}
-      <div className={styles.rohhostpnlhostinh_tabContentWrapper}>{renderTabContent()}</div>
+      <div className={styles.rohhostpnlhostinh_tabContentWrapper}>
+        {renderTabContent()}
+      </div>
     </div>
   );
 }
