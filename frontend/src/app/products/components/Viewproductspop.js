@@ -192,19 +192,23 @@ export default function Viewproductspop({ triggerId, onClose }) {
                       <div className={`${styles.roh_left_slide_wrap}`}>
                         <div className={`${styles.roh_left_slide_inner}`}>
                           <div className={`${styles.roh_sidebar_pricing}`}>
-                            <h2><sup><span>Starting </span></sup> ₹{item.price_per_day}<span>/Per Day</span></h2>
+                            {/* <h2><sup><span>Starting </span></sup> ₹{item.price_per_day}<span>/Per Day</span></h2> */}
+                            <h2><sup><span>Starting </span></sup>₹{Number(item.price_per_day || 0) .toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                            <span>&nbsp;/Per Day</span>
+                          </h2>
+
                             <div className={`${styles.roh_productPrice}`}>
                             <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
                               <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
                                 <span>Per/Week:</span>
                               </div>
-                              <span className="text-dark fw-medium">₹{item.price_per_week}</span>
+                              <span className="text-dark fw-medium">₹{Number(item.price_per_week || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
                             </div>
                             <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
                               <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
                                 <span>Per/Month:</span>
                               </div>
-                              <span className="text-dark fw-medium">₹{item.price_per_month}</span>
+                              <span className="text-dark fw-medium">₹{Number(item.price_per_month || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
                             </div>
                             </div>
 
