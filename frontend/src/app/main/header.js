@@ -1,6 +1,5 @@
 'use client';
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import '../globals.css';
 import styles from './header.module.css';
@@ -8,16 +7,34 @@ import Image from 'next/image';
 import saveUserLocation from '../../utils/saveLocation';
 
 const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
-    /** Load Bootstrap JS on client side for navbar toggles and dropdowns */
     import('bootstrap/dist/js/bootstrap.bundle.min.js');
   }, []);
 
-  // Save user location on page load
+  /** Save user location on page load */
   useEffect(() => {
     saveUserLocation();
+
+    /** Check login from cookie */
+    const getCookie = (name) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    };
+
+    const authUser = getCookie('authUser');
+    setIsLoggedIn(!!authUser); /** true if cookie exists */
   }, []);
 
+  const handleLogout = () => {
+    if (confirm('Are you sure you want to log out?')) {
+      document.cookie = 'authToken=; Max-Age=0; path=/';
+      document.cookie = 'authUser=; Max-Age=0; path=/';
+      window.location.href = '/login';
+    }
+  };
 
   return (
     <>
@@ -109,14 +126,18 @@ const Header = () => {
                                   <a href="#">
                                     <Image src="/setting-lines.svg" alt="Setting" width={20} height={20} /> Settings </a>
                                 </li>
+                                {/* Show Login / Logout conditionally */}
+                                {!isLoggedIn ? (
                                 <li>
-                                  <a href="#">
+                                  <a href="/login">
                                     <Image src="/log-in.svg" alt="Log-In" width={20} height={20} /> Login </a>
                                 </li>
+                                 ) : (
                                 <li>
-                                  <a href="#">
+                                  <a onClick={handleLogout} >
                                     <Image src="/logout.svg" alt="Log-Out" width={20} height={20} /> Logout </a>
                                 </li>
+                                 )}
                               </ul>
                             </div>
                           </div>
