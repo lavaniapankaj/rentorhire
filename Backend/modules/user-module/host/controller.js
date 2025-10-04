@@ -190,10 +190,7 @@ function hostModuleApi() {
               pincode,
               booking_instructions,
             } = details;
-      
-            // console.log("other_location>>> ", other_location);
-            // console.log("details>>> ", details);
-       
+
             if (!item_name) {
               throw new Error("Item name is required in each item");
             }
@@ -252,36 +249,77 @@ function hostModuleApi() {
       
             const vehicle_id = vehicleResult.insertId;
       
-            /** 3) Insert into roh_vehicle_attributes */
+            // Create an array of values for the query
+            let queryValues = [
+              vehicle_id,
+              engine_type || null,
+              transmission_type || null,
+              fuel_consumption || null,
+              seating_capacity || null,
+              color || null,
+              vehicle_age || null,
+              mileage || null,
+              registration_number || null,
+              insurance_validity || null,
+              vehicle_type || null,
+              rental_period || null,
+              vehicle_condition || null,
+              accessories || null,
+              booking_instructions || null,  // Assuming `booking_instructions` is always included
+            ];
+
+            // Check if other_location is true
+            if (other_location) {
+              queryValues.push(address_1 || null);
+              queryValues.push(landmark || null);
+              queryValues.push(item_state || null);
+              queryValues.push(city || null);
+              queryValues.push(pincode || null);
+            } else {
+              // If other_location is false, push null for address fields
+              queryValues.push(null, null, null, null, null);
+            }
+            
+            /** 3) Insert into roh_vehicle_attributes */            
+            // Insert into roh_vehicle_attributes
             await connection.query(
               `INSERT INTO roh_vehicle_attributes
-                (vehicle_id, engine_type, transmission_type, fuel_consumption, seating_capacity, color, vehicle_age, mileage, registration_number, insurance_validity, vehicle_type, rental_period, vehicle_condition, accessories, address_1, landmark, item_state, city, pincode, booking_instructions)
+                (vehicle_id, engine_type, transmission_type, fuel_consumption, seating_capacity, color, vehicle_age, mileage, registration_number, insurance_validity, vehicle_type, rental_period, vehicle_condition, accessories, booking_instructions, address_1, landmark, item_state, city, pincode)
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-              [
-                vehicle_id,
-                engine_type || null,
-                transmission_type || null,
-                fuel_consumption || null,
-                seating_capacity || null,
-                color || null,
-                vehicle_age || null,
-                mileage || null,
-                registration_number || null,
-                insurance_validity || null,
-                vehicle_type || null,
-                rental_period || null,
-                vehicle_condition || null,
-                accessories || null,
-                address_1 || null,
-                landmark || null,
-                item_state || null,
-                city || null,
-                pincode || null,
-                booking_instructions || null,
-              ]
+              queryValues
             );
-      
+
             createdVehicles.push({ vehicle_id, image_ids: mediaIds });
+
+            // await connection.query(
+            //   `INSERT INTO roh_vehicle_attributes
+            //     (vehicle_id, engine_type, transmission_type, fuel_consumption, seating_capacity, color, vehicle_age, mileage, registration_number, insurance_validity, vehicle_type, rental_period, vehicle_condition, accessories, address_1, landmark, item_state, city, pincode, booking_instructions)
+            //   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            //   [
+            //     vehicle_id,
+            //     engine_type || null,
+            //     transmission_type || null,
+            //     fuel_consumption || null,
+            //     seating_capacity || null,
+            //     color || null,
+            //     vehicle_age || null,
+            //     mileage || null,
+            //     registration_number || null,
+            //     insurance_validity || null,
+            //     vehicle_type || null,
+            //     rental_period || null,
+            //     vehicle_condition || null,
+            //     accessories || null,
+            //     address_1 || null,
+            //     landmark || null,
+            //     item_state || null,
+            //     city || null,
+            //     pincode || null,
+            //     booking_instructions || null,
+            //   ]
+            // );
+      
+            // createdVehicles.push({ vehicle_id, image_ids: mediaIds });
           }
       
           /** Commit transaction */

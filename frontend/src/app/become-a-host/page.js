@@ -993,14 +993,12 @@ export default function BecomeAHostPage() {
                                                   <span className="text-dark fw-medium">₹{item.details?.price_per_month || "N/A"}</span>
                                                 </div>
                                               </div>
-
                                             </div>
-
                                           </div>
                                         </div>
                                       </div>
-                                      <div className="col-md-7 col-12"><h3 style={{ marginBottom: "10px" }}>{item.details?.item_name || "N/A"}</h3>
-
+                                      <div className="col-md-7 col-12">
+                                        <h3 style={{ marginBottom: "10px" }}>{item.details?.item_name || "N/A"}</h3>
                                         {/* Image section */}
                                         {formData.image_ids && formData.image_ids.length > 0 ? (
                                           <div className={styles.imageWrap}>
@@ -1010,8 +1008,8 @@ export default function BecomeAHostPage() {
                                           </div>
                                         ) : (
                                           <p>No images available</p>
-                                        )}</div>
-                                      
+                                        )}
+                                      </div>
                                     </div>
                                     <div className="row">
                                       <div className="col-md-12 col-12">
@@ -1094,15 +1092,19 @@ export default function BecomeAHostPage() {
                                         </div>
                                       </div>
                                     </div>
-                                    <strong>Pickup Address:</strong>{" "}
-                                    {item.details?.address_1 || "N/A"},{" "}
-                                    {item.details?.landmark || "N/A"},{" "}
-                                    {item.details?.city || "N/A"},{" "}
-                                    {item.details?.item_state || "N/A"} -{" "}
-                                    {item.details?.pincode || "N/A"}<br />
+
+                                    {item.details?.other_location && (
+                                      <div>
+                                        <strong>Pickup Address:</strong> 
+                                        {item.details?.address_1 || "N/A"}, 
+                                        {item.details?.landmark || "N/A"}, 
+                                        {item.details?.city || "N/A"}, 
+                                        {item.details?.item_state || "N/A"} - 
+                                        {item.details?.pincode || "N/A"}
+                                      </div>
+                                    )}
 
                                     <div className="card-body d-none">
-
                                       <p className="card-text">
                                         <strong>Category:</strong> {categoryName}<br />
                                         <strong>Sub Category:</strong> {subCategoryName}<br />

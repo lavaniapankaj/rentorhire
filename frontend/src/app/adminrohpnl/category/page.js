@@ -25,7 +25,6 @@ export default function ListCategoryPage() {
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  
   const [filters, setFilters] = useState({
     category_name: '',
   });

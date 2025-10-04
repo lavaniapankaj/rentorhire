@@ -29,6 +29,9 @@ export default function Sidebar() {
         {/* <li><a href="/adminrohpnl" className={styles.menuLink}>Dashboard</a></li> */}
         <li><a href="/adminrohpnl"     className={`${styles.menuLink} ${isActive('/adminrohpnl') ? styles.menuActive : ''}`}>Dashboard</a></li>
         <li><a href="/adminrohpnl/category" className={`${styles.menuLink} ${isActive('/adminrohpnl/category') ? styles.menuActive : ''}`}>Categories</a></li>
+        <li><a href="/adminrohpnl/brand" className={`${styles.menuLink} ${isActive('/adminrohpnl/brand') ? styles.menuActive : ''}`}>Brands</a></li>
+        <li><a href="/adminrohpnl/tag" className={`${styles.menuLink} ${isActive('/adminrohpnl/tag') ? styles.menuActive : ''}`}>Tags</a></li>
+        <li><a href="/adminrohpnl/model" className={`${styles.menuLink} ${isActive('/adminrohpnl/model') ? styles.menuActive : ''}`}>Models</a></li>
         <li><a href="#" className={`${styles.menuLink} ${isActive('/adminrohpnl/product') ? styles.menuActive : ''}`}>Products</a></li>
         <li><a href="/adminrohpnl/user" className={`${styles.menuLink} ${isActive('/adminrohpnl/user') ? styles.menuActive : ''}`}>Users</a></li>
         <li><a href="/adminrohpnl/role" className={`${styles.menuLink} ${isActive('/adminrohpnl/role') ? styles.menuActive : ''}`}>Roles</a></li>
