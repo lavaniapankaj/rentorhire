@@ -228,7 +228,7 @@ function hostModuleApi() {
                 service_provider_id,
                 item_name,
                 vehicle_description || null,
-                category || null, // 👈 using category id
+                category || null, //  using category id
                 subCategory || null, // subCategory id
                 tag, // tag_id (if needed later)
                 brand, // brand_id
