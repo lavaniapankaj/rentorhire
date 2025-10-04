@@ -220,7 +220,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
                                 <Image src="/images/product-popup/car-security-deposit.svg" alt="Door" width={20} height={20} />
                                 <span>Security Deposit:</span>
                               </div>
-                              <span className="text-dark fw-medium">₹{item.security_deposit}</span>
+                              <span className="text-dark fw-medium">₹{Number(item.security_deposit || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
                             </div>
                             <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
                               <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
