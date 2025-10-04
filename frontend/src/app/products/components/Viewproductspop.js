@@ -240,14 +240,14 @@ export default function Viewproductspop({ triggerId, onClose }) {
                           )}
 
                           <div className="sidebar-bottom-btns">
-                            <div className="btn_singlepage_wrap d-flex align-items-center flex-wrap justify-content-around gap-2">
+                            <div className="btn_singlepage_wrap d-flex align-items-center flex-wrap justify-content-start gap-2">
                               {serviceProvider ? (
                                 isAuthenticated ? (
                                   // Valid token → direct contact
                                   <div className="d-flex align-items-center justify-content-center roh_redBtns">
                                     <div className="roh_button_custom">
-                                      <Link href={`tel:${serviceProvider.phone_number}`}>
-                                        Contact ({serviceProvider.phone_number})
+                                      <Link href={`tel:${serviceProvider.phone_number}`}>Contact Us
+                                         {/* ({serviceProvider.phone_number}) */}
                                       </Link>
                                     </div>
                                     <div className="roh_circl_btn">
