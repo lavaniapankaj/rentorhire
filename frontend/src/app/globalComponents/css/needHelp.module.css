@@ -16,57 +16,8 @@
     font-weight: 700;
     line-height: 1.2em;
 }
-.button_custom button{
-    width: max-content;
-    cursor: pointer;
-    font-weight: 700;
-    transition: all 0.2s;
-    padding: 9px 25px 9px 25px;
-    border-radius: 50px;
-    border: 1px solid transparent;
-    display: flex;
-    align-items: center;
-    font-size: 15px;
-    gap: 10px;
-    transition: all .4s ease-in-out;
-    background: #FF3600;
-    color: #fff;
-}
-.circl_btn button {
-    width: max-content;
-    cursor: pointer;
-    font-weight: 700;
-    transition: all 0.2s;
-    padding: 5px;
-    border-radius: 50px;
-    border: 1px solid transparent;
-    display: flex;
-    background: #FF3600;
-    color: #fff;
-    align-items: center;
-    font-size: 15px;
-    gap: 10px;
-    transition: all .3s 
-ease-in-out;
-}
-.button_custom:hover~.circl_btn button, .circl_btn button:hover {
-    background: #000;
-    color: #fff;
-}
-.button_custom:hover~.circl_btn button svg {
-    transform: rotate(0deg);
-}
-.circl_btn button svg {
-    width: 30px;
-    height: 30px;
-    transform: rotate(-30deg);
-    transition: all .3s 
-ease-in-out;
-}
-.circl_btn button svg path {
-  fill: #fff;
-}
-	@media screen and (max-width: 768px) {
+
+@media screen and (max-width: 768px) {
     .help_wrap {
         padding: 15px;
     }

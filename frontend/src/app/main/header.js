@@ -48,7 +48,7 @@ const Header = () => {
             <div className={`row align-items-center d-flex justify-content-between`}>
               <div className={`col-4 col-md-6 col-lg-2 ${styles.roh_logo_block}`}>
                 <Link href="/">
-                  <Image className={styles.roh_logo} src="/images/global-imgs/site-logo.png" alt="Logo" width={100} height={36} />
+                  <Image className={styles.roh_logo} src="/images/global-imgs/roh_logo.svg" alt="Logo" width={100} height={36} />
                 </Link>
               </div>
               <div className={`col-2 col-md-2 col-lg-7 order-1 order-lg-0 ${styles.roh_desktop_headerNav}`}>
@@ -60,7 +60,7 @@ const Header = () => {
                       </li>
                       <li className={`nav-item dropdown ${styles.roh_dropdown}`}>
                         <a
-                          className={`nav-link dropdown_toggle ${styles.dropdown_toggle} ${styles.roh_navLink}`} href="#" id="navbarDropdown"> Services
+                          className={`nav-link dropdown_toggle ${styles.dropdown_toggle} ${styles.roh_navLink}`} href="/services" id="navbarDropdown"> Services
                         </a>
                         <div className={`dropdown-menu ${styles.roh_dropdown_menu}`} aria-labelledby="navbarDropdown">
                           <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="/services/vehicles/">Vehicles</Link>
@@ -153,7 +153,7 @@ const Header = () => {
                     </button>
                     <div className={`offcanvas offcanvas-start`} data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
                       <div className={`offcanvas-header ${styles.roh_offcanvas_header}`}>
-                        <Image className={styles.roh_logo} src="/images/global-imgs/site-logo.png" alt="Logo" width={100} height={36} />
+                        <Image className={styles.roh_logo} src="/images/global-imgs/roh_logo.svg" alt="Logo" width={100} height={36} />
                         <button type="button" className={`btn-close`} data-bs-dismiss="offcanvas" aria-label="Close"></button>
                       </div>
                       <div className={`offcanvas-body ${styles.roh_offcanvas_body}`}>
@@ -163,7 +163,7 @@ const Header = () => {
                           </li>
                           <li className={`nav-item dropdown ${styles.roh_dropdown}`}>
                             <a
-                              className={`nav-link dropdown_toggle ${styles.dropdown_toggle} ${styles.roh_navLink}`} href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" > Services
+                              className={`nav-link dropdown_toggle ${styles.dropdown_toggle} ${styles.roh_navLink}`} href="/services" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" > Services
                             </a>
                             <div className={`dropdown-menu ${styles.roh_dropdown_menu}`} aria-labelledby="navbarDropdown">
                               <Link className={`dropdown-item ${styles.roh_dropdown_item}`} href="/services/vehicles/">Vehicles</Link>

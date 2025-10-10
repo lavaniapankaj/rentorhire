@@ -229,6 +229,7 @@
   background-color: #FFF8F6;
   border-radius: 30px;
   padding: 40px;
+  border: 1px solid #ccc;
 }
 
 .roh_sidebar_pricing {
@@ -239,7 +240,7 @@
 
 .roh_sidebar_pricing h2 {
   font-family: "DM Sans", sans-serif;
-  font-size: 50px ;
+  font-size: 40px ;
 }
 
 .roh_sidebar_pricing h2 span {

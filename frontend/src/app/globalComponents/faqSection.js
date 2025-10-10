@@ -6,7 +6,7 @@ export default function FAQSection() {
 
     return (
         <>
-           <section className={`mt-5  ${styles.faq_wrap}`}>
+           <section className={`${styles.faq_wrap}`}>
       <div className={`py-5 ${styles.faq_inner}`}>
         <div className={styles.faq_wrap_main}>
           <div className="container  position-relative">

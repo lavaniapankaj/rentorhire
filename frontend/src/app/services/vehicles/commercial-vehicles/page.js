@@ -29,18 +29,18 @@ export default function CommercialPage() {
       {/* about us component */}
       <AboutUs />
 
+      {/* why choose us component */}
+      <WhyChooseUs />
+
+      {/* ready to ride component */}
+      <ReadyToRide />
+
       {/* latest artical component */}
       <LatestArtical />
 
 
-      {/* why choose us component */}
-      <WhyChooseUs />
-
       {/* need help component */}
       <NeedHelp />
-
-      {/* ready to ride component */}
-      <ReadyToRide />
 
     </>
   );

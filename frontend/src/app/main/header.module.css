@@ -146,6 +146,7 @@ header .roh_navBar .roh_dropdown_menu a.roh_dropdown_item:hover{
   font-size: 14px;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
   transition: all .3s ease-in-out;
 }
 .roh_adrop_box_wrap .roh_adrop_list li {

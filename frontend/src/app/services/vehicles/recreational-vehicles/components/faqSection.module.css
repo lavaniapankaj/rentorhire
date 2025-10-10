@@ -1,23 +1,15 @@
 .faq_inner {
-    margin-left: auto;
-    margin-right: auto;
+    margin:3rem auto;
     max-width: 96%;
 }
-
 
 .faq_inner {
     border-radius: 46px 46px 46px 46px;
     padding-top: 100px;
     padding-bottom: 100px;
-    padding-left: 10px;
-    padding-right: 10px;
     background-color: #FFF8F6;
 }
- .faq_inner{
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-left: 0; padding-right: 0;
-    }
+ 
     .faq_left_wrap {
     display: flex;
     justify-content: space-between;

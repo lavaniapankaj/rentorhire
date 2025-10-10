@@ -277,7 +277,7 @@ export default function Vehiclescommercial() {
     
                           <div className="d-flex justify-content-between text-secondary mb-2">
                             <div className="d-flex align-items-center gap-1 feets_data_list">
-                              <Image src="/images/homepg/helmet.svg" alt="icon" width={20} height={20} />
+                              <Image src="/rental-period.svg" alt="icon" width={20} height={20} />
                               <span>Rental Period</span>
                             </div>
                             <span className="text-dark fw-medium">{p?.rental_period ?? "-"}</span>
@@ -285,7 +285,7 @@ export default function Vehiclescommercial() {
     
                           <div className="d-flex justify-content-between text-secondary mb-4">
                             <div className="d-flex align-items-center gap-1 feets_data_list">
-                              <Image src="/images/homepg/pistons.svg" alt="icon" width={20} height={20} />
+                              <Image src="/car-availability.svg" alt="icon" width={20} height={20} />
                               <span>Availability</span>
                             </div>
                             <span className="text-dark fw-medium">{p?.availability_status ?? "-"}</span>

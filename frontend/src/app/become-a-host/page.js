@@ -975,7 +975,7 @@ export default function BecomeAHostPage() {
                                 return (
                                   <div key={idx} className={`${styles.mb3} ${styles.roh_step4Content} bg-transparent`}>
                                     <div className="row">
-                                    <div className="col-md-5 col-12">
+                                      <div className="col-md-5 col-12">
                                         <div className={`${styles.roh_priceRight_wrap}`}>
                                           <div className={`${styles.roh_priceRight_inner}`}>
                                             <div className={`${styles.roh_sidebar_pricing}`}>
@@ -1096,11 +1096,11 @@ export default function BecomeAHostPage() {
 
                                     {item.details?.other_location && (
                                       <div className={`${styles.roh_step4th_form}`}>
-                                        <strong>Pickup Address: </strong> 
-                                        {item.details?.address_1 || "N/A"}, 
-                                        {item.details?.landmark || "N/A"}, 
-                                        {item.details?.city || "N/A"}, 
-                                        {item.details?.item_state || "N/A"} - 
+                                        <strong>Pickup Address: </strong>
+                                        {item.details?.address_1 || "N/A"},
+                                        {item.details?.landmark || "N/A"},
+                                        {item.details?.city || "N/A"},
+                                        {item.details?.item_state || "N/A"} -
                                         {item.details?.pincode || "N/A"}
                                       </div>
                                     )}

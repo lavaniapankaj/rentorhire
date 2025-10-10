@@ -45,7 +45,7 @@ export default function LatestArtical() {
                 >
                   <div className={`${styles.main_carddate} ${styles.thedate}`}>
                     <Image
-                      src="https://webcarelogics.com/lokesh/assets/images/calendar_i.svg"
+                      src="/calendar_i.svg"
                       alt="Calendar Icon"
                       width={16}
                       height={16}

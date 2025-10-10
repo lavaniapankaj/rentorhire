@@ -236,7 +236,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
                           )}
 
                           <div className="sidebar-bottom-btns">
-                            <div className="btn_singlepage_wrap d-flex align-items-center flex-wrap justify-content-around gap-2">
+                            <div className="btn_singlepage_wrap d-flex align-items-center justify-content-start gap-2">
                               {serviceProvider ? (
                                 isAuthenticated ? (
                                   // Valid token → direct contact

@@ -19,7 +19,7 @@ export default function BikesPage() {
         <Vehiclesbikes />
       </Suspense>
 
-     
+
       {/* FAQ section component */}
       <FAQSection />
 

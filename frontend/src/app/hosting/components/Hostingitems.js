@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "../hosting.module.css";
+import Image from "next/image";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
 
@@ -67,9 +68,9 @@ const ImageSlider = ({ images = [] }) => {
 /* --------------- Main Component --------------- */
 export default function Hostingitemslist() {
   const [items, setItems] = useState([]);
-  const [pageLoading, setPageLoading] = useState(false);     
-  const [detailLoading, setDetailLoading] = useState(false); 
-  const [busyId, setBusyId] = useState(null);                
+  const [pageLoading, setPageLoading] = useState(false);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [busyId, setBusyId] = useState(null);
 
   const [selectedItem, setSelectedItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -327,26 +328,119 @@ export default function Hostingitemslist() {
                     </p>
                   );
                 })()}
-
                 <p><strong>Description:</strong> {selectedItem.vehicle_description}</p>
-                <p><strong>Category:</strong> {selectedItem.category_id}</p>
-                <p><strong>Brand:</strong> {selectedItem.brand_id}</p>
-                <p><strong>Model:</strong> {selectedItem.model_id}</p>
-                <p><strong>Price / Day:</strong> ₹{selectedItem.price_per_day}</p>
-                <p><strong>Price / Week:</strong> ₹{selectedItem.price_per_week}</p>
-                <p><strong>Price / Month:</strong> ₹{selectedItem.price_per_month}</p>
-                <p><strong>Security Deposit:</strong> ₹{selectedItem.security_deposit}</p>
-                <p><strong>Availability:</strong> {selectedItem.availability_status}</p>
-                <p><strong>Engine:</strong> {selectedItem.engine_type}</p>
-                <p><strong>Transmission:</strong> {selectedItem.transmission_type}</p>
-                <p><strong>Fuel Consumption:</strong> {selectedItem.fuel_consumption} km/l</p>
-                <p><strong>Seating Capacity:</strong> {selectedItem.seating_capacity}</p>
-                <p><strong>Color:</strong> {selectedItem.color}</p>
-                <p><strong>Vehicle Condition:</strong> {selectedItem.vehicle_condition}</p>
-                <p><strong>Rental Period:</strong> {selectedItem.rental_period}</p>
-                <p><strong>Address:</strong> {selectedItem.address_1}, {selectedItem.city}</p>
-                <p><strong>Pincode:</strong> {selectedItem.pincode}</p>
-                <p><strong>Booking Instructions:</strong> {selectedItem.booking_instructions}</p>
+                <div className={`${styles.roh_hosting_viewDetails_inner}`}>
+
+                  <div className={`${styles.roh_sidebar_pricing}`}>
+                    <h3><sup><span>Starting </span></sup> ₹{selectedItem.price_per_day}<span>/Per Day</span></h3>
+                    <div className={`${styles.roh_productPrice}`}>
+                      <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                        <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                          <span>Per/Week:</span>
+                        </div>
+                        <span className="text-dark fw-medium"> ₹{selectedItem.price_per_week}</span>
+                      </div>
+                      <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                        <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                          <span>Per/Month:</span>
+                        </div>
+                        <span className="text-dark fw-medium"> ₹{selectedItem.price_per_month}</span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div className={`${styles.roh_hostingOwner_info}`}>
+                    <ul className={`${styles.roh_check_list}`}>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/vehicle-category.svg" alt="Category" width={28} height={28} />
+                          <h6>Category: <span> {selectedItem.category_id}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/brand.svg" alt="Brand" width={28} height={28} />
+                          <h6>Brand: <span> {selectedItem.brand_id}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/vehicle-model.svg" alt="Model" width={28} height={28} />
+                          <h6>Model: <span> {selectedItem.model_id}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/images/product-popup/car-security-deposit.svg" alt="Security Deposit" width={28} height={28} />
+                          <h6>Security Deposit: <span> ₹{selectedItem.security_deposit}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/car-availability.svg" alt="Availability" width={28} height={28} />
+                          <h6>Availability: <span> {selectedItem.availability_status}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/images/product-popup/car-engine.svg" alt="Engine" width={28} height={28} />
+                          <h6>Engine: <span> {selectedItem.engine_type}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/images/product-popup/car-transmission.svg" alt="Transmission" width={28} height={28} />
+                          <h6>Transmission: <span> {selectedItem.transmission_type}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/images/product-popup/car-mileage.svg" alt="Fuel Consumption" width={28} height={28} />
+                          <h6>Fuel Consumption: <span> {selectedItem.fuel_consumption} km/l</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/images/product-popup/car-seats.svg" alt="Seating Capacity" width={28} height={28} />
+                          <h6>Seating Capacity: <span> {selectedItem.seating_capacity}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/images/product-popup/car-color.svg" alt="Color" width={28} height={28} />
+                          <h6>Color: <span> {selectedItem.color}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/images/product-popup/car-condition.svg" alt="Vehicle Condition" width={28} height={28} />
+                          <h6>Vehicle Condition: <span> {selectedItem.vehicle_condition}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/rental-period.svg" alt="Rental Period" width={28} height={28} />
+                          <h6>Rental Period: <span> {selectedItem.rental_period}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/location.svg" alt="Address" width={28} height={28} />
+                          <h6>Address: <span> {selectedItem.address_1}, {selectedItem.city}</span></h6>
+                        </div>
+                      </li>
+                      <li>
+                        <div className={`${styles.roh_featureList}`}>
+                          <Image src="/address-pincode.svg" alt="Pincode" width={28} height={28} />
+                          <h6>Pincode: <span> {selectedItem.pincode}</span></h6>
+                        </div>
+                      </li>
+                    
+                    </ul>
+                    
+                  </div>
+                    <p><strong>Booking Instructions:</strong> {selectedItem.booking_instructions}</p>
+                </div>
               </>
             ) : (
               <p>Something went wrong.</p>

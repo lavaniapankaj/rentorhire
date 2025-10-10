@@ -173,7 +173,7 @@
   padding: 30px;
   border-radius: 12px;
   width: 90%;
-  max-width: 640px;
+  max-width: 800px;
   max-height: 80vh;
   overflow-y: auto;
   position: relative;
@@ -185,7 +185,7 @@
   right: 15px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   cursor: pointer;
 }
 
@@ -232,10 +232,112 @@
 }
 
 
+/* -------RR CSS------------- */
+
+.roh_hosting_viewDetails_inner {
+  background-color: #FFF8F6;
+  padding: 25px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+}
+.roh_hostingOwner_info {
+  margin: 20px auto;
+}
+.roh_sidebar_pricing {
+  border-bottom: 1px solid #ECECEC;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+}
+
+.roh_sidebar_pricing h3 {
+  font-family: "DM Sans", sans-serif;
+  font-size: 40px ;
+}
+
+.roh_sidebar_pricing h3 span {
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #616161;
+}
+
+.roh_fleets_single_sidebar_list {
+  border-bottom: 1px solid #ECECEC;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+}
+
+.roh_feets_data_list span,
+.roh_content_layer span {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+}
+
+.roh_content_layer {
+  margin-bottom: 25px;
+}
+
+.roh_feets_data_list img {
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+}
+
+.roh_productPrice {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: dashed 1px #000;
+}
+.roh_productPrice .roh_content_layer {
+  margin-bottom: 0px;
+}
+.roh_check_list li {
+  list-style: none;
+}
+.roh_check_list li .roh_featureList img {
+  width: 28px;
+  height: 28px;
+}
+
+.roh_featureList, .roh_premiumFeaturelist {
+  text-decoration: none;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #000;
+}
+
+.roh_featureList h6 {
+  font-family: "DM Sans", sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+.roh_featureList span{
+  font-family:  "DM Sans", sans-serif;
+  font-weight: 400;
+}
+.roh_check_list {
+  padding: 0px;
+  margin: 0px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
 /* small screens */
 @media (max-width: 991px) {
   .rohhostpnlhostinh_container {
     margin:150px 20px 100px 20px;
+  }
+  .roh_check_list li .roh_featureList img {
+    width: 24px;
+    height: 24px;
+  }
+  .roh_featureList h6 {
+    font-size: 14px;
   }
  }
 
@@ -244,6 +346,7 @@
     margin:100px 20px 50px 20px;
     padding: 30px 15px 30px 15px !important; 
   }
+ 
   
 }
 
@@ -259,5 +362,9 @@
     padding: 0px;
     grid-template-columns: repeat(auto-fill, minmax(auto, 1fr));
   }
+  .roh_check_list {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 8px;
+    }
 }
 
