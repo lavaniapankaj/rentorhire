@@ -1,10 +1,24 @@
 "use client";
+import React, { useState } from "react";
 import NeedHelp from '../globalComponents/needHelp';
 import "../globals.css";
 import styles from '../vendor/vendorPage.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import ViewCatDtlPop from '../vendor/components/viewcatdtlpop';
 export default function VendorDetailsPage() {
+    const [showPopup, setShowPopup] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+
+    const handleCategoryClick = (category) => {
+        setSelectedCategory(category);
+        setShowPopup(true);
+    };
+
+    const closePopup = () => {
+        setShowPopup(false);
+        setSelectedCategory(null);
+    };
     return (
         <>
             {/* Vendor profile  */}
@@ -76,31 +90,69 @@ export default function VendorDetailsPage() {
                                             </li>
                                         </ul>
 
+                                        {/* Categories */}
                                         <div className={`${styles.roh_verndorService_category}`}>
-
-                                            <div className={styles.roh_categoryContent}>
-
-                                                <Link href="#" className={`${styles.roh_categoryBox}`}>
-                                                    <div className={`${styles.roh_back_circle}`}>
-                                                        <Image src="/bike-red-icon.svg" alt="Bike" width={60} height={60} />
-                                                    </div>
-                                                    Bike</Link>
-                                                <Link href="#" className={`${styles.roh_categoryBox}`}>
-                                                    <div className={`${styles.roh_back_circle}`}>
-                                                        <Image src="/scooty-red-icon.svg" alt="Scooty" width={60} height={60} />
-                                                    </div>
-                                                    Scooty</Link>
-                                                <Link href="#" className={`${styles.roh_categoryBox}`}>
-                                                    <div className={`${styles.roh_back_circle}`}>
-                                                        <Image src="/car-red-icon.svg" alt="Car" width={60} height={60} />
-                                                    </div> Car</Link>
-                                                <Link href="#" className={`${styles.roh_categoryBox}`}>
-                                                    <div className={`${styles.roh_back_circle}`}>
-                                                        <Image src="/suv-red-icon.svg" alt="SUV" width={60} height={60} />
-                                                    </div> SUV</Link>
+                                        <div className={styles.roh_categoryContent}>
+                                            <button
+                                            className={`${styles.roh_categoryBox}`}
+                                            onClick={() => handleCategoryClick("Bike")}
+                                            >
+                                            <div className={`${styles.roh_back_circle}`}>
+                                                <Image
+                                                src="/bike-red-icon.svg"
+                                                alt="Bike"
+                                                width={60}
+                                                height={60}
+                                                />
                                             </div>
+                                            Bike
+                                            </button>
 
+                                            <button
+                                            className={`${styles.roh_categoryBox}`}
+                                            onClick={() => handleCategoryClick("Scooty")}
+                                            >
+                                            <div className={`${styles.roh_back_circle}`}>
+                                                <Image
+                                                src="/scooty-red-icon.svg"
+                                                alt="Scooty"
+                                                width={60}
+                                                height={60}
+                                                />
+                                            </div>
+                                            Scooty
+                                            </button>
 
+                                            <button
+                                            className={`${styles.roh_categoryBox}`}
+                                            onClick={() => handleCategoryClick("Car")}
+                                            >
+                                            <div className={`${styles.roh_back_circle}`}>
+                                                <Image
+                                                src="/car-red-icon.svg"
+                                                alt="Car"
+                                                width={60}
+                                                height={60}
+                                                />
+                                            </div>
+                                            Car
+                                            </button>
+
+                                            <button
+                                            className={`${styles.roh_categoryBox}`}
+                                            onClick={() => handleCategoryClick("SUV")}
+                                            >
+                                            <div className={`${styles.roh_back_circle}`}>
+                                                <Image
+                                                src="/suv-red-icon.svg"
+                                                alt="SUV"
+                                                width={60}
+                                                height={60}
+                                                />
+                                            </div>
+                                            SUV
+                                            </button>
+                                        </div>
                                         </div>
 
 
@@ -370,7 +422,13 @@ export default function VendorDetailsPage() {
 
             {/* need help component */}
             <NeedHelp />
-
+            {/* Popup */}
+            {showPopup && (
+                <ViewCatDtlPop
+                category={selectedCategory}
+                onClose={closePopup}
+                />
+            )}
         </>
     )
 }
