@@ -112,7 +112,7 @@ ul.roh_solial_medialink li a:hover {
     gap: 15px;
 }
 
-.roh_categoryContent a {
+.roh_categoryContent button {
     display: flex;
     flex-direction: column;
     text-align: center;    
@@ -150,14 +150,15 @@ ul.roh_solial_medialink li a:hover {
 .roh_categoryContent a:hover .roh_back_circle::before{
     opacity: 40%;
 }
-a.roh_categoryBox {
+button.roh_categoryBox {
     box-shadow: 0 8px 24px rgba(255, 107, 107, 0.1);
     padding: 10px;
     border-radius: 8px;
     background-color: #fff;
     transition: all 0.3s ease-in-out;
+    border: none;
 }
-a.roh_categoryBox:hover {
+button.roh_categoryBox:hover {
     transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
