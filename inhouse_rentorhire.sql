@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 26, 2025 at 12:40 PM
+-- Generation Time: Oct 11, 2025 at 10:53 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -280,7 +280,9 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 (97, 'macajizeh.jpg', '/uploads/media/users/profile/', 'jpg', 1, '2025-09-17 13:06:01', '2025-09-17 13:08:46'),
 (98, 'photo-1614200179396-2bdb77ebf81b.jpeg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-19 07:13:21', '2025-09-19 07:13:21'),
 (99, 'e2b61196b57ac77201579eccad180a47-2948301858163471344.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-19 07:13:21', '2025-09-19 07:13:21'),
-(100, 'e2b61196b57ac77201579eccad180a47-2948301858163471344-1.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-22 06:35:50', '2025-09-22 06:35:50');
+(100, 'e2b61196b57ac77201579eccad180a47-2948301858163471344-1.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-22 06:35:50', '2025-09-22 06:35:50'),
+(101, 'e2b61196b57ac77201579eccad180a47-2948301858163471344-2.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-30 09:29:57', '2025-09-30 09:29:57'),
+(102, 'photo-1614200179396-2bdb77ebf81b-1.jpeg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-30 09:29:57', '2025-09-30 09:29:57');
 
 -- --------------------------------------------------------
 
@@ -316,6 +318,24 @@ INSERT INTO `roh_models` (`id`, `model_name`, `brand_id`, `tag_id`, `active`, `a
 (9, 'BMW S 1000 RR', 5, 0, 1, 1, 1, '2025-08-22 17:36:50', '2025-08-22 17:36:50'),
 (10, 'G310 RR', 5, 0, 1, 1, 1, '2025-08-22 17:37:39', '2025-08-22 17:37:39'),
 (11, 'i20', 6, 2, 1, 1, 1, '2025-08-25 17:21:03', '2025-08-25 17:21:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roh_posts`
+--
+
+CREATE TABLE `roh_posts` (
+  `id` int(11) NOT NULL,
+  `post_title` varchar(255) NOT NULL,
+  `post_slug` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `post_excerpt` text DEFAULT NULL,
+  `post_status` enum('draft','published','archived') DEFAULT 'draft',
+  `post_img_id` int(11) DEFAULT NULL,
+  `add_date` datetime DEFAULT current_timestamp(),
+  `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -521,7 +541,10 @@ INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `ema
 (61, 'tivakakone', 'Channing', 'Roth', 'wyjuwe@mailinator.com', '6281716438', '$2b$10$uNPd79F2GHqjIxY4LYQwa.ab721d.BCq4FauhPa9Oze0sGvtZbGcG', 2, NULL, NULL, '21 North Old Boulevard', 'Quaerat at accusamus', 'Ad nesciunt at opti', 'Est in dolor recusa', 737906, NULL, 0, 0, 1, 0, 1, '2025-09-17 12:55:28', '2025-09-17 12:55:28'),
 (62, 'julasu', 'Barry', 'Downs', 'macajizeh@mailinator.com', '9243441884', '$2b$10$8V0sHK4aRNx.b8ofH.2fh.QfOkV.x60j.ZLWsjsEa0n1R5.qRK20m', 2, '97', NULL, '80 Milton Road', 'Non consequatur Ips', 'Dignissimos aspernat', 'Consequat Recusanda', 384450, NULL, 0, 0, 1, 0, 1, '2025-09-17 13:06:01', '2025-09-17 13:06:01'),
 (63, 'hikip', 'Camden', 'Mcdaniel', 'fecomiqugi@mailinator.com', '5044132519', '$2b$10$.j.XQdONNfzXMEOQaJ5S0.kPUaSVUK3gQGR6chcZbeKBI6mjk03zq', 3, NULL, 'Car Rent Market MP', 'Laborum aliquam illo', 'Alias ex in amet om', 'Karnataka', 'Dolore assumenda dol', 302019, NULL, 0, 1, NULL, NULL, 0, '2025-09-19 07:10:29', '2025-09-25 12:17:18'),
-(64, 'gysoqasos', 'Penelope', 'Terry', 'foro@mailinator.com', '5128623573', '$2b$10$vps5ARpo8qzq.3jLpQqONeixGXPiAzElcq0wh88vwBO3mmLG/BYIC', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-25 12:17:58', '2025-09-25 12:19:06');
+(64, 'gysoqasos', 'Penelope', 'Terry', 'foro@mailinator.com', '5128623573', '$2b$10$vps5ARpo8qzq.3jLpQqONeixGXPiAzElcq0wh88vwBO3mmLG/BYIC', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-25 12:17:58', '2025-09-25 12:19:06'),
+(65, 'nenamat', 'Rina', 'Stephenson', 'gitabife@mailinator.com', '9568021864', '$2b$10$Yo9h0z6Q0X31gQkrTLkTW.WshI1EQ8seYV9gAiW3lAgQ0kjF3WMH6', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-26 11:12:02', '2025-09-26 11:12:14'),
+(66, 'bedaz', 'Lars', 'Vance', 'paxoriq@mailinator.com', '4849876089', '$2b$10$RRy1P/MYNMx628W12bbWAOZhZNwUMkoSTLSpzai7oGybpmdZ4DOwm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-26 12:28:22', '2025-09-26 12:28:33'),
+(67, 'kotox', 'Nomlanga', 'Battle', 'banabi@mailinator.com', '7422419233', '$2b$10$6SImg0Dri7tmWaoIXGKv/u8YjUk/ts6ajbxDzf0c9iiLC10poNUL2', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-26 12:29:44', '2025-09-26 12:29:59');
 
 -- --------------------------------------------------------
 
@@ -572,7 +595,10 @@ INSERT INTO `roh_vehicle_attributes` (`id`, `vehicle_id`, `engine_type`, `transm
 (23, 51, 'Hybrid', 'Manual', 84.00, 49, 'Voluptatibus non ist', 5, 54.00, '601', '2019-06-24', 'Economy', 'Daily', 'Refurbished', 'In cupidatat repelle', '80 White Oak Lane', 'Ex occaecat quis in ', 'Ad aspernatur dolore', 'Saepe non itaque est', 482222, 'Iste anim officiis e'),
 (24, 52, 'CNG', 'Manual', 28.00, 32, 'Facilis ad quaerat q', 16, 54.00, '394', '1983-02-20', 'Luxury', 'Weekly', 'Refurbished', 'Voluptates exercitat', '970 East Green New Court', 'Quis qui id consecte', 'Sint iste voluptatu', 'Ut explicabo Dolore', 924444, 'Et in rerum alias ma'),
 (25, 53, 'Diesel', 'Automatic', 40.00, 47, 'Tempore repellendus', 49, 24.00, '53', '1989-08-14', 'Standard', 'Daily', 'Refurbished', 'Dolorum enim sed ill', '59 South White Oak Boulevard', 'Amet reprehenderit', 'Rerum corporis optio', 'Neque officia volupt', 777779, 'Dolores illo volupta'),
-(26, 54, 'Hybrid', 'Manual', 80.00, 12, 'Dicta obcaecati veli', 90, 98.00, '439', '2019-08-11', 'Luxury', 'Daily', 'Used', 'Proident id et rem ', '22 Old Avenue', 'Qui deserunt cupidat', 'Proident magni quo ', 'Et error ut irure in', 222482, 'Sit ipsum dolorum v');
+(26, 54, 'Hybrid', 'Manual', 80.00, 12, 'Dicta obcaecati veli', 90, 98.00, '439', '2019-08-11', 'Luxury', 'Daily', 'Used', 'Proident id et rem ', '22 Old Avenue', 'Qui deserunt cupidat', 'Proident magni quo ', 'Et error ut irure in', 222482, 'Sit ipsum dolorum v'),
+(27, 55, 'CNG', 'Automatic', 44.00, 32, 'Non ab laudantium e', 2, 89.00, '11', '1975-06-02', 'Luxury', 'Custom', 'Refurbished', 'Omnis voluptatem atq', '473 First Road', 'Ea quo nostrud saepe', 'Beatae et non volupt', 'Autem quis fugiat o', 333342, 'Temporibus excepteur'),
+(28, 56, 'CNG', 'Automatic', 13.00, 1, 'Excepteur velit ea ', 16, 81.00, '323', '1974-10-13', 'Standard', 'Daily', 'Refurbished', 'Exercitation dolor q', '151 White First Extension', 'Mollit aliquip aut f', 'Obcaecati odit ut se', 'Quae ut deserunt sun', 279022, 'Quibusdam consequatu'),
+(29, 57, 'Electric', 'Manual', 18.00, 39, 'Corporis esse asperi', 41, 26.00, '977', '2018-05-07', 'Economy', 'Monthly', 'New', 'Quasi repudiandae ad', '684 Clarendon Street', 'Voluptatem consectet', 'Et in quisquam et ul', 'Dolor ea commodi in ', 812222, 'Totam sint quas veri');
 
 -- --------------------------------------------------------
 
@@ -624,7 +650,10 @@ INSERT INTO `roh_vehicle_details` (`id`, `service_provider_id`, `item_name`, `ve
 (51, 50, 'Price Conner', 'Aspernatur laborum d', 1, NULL, 1, 3, 6, '[92,93]', 937.00, 317.00, 834.00, 414.00, 1, 1, 0, 37.00, 'Aut quam iure ut ali', 'Available', '2025-09-15 17:07:29', '2025-09-15 17:07:29'),
 (52, 50, 'Keegan Castaneda', 'Rerum excepturi corp', 1, NULL, 1, 3, 6, '[95]', 87.00, 731.00, 670.00, 433.00, 1, 1, 0, 87.00, 'Quisquam beatae sapi', 'Unavailable', '2025-09-15 17:22:42', '2025-09-15 17:22:42'),
 (53, 63, 'Elliott Hoffman', 'Illo asperiores aper', 1, NULL, 1, 3, 6, '[98,99]', 713.00, 666.00, 846.00, 69.00, 1, 1, 0, 48.00, 'Quidem enim dolorem ', 'Unavailable', '2025-09-19 12:43:21', '2025-09-19 12:43:21'),
-(54, 50, 'Rudyard Valdez', 'Harum unde quasi fac', 1, NULL, 1, 3, 6, '[100]', 873.00, 117.00, 764.00, 675.00, 1, 1, 0, 53.00, 'Quibusdam doloremque', 'Booked', '2025-09-22 12:05:50', '2025-09-22 12:05:50');
+(54, 50, 'Rudyard Valdez', 'Harum unde quasi fac', 1, NULL, 1, 3, 6, '[100]', 873.00, 117.00, 764.00, 675.00, 1, 1, 0, 53.00, 'Quibusdam doloremque', 'Booked', '2025-09-22 12:05:50', '2025-09-22 12:05:50'),
+(55, 50, 'Ciara Campos', 'Est esse dolor unde', 1, NULL, 1, 3, 6, '[101,102]', 552.00, 539.00, 990.00, 646.00, 1, 1, 0, 85.00, 'Consequatur dolores', 'Available', '2025-09-30 14:59:57', '2025-09-30 14:59:57'),
+(56, 50, 'Maisie Singleton', 'Doloremque corrupti', 1, NULL, 1, 3, 6, '[]', 998.00, 944.00, 91.00, 24.00, 1, 1, 0, 10.00, 'Voluptatem Quae cor', 'Unavailable', '2025-10-01 17:53:27', '2025-10-01 17:53:27'),
+(57, 50, 'Fulton Compton', 'Animi atque odit ut', 1, NULL, 1, 3, 6, '[]', 639.00, 559.00, 63.00, 841.00, 1, 1, 0, 32.00, 'Voluptate do saepe a', 'Booked', '2025-10-01 17:55:27', '2025-10-01 17:55:27');
 
 --
 -- Indexes for dumped tables
@@ -660,6 +689,15 @@ ALTER TABLE `roh_media_gallery`
 --
 ALTER TABLE `roh_models`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `roh_posts`
+--
+ALTER TABLE `roh_posts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `post_slug` (`post_slug`),
+  ADD KEY `post_slug_2` (`post_slug`),
+  ADD KEY `post_status` (`post_status`);
 
 --
 -- Indexes for table `roh_roles`
@@ -732,13 +770,19 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `roh_models`
 --
 ALTER TABLE `roh_models`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `roh_posts`
+--
+ALTER TABLE `roh_posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
@@ -768,19 +812,19 @@ ALTER TABLE `roh_tags`
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`
 --
 ALTER TABLE `roh_vehicle_attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_details`
 --
 ALTER TABLE `roh_vehicle_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- Constraints for dumped tables
