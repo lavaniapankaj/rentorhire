@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 11, 2025 at 10:53 AM
+-- Generation Time: Oct 11, 2025 at 01:25 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -282,7 +282,8 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 (99, 'e2b61196b57ac77201579eccad180a47-2948301858163471344.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-19 07:13:21', '2025-09-19 07:13:21'),
 (100, 'e2b61196b57ac77201579eccad180a47-2948301858163471344-1.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-22 06:35:50', '2025-09-22 06:35:50'),
 (101, 'e2b61196b57ac77201579eccad180a47-2948301858163471344-2.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-30 09:29:57', '2025-09-30 09:29:57'),
-(102, 'photo-1614200179396-2bdb77ebf81b-1.jpeg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-30 09:29:57', '2025-09-30 09:29:57');
+(102, 'photo-1614200179396-2bdb77ebf81b-1.jpeg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-30 09:29:57', '2025-09-30 09:29:57'),
+(103, 'e2b61196b57ac77201579eccad180a47-2948301858163471344.jpg', '/uploads/media/post/', 'jpg', 1, '2025-10-11 09:46:16', '2025-10-11 09:46:16');
 
 -- --------------------------------------------------------
 
@@ -333,9 +334,66 @@ CREATE TABLE `roh_posts` (
   `post_excerpt` text DEFAULT NULL,
   `post_status` enum('draft','published','archived') DEFAULT 'draft',
   `post_img_id` int(11) DEFAULT NULL,
+  `cate_id` int(11) DEFAULT NULL,
   `add_date` datetime DEFAULT current_timestamp(),
   `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `roh_posts`
+--
+
+INSERT INTO `roh_posts` (`id`, `post_title`, `post_slug`, `description`, `post_excerpt`, `post_status`, `post_img_id`, `cate_id`, `add_date`, `edit_date`) VALUES
+(1, 'How to Maintain Your Car for Long Life', 'how-to-maintain-your-car-for-long-life', 'Learn essential car maintenance tips to extend the lifespan of your vehicle. From oil changes to tire rotation, this guide covers everything you need.', 'Essential car maintenance tips for long-lasting performance.', 'published', 103, 2, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(2, 'Top 10 Travel Destinations in India', 'top-10-travel-destinations-in-india', 'Explore the most beautiful places in India — from the backwaters of Kerala to the mountains of Himachal. Ideal for solo and family trips.', 'Best travel spots in India to visit this year.', 'published', 103, 3, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(3, 'Beginner’s Guide to WordPress Plugins', 'beginners-guide-to-wordpress-plugins', 'This post explains what WordPress plugins are, how they work, and which ones are essential for every beginner site.', 'Understand and use WordPress plugins effectively.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(4, 'Simple Exercises to Stay Fit at Home', 'simple-exercises-to-stay-fit-at-home', 'No gym? No problem! These 10 home workouts require no equipment and help you stay fit and active.', 'Home workouts you can do easily.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(5, '5 Signs Your Laptop Needs a Service', '5-signs-your-laptop-needs-a-service', 'Is your laptop slow or overheating? Check out these 5 warning signs that indicate your device might need a quick service.', 'When to get your laptop serviced.', 'published', 103, 2, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(6, 'The Future of Electric Vehicles', 'the-future-of-electric-vehicles', 'Electric vehicles are revolutionizing the automobile industry. Learn how EVs are shaping the future of sustainable transport.', 'EV trends and the future of transport.', 'published', 103, 2, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(7, 'Mastering SEO in 2025: Complete Guide', 'mastering-seo-in-2025-complete-guide', 'Stay ahead in search engine rankings with our comprehensive SEO guide for 2025. Includes keyword strategies and AI tools.', 'Updated SEO tips for 2025.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(8, 'Healthy Breakfast Ideas for Busy People', 'healthy-breakfast-ideas-for-busy-people', 'Short on time? Try these nutritious breakfast options that take under 10 minutes to prepare.', 'Quick and healthy breakfast recipes.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(9, 'Why Every Business Needs a Website', 'why-every-business-needs-a-website', 'A strong online presence is no longer optional. Discover how a professional website can boost your brand and sales.', 'Importance of having a business website.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(10, 'Top 7 Android Apps for Productivity', 'top-7-android-apps-for-productivity', 'Boost your daily productivity with these amazing Android apps that help manage tasks, notes, and time.', 'Best productivity apps for Android users.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(11, 'How to Start Freelancing in 2025', 'how-to-start-freelancing-in-2025', 'Freelancing is booming! Learn how to build your freelance profile, find clients, and earn from your skills.', 'Step-by-step guide to freelancing.', 'published', 103, 3, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(12, 'Difference Between AI and Machine Learning', 'difference-between-ai-and-machine-learning', 'Understand the real difference between Artificial Intelligence and Machine Learning in simple terms with practical examples.', 'AI vs ML explained clearly.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(13, 'How to Improve Website Loading Speed', 'how-to-improve-website-loading-speed', 'Website too slow? Follow these optimization techniques to make your site faster and improve user experience.', 'Boost your website performance.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(14, 'Budget-Friendly Interior Design Tips', 'budget-friendly-interior-design-tips', 'Make your home beautiful without breaking the bank. Simple ideas to redesign spaces on a budget.', 'Affordable home interior design ideas.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(15, 'Exploring the Himalayas: Travel Guide', 'exploring-the-himalayas-travel-guide', 'A complete guide for trekking and traveling in the Himalayas — what to pack, where to stay, and how to stay safe.', 'Trekking guide for the Himalayas.', 'published', 103, 3, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(16, 'Best Laptops for Developers in 2025', 'best-laptops-for-developers-in-2025', 'Looking for a perfect laptop for coding? Here’s a curated list of powerful machines ideal for developers and programmers.', 'Top laptops for developers this year.', 'published', 103, 2, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(17, '5-Minute Meditation Techniques for Focus', '5-minute-meditation-techniques-for-focus', 'Learn how to calm your mind and increase focus with these short meditation practices.', 'Quick meditation tips for better focus.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(18, 'WordPress Security Tips Every Site Needs', 'wordpress-security-tips-every-site-needs', 'Protect your WordPress website from hackers with these proven security measures.', 'Enhance WordPress security easily.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(19, 'Top 10 Coding Practices for Clean Code', 'top-10-coding-practices-for-clean-code', 'Write maintainable, readable, and scalable code by following these simple but effective coding practices.', 'Best practices for writing clean code.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(20, 'The Rise of Remote Work Culture', 'the-rise-of-remote-work-culture', 'Remote work is the new normal. Learn how businesses are adapting to flexible work models.', 'How remote work is reshaping industries.', 'published', 103, 3, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(21, 'How to Create a YouTube Channel', 'how-to-create-a-youtube-channel', 'Start your own YouTube journey with this easy setup guide for beginners. Learn about setup, branding, and monetization.', 'Step-by-step guide to starting on YouTube.', 'draft', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(22, 'Top 5 Marketing Trends for 2025', 'top-5-marketing-trends-for-2025', 'Stay ahead in digital marketing with these trends — from AI-based ads to personalized campaigns.', 'Latest digital marketing strategies.', 'published', 103, 3, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(23, 'Best Ways to Save Money Every Month', 'best-ways-to-save-money-every-month', 'Learn simple financial habits that can help you save more and spend smartly every month.', 'Easy monthly money-saving ideas.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(24, 'How to Optimize Images for Web', 'how-to-optimize-images-for-web', 'Improve your site speed by compressing and optimizing images the right way using free tools.', 'Guide to image optimization for web.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(25, 'Best Cameras for Beginners 2025', 'best-cameras-for-beginners-2025', 'If you’re new to photography, here’s a list of beginner-friendly cameras with great quality and features.', 'Top entry-level cameras to buy.', 'published', 103, 2, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(26, 'The Importance of Regular Health Checkups', 'the-importance-of-regular-health-checkups', 'Discover why regular medical checkups are essential to catch diseases early and stay healthy.', 'Stay healthy with regular checkups.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(27, 'Top Freelance Websites to Find Work', 'top-freelance-websites-to-find-work', 'Explore top platforms where freelancers can find high-paying clients and remote projects.', 'Find freelance jobs easily online.', 'published', 103, 3, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(28, 'Common WordPress Errors and Fixes', 'common-wordpress-errors-and-fixes', 'Encountering WordPress issues? Learn the common problems and how to fix them quickly.', 'Fix common WordPress site errors.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(29, 'How to Create an Online Portfolio', 'how-to-create-an-online-portfolio', 'Showcase your skills professionally by creating a strong online portfolio. Step-by-step process included.', 'Make an online portfolio easily.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(30, '10 Delicious Smoothie Recipes', '10-delicious-smoothie-recipes', 'Healthy and refreshing smoothie ideas you can make at home in minutes. Perfect for breakfast or post-workout.', 'Try these healthy smoothie recipes.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(31, 'Top Web Development Trends 2025', 'top-web-development-trends-2025', 'Discover the newest web technologies and frameworks dominating 2025.', 'Upcoming trends in web development.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(32, 'The Psychology of Productivity', 'the-psychology-of-productivity', 'Learn how your mind affects your ability to stay productive and how to train it for better focus.', 'Productivity and mindset explained.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(33, 'Easy Gardening Tips for Beginners', 'easy-gardening-tips-for-beginners', 'Turn your balcony or backyard into a green paradise with these easy gardening tips.', 'Simple steps to start gardening.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(34, 'Understanding Cryptocurrency Basics', 'understanding-cryptocurrency-basics', 'Get started with crypto by understanding what Bitcoin, Ethereum, and blockchain technology are.', 'A simple guide to cryptocurrency.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(35, 'Why Sleep is Important for Health', 'why-sleep-is-important-for-health', 'Sleep plays a vital role in maintaining health. Learn how to improve your sleep quality naturally.', 'The benefits of quality sleep.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(36, 'WordPress vs Shopify: Which is Better?', 'wordpress-vs-shopify-which-is-better', 'Choosing between WordPress and Shopify? Compare both platforms based on features, pricing, and scalability.', 'Ecommerce comparison: WP vs Shopify.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(37, 'Home Automation for Beginners', 'home-automation-for-beginners', 'Explore how smart home devices can make your daily life easier and more efficient.', 'Intro to smart home devices.', 'published', 103, 2, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(38, 'How to Stay Motivated Every Day', 'how-to-stay-motivated-every-day', 'Motivation fluctuates, but these daily habits can help you stay consistent and focused.', 'Daily habits for motivation.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(39, 'Top 10 WordPress Themes for 2025', 'top-10-wordpress-themes-for-2025', 'Looking for a modern, fast, and SEO-friendly WordPress theme? Here are the best picks of the year.', 'Best free and premium WordPress themes.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(40, 'Best Mobile Phones Under ₹20,000', 'best-mobile-phones-under-20000', 'Find the latest smartphones under ₹20,000 with top performance and camera quality.', 'Budget smartphone guide for 2025.', 'published', 103, 2, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(41, 'Importance of Regular Exercise', 'importance-of-regular-exercise', 'Exercise keeps your body and mind fit. Learn why you should make it a part of your routine.', 'Stay active with regular workouts.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(42, 'How to Learn Coding from Scratch', 'how-to-learn-coding-from-scratch', 'Start coding even if you have zero experience. Follow these simple steps and free resources.', 'Coding for beginners simplified.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(43, 'Creating a Blog that Earns', 'creating-a-blog-that-earns', 'Blogging can be a full-time career. Learn how to start, grow, and monetize your blog effectively.', 'Monetize your blog with these steps.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(44, 'Top Gadgets You Must Have in 2025', 'top-gadgets-you-must-have-in-2025', 'From smart glasses to foldable phones, here are the coolest gadgets you’ll want this year.', 'List of trending gadgets in 2025.', 'published', 103, 2, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(45, 'Boost Your Immune System Naturally', 'boost-your-immune-system-naturally', 'Simple lifestyle changes and foods that can naturally strengthen your immunity.', 'Stay strong with natural immunity tips.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(46, 'Essential Plugins for WooCommerce', 'essential-plugins-for-woocommerce', 'Enhance your WooCommerce store with these must-have plugins for better performance and sales.', 'Top WooCommerce plugins for growth.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(47, 'The Art of Time Management', 'the-art-of-time-management', 'Master time management to achieve more every day. Learn how to plan and prioritize effectively.', 'Practical tips for managing your time.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(48, 'Travel Packing Checklist', 'travel-packing-checklist', 'Never forget an essential item again! Use this travel checklist before every trip.', 'Your must-have travel packing list.', 'published', 103, 3, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(49, 'The Role of AI in Education', 'the-role-of-ai-in-education', 'Artificial Intelligence is transforming how students learn and teachers teach. Discover its impact.', 'AI and the future of education.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(50, 'Simple Ways to Reduce Plastic Waste', 'simple-ways-to-reduce-plastic-waste', 'Small actions can make a big difference. Learn easy ways to reduce plastic waste at home and office.', 'Reduce plastic waste effortlessly.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32');
 
 -- --------------------------------------------------------
 
@@ -770,7 +828,7 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `roh_models`
@@ -782,7 +840,7 @@ ALTER TABLE `roh_models`
 -- AUTO_INCREMENT for table `roh_posts`
 --
 ALTER TABLE `roh_posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
