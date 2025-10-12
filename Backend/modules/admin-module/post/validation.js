@@ -45,4 +45,5 @@ const ValidateaddnewPost = async (req, res, next) => {
 
 /** Get all posts list validation - Coded by Vishnu Oct 11, 2025 */
 
+
 module.exports = { ValidateaddnewPost };

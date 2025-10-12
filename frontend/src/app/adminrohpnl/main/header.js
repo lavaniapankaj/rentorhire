@@ -10,7 +10,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.logoWrapper}>
         <Link href="/adminrohpnl" className={styles.logo}>
-          RentOrHire
+          FindOnRent
         </Link>
       </div>
       <div className={styles.profileWrapper}>

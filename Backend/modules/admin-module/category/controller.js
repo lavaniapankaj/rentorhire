@@ -265,6 +265,22 @@ function CategoryApi() {
             return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
         }
     };
+
+    /** Geting the all active categories Coded by Vishnu Oct 11 2025 */
+    this.admingetAllActiveCate = async (req, res) => {
+        try {
+            const sql = `SELECT id, name FROM roh_categories WHERE active = 1`;
+            const [categoryList] = await pool.query(sql);
+    
+            return GLOBAL_SUCCESS_RESPONSE("Categories fetched successfully", {
+                categories: categoryList
+            }, res);
+    
+        } catch (err) {
+            console.error("Error fetching categories:", err);
+            return GLOBAL_ERROR_RESPONSE("Internal server error", err, res);
+        }
+    };
     
 }
 module.exports = new CategoryApi();

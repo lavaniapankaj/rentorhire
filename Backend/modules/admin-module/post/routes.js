@@ -46,9 +46,28 @@ app.post(
 /** API for get all posts - Coded by Vishnu Oct 11, 2025 */
 app.get(
   ADMIN_NAME + "/post/list",
-  // authMiddleware,  
+  authMiddleware,  
   (req, res, next) => 
     PostController.ListAllPosts(req, res, next)
 );
 
-/** API for get post by ID - Coded by Vishnu Oct 11, 2025 */
+/** API for view single post -Coded by Vishnu Oct 12, 2025 */
+app.post(
+  ADMIN_NAME + "/post/view",
+  authMiddleware,  
+  (req, res, next) => 
+    PostController.ViewSinglePost(req, res, next)
+);
+
+/** API for update single post -Coded by Vishnu Oct 12, 2025 */
+app.post(
+  ADMIN_NAME + "/post/edit",
+  authMiddleware,
+  upload.single('post_picture_file'), // multer will parse FormData
+  (req, res, next) => {
+    if (req.file) {
+      req.body.post_picture_url = req.file.filename; // attach uploaded filename
+    }
+    PostController.UpdateSinglePost(req, res, next);
+  }
+);

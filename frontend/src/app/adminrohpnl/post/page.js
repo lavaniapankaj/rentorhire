@@ -19,6 +19,13 @@ export default function ListPostsPage() {
   const [searchStatus, setSearchStatus] = useState('');
   const router = useRouter();
 
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [viewPostId, setViewPostId] = useState(null);
+  const [editPostId, setEditPostId] = useState(null);
+
+
+
+
   const fetchPosts = async (page = 1, title = '', status = '') => {
     setLoading(true);
     try {
@@ -83,10 +90,16 @@ return (
         <h2 className="fw-bold">All Posts</h2>
         <button
           className="btn btn-primary"
-          onClick={() => router.push('/admin/posts/add')}
+          onClick={() => setShowAddForm(true)}
         >
           + Add New Post
         </button>
+        {showAddForm && (
+          <AddPostForm
+            onClose={() => setShowAddForm(false)}
+            onSuccess={() => fetchPosts(page, searchTitle, searchStatus)}
+          />
+        )}
       </div>
 
       {/* ===== Search Form ===== */}
@@ -128,7 +141,7 @@ return (
                   <th>Slug</th>
                   <th>Status</th>
                   <th>Category</th>
-                  <th>Added On</th>
+                  <th>Publish</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -178,17 +191,32 @@ return (
                     </td>
                     <td>
                       <button
-                        className="btn btn-sm btn-outline-primary me-2"
-                        onClick={() => router.push(`/admin/posts/view/${post.id}`)}
-                      >
-                        View
-                      </button>
+                          className="btn btn-sm btn-outline-primary me-2"
+                          onClick={() => setViewPostId(post.id)}
+                        >
+                          View
+                        </button>
+
+                        {viewPostId && (
+                          <ViewPost
+                            postId={viewPostId}
+                            onClose={() => setViewPostId(null)}
+                          />
+                        )}
                       <button
                         className="btn btn-sm btn-outline-secondary"
-                        onClick={() => router.push(`/admin/posts/edit/${post.id}`)}
+                        onClick={() => setEditPostId(post.id)}
                       >
                         Edit
                       </button>
+
+                      {editPostId && (
+                        <EditPostForm
+                          postId={editPostId}
+                          onClose={() => setEditPostId(null)}
+                          onSuccess={() => fetchPosts(page, searchTitle, searchStatus)}
+                        />
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -222,4 +250,3 @@ return (
   );
 
 }
-

@@ -74,11 +74,22 @@ const validateGetCategory = (req, res, next) => {
     }
 };
 
+/** Get all active categories validations Coded by Vishnu Oct 11 2025 */
+const validateadminGetAllActiveCate = async (req, res, next) => {
+    try {
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
+
 // Export all validation functions
 module.exports = {
     validateCreateCategory,
     validateDetailCategory,
     validateDeleteCategory,
     validateUpdateCategory,
-    validateGetCategory
+    validateGetCategory,
+    validateadminGetAllActiveCate
 };
