@@ -161,10 +161,12 @@
   background: #000;
   box-shadow: 0 10px 20px rgba(0, 0, 0, .15);
 }
+
 .roh_fleetscard:hover .ctaBtn {
 
   background-color: #000000;
 }
+
 .roh_fleetscard:hover .ctaBtn img {
   transform: rotate(0deg);
 }
@@ -182,15 +184,22 @@
   padding: 20px;
 
 }
-.roh_listingMain  {
+
+.roh_listingMain {
   width: 100%;
   max-width: 450px;
+}
+
+.roh_listingMain {
+  width: 100%;
+  max-width: 100%;
 }
 
 /* -------------After Click on Listing Items Left side Move-------------  */
 .roh_vehicleListing_left {
   animation: slideLeft 0.2s ease-in-out forwards;
 }
+
 
 @keyframes slideLeft {
   from {
@@ -201,9 +210,11 @@
     transform: translateX(-10px);
   }
 }
-.roh_vehicleListing.roh_vehicleListing_left{
+
+.roh_vehicleListing.roh_vehicleListing_left {
   gap: 10px;
 }
+
 .roh_vehicleListing_left .roh_fleetscard {
   display: flex;
   flex-direction: row;
@@ -247,15 +258,243 @@
   margin-top: 0 !important;
   border-top: none !important;
 }
+
 .roh_backTolisting {
   display: none;
 }
+
 .roh_singleVehicle_detailsHeader {
   padding: 10px;
-  border-bottom: 1px solid #ccc;
-  
+  border-bottom: 1px solid #f0ecec;
+
 }
 
+.roh_singleVehicle_detailsInner_content {
+  margin-top: 50px;
+}
+
+.roh_left_slide_inner {
+  background-color: #FFF8F6;
+  border-radius: 30px;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.roh_sidebar_pricing h3 {
+  font-family: "DM Sans", sans-serif;
+  font-size: 40px;
+}
+
+.roh_sidebar_pricing h3 span {
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #616161;
+}
+
+.roh_feets_data_list span,
+.roh_content_layer span {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+}
+
+.roh_content_layer {
+  margin-bottom: 10px;
+}
+
+.roh_feets_data_list img {
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+}
+
+.roh_productPrice {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: dashed 1px #000;
+}
+
+.roh_productPrice .roh_content_layer {
+  margin-bottom: 0px;
+}
+
+.roh_Vehicle_detailsInner_contentRight {
+  background-color: #FFF8F6;
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.roh_general_info_wrap {
+  padding-block: 30px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.roh_check_list {
+  padding: 0px;
+  margin: 0px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.roh_check_list li {
+  list-style: none;
+}
+
+.roh_check_list li .roh_featureList img {
+  width: 28px;
+  height: 28px;
+}
+
+.roh_featureList {
+  text-decoration: none;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #000;
+}
+
+.roh_featureList h6 {
+  font-family: "DM Sans", sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+
+.roh_featureList span {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+}
+
+.roh_general_info_twowrap {
+  padding-block: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.roh_check_list.roh_new_checklist {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.roh_accordion_button:not(.collapsed) {
+  background-color: #FF3600;
+  color: #fff;
+  box-shadow: none;
+}
+
+.roh_policy_terms h4 button {
+  font-size: 20px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+
+}
+
+.roh_policy_terms h4 button:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+
+.roh_Vehicle_detailsInner_contentRight {
+  background-color: #ffff;
+  border: 1px solid #e9eef5;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+  position: sticky;
+  top: 50px;
+  padding: 30px 20px;
+}
+
+.roh_about_media_list {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin: 0px;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.roh_vendor_info {
+  background-color: #FFF8F6;
+}
+
+.roh_about_media_list li {
+  list-style: none;
+  border-bottom: none;
+  margin-bottom: 0px;
+  cursor: pointer;
+}
+
+.roh_back_circle {
+  position: relative;
+  padding: 10px;
+  width: 45px;
+}
+
+.roh_back_circle img {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.roh_back_circle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #FF3600;
+  opacity: 10%;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  z-index: 0;
+  transition: all 0.4s ease-in-out;
+}
+
+.roh_about_media_list li:hover .roh_back_circle::before {
+  opacity: 70%;
+}
+
+.roh_about_media_list li .roh_media {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.roh_media_title {
+  font-family: "DM Sans", sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.2em;
+}
+
+@media screen and (max-width:991px) {
+
+  .roh_check_list li .roh_featureList img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .roh_featureList h6 {
+    font-size: 14px;
+  }
+
+  .roh_policy_terms h4 button {
+    font-size: 16px;
+  }
+}
 
 @media screen and (max-width:767px) {
   .roh_vehicleListing {
@@ -306,17 +545,19 @@
     margin-top: 0 !important;
     border-top: none !important;
   }
+
   .roh_singleVehicle_details {
     width: 100% !important;
     display: none;
   }
-  .roh_vehicleListing.roh_vehicleListing_left{
+
+  .roh_vehicleListing.roh_vehicleListing_left {
     width: 100% !important;
   }
+
   .roh_backTolisting {
     display: block;
   }
-  
+
 
 }
-
