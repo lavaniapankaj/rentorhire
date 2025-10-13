@@ -56,3 +56,10 @@
    ```bash
    npm install bootstrap
    ```
+
+7. **Email Sender:**
+   For Email Sender, install the required packages:
+
+   ```bash
+   npm install nodemailer
+   ```
