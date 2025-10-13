@@ -448,11 +448,11 @@ export default function RegisterPage() {
               </div>
 
               {/* Dev-only helper */}
-              {debugOtp ? (
+              {/* {debugOtp ? (
                 <p className="rohuserres_note">
                   <em>Dev note:</em> OTP from server: <strong>{debugOtp}</strong>
                 </p>
-              ) : null}
+              ) : null} */}
 
               <div className="rohuserres_actionsRow">
                 <button

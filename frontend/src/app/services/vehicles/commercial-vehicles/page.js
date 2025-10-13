@@ -36,7 +36,7 @@ export default function CommercialPage() {
       <ReadyToRide />
 
       {/* latest artical component */}
-      <LatestArtical />
+      <LatestArtical cate_id={4} />
 
 
       {/* need help component */}

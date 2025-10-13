@@ -268,6 +268,31 @@ const ValidateViewSingleProduct = async (req, res, next) => {
     }
 };
 
+/** Validate to get single category recent 4 post/blogs- Coded by Vishnu Oct 13 2025 */
+const ValidateGetSingleCategoryRecentPosts = async (req, res, next) => {
+    try {
+    const { category_id } = req.body;
+
+    /** Check if category_id missing or invalid */
+    if (!category_id || isNaN(category_id)) {
+      return res.status(400).json({
+        status: false,
+        message: "Valid category_id is required.",
+      });
+    }
+
+    /** All good, continue to controller */
+    next();
+  } catch (err) {
+    console.error("Validation error:", err);
+    return GLOBAL_ERROR_RESPONSE(
+      "Validation error",
+      { error: err.message || err },
+      res
+    );
+  }
+};
+
 /* Validate to get service provider details - Coded by Vishnu August 31 2025 */
 const ValidateGetServiceProviderinfo = async (req, res, next) => {
     try {
@@ -280,4 +305,4 @@ const ValidateGetServiceProviderinfo = async (req, res, next) => {
 };
 
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetServiceProviderinfo};
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetServiceProviderinfo};

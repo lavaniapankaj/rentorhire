@@ -181,7 +181,7 @@ return (
                         {post.post_status}
                       </span>
                     </td>
-                    <td>{post.cate_id || '-'}</td>
+                    <td>{post.category_name || '-'}</td>
                     <td>
                       {new Date(post.add_date).toLocaleDateString('en-IN', {
                         year: 'numeric',

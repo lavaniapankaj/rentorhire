@@ -35,7 +35,7 @@ export default function LuxuryPage() {
       <ReadyToRide />
 
       {/* latest artical component */}
-      <LatestArtical />
+      <LatestArtical cate_id={5} />
 
 
       {/* need help component */}

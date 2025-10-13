@@ -32,7 +32,7 @@ export default function Vechicles() {
                 <Testimonials/>
                 
                 {/* latest artical component */}
-                <LatestArtical/>                
+                <LatestArtical cate_id={1} />
                 
                 {/* why choose us component */}
                 <WhyChooseUs/>

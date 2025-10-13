@@ -36,7 +36,7 @@ export default function BikesPage() {
       <ReadyToRide />
 
       {/* latest artical component */}
-      <LatestArtical />
+      <LatestArtical cate_id={3} />
 
 
       {/* need help component */}

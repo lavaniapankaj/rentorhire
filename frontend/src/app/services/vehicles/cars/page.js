@@ -37,7 +37,7 @@ export default function CarsPage() {
       <ReadyToRide />
 
       {/* latest artical component */}
-      <LatestArtical />
+      <LatestArtical cate_id={2} />
 
 
       {/* need help component */}

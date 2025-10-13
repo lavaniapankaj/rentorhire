@@ -36,7 +36,7 @@ export default function RecreationalPage() {
       <ReadyToRide />
 
       {/* latest artical component */}
-      <LatestArtical />
+      <LatestArtical cate_id={6} />
 
 
       {/* need help component */}
