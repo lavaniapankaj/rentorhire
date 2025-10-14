@@ -428,13 +428,6 @@
   width: 35px;
   height: 35px;
 }
-
-
-.roh_accordion_button:not(.collapsed) {
-  background-color: #FF3600;
-  color: #fff;
-  box-shadow: none;
-}
 .roh_policy_terms h4 button {
   font-size: 20px;
   font-family: "DM Sans", sans-serif;
@@ -500,4 +493,35 @@
 .roh_policy_terms h4 button {
   font-size: 16px;
 }
+}
+
+
+.roh_policy_terms :global(.accordion-button:not(.collapsed)) {
+  background: #FF3600;
+  box-shadow: none;
+  outline: none;
+  color: #ffff;
+}
+
+.roh_policy_terms .roh_accordion_button:global(.collapsed::after) {
+  filter: brightness(0) !important;
+}
+
+.roh_policy_terms :global(.accordion-button:not(.collapsed)::after) {
+  filter: brightness(100);
+}
+
+.roh_policy_terms .roh_accordion_button:not(.collapsed)::after {
+  filter: brightness(100);
+}
+
+.roh_policy_terms h4 button {
+  font-size: 20px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+
+}
+
+.roh_policy_terms h4 button:focus:not(:focus-visible) {
+  box-shadow: none;
 }

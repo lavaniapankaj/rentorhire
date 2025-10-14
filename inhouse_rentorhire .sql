@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 11, 2025 at 01:25 PM
+-- Generation Time: Oct 13, 2025 at 06:39 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -283,7 +283,12 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 (100, 'e2b61196b57ac77201579eccad180a47-2948301858163471344-1.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-22 06:35:50', '2025-09-22 06:35:50'),
 (101, 'e2b61196b57ac77201579eccad180a47-2948301858163471344-2.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-30 09:29:57', '2025-09-30 09:29:57'),
 (102, 'photo-1614200179396-2bdb77ebf81b-1.jpeg', '/uploads/media/host/items/', 'jpeg', 1, '2025-09-30 09:29:57', '2025-09-30 09:29:57'),
-(103, 'e2b61196b57ac77201579eccad180a47-2948301858163471344.jpg', '/uploads/media/post/', 'jpg', 1, '2025-10-11 09:46:16', '2025-10-11 09:46:16');
+(103, 'e2b61196b57ac77201579eccad180a47-2948301858163471344.jpg', '/uploads/media/post/', 'jpg', 1, '2025-10-11 09:46:16', '2025-10-11 09:46:16'),
+(104, 'furniture.webp', '/uploads/media/post/', 'webp', 1, '2025-10-12 15:40:55', '2025-10-12 15:40:55'),
+(105, 'furniture-1.webp', '/uploads/media/post/', 'webp', 1, '2025-10-12 15:41:20', '2025-10-12 15:41:20'),
+(106, 'furniture-2.webp', '/uploads/media/post/', 'webp', 1, '2025-10-12 15:41:31', '2025-10-12 15:41:31'),
+(107, 'furniture-3.webp', '/uploads/media/post/', 'webp', 1, '2025-10-12 15:42:10', '2025-10-12 15:42:10'),
+(108, 'furniture-4.webp', '/uploads/media/post/', 'webp', 1, '2025-10-12 15:55:32', '2025-10-12 15:55:32');
 
 -- --------------------------------------------------------
 
@@ -393,7 +398,8 @@ INSERT INTO `roh_posts` (`id`, `post_title`, `post_slug`, `description`, `post_e
 (47, 'The Art of Time Management', 'the-art-of-time-management', 'Master time management to achieve more every day. Learn how to plan and prioritize effectively.', 'Practical tips for managing your time.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
 (48, 'Travel Packing Checklist', 'travel-packing-checklist', 'Never forget an essential item again! Use this travel checklist before every trip.', 'Your must-have travel packing list.', 'published', 103, 3, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
 (49, 'The Role of AI in Education', 'the-role-of-ai-in-education', 'Artificial Intelligence is transforming how students learn and teachers teach. Discover its impact.', 'AI and the future of education.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
-(50, 'Simple Ways to Reduce Plastic Waste', 'simple-ways-to-reduce-plastic-waste', 'Small actions can make a big difference. Learn easy ways to reduce plastic waste at home and office.', 'Reduce plastic waste effortlessly.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32');
+(50, 'Simple Ways to Reduce Plastic Waste', 'simple-ways-to-reduce-plastic-waste', 'Small actions can make a big difference. Learn easy ways to reduce plastic waste at home and office.', 'Reduce plastic waste effortlessly.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(51, 'What is SEO?', 'what-is-seo', 'This is my test post', 'This is my first test post', 'draft', 108, 2, '2025-10-12 21:25:32', '2025-10-12 23:01:11');
 
 -- --------------------------------------------------------
 
@@ -602,7 +608,9 @@ INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `ema
 (64, 'gysoqasos', 'Penelope', 'Terry', 'foro@mailinator.com', '5128623573', '$2b$10$vps5ARpo8qzq.3jLpQqONeixGXPiAzElcq0wh88vwBO3mmLG/BYIC', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-25 12:17:58', '2025-09-25 12:19:06'),
 (65, 'nenamat', 'Rina', 'Stephenson', 'gitabife@mailinator.com', '9568021864', '$2b$10$Yo9h0z6Q0X31gQkrTLkTW.WshI1EQ8seYV9gAiW3lAgQ0kjF3WMH6', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-26 11:12:02', '2025-09-26 11:12:14'),
 (66, 'bedaz', 'Lars', 'Vance', 'paxoriq@mailinator.com', '4849876089', '$2b$10$RRy1P/MYNMx628W12bbWAOZhZNwUMkoSTLSpzai7oGybpmdZ4DOwm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-26 12:28:22', '2025-09-26 12:28:33'),
-(67, 'kotox', 'Nomlanga', 'Battle', 'banabi@mailinator.com', '7422419233', '$2b$10$6SImg0Dri7tmWaoIXGKv/u8YjUk/ts6ajbxDzf0c9iiLC10poNUL2', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-26 12:29:44', '2025-09-26 12:29:59');
+(67, 'kotox', 'Nomlanga', 'Battle', 'banabi@mailinator.com', '7422419233', '$2b$10$6SImg0Dri7tmWaoIXGKv/u8YjUk/ts6ajbxDzf0c9iiLC10poNUL2', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-26 12:29:44', '2025-09-26 12:29:59'),
+(73, 'rovabow', 'Ryan', 'Perkins', 'kuzuqiwa@mailinator.com', '6313891933', '$2b$10$8xLSWfS2KMxcYTJKwFgKrO1QsrAosZsvY0aawSdFLwK9.FcorWROG', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '274833', 0, 0, NULL, NULL, 0, '2025-10-13 16:21:40', '2025-10-13 16:21:40'),
+(74, 'pigiwofir', 'Hilel', 'Evans', 'rowoza@mailinator.com', '2771042038', '$2b$10$jOydJjoIqAgqx5oXHOn/Ieig8nfD37bLmg0PXq/02A3nV6z3f4l5u', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '584871', 0, 0, NULL, NULL, 0, '2025-10-13 16:24:56', '2025-10-13 16:24:56');
 
 -- --------------------------------------------------------
 
@@ -828,7 +836,7 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `roh_models`
@@ -840,7 +848,7 @@ ALTER TABLE `roh_models`
 -- AUTO_INCREMENT for table `roh_posts`
 --
 ALTER TABLE `roh_posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
@@ -870,7 +878,7 @@ ALTER TABLE `roh_tags`
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`

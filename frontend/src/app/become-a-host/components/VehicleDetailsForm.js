@@ -56,7 +56,7 @@ export default function VehicleDetailsForm({ index, item, formData, setFormData,
     <form className={styles.vehicleForm} encType="multipart/form-data">
       {/* Basic Info */}
       <div>
-        <label className={styles.formLabel}>Item Name</label>
+        <label className={styles.formLabel}>Item Name <span>*</span></label>
         <input className={`${styles.formControl} ${styles.reFormF}`} type="text" name="item_name" placeholder="Item Name" value={item.details?.item_name || ""} onChange={(e) => handleDetailsChange(index, "item_name", e.target.value)} />
         {errors.item_name && (
           <div style={{ color: "red", marginTop: "4px" }}>
@@ -132,7 +132,7 @@ export default function VehicleDetailsForm({ index, item, formData, setFormData,
       {/* Pricing */}
       <div className={`${styles.row} ${styles.roh_fields}`}>
         <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
-          <label className={styles.formLabel}>Price Per Day</label>
+          <label className={styles.formLabel}>Price Per Day <span>*</span></label>
           <input className={`${styles.formControl} ${styles.reFormF}`} type="number" name="price_per_day" placeholder="Price Per Day" value={item.details?.price_per_day || ""} onChange={(e) => handleDetailsChange(index, "price_per_day", e.target.value)} />
           {errors.price_per_day && (
             <div style={{ color: "red", marginTop: "4px" }}>
@@ -170,7 +170,7 @@ export default function VehicleDetailsForm({ index, item, formData, setFormData,
       {/* Status */}
       <div className={`${styles.row} ${styles.roh_fields}`}>
         <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
-          <label className={styles.formLabel}>Availability Status</label>
+          <label className={styles.formLabel}>Availability Status <span>*</span></label>
           <select className={`${styles.formControl} ${styles.reFormF}`} name="availability_status" value={item.details?.availability_status || ""} onChange={(e) => handleDetailsChange(index, "availability_status", e.target.value)}>
             <option value="">Select Availability</option>
             <option value="Available">Available</option>
@@ -207,7 +207,7 @@ export default function VehicleDetailsForm({ index, item, formData, setFormData,
           </select>
         </div>
         <div className={`${styles.mb3} ${styles.roh_inoputField}`}>
-          <label className={styles.formLabel}>Registration Number</label>
+          <label className={styles.formLabel}>Registration Number <span>*</span></label>
           <input className={`${styles.formControl} ${styles.reFormF}`} type="text" name="registration_number" placeholder="Registration Number" value={item.details?.registration_number || ""} onChange={(e) => handleDetailsChange(index, "registration_number", e.target.value)}/>
           {errors.registration_number && (
             <div style={{ color: "red", marginTop: "4px" }}>

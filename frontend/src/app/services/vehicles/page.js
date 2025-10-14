@@ -6,6 +6,7 @@ import FAQSection from '../../globalComponents/faqSection';
 import InnerServices from '../../globalComponents/innerServices';
 import LatestArtical from '../../globalComponents/latestArticle';
 import Testimonials from '../../globalComponents/testimonials';
+import TestimonialsNew from '../../globalComponents/testimonialsNew';
 import WhyChooseUs from '../../globalComponents/whyChooseUs';
 import NeedHelp from '../../globalComponents/needHelp';
 import ReadyToRide from '../../globalComponents/readyToRide';
@@ -30,6 +31,10 @@ export default function Vechicles() {
 
                 {/* Testimonial component */}
                 <Testimonials/>
+                
+                {/* TestimonialNew component */}
+                <TestimonialsNew/>
+                
                 
                 {/* latest artical component */}
                 <LatestArtical cate_id={1} />

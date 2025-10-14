@@ -1,30 +1,9 @@
 "use client";
-// import Slider from "react-slick";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import "./css/testimonialsNew.module.css";
+import styles from "./css/testimonialsNew.module.css";
 
 export default function Testimonials() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 600,
-    slidesToShow: 3, // 3 cards visible on desktop
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    arrows: true,
-    responsive: [
-      {
-        breakpoint: 992, // tablets
-        settings: { slidesToShow: 2 },
-      },
-      {
-        breakpoint: 576, // mobile
-        settings: { slidesToShow: 1 },
-      },
-    ],
-  };
-
   const testimonials = [
     {
       id: 1,
@@ -56,6 +35,56 @@ export default function Testimonials() {
     },
   ];
 
+  const [current, setCurrent] = useState(0);
+  const [slidesToShow, setSlidesToShow] = useState(2);
+  const [dragStartX, setDragStartX] = useState(null);
+  const sliderRef = useRef(null);
+
+  // ✅ Adjust number of slides based on viewport
+  useEffect(() => {
+    const updateSlidesToShow = () => {
+      if (window.innerWidth < 768) setSlidesToShow(1);
+      else setSlidesToShow(2);
+    };
+    updateSlidesToShow();
+    window.addEventListener("resize", updateSlidesToShow);
+    return () => window.removeEventListener("resize", updateSlidesToShow);
+  }, []);
+
+  // ✅ Auto-slide every 5s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [current, slidesToShow]);
+
+  const nextSlide = () => {
+    setCurrent((prev) =>
+      prev >= testimonials.length - slidesToShow ? 0 : prev + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrent((prev) =>
+      prev === 0 ? testimonials.length - slidesToShow : prev - 1
+    );
+  };
+
+  // ✅ Handle drag (mouse/touch)
+  const handleDragStart = (e) => {
+    setDragStartX(e.type === "touchstart" ? e.touches[0].clientX : e.clientX);
+  };
+
+  const handleDragEnd = (e) => {
+    if (dragStartX === null) return;
+    const endX = e.type === "touchend" ? e.changedTouches[0].clientX : e.clientX;
+    const diff = dragStartX - endX;
+    if (diff > 50) nextSlide(); // swipe left
+    else if (diff < -50) prevSlide(); // swipe right
+    setDragStartX(null);
+  };
+
   return (
     <section className={styles.testimonial_wrap}>
       <div className="container py-5">
@@ -70,54 +99,92 @@ export default function Testimonials() {
               />
               <span className={styles.star_title}>Testimonials</span>
             </div>
-            <h3 className={`mt-3 ${styles.second_heading}`}>
+            <h2 className={`mt-3 ${styles.second_heading}`}>
               What our customers are <br /> saying about us
-            </h3>
+            </h2>
           </div>
 
-          <Slider {...settings}>
-            {testimonials.map((item) => (
-              <div key={item.id} className={`p-3`}>
-                <div className={`card ${styles.fleetscard}`}>
-                  <div className="card-body">
-                    <div className={styles.ratings}>
-                      <Image
-                        src="/images/rating.png"
-                        alt="rating"
-                        width={100}
-                        height={20}
-                      />
-                    </div>
-                    <p
-                      className={`mb-3 ${styles.testimonial_desc} ${styles.gray_global_heading}`}
-                    >
-                      {item.text}
-                    </p>
-                    <div className={styles.testimonial_profile_wrap}>
-                      <div className={styles.user_image}>
+          {/* ✅ Slider */}
+          <div
+            className={styles.slider_container}
+            ref={sliderRef}
+            onMouseDown={handleDragStart}
+            onMouseUp={handleDragEnd}
+            onTouchStart={handleDragStart}
+            onTouchEnd={handleDragEnd}
+          >
+            <div
+              className={styles.slider_inner}
+              style={{
+                transform: `translateX(-${(current * 100) / slidesToShow}%)`,
+                width: `${(testimonials.length * 100) / slidesToShow}%`,
+              }}
+            >
+              {testimonials.map((item) => (
+                <div
+                  key={item.id}
+                  className={styles.slide_item}
+                  style={{
+                    flex: `0 0 ${100 / slidesToShow}%`,
+                  }}
+                >
+                  <div className={`card ${styles.fleetscard}`}>
+                    <div className="card-body">
+                      <div className={styles.ratings}>
                         <Image
-                          src={item.img}
-                          alt={item.name}
-                          width={50}
-                          height={50}
+                          src="/images/rating.png"
+                          alt="rating"
+                          width={100}
+                          height={20}
                         />
                       </div>
-                      <div className={styles.profile_data}>
-                        <strong className={styles.author_name}>
-                          {item.name}
-                        </strong>
-                        <span
-                          className={`${styles.author_desc} ${styles.gray_global_heading}`}
-                        >
-                          {item.role}
-                        </span>
+                      <p
+                        className={`mb-3 ${styles.testimonial_desc} ${styles.gray_global_heading}`}
+                      >
+                        {item.text}
+                      </p>
+                      <div className={styles.testimonial_profile_wrap}>
+                        <div className={styles.user_image}>
+                          <Image
+                            src={item.img}
+                            alt={item.name}
+                            width={50}
+                            height={50}
+                          />
+                        </div>
+                        <div className={styles.profile_data}>
+                          <strong className={styles.author_name}>
+                            {item.name}
+                          </strong>
+                          <span
+                            className={`${styles.author_desc} ${styles.gray_global_heading}`}
+                          >
+                            {item.role}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </Slider>
+              ))}
+            </div>
+          </div>
+
+          {/* ✅ Buttons below slider */}
+          <div className={styles.slider_controls}>
+            <button onClick={prevSlide} className={styles.nav_btn}>
+              <Image
+                src="/arrow.svg"
+                width={24}
+                height={24}
+                alt="Previous"
+                className={styles.rotateLeft}
+              />
+            </button>
+            <button onClick={nextSlide} className={styles.nav_btn}>
+              <Image src="/arrow.svg" width={24} height={24} alt="Next" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

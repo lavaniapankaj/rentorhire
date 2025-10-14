@@ -26,7 +26,7 @@
 }
 .roh_main_data_wrap {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 25px;
 }
 
@@ -34,11 +34,6 @@
 display: block;
 }
 
-.roh_main_data_wrap {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-}
 .roh_card_box_inner {
     border-radius: 30px 30px 30px 30px;
     background-color: #fff;

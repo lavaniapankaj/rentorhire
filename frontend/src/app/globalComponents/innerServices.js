@@ -86,9 +86,7 @@ export default function InnerServices() {
                       </li>
                     </ul>
                     <div className={styles.roh_circl_btn}>
-                        {/* <a href="https://webcarelogics.com/lokesh/services/cars/car-type.html">
-                            <button><img src="/images/global-imgs/arrow.svg" alt="arrow" /></button>
-                        </a> */}
+                       
                       <a href={`/services/vehicles/${cat.slug}`}>
                         <button>
                           <img src="/images/global-imgs/arrow.svg" alt="arrow" />

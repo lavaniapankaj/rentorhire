@@ -442,6 +442,9 @@ gap: 10px;
   .formCheckLabel .roh_aLink:hover{
     text-decoration: underline;
   }
+  
+
+  
 @media screen and (max-width:991px) {
   .roh_beacome_host {
     padding: 100px 20px 50px 20px ;

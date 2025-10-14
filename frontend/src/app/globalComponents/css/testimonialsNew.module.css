@@ -1,44 +1,51 @@
+.slider_container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.slider_inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slide_item {
+  padding: 15px;
+  box-sizing: border-box;
+}
+
 .fleetscard {
-    border-radius: 18px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    background: #fff;
-    height: 100%;
-  }
-  
-  .fleetscard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(255, 90, 60, 0.15);
-  }
-  
-  .testimonial_desc {
-    color: #555;
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  .user_image img {
-    border-radius: 50%;
-  }
-  
-  .author_name {
-    font-weight: 700;
-    color: #222;
-  }
-  
-  .author_desc {
-    display: block;
-    font-size: 0.9rem;
-    color: #888;
-  }
-  
-  .slick-dots li button:before {
-    color: #ff5a3c !important;
-  }
-  
-  .slick-prev:before,
-  .slick-next:before {
-    color: #ff5a3c !important;
-  }
-  
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+/* .fleetscard:hover {
+  transform: translateY(-5px);
+} */
+
+.slider_controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.nav_btn {
+  border: none;
+  background: #000;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.nav_btn:hover {
+  background: #555;
+}
+
+.rotateLeft {
+  transform: rotate(180deg);
+}

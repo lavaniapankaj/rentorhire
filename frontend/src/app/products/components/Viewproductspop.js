@@ -193,7 +193,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
                         <div className={`${styles.roh_left_slide_inner}`}>
                           <div className={`${styles.roh_sidebar_pricing}`}>
                             {/* <h2><sup><span>Starting </span></sup> ₹{item.price_per_day}<span>/Per Day</span></h2> */}
-                            <h2><sup><span>Starting </span></sup>₹{Number(item.price_per_day || 0) .toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                            <h2><sup><span>Starting from </span></sup>₹{Number(item.price_per_day || 0) .toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                             <span>&nbsp;/Per Day</span>
                           </h2>
 
@@ -547,55 +547,57 @@ export default function Viewproductspop({ triggerId, onClose }) {
 
                         </ul>
                       </div>
+                      {/* Policies and agreement*/}
+
                       <div className={`${styles.roh_general_info_twowrap}`}>
-                        <div className="star_box">
-                          <div className="star_inner d-flex align-items-center gap-1">
-                            <Image src="/star.svg" alt="Star" width={19} height={17} />
-                            <span className={`roh_star_title`}>Rental Conditions</span>
-                          </div>
-                        </div>
-                        <h3>Policies and agreement</h3>
-                        <div className={`${styles.roh_policy_terms}`}>
-                          <div className="accordion" id="accordionExample">
-                            <div className="accordion-item">
-                              <h4 className="accordion-header">
-                                <button className={`accordion-button ${styles.roh_accordion_button}`} type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                  Accessories
-                                </button>
-                              </h4>
-                              <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                <div className="accordion-body">
-                                  <p>{item.accessories}</p>
+                              <div className="star_box">
+                                <div className="star_inner d-flex align-items-center gap-1">
+                                  <Image src="/star.svg" alt="Star" width={19} height={17} />
+                                  <span className={`roh_star_title`}>Rental Conditions</span>
+                                </div>
+                              </div>
+                              <h3>Policies and agreement</h3>
+                              <div className={`${styles.roh_policy_terms}`}>
+                                <div className="accordion" id="accordionExample">
+                                  <div className="accordion-item">
+                                    <h4 className="accordion-header">
+                                      <button className={`accordion-button ${styles.roh_accordion_button}`} type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Accessories
+                                      </button>
+                                    </h4>
+                                    <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                      <div className="accordion-body">
+                                        <p>{item.accessories}</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="accordion-item">
+                                    <h4 className="accordion-header">
+                                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Booking Terms
+                                      </button>
+                                    </h4>
+                                    <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                      <div className="accordion-body">
+                                        <p>{item.booking_terms}</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="accordion-item">
+                                    <h4 className="accordion-header">
+                                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Booking Instructions
+                                      </button>
+                                    </h4>
+                                    <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                      <div className="accordion-body">
+                                        <p>{item.booking_instructions}</p>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                            <div className="accordion-item">
-                              <h4 className="accordion-header">
-                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                  Booking Terms
-                                </button>
-                              </h4>
-                              <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                <div className="accordion-body">
-                                  <p>{item.booking_terms}</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="accordion-item">
-                              <h4 className="accordion-header">
-                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                  Booking Instructions
-                                </button>
-                              </h4>
-                              <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                <div className="accordion-body">
-                                  <p>{item.booking_instructions}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
