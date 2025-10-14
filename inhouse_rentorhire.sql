@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 13, 2025 at 06:39 PM
+-- Generation Time: Oct 14, 2025 at 08:58 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -212,6 +212,34 @@ INSERT INTO `roh_cities` (`city_id`, `city_name`, `city_slug`, `state_id`, `add_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `roh_faqs`
+--
+
+CREATE TABLE `roh_faqs` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `cate_id` int(11) DEFAULT NULL COMMENT 'Category ID (no FK)',
+  `add_id` int(11) DEFAULT NULL COMMENT 'User ID who added',
+  `edit_id` int(11) DEFAULT NULL COMMENT 'User ID who last edited',
+  `active` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=Active, 0=Inactive',
+  `add_date` datetime DEFAULT current_timestamp(),
+  `edit_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `roh_faqs`
+--
+
+INSERT INTO `roh_faqs` (`id`, `title`, `description`, `cate_id`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
+(1, 'Can I modify my booking?', 'Yes, bookings can be modified up to 12 hours before pickup.', 3, 1, 1, 1, '2025-10-14 21:47:57', '2025-10-14 23:35:34'),
+(2, 'This is my test FAQs', 'This is my test FAQs description.', 3, 1, NULL, 1, '2025-10-14 22:49:26', '2025-10-14 22:49:26'),
+(3, 'This is my test FAQs 2', 'This is my test FAQs description 2', 3, 1, 1, 1, '2025-10-14 22:50:11', '2025-10-15 00:07:50'),
+(4, 'Possimus illo eu qu 2', 'Omnis enim officia s 2', 5, 1, 1, 1, '2025-10-14 23:13:38', '2025-10-14 23:35:53');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roh_media_gallery`
 --
 
@@ -374,10 +402,10 @@ INSERT INTO `roh_posts` (`id`, `post_title`, `post_slug`, `description`, `post_e
 (23, 'Best Ways to Save Money Every Month', 'best-ways-to-save-money-every-month', 'Learn simple financial habits that can help you save more and spend smartly every month.', 'Easy monthly money-saving ideas.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
 (24, 'How to Optimize Images for Web', 'how-to-optimize-images-for-web', 'Improve your site speed by compressing and optimizing images the right way using free tools.', 'Guide to image optimization for web.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
 (25, 'Best Cameras for Beginners 2025', 'best-cameras-for-beginners-2025', 'If you’re new to photography, here’s a list of beginner-friendly cameras with great quality and features.', 'Top entry-level cameras to buy.', 'published', 103, 2, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
-(26, 'The Importance of Regular Health Checkups', 'the-importance-of-regular-health-checkups', 'Discover why regular medical checkups are essential to catch diseases early and stay healthy.', 'Stay healthy with regular checkups.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
-(27, 'Top Freelance Websites to Find Work', 'top-freelance-websites-to-find-work', 'Explore top platforms where freelancers can find high-paying clients and remote projects.', 'Find freelance jobs easily online.', 'published', 103, 3, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
-(28, 'Common WordPress Errors and Fixes', 'common-wordpress-errors-and-fixes', 'Encountering WordPress issues? Learn the common problems and how to fix them quickly.', 'Fix common WordPress site errors.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
-(29, 'How to Create an Online Portfolio', 'how-to-create-an-online-portfolio', 'Showcase your skills professionally by creating a strong online portfolio. Step-by-step process included.', 'Make an online portfolio easily.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
+(26, 'The Importance of Regular Health Checkups', 'the-importance-of-regular-health-checkups', 'Discover why regular medical checkups are essential to catch diseases early and stay healthy.', 'Stay healthy with regular checkups.', 'published', 103, 6, '2025-10-11 16:52:32', '2025-10-14 00:00:24'),
+(27, 'Top Freelance Websites to Find Work', 'top-freelance-websites-to-find-work', 'Explore top platforms where freelancers can find high-paying clients and remote projects.', 'Find freelance jobs easily online.', 'published', 103, 6, '2025-10-11 16:52:32', '2025-10-14 00:00:17'),
+(28, 'Common WordPress Errors and Fixes', 'common-wordpress-errors-and-fixes', 'Encountering WordPress issues? Learn the common problems and how to fix them quickly.', 'Fix common WordPress site errors.', 'published', 103, 6, '2025-10-11 16:52:32', '2025-10-14 00:00:20'),
+(29, 'How to Create an Online Portfolio', 'how-to-create-an-online-portfolio', 'Showcase your skills professionally by creating a strong online portfolio. Step-by-step process included.', 'Make an online portfolio easily.', 'published', 103, 6, '2025-10-11 16:52:32', '2025-10-14 00:00:29'),
 (30, '10 Delicious Smoothie Recipes', '10-delicious-smoothie-recipes', 'Healthy and refreshing smoothie ideas you can make at home in minutes. Perfect for breakfast or post-workout.', 'Try these healthy smoothie recipes.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
 (31, 'Top Web Development Trends 2025', 'top-web-development-trends-2025', 'Discover the newest web technologies and frameworks dominating 2025.', 'Upcoming trends in web development.', 'published', 103, 1, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
 (32, 'The Psychology of Productivity', 'the-psychology-of-productivity', 'Learn how your mind affects your ability to stay productive and how to train it for better focus.', 'Productivity and mindset explained.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
@@ -585,32 +613,7 @@ INSERT INTO `roh_users` (`user_id`, `user_name`, `first_name`, `last_name`, `ema
 (18, 'lavaniapankaj', 'Pankaj ', 'Verma', 'lavaniapankaj@gmail.com', '9876543210', '$2b$10$fwpmVvn/RVr3d/cbedmo8eTTxBebn0XhKtfXQt4dHk32IkBZFw8bG', 1, '1', NULL, '13th Street', '47 W 13th St, New York, NY 10011, USA', 'New York', 'CT', 10011, NULL, 1, 0, 1, 0, 1, '2025-07-29 18:19:15', '2025-08-12 17:24:19'),
 (19, 'ecmascript', 'Vishnu', 'Kumawat', 'ecmascript.php@gmail.com', '9783457008', '$2b$10$bVzM.eJjjhU7boZzNEE8aul7iycXabXaDmIuQAB9CXMTfDLP/v8hC', 1, '2', NULL, 'Stuyvesant 14th St & 1st Ave ', '238 1st Ave, New York, NY 10009, USA', 'New York', 'CT', 10009, NULL, 1, 0, 1, 0, 1, '2025-07-29 18:32:46', '2025-08-12 17:24:21'),
 (20, 'rajtailor9694', 'Raj', 'Tailor', 'rajtailor9694@gmail.com', '9694453829', '$2b$10$9CqGEjQCtkD9W1HI0cUFT.iHNyJNozCtDaucVM4lMkYDeBIT0DwMa', 3, '3', 'Moyal Rentals', 'Stuyvesant 14th St & Ave ', 'C 690 E 14th St, New York, NY 10009, USA', 'Nwy York', 'CT', 10009, NULL, 1, 1, 1, 1, 1, '2025-07-29 18:38:25', '2025-09-03 20:21:24'),
-(44, 'rudrax', 'Raymond', 'Foster', 'bowijen@mailinator.com', '9999999999', '$2b$10$qchWQg.7/f.OvDEqes6MqeulRouWGrswPU5IFWhE4Ablj/rmdKIqq', 3, NULL, NULL, '', '', '', '', 123456, '1234', 0, 0, NULL, NULL, 1, '2025-08-13 15:40:33', '2025-08-23 09:48:33'),
-(45, 'papyviq', 'Daphne', 'Spence', 'ligy@mailinator.com', '8957058952', '$2b$10$gv2JDIFncJrkcn/Hau.mf.hmExvOYvmMWMTkZQKsylG2Co0hdzEwK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-08-23 13:10:32', '2025-08-23 13:16:46'),
-(46, 'natup', 'Holly', 'Rush', 'cexul@mailinator.com', '2538281972', '$2b$10$DBrEyUDMsLAjCnWHfr3IfeCyeBtJ2Cv78q8c5YaysfXDPqQYpwYNi', 3, '41', NULL, '70 West New Parkway', 'Quia ut sed maiores ', 'Ea a qui amet cupid', 'Dolores harum ipsum ', 578908, NULL, 0, 0, 1, 1, 1, '2025-08-23 16:41:42', '2025-08-23 16:42:02'),
-(47, 'bitugoxe', 'Amity', 'Schultz', 'perikop@mailinator.com', '4869643856', '$2b$10$Ecgs/LNcxCFKv/CqgQ7C.uS0W9Ox3moJ9z0G1XRC0mOffe6sVtXOO', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '497910', 0, 0, NULL, NULL, 0, '2025-08-27 16:44:32', '2025-08-27 16:51:00'),
-(48, 'soruke', 'Chadwick', 'Dalton', 'qugenehiv@mailinator.com', '4625174203', '$2b$10$dxqghMmEVZujsUIPSeDF7uPStFFsuvOfKL.J6onRbs1jlB6l4ohQK', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '677190', 0, 0, NULL, NULL, 0, '2025-08-27 16:53:58', '2025-08-27 16:53:58'),
-(49, 'qyqaluvuqu', 'Isaac', 'Hall', 'bobyhiz@mailinator.com', '2883996366', '$2b$10$StXcohwoZNeRIjOSwwfJPeMWH8EAC8c5Q79f4B3noutl1mZIaPNJW', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '110654', 0, 0, NULL, NULL, 0, '2025-08-27 16:54:55', '2025-08-27 16:54:55'),
-(50, 'rent_or_hire', 'Den', 'Cook', 'roh@hosting.com', '9876543219', '$2b$10$TwK0imHqaYotk9QvtG0aiu65rXvC4gBHxAnm26vXGY77eWDNkOMZq', 3, NULL, 'Zahir Gallegos', 'Jaipur', '', '', '', 302012, '999000', 1, 1, NULL, NULL, 1, '2025-08-27 17:16:42', '2025-09-10 11:32:53'),
-(51, 'vedoq', 'Jenette', 'Cannon', 'huqinileju@mailinator.com', '5317534899', '$2b$10$VFU5t7sxh9TVa8Jd.dmUiuKQtDU8sS13QWmqmC3WZKnytHuoIum5W', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-08-27 17:18:00', '2025-08-27 17:20:13'),
-(52, 'pidawoh', 'Lunea', 'Nolan', 'lyhede@mailinator.com', '1982856472', '$2b$10$GY2KBR7dPhpa.RMI3KziIuoLXQkQFTtiSIJ0edp8JuKzHZXTAmtBm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-08-27 17:21:52', '2025-08-27 17:22:01'),
-(53, 'boviqafih', 'Dominique', 'Conner', 'qazitug@mailinator.com', '(294) 719-9133', '$2b$10$5FMyQTqpP3nZacqeoyWjDOVoigrhcxRLp4SZo.XfDTt7O9r7tD3C2', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '662670', 0, 0, NULL, NULL, 0, '2025-08-28 01:25:33', '2025-08-28 01:25:33'),
-(54, 'numuzufot', 'Slade', 'Dixon', 'zupejyton@mailinator.com', '9815618907', '$2b$10$Ya8bGxm9dJgUdYsYwp/eQ.XSK3sWfPhf4Gp0xrcLFBdpWQTRlc2vO', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '161043', 0, 0, NULL, NULL, 0, '2025-08-28 01:30:28', '2025-08-28 01:30:28'),
-(55, 'faxapevy', 'Orlando', 'Cochran', 'jeluse@mailinator.com', '3241124441', '$2b$10$6I8.P6V462iIwn4u5o3HOub4g7A6Vi173.J60NrYoIM79qHeAJ0dC', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-10 10:28:35', '2025-09-10 10:32:38'),
-(56, 'tuwec', 'Keely', 'Summers', 'wihahyfuti@mailinator.com', '8568577505', '$2b$10$2421X7kibh0Thyz1TF/bC.A6apC1MTrZ6FI8GRcD47aHtXheu/qPe', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-11 11:19:11', '2025-09-11 11:19:28'),
-(57, 'xucucudu', 'Cooper', 'Dudley', 'muxodizo@mailinator.com', '5973865345', '$2b$10$n5NGCQ6lRgg3TZVtKkDpT.wqdE.O3xt1KIEg2pi.fQBC43Me/wkqe', 3, NULL, NULL, '954 Old Boulevard', 'Beatae exercitation ', 'Exercitation et aut ', 'Aute eum quia obcaec', 117023, NULL, 0, 0, 1, 0, 1, '2025-09-11 12:37:50', '2025-09-11 12:37:50'),
-(58, 'xepezup', 'Leo', 'Hull', 'homimega@mailinator.com', '6573493789', '$2b$10$rQ94RrAaMvRPjWEMzcEvR.CZQaQyTbaU.MpxHUAQ/4iyNFlcnneQi', 3, NULL, NULL, '66 South Hague Court', 'Voluptate enim amet', 'Atque ipsam qui qui ', 'Aut quidem dolorem n', 967317, NULL, 0, 0, 1, 0, 1, '2025-09-11 12:38:24', '2025-09-11 12:38:24'),
-(59, 'desyqa', 'Yasir', 'Huber', 'xowe@mailinator.com', '1231231233', '$2b$10$t5M9LSB50t7k2le/QRMj7uzwnSk6tOCsYuHswQwiM7/7Lv/lRz/dG', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-12 11:06:46', '2025-09-12 11:06:56'),
-(60, 'nomedohec', 'Damian', 'Chen', 'qygahu@mailinator.com', '9876543210', '$2b$10$MUbnUlJfkbMq7j4m4zjFRu3RpEomAGs/0seSz1v6TvrC7d5X.Qb5.', 3, NULL, 'Ray Acevedo', NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, 1, '2025-09-12 11:43:51', '2025-09-12 11:45:06'),
-(61, 'tivakakone', 'Channing', 'Roth', 'wyjuwe@mailinator.com', '6281716438', '$2b$10$uNPd79F2GHqjIxY4LYQwa.ab721d.BCq4FauhPa9Oze0sGvtZbGcG', 2, NULL, NULL, '21 North Old Boulevard', 'Quaerat at accusamus', 'Ad nesciunt at opti', 'Est in dolor recusa', 737906, NULL, 0, 0, 1, 0, 1, '2025-09-17 12:55:28', '2025-09-17 12:55:28'),
-(62, 'julasu', 'Barry', 'Downs', 'macajizeh@mailinator.com', '9243441884', '$2b$10$8V0sHK4aRNx.b8ofH.2fh.QfOkV.x60j.ZLWsjsEa0n1R5.qRK20m', 2, '97', NULL, '80 Milton Road', 'Non consequatur Ips', 'Dignissimos aspernat', 'Consequat Recusanda', 384450, NULL, 0, 0, 1, 0, 1, '2025-09-17 13:06:01', '2025-09-17 13:06:01'),
-(63, 'hikip', 'Camden', 'Mcdaniel', 'fecomiqugi@mailinator.com', '5044132519', '$2b$10$.j.XQdONNfzXMEOQaJ5S0.kPUaSVUK3gQGR6chcZbeKBI6mjk03zq', 3, NULL, 'Car Rent Market MP', 'Laborum aliquam illo', 'Alias ex in amet om', 'Karnataka', 'Dolore assumenda dol', 302019, NULL, 0, 1, NULL, NULL, 0, '2025-09-19 07:10:29', '2025-09-25 12:17:18'),
-(64, 'gysoqasos', 'Penelope', 'Terry', 'foro@mailinator.com', '5128623573', '$2b$10$vps5ARpo8qzq.3jLpQqONeixGXPiAzElcq0wh88vwBO3mmLG/BYIC', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-25 12:17:58', '2025-09-25 12:19:06'),
-(65, 'nenamat', 'Rina', 'Stephenson', 'gitabife@mailinator.com', '9568021864', '$2b$10$Yo9h0z6Q0X31gQkrTLkTW.WshI1EQ8seYV9gAiW3lAgQ0kjF3WMH6', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-26 11:12:02', '2025-09-26 11:12:14'),
-(66, 'bedaz', 'Lars', 'Vance', 'paxoriq@mailinator.com', '4849876089', '$2b$10$RRy1P/MYNMx628W12bbWAOZhZNwUMkoSTLSpzai7oGybpmdZ4DOwm', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-26 12:28:22', '2025-09-26 12:28:33'),
-(67, 'kotox', 'Nomlanga', 'Battle', 'banabi@mailinator.com', '7422419233', '$2b$10$6SImg0Dri7tmWaoIXGKv/u8YjUk/ts6ajbxDzf0c9iiLC10poNUL2', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 0, NULL, NULL, 1, '2025-09-26 12:29:44', '2025-09-26 12:29:59'),
-(73, 'rovabow', 'Ryan', 'Perkins', 'kuzuqiwa@mailinator.com', '6313891933', '$2b$10$8xLSWfS2KMxcYTJKwFgKrO1QsrAosZsvY0aawSdFLwK9.FcorWROG', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '274833', 0, 0, NULL, NULL, 0, '2025-10-13 16:21:40', '2025-10-13 16:21:40'),
-(74, 'pigiwofir', 'Hilel', 'Evans', 'rowoza@mailinator.com', '2771042038', '$2b$10$jOydJjoIqAgqx5oXHOn/Ieig8nfD37bLmg0PXq/02A3nV6z3f4l5u', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '584871', 0, 0, NULL, NULL, 0, '2025-10-13 16:24:56', '2025-10-13 16:24:56');
+(50, 'rent_or_hire', 'Den', 'Cook', 'roh@hosting.com', '9876543219', '$2b$10$TwK0imHqaYotk9QvtG0aiu65rXvC4gBHxAnm26vXGY77eWDNkOMZq', 3, NULL, 'Zahir Gallegos', 'Jaipur', '', '', '', 302012, '999000', 1, 1, NULL, NULL, 1, '2025-08-27 17:16:42', '2025-09-10 11:32:53');
 
 -- --------------------------------------------------------
 
@@ -745,6 +748,14 @@ ALTER TABLE `roh_cities`
   ADD PRIMARY KEY (`city_id`);
 
 --
+-- Indexes for table `roh_faqs`
+--
+ALTER TABLE `roh_faqs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cate_id` (`cate_id`),
+  ADD KEY `active` (`active`);
+
+--
 -- Indexes for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
@@ -833,6 +844,12 @@ ALTER TABLE `roh_cities`
   MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
+-- AUTO_INCREMENT for table `roh_faqs`
+--
+ALTER TABLE `roh_faqs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
@@ -878,7 +895,7 @@ ALTER TABLE `roh_tags`
 -- AUTO_INCREMENT for table `roh_users`
 --
 ALTER TABLE `roh_users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`

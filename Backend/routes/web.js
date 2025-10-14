@@ -10,6 +10,7 @@ module.exports = {
       require(WEBSITE_ADMIN_FULL_PATH + "user/routes");
       require(WEBSITE_ADMIN_FULL_PATH + "route/routes");
       require(WEBSITE_ADMIN_FULL_PATH + "post/routes");
+      require(WEBSITE_ADMIN_FULL_PATH + "faq/routes");
 
       /** Public module routes */
       require(WEBSITE_PUBLIC_FULL_PATH + "auth/routes");

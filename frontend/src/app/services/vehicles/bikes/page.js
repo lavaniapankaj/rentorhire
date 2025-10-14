@@ -21,7 +21,7 @@ export default function BikesPage() {
 
 
       {/* FAQ section component */}
-      <FAQSection />
+      <FAQSection cate_id={3} />
 
       {/* Testimonial component */}
       <Testimonials />

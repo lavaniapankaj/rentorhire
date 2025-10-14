@@ -19,7 +19,7 @@ export default function AddPostForm({ onClose, onSuccess }) {
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null);
 
-  /** 🔹 Fetch categories */
+  /**  Fetch categories */
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -38,7 +38,7 @@ export default function AddPostForm({ onClose, onSuccess }) {
     fetchCategories();
   }, []);
 
-  /** 🔹 Auto slug generator */
+  /**  Auto slug generator */
   const handleTitleChange = (e) => {
     const title = e.target.value;
     setFormData((prev) => ({
@@ -59,7 +59,7 @@ export default function AddPostForm({ onClose, onSuccess }) {
 
   const handleFileChange = (e) => setImageFile(e.target.files[0]);
 
-  /** 🔹 Submit handler */
+  /**  Submit handler */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);

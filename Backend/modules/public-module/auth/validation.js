@@ -293,6 +293,20 @@ const ValidateGetSingleCategoryRecentPosts = async (req, res, next) => {
   }
 };
 
+/** Validate to get single category recent 3 FAQs- Coded by Vishnu Oct 14 2025 */
+const ValidateGetSingleCategoryRecentFaqs = async (req, res, next) => {
+    const { category_id } = req.body;
+
+    if (!category_id) {
+        return res.status(400).json({
+        status: false,
+        message: "category_id is required",
+        });
+    }
+
+    next();
+};
+
 /* Validate to get service provider details - Coded by Vishnu August 31 2025 */
 const ValidateGetServiceProviderinfo = async (req, res, next) => {
     try {
@@ -305,4 +319,4 @@ const ValidateGetServiceProviderinfo = async (req, res, next) => {
 };
 
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetServiceProviderinfo};
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateGetServiceProviderinfo};

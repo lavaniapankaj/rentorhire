@@ -1,5 +1,5 @@
 const AuthController = require("./controller");
-const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetServiceProviderinfo} = require("./validation");
+const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateGetServiceProviderinfo} = require("./validation");
 
 
 /** Api for register user Coded by Raj July 07 2025 */
@@ -124,6 +124,15 @@ app.post(
     }
 );
 
+
+/** API to get singe catregory recent 3 FAQs - Coded by Vishnu Oct 14 2025 */
+app.post(
+    "/api/user/getsinglecategoryrecentfaqs",
+    ValidateGetSingleCategoryRecentFaqs,
+    (req, res, next) => {
+        AuthController.getSingleCategoryRecentFaqs(req, res, next); /** Calling the controller */
+    }
+);
 
 /** Api to get service provider details - Coded by Vishnu August 31 2025 */
 app.post(

@@ -950,6 +950,69 @@ function authApi() {
     }
     };
 
+    /** Api to get single catregory recent 3 FAQs - Coded by Vishnu Oct 14 2025 */
+    this.getSingleCategoryRecentFaqs = async (req, res) => {
+    try {
+        const { category_id } = req.body;
+
+        if (!category_id) {
+        return res.status(400).json({
+            status: false,
+            message: "category_id is required",
+        });
+        }
+
+        const limit = 3; 
+
+        const query = `
+        SELECT 
+            f.id,
+            f.title,
+            f.description,
+            f.cate_id,
+            c.name AS category_name,
+            f.add_date
+        FROM roh_faqs f
+        LEFT JOIN roh_categories c ON f.cate_id = c.id
+        WHERE f.cate_id = ? AND f.active = 1
+        ORDER BY f.add_date DESC
+        LIMIT ?
+        `;
+
+        const [rows] = await pool.query(query, [category_id, limit]);
+
+        if (!rows.length) {
+        return res.status(200).json({
+            status: true,
+            message: "No FAQs found for this category",
+            data: [],
+        });
+        }
+
+        // Format the response
+        const formattedFaqs = rows.map((faq) => ({
+        id: faq.id,
+        title: faq.title,
+        description: faq.description,
+        category_name: faq.category_name || null,
+        add_date: faq.add_date,
+        }));
+
+        return res.status(200).json({
+        status: true,
+        message: "FAQs fetched successfully",
+        data: formattedFaqs,
+        });
+    } catch (error) {
+        console.error("Error in getSingleCategoryRecentFaqs:", error);
+        return res.status(500).json({
+        status: false,
+        message: "Internal server error",
+        error: error.message,
+        });
+    }
+    };
+
 
     /** Api Get service provider details this APIs useing on the single products contact button - Coded by Vishnu August 31 2025 */
     this.getServiceProviderDetails = async (req, res) => {
