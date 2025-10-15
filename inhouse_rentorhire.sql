@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 14, 2025 at 08:58 PM
+-- Generation Time: Oct 15, 2025 at 09:04 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -212,6 +212,37 @@ INSERT INTO `roh_cities` (`city_id`, `city_name`, `city_slug`, `state_id`, `add_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `roh_contact_us`
+--
+
+CREATE TABLE `roh_contact_us` (
+  `id` int(11) NOT NULL,
+  `full_name` varchar(150) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `subject` varchar(100) NOT NULL,
+  `message` text NOT NULL,
+  `email_status` enum('sent','failed') DEFAULT 'sent' COMMENT 'Email sending status',
+  `ip_address` varchar(45) DEFAULT NULL COMMENT 'User IP (optional)',
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roh_contact_us`
+--
+
+INSERT INTO `roh_contact_us` (`id`, `full_name`, `email`, `phone`, `subject`, `message`, `email_status`, `ip_address`, `created_at`, `updated_at`) VALUES
+(1, 'Vishnu Raj', 'vishnu@example.com', '9876543210', 'Vehicle Rental Support', 'Need assistance with my booking.', 'sent', '203.0.113.45', '2025-10-15 23:10:26', '2025-10-15 23:10:26'),
+(2, 'Carissa Steele', 'boqesoda@mailinator.com', '3533833548', 'Payment or Billing', 'Exercitationem accus', 'sent', '157.48.93.55', '2025-10-16 00:04:43', '2025-10-16 00:04:43'),
+(3, 'Billu ', 'rilujy@mailinator.com', '8095871619', 'Partnership / Business Inquiry', 'Adipisci culpa sit r', 'sent', '157.48.93.55', '2025-10-16 00:14:05', '2025-10-16 00:14:05'),
+(4, 'Omar Goodwin', 'xyke@mailinator.com', '7669891215', 'List My Vehicle', 'Et nisi ad doloremqu', 'sent', '157.48.93.55', '2025-10-16 00:15:46', '2025-10-16 00:15:46'),
+(5, 'David Mitchell', 'qidorile@mailinator.com', '1788027928', 'Payment or Billing', 'Aute adipisicing pos', 'sent', '157.48.93.55', '2025-10-16 00:23:08', '2025-10-16 00:23:08'),
+(6, 'Alana Savage', 'kybitubak@mailinator.com', '1583422936', 'General Inquiry', 'Cupiditate qui eum q', 'sent', '157.48.93.55', '2025-10-16 00:23:54', '2025-10-16 00:23:54');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roh_faqs`
 --
 
@@ -232,10 +263,24 @@ CREATE TABLE `roh_faqs` (
 --
 
 INSERT INTO `roh_faqs` (`id`, `title`, `description`, `cate_id`, `add_id`, `edit_id`, `active`, `add_date`, `edit_date`) VALUES
-(1, 'Can I modify my booking?', 'Yes, bookings can be modified up to 12 hours before pickup.', 3, 1, 1, 1, '2025-10-14 21:47:57', '2025-10-14 23:35:34'),
-(2, 'This is my test FAQs', 'This is my test FAQs description.', 3, 1, NULL, 1, '2025-10-14 22:49:26', '2025-10-14 22:49:26'),
-(3, 'This is my test FAQs 2', 'This is my test FAQs description 2', 3, 1, 1, 1, '2025-10-14 22:50:11', '2025-10-15 00:07:50'),
-(4, 'Possimus illo eu qu 2', 'Omnis enim officia s 2', 5, 1, 1, 1, '2025-10-14 23:13:38', '2025-10-14 23:35:53');
+(5, 'What documents are required to rent a vehicle?', 'You’ll need to provide a valid government-issued ID, a driving license, and a security deposit (if applicable). International customers must also show a valid passport and international driving permit.', 1, 1, 1, 1, '2025-10-15 22:01:39', '2025-10-15 22:48:16'),
+(6, 'Can I extend my vehicle rental period?', 'Yes, you can easily extend your rental duration through your account dashboard or by contacting our support team. Extensions are subject to vehicle availability and applicable daily rates.', 1, 1, NULL, 1, '2025-10-15 22:02:00', '2025-10-15 22:02:00'),
+(7, 'Is fuel included in the vehicle rental price?', 'Fuel is not included in the rental price. You’ll receive the vehicle with a full tank and must return it in the same condition. Any shortage will be charged at the prevailing fuel rate.', 1, 1, NULL, 1, '2025-10-15 22:02:26', '2025-10-15 22:02:26'),
+(8, 'Can I rent a car without a driver?', 'Yes, you can rent a car for self-drive. You’ll need to provide a valid driving license, ID proof, and security deposit before pickup.', 2, 1, NULL, 1, '2025-10-15 22:03:20', '2025-10-15 22:03:20'),
+(9, 'Is fuel included in the car rental price?', 'Fuel is not included in the rental cost. You’ll receive the car with a full tank and are expected to return it with the same level of fuel.', 2, 1, NULL, 1, '2025-10-15 22:03:41', '2025-10-15 22:03:41'),
+(10, 'What happens if I return the car late?', 'Late returns beyond the scheduled time will incur additional charges per hour. We recommend informing us in advance to avoid penalties.', 2, 1, NULL, 1, '2025-10-15 22:03:57', '2025-10-15 22:03:57'),
+(11, 'Can I rent a bike without a driving license?', 'No, a valid two-wheeler driving license is mandatory to rent a bike. Please carry your original license and a government-issued ID for verification at the time of pickup.', 3, 1, NULL, 1, '2025-10-15 22:05:05', '2025-10-15 22:05:05'),
+(12, 'Is there a security deposit required for bike rentals?', 'Yes, a small refundable security deposit is required for every booking. The amount varies depending on the bike model and will be refunded within 24 hours after returning the bike in good condition.', 3, 1, NULL, 1, '2025-10-15 22:05:48', '2025-10-15 22:05:48'),
+(13, 'What should I do if the bike breaks down during my trip?', 'If your bike experiences a breakdown, immediately contact our customer support. We provide on-road assistance or a replacement vehicle depending on your location and situation.', 3, 1, NULL, 1, '2025-10-15 22:06:04', '2025-10-15 22:06:04'),
+(14, 'What types of commercial vehicles are available for rent?', 'We offer a wide range of commercial vehicles including mini trucks, pickup vans, cargo carriers, and heavy-duty trucks. You can choose the right vehicle type based on your load size and transport requirements.', 4, 1, NULL, 1, '2025-10-15 22:08:31', '2025-10-15 22:08:31'),
+(15, 'Do I need a special license to rent a commercial vehicle?', 'Yes, renting and driving a commercial vehicle requires a valid commercial driving license (LMV-NT or HMV, depending on the vehicle type). You’ll also need to provide basic identity and business verification documents during booking.', 4, 1, NULL, 1, '2025-10-15 22:08:54', '2025-10-15 22:08:54'),
+(16, 'Can I rent a commercial vehicle for intercity transportation?', 'Absolutely! You can rent commercial vehicles for both local and intercity deliveries. Just mention your pickup and drop locations while booking, and we’ll arrange the most suitable vehicle for your route.', 4, 1, NULL, 1, '2025-10-15 22:09:16', '2025-10-15 22:09:16'),
+(17, 'What is included in the luxury vehicle rental package?', 'Each luxury vehicle rental includes standard insurance coverage, a full fuel tank, complimentary 24/7 roadside assistance, and delivery to your preferred location within city limits. Additional amenities like a personal chauffeur or VIP pick-up can be arranged on request.', 5, 1, NULL, 1, '2025-10-15 22:10:50', '2025-10-15 22:10:50'),
+(18, 'Do I need a security deposit for luxury vehicle rentals?', 'Yes, a refundable security deposit is required for all luxury car rentals. The amount depends on the car model and duration of rental, and it is fully refunded once the vehicle is returned in good condition after inspection.', 5, 1, NULL, 1, '2025-10-15 22:11:06', '2025-10-15 22:11:06'),
+(19, 'Can I rent a luxury car for out-of-city travel?', 'Absolutely! Luxury vehicles can be rented for intercity or long-distance trips. Just inform our team in advance so that we can prepare the required travel documentation and ensure 24-hour assistance coverage throughout your journey.', 5, 1, 1, 1, '2025-10-15 22:11:21', '2025-10-15 22:24:04'),
+(20, 'What documents do I need to rent a recreational vehicle?', 'To rent an RV, you’ll need a valid driver’s license, government-issued ID, and a security deposit. Some rentals may also require proof of insurance or a credit card for verification.', 6, 1, NULL, 1, '2025-10-15 22:12:31', '2025-10-15 22:12:31'),
+(21, 'Are pets allowed in recreational vehicle rentals?', 'Yes, most RV rental companies allow pets with a small additional cleaning fee. However, it’s best to confirm the pet policy in advance, as some vehicles have specific restrictions based on size or breed.', 6, 1, NULL, 1, '2025-10-15 22:12:49', '2025-10-15 22:12:49'),
+(22, 'What is included in the RV rental price?', 'The rental price typically includes the vehicle, standard amenities like a kitchenette, bathroom, and bedding, as well as basic mileage. Additional charges may apply for extra mileage, fuel, or generator usage.', 6, 1, NULL, 1, '2025-10-15 22:13:10', '2025-10-15 22:13:10');
 
 -- --------------------------------------------------------
 
@@ -748,6 +793,14 @@ ALTER TABLE `roh_cities`
   ADD PRIMARY KEY (`city_id`);
 
 --
+-- Indexes for table `roh_contact_us`
+--
+ALTER TABLE `roh_contact_us`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_email` (`email`),
+  ADD KEY `idx_email_status` (`email_status`);
+
+--
 -- Indexes for table `roh_faqs`
 --
 ALTER TABLE `roh_faqs`
@@ -844,10 +897,16 @@ ALTER TABLE `roh_cities`
   MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
+-- AUTO_INCREMENT for table `roh_contact_us`
+--
+ALTER TABLE `roh_contact_us`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `roh_faqs`
 --
 ALTER TABLE `roh_faqs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `roh_media_gallery`
