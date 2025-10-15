@@ -22,7 +22,7 @@ export default function CarsPage() {
       </Suspense>
 
       {/* FAQ section component */}
-      <FAQSection />
+      <FAQSection cate_id={2} />
 
       {/* Testimonial component */}
       <Testimonials />

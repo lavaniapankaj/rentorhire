@@ -11,19 +11,40 @@ const API_ADMIN_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_ADMIN_URL;
 
 export default function ListFaqsPage() {
   const [faqs, setFaqs] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchTitle, setSearchTitle] = useState('');
   const [searchStatus, setSearchStatus] = useState('');
+  const [searchCategory, setSearchCategory] = useState('');
   const router = useRouter();
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [viewFaqId, setViewFaqId] = useState(null);
   const [editFaqId, setEditFaqId] = useState(null);
 
-  /** Fetch FAQs */
-  const fetchFaqs = async (page = 1, title = '', status = '') => {
+  /** 🔹 Fetch All Active Categories */
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const token = getAuthToken();
+        const res = await fetch(`${API_ADMIN_BASE_URL}/category/admingetallactivecate`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        if (data.status && data.data?.categories) {
+          setCategories(data.data.categories);
+        }
+      } catch (err) {
+        console.error("Error fetching categories:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  /** 🔹 Fetch FAQs */
+  const fetchFaqs = async (page = 1, title = '', status = '', cate_id = '') => {
     setLoading(true);
     try {
       const token = getAuthToken();
@@ -31,17 +52,15 @@ export default function ListFaqsPage() {
         page,
         limit: 5,
         title,
-        status
+        status,
+        cate_id
       }).toString();
 
       const response = await fetch(`${API_ADMIN_BASE_URL}/faqs/list?${queryParams}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       const data = await response.json();
-
       if (data.status && Array.isArray(data.data)) {
         setFaqs(data.data);
         setTotalPages(data.pagination?.totalPages || 1);
@@ -57,16 +76,17 @@ export default function ListFaqsPage() {
   };
 
   useEffect(() => {
-    fetchFaqs(page, searchTitle, searchStatus);
+    fetchFaqs(page, searchTitle, searchStatus, searchCategory);
   }, [page]);
 
+  /** 🔹 Handle Search */
   const handleSearch = (e) => {
     e.preventDefault();
     setPage(1);
-    fetchFaqs(1, searchTitle, searchStatus);
+    fetchFaqs(1, searchTitle, searchStatus, searchCategory);
   };
 
-  /** Loader */
+  /** 🔹 Loader */
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '60vh' }}>
@@ -95,13 +115,14 @@ export default function ListFaqsPage() {
         {showAddForm && (
           <AddFaqForm
             onClose={() => setShowAddForm(false)}
-            onSuccess={() => fetchFaqs(page, searchTitle, searchStatus)}
+            onSuccess={() => fetchFaqs(page, searchTitle, searchStatus, searchCategory)}
           />
         )}
       </div>
 
-      {/* ===== Search Form ===== */}
-      <form className="d-flex gap-2 mb-3" onSubmit={handleSearch}>
+      {/* ===== Filters ===== */}
+      <form className="d-flex flex-wrap gap-2 mb-3" onSubmit={handleSearch}>
+        {/* Title Search */}
         <input
           type="text"
           placeholder="Search by title..."
@@ -110,6 +131,8 @@ export default function ListFaqsPage() {
           className="form-control"
           style={{ maxWidth: '250px' }}
         />
+
+        {/* Status Filter */}
         <select
           value={searchStatus}
           onChange={(e) => setSearchStatus(e.target.value)}
@@ -120,6 +143,22 @@ export default function ListFaqsPage() {
           <option value="active">Active</option>
           <option value="inactive">Inactive</option>
         </select>
+
+        {/* 🔹 Category Filter */}
+        <select
+          value={searchCategory}
+          onChange={(e) => setSearchCategory(e.target.value)}
+          className="form-select"
+          style={{ maxWidth: '220px' }}
+        >
+          <option value="">All Categories</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+
         <button className="btn btn-dark">Search</button>
       </form>
 
@@ -192,7 +231,9 @@ export default function ListFaqsPage() {
                         <EditFaqForm
                           faqId={editFaqId}
                           onClose={() => setEditFaqId(null)}
-                          onSuccess={() => fetchFaqs(page, searchTitle, searchStatus)}
+                          onSuccess={() =>
+                            fetchFaqs(page, searchTitle, searchStatus, searchCategory)
+                          }
                         />
                       )}
                     </td>

@@ -21,7 +21,7 @@ export default function RecreationalPage() {
 
      
       {/* FAQ section component */}
-      <FAQSection />
+      <FAQSection cate_id={6} />
 
       {/* Testimonial component */}
       <Testimonials />

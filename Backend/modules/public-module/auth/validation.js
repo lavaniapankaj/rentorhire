@@ -307,6 +307,39 @@ const ValidateGetSingleCategoryRecentFaqs = async (req, res, next) => {
     next();
 };
 
+
+/** Validate to create a new contact us entry - Coded by Vishnu Oct 14 2025 */
+const ValidateCreateContactUsEntry = async (req, res, next) => {
+    try {
+        const { full_name, email, phone, subject, message } = req.body;
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
+
+/** Validate to get all contact us entries - Coded by Vishnu Oct 14 2025 */
+const ValidateGetAllContactUsEntries = async (req, res, next) => {
+    try {
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
+
+/** Validate to view single contact us entry - Coded by Vishnu Oct 14 2025 */
+const ValidateViewSingleContactUsEntry = async (req, res, next) => {
+    try {
+        const { id } = req.body;
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
+
 /* Validate to get service provider details - Coded by Vishnu August 31 2025 */
 const ValidateGetServiceProviderinfo = async (req, res, next) => {
     try {
@@ -319,4 +352,4 @@ const ValidateGetServiceProviderinfo = async (req, res, next) => {
 };
 
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateGetServiceProviderinfo};
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateCreateContactUsEntry, ValidateGetAllContactUsEntries,ValidateViewSingleContactUsEntry, ValidateGetServiceProviderinfo};

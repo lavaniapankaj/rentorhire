@@ -1,5 +1,5 @@
 const AuthController = require("./controller");
-const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateGetServiceProviderinfo} = require("./validation");
+const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateCreateContactUsEntry, ValidateGetAllContactUsEntries,ValidateViewSingleContactUsEntry,  ValidateGetServiceProviderinfo} = require("./validation");
 
 
 /** Api for register user Coded by Raj July 07 2025 */
@@ -133,6 +133,34 @@ app.post(
         AuthController.getSingleCategoryRecentFaqs(req, res, next); /** Calling the controller */
     }
 );
+
+/** API to create a new contact us entry - Coded by Vishnu Oct 14 2025 */
+app.post(
+    "/api/user/contactinquiry",
+    ValidateCreateContactUsEntry,
+    (req, res, next) => {
+        AuthController.createContactUsEntry(req, res, next); /** Calling the controller */
+    }
+);
+
+/** API to get all contact us entries - Coded by Vishnu Oct 14 2025 */
+app.get(
+    "/api/user/getallcontactusentries",
+    ValidateGetAllContactUsEntries,
+    (req, res, next) => {
+        AuthController.getContactUsAllEntry(req, res, next); /** Calling the controller */
+    }
+);
+
+/** API to view single contact us entry - Coded by Vishnu Oct 14 2025 */
+app.post(
+    "/api/user/viewsinglecontactusentry",
+    ValidateViewSingleContactUsEntry,
+    (req, res, next) => {
+        AuthController.getSingleContactUsEntry(req, res, next); /** Calling the controller */
+    }
+);
+
 
 /** Api to get service provider details - Coded by Vishnu August 31 2025 */
 app.post(

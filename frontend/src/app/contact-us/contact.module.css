@@ -1,0 +1,119 @@
+.roh_contact_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  background: #f7f9fc;
+  min-height: 100vh;
+}
+
+.roh_contact_container {
+  background: #fff;
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.roh_contact_title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.roh_contact_subtitle {
+  text-align: center;
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+.roh_contact_form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+}
+
+.roh_contact_field {
+  display: flex;
+  flex-direction: column;
+}
+
+.roh_contact_label {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.roh_contact_input,
+.roh_contact_textarea {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.roh_contact_input:focus,
+.roh_contact_textarea:focus {
+  border-color: #0073aa;
+}
+
+.roh_contact_textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.roh_contact_btn {
+  background: #0073aa;
+  color: white;
+  padding: 12px 0;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.roh_contact_btn:hover {
+  background: #005e88;
+}
+
+.roh_contact_error {
+  font-size: 13px;
+  color: #d00;
+  margin-top: 3px;
+}
+
+.roh_contact_errorInput {
+  border-color: #d00 !important;
+}
+
+.roh_contact_success {
+  color: #007a33;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 20px;
+}
+
+
+.roh_contact_overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+  z-index: 10;
+  border-radius: 10px;
+}
+
+

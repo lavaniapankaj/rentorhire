@@ -34,6 +34,7 @@ export default function Sidebar() {
         <li><a href="/adminrohpnl/model" className={`${styles.menuLink} ${isActive('/adminrohpnl/model') ? styles.menuActive : ''}`}>Models</a></li>
         <li><a href="/adminrohpnl/post" className={`${styles.menuLink} ${isActive('/adminrohpnl/post') ? styles.menuActive : ''}`}>Posts</a></li>
         <li><a href="/adminrohpnl/faq" className={`${styles.menuLink} ${isActive('/adminrohpnl/faq') ? styles.menuActive : ''}`}>FAQs</a></li>
+        <li><a href="/adminrohpnl/inquiry" className={`${styles.menuLink} ${isActive('/adminrohpnl/inquiry') ? styles.menuActive : ''}`}>Inquirys</a></li>
         <li><a href="#" className={`${styles.menuLink} ${isActive('/adminrohpnl/product') ? styles.menuActive : ''}`}>Products</a></li>
         <li><a href="/adminrohpnl/user" className={`${styles.menuLink} ${isActive('/adminrohpnl/user') ? styles.menuActive : ''}`}>Users</a></li>
         <li><a href="/adminrohpnl/role" className={`${styles.menuLink} ${isActive('/adminrohpnl/role') ? styles.menuActive : ''}`}>Roles</a></li>

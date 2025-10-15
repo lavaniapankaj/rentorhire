@@ -20,7 +20,7 @@ export default function LuxuryPage() {
       </Suspense>
 
       {/* FAQ section component */}
-      <FAQSection />
+      <FAQSection cate_id={5} />
 
       {/* Testimonial component */}
       <Testimonials />

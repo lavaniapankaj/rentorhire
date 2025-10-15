@@ -2,7 +2,7 @@
 import styles from './vehicles.module.css';
 import HeroSection from '../../globalComponents/heroSection';
 import AboutUs from '../../globalComponents/aboutUs';
-import FAQSection from '../../globalComponents/faqSection';
+import FAQSection from './faqSection';
 import InnerServices from '../../globalComponents/innerServices';
 import LatestArtical from '../../globalComponents/latestArticle';
 import Testimonials from '../../globalComponents/testimonials';
@@ -24,7 +24,7 @@ export default function Vechicles() {
                 <InnerServices />
 
                 {/* FAQ section component */}
-                <FAQSection />
+                <FAQSection cate_id={1} />
 
                 {/* about us component */}
                 <AboutUs/>

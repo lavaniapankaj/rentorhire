@@ -1014,6 +1014,169 @@ function authApi() {
     };
 
 
+    /** Api to create a new contact us entry - Coded by Vishnu Oct 14 2025 */
+    this.createContactUsEntry = async (req, res) => {
+    try {
+        const { full_name, email, phone, subject, message, ip_address } = req.body;
+
+        // === Insert into DB ===
+        const query = `
+        INSERT INTO roh_contact_us 
+        (full_name, email, phone, subject, message, ip_address)
+        VALUES (?, ?, ?, ?, ?, ?)
+        `;
+
+        const [result] = await pool.query(query, [
+        full_name,
+        email,
+        phone,
+        subject,
+        message,
+        ip_address || req.ip || "unknown",
+        ]);
+
+        // ===Send email to admin ===
+        const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT),
+        secure: true,
+        auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS,
+        },
+        });
+
+        const htmlBody = `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+            <h2 style="color: #0073aa;">📩 New Contact Inquiry Received</h2>
+            <p><strong>Full Name:</strong> ${full_name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Subject:</strong> ${subject}</p>
+            <p><strong>Message:</strong></p>
+            <div style="background: #f8f9fa; padding: 10px; border-radius: 5px;">
+            ${message.replace(/\n/g, "<br>")}
+            </div>
+            <hr>
+            <p style="font-size: 13px; color: #777;">Sent automatically from FindOnRent Contact Form</p>
+        </div>
+        `;
+
+        await transporter.sendMail({
+        from: `"FindOnRent Contact" <${process.env.SMTP_FROM}>`,
+        to: "ecmascript.php@gmail.com", // Admin email
+        subject: `📨 New Contact Inquiry — ${subject}`,
+        html: htmlBody,
+        });
+
+        // === Respond to frontend ===
+        return res.status(200).json({
+        success: true,
+        message: "Contact entry created & email sent successfully",
+        data: result,
+        });
+    } catch (error) {
+        console.error("❌ createContactUsEntry error:", error);
+        return res.status(500).json({
+        success: false,
+        message: "Internal server error",
+        });
+    }
+    };
+
+
+    /** Api to get contact us all entry - Coded by Vishnu Oct 14 2025 */
+    this.getContactUsAllEntry = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const offset = (page - 1) * limit;
+        const search = (req.query.search || "").trim();
+
+        let where = "";
+        let params = [];
+
+        if (search) {
+        where = "WHERE email LIKE ? OR phone LIKE ?";
+        params.push(`%${search}%`, `%${search}%`);
+        }
+
+        // Total count for pagination
+        const [countRows] = await pool.query(
+        `SELECT COUNT(*) AS total FROM roh_contact_us ${where}`,
+        params
+        );
+        const total = countRows[0].total;
+        const totalPages = Math.ceil(total / limit);
+
+        // Fetch paginated data
+        const [rows] = await pool.query(
+        `
+        SELECT 
+            id, full_name, email, phone, subject, email_status,
+            DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at
+        FROM roh_contact_us
+        ${where}
+        ORDER BY id DESC
+        LIMIT ? OFFSET ?
+        `,
+        [...params, limit, offset]
+        );
+
+        return res.status(200).json({
+        success: true,
+        message: "Entries fetched successfully",
+        data: rows,
+        totalPages,
+        currentPage: page,
+        });
+    } catch (error) {
+        console.error("❌ getContactUsAllEntry error:", error);
+        return res.status(500).json({
+        success: false,
+        message: "Internal server error",
+        });
+    }
+    };
+
+
+    /** Api to view single contact us entry - Coded by Vishnu Oct 14 2025 */
+    this.getSingleContactUsEntry = async (req, res) => {
+    try {
+        const { id } = req.body;
+
+        const query = `
+        SELECT 
+            id,
+            full_name,
+            email,
+            phone,
+            subject,
+            message,
+            email_status,
+            ip_address,
+            DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') AS created_at
+        FROM roh_contact_us
+        WHERE id = ?
+        `;
+
+        const [result] = await pool.query(query, [id]);
+
+        return res.status(200).json({
+        success: true,
+        message: "Contact entry fetched successfully",
+        data: result[0],
+        });
+    } catch (error) {
+        console.error("❌ getSingleContactUsEntry error:", error);
+        return res.status(500).json({
+        success: false,
+        message: "Internal server error",
+        });
+    }
+    };
+
+
     /** Api Get service provider details this APIs useing on the single products contact button - Coded by Vishnu August 31 2025 */
     this.getServiceProviderDetails = async (req, res) => {
         try {

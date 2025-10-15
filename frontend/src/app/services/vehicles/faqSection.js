@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import styles from "../../commercial-vehicles/components/faqSection.module.css";
+import styles from "./faqSection.module.css";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
 

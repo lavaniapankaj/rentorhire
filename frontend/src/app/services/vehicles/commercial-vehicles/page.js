@@ -21,7 +21,7 @@ export default function CommercialPage() {
       </Suspense>
 
       {/* FAQ section component */}
-      <FAQSection />
+      <FAQSection cate_id={4} />
 
       {/* Testimonial component */}
       <Testimonials />
