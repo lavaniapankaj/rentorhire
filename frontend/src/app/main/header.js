@@ -13,6 +13,21 @@ const Header = () => {
     import('bootstrap/dist/js/bootstrap.bundle.min.js');
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector('.mainbar');
+      if (window.scrollY > 50) {
+        header.classList.add('roh_scrolled_header_sticky');
+      } else {
+        header.classList.remove('roh_scrolled_header_sticky');
+      }
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
+
   /** Save user location on page load */
   useEffect(() => {
     saveUserLocation();
@@ -86,7 +101,7 @@ const Header = () => {
                         <a className={`nav-link ${styles.roh_navLink}`} href="#">About Us</a>
                       </li>
                       <li className={`nav-item`}>
-                        <a className={`nav-link ${styles.roh_navLink}`} href="#">Contact Us</a>
+                        <a className={`nav-link ${styles.roh_navLink}`} href="/contact-us">Contact Us</a>
                       </li>
                     </ul>
                   </div>
@@ -115,7 +130,7 @@ const Header = () => {
                                     <Image src="/user1.svg" alt="Profile" width={20} height={20} /> Profile </a>
                                 </li>
                                 <li>
-                                  <a href="#">
+                                  <a href="/contact-us">
                                     <Image src="/support.svg" alt="Support" width={20} height={20} /> Support </a>
                                 </li>
                                 <li>
@@ -188,7 +203,7 @@ const Header = () => {
                             <a className={`nav-link ${styles.roh_navLink}`} href="#">About Us</a>
                           </li>
                           <li className={`nav-item`}>
-                            <a className={`nav-link ${styles.roh_navLink}`} href="#">Contact Us</a>
+                            <a className={`nav-link ${styles.roh_navLink}`} href="/contact-us">Contact Us</a>
                           </li>
                         </ul>
                       </div>

@@ -24,15 +24,26 @@
     font-weight: 700; 
     line-height: 1.2em; 
 }
-.roh_main_data_wrap {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-}
+    .roh_main_data_wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+    }
+      
+      .roh_card_box:nth-child(1),
+      .roh_card_box:nth-child(2) {
+        flex: 1 1 48%; 
+      }
+      
+      .roh_card_box:nth-child(3) {
+        flex: 1 1 30%; 
+      }
+      
+      .roh_card_box:nth-child(4),
+      .roh_card_box:nth-child(5) {
+        flex: 1 1 30%; 
+      }
 
-.roh_card_box {
-display: block;
-}
 
 .roh_card_box_inner {
     border-radius: 30px 30px 30px 30px;
@@ -192,16 +203,13 @@ display: block;
 
 /*--------------- Responsive CSS----------- */
 
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-    .roh_main_data_wrap {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
 
 @media screen and (max-width: 768px) {
-    .roh_main_data_wrap{
-        grid-template-columns: repeat(2, 1fr);
-    }
+    @media (max-width: 767px) {
+        .roh_card_box {
+          flex: 1 1 100% !important;
+        }
+      }
     .roh_button_custom button {
         padding: 6px 12px;
         font-size: 13px;

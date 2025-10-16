@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useState } from 'react';
+import "../globals.css"
 import styles from './css/innerServices.module.css';
 import Image from "next/image";
+import Link from 'next/link';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
 
@@ -61,7 +63,7 @@ export default function InnerServices() {
 
               {/* get vehicles sub categories section start */}
               {!loading && categories.length > 0 && categories.map((cat) => (
-                <div key={cat.id} className="roh_card_box">
+                <div key={cat.id} className={`${styles.roh_card_box}`}>
                   <div className={styles.roh_card_box_inner}>
                     <ul className={styles.roh_explore_media_list}>
                       <li>
@@ -86,7 +88,7 @@ export default function InnerServices() {
                       </li>
                     </ul>
                     <div className={styles.roh_circl_btn}>
-                       
+
                       <a href={`/services/vehicles/${cat.slug}`}>
                         <button>
                           <img src="/images/global-imgs/arrow.svg" alt="arrow" />
@@ -109,10 +111,10 @@ export default function InnerServices() {
               </div>
               <div className="col-12">
                 <div className={styles.roh_btn_exprore_wrap}>
-                  <div className={`${styles.roh_top_btns} d-flex align-items-center justify-content-center`}>
-                    <div className={styles.roh_button_custom}><button>Contact us</button></div>
-                    <div className={styles.roh_circl_btn}>
-                      <button><img src="/images/global-imgs/arrow.svg" alt="arrow" /></button>
+                  <div className={`d-flex align-items-center justify-content-center roh_redBtns`}>
+                    <div className="roh_button_custom"><Link href="/contact-us">Contact us</Link></div>
+                    <div className="roh_circl_btn">
+                      <Link href="/contact-us"><Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} /></Link>
                     </div>
                   </div>
                 </div>

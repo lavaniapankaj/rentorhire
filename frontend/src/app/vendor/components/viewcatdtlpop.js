@@ -46,8 +46,8 @@ export default function ViewCatDtlPop({ category, onClose }) {
           <div className="row">
             <div className="col-md-12">
               <div className={`justify-content-center ${styles.roh_popup_header}`}>
-                <Image src="/bike-red-icon.svg" alt={category} width={60} height={60} />
-                <h3>Choose {category}</h3>
+                <Image src="/bike-red-icon.svg" alt={category} width={40} height={40} />
+                <h3 className="mb-0">Choose {category}</h3>
               </div>
             </div>
           </div>

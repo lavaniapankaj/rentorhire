@@ -227,7 +227,8 @@ select.reFormF {
 .vehicleForm input:focus,
 .vehicleForm textarea:focus,
 .vehicleForm select:focus {
-  border-color: #007bff;
+  border: none;
+  box-shadow: 0px 0px 3px #ff3600;
 }
 
 /* Textarea */
@@ -452,6 +453,13 @@ gap: 10px;
 }
 
 
+@media screen and (max-width:767px) {
+  .vehicleForm input,
+.vehicleForm textarea,
+.vehicleForm select {
+  font-size: 16px;
+}
+}
 @media screen and (max-width:767px) {
   .roh_fields .roh_inoputField{
     width: 100%;    

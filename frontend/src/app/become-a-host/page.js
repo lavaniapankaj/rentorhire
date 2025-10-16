@@ -979,7 +979,7 @@ export default function BecomeAHostPage() {
                                         <div className={`${styles.roh_priceRight_wrap}`}>
                                           <div className={`${styles.roh_priceRight_inner}`}>
                                             <div className={`${styles.roh_sidebar_pricing}`}>
-                                              <h5><sup><span>Starting </span> </sup>₹{item.details?.price_per_day || "N/A"}<span>/Per Day</span></h5>
+                                              <h5><sup><span>Starting from </span> </sup>₹{item.details?.price_per_day || "N/A"}<span>/Per Day</span></h5>
                                               <div className={`${styles.roh_productPrice}`}>
                                                 <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
                                                   <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>

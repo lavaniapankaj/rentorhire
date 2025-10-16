@@ -44,6 +44,11 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 15px;
+  border-radius: 100px;
+  background-image: url(/images/homepg/bg-img-3.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 8px;
 }
 
 .roh_popup_header h3 {
@@ -195,6 +200,12 @@
   max-width: 100%;
 }
 
+.roh_listingMain.roh_listingMain_active, .roh_singleVehicle_details {
+  height: 100vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
 /* -------------After Click on Listing Items Left side Move-------------  */
 .roh_vehicleListing_left {
   animation: slideLeft 0.2s ease-in-out forwards;
@@ -258,9 +269,11 @@
   margin-top: 0 !important;
   border-top: none !important;
 }
+
 .roh_left_slide_priceMobile {
   display: none;
 }
+
 .roh_backTolisting {
   display: none;
 }
@@ -321,13 +334,6 @@
 
 .roh_productPrice .roh_content_layer {
   margin-bottom: 0px;
-}
-
-.roh_Vehicle_detailsInner_contentRight {
-  background-color: #FFF8F6;
-  border-radius: 15px;
-  padding: 20px;
-  border: 1px solid #ccc;
 }
 
 .roh_general_info_wrap {
@@ -418,8 +424,9 @@
 .roh_policy_terms h4 button:focus:not(:focus-visible) {
   box-shadow: none;
 }
-.roh_about_list_wrap{
-  margin: 30px auto  0 auto;
+
+.roh_about_list_wrap {
+  margin: 30px auto 0 auto;
 }
 
 .roh_Vehicle_detailsInner_contentRight {
@@ -428,9 +435,11 @@
   border-radius: 0 0 0 15px;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06);
+  width: 400px;
   position: sticky;
   top: 50px;
   padding: 30px 20px;
+  max-height: max-content;
 }
 
 .roh_about_media_list {
@@ -502,11 +511,7 @@
 
 .roh_Vehicle_detailsInner_contentLeft {
   width: calc(100% - 400px);
-  margin-top: 20px  ;
-}
-
-.roh_Vehicle_detailsInner_contentRight {
-  width: 400px;
+  margin-top: 20px;
 }
 
 @media (min-width: 1030px) and (max-width: 1390px) {
@@ -530,6 +535,7 @@
     width: 100%;
     display: none
   }
+
   .roh_left_slide_priceMobile {
     display: block;
     width: 100%;
@@ -542,8 +548,9 @@
   .roh_about_media_list {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    
+
   }
+
   .roh_check_list li .roh_featureList img {
     width: 24px;
     height: 24px;

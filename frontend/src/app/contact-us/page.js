@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import style from "./contact.module.css";
+import Image from "next/image";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
 
@@ -91,6 +92,7 @@ export default function ContactUsPage() {
   };
 
   return (
+  <>
     <div className={style.roh_contact_wrapper}>
       <div className={style.roh_contact_container}>
         <h1 className={style.roh_contact_title}>Contact Us</h1>
@@ -104,10 +106,10 @@ export default function ContactUsPage() {
           </p>
         ) : (
           <form
-            className={style.roh_contact_form}
-            onSubmit={handleSubmit}
+          className={style.roh_contact_form}
+          onSubmit={handleSubmit}
             noValidate
-          >
+            >
             {loading && (
               <div className={style.roh_contact_overlay}>
                 <div className={style.roh_contact_spinner}></div>
@@ -117,7 +119,7 @@ export default function ContactUsPage() {
 
             {/* Full Name */}
             <div className={style.roh_contact_field}>
-              <label className={style.roh_contact_label}>Full Name</label>
+              <label className={style.roh_contact_label}>Full Name <span>*</span></label>
               <input
                 type="text"
                 name="name"
@@ -128,15 +130,15 @@ export default function ContactUsPage() {
                   errors.name ? style.roh_contact_errorInput : ""
                 }`}
                 placeholder="Enter your full name"
-              />
+                />
               {errors.name && (
                 <span className={style.roh_contact_error}>{errors.name}</span>
               )}
             </div>
-
+            <div className={`${style.roh_fields}`}>
             {/* Email */}
-            <div className={style.roh_contact_field}>
-              <label className={style.roh_contact_label}>Email</label>
+            <div className={`${style.roh_contact_field} ${style.roh_inoputField}`}>
+              <label className={style.roh_contact_label}>Email <span>*</span></label>
               <input
                 type="email"
                 name="email"
@@ -147,15 +149,15 @@ export default function ContactUsPage() {
                   errors.email ? style.roh_contact_errorInput : ""
                 }`}
                 placeholder="you@example.com"
-              />
+                />
               {errors.email && (
                 <span className={style.roh_contact_error}>{errors.email}</span>
               )}
             </div>
 
             {/* Phone */}
-            <div className={style.roh_contact_field}>
-              <label className={style.roh_contact_label}>Phone</label>
+            <div className={`${style.roh_contact_field} ${style.roh_inoputField}`}>
+              <label className={style.roh_contact_label}>Phone <span>*</span></label>
               <input
                 type="tel"
                 name="phone"
@@ -166,15 +168,16 @@ export default function ContactUsPage() {
                   errors.phone ? style.roh_contact_errorInput : ""
                 }`}
                 placeholder="9876543210"
-              />
+                />
               {errors.phone && (
                 <span className={style.roh_contact_error}>{errors.phone}</span>
               )}
             </div>
 
+              </div>
             {/* Subject */}
             <div className={style.roh_contact_field}>
-              <label className={style.roh_contact_label}>Subject</label>
+              <label className={style.roh_contact_label}>Subject <span>*</span></label>
               <select
                 name="subject"
                 value={form.subject}
@@ -183,7 +186,7 @@ export default function ContactUsPage() {
                 className={`${style.roh_contact_input} ${
                   errors.subject ? style.roh_contact_errorInput : ""
                 }`}
-              >
+                >
                 <option value="">-- Select Subject --</option>
                 <option value="General Inquiry">General Inquiry</option>
                 <option value="Vehicle Rental Support">
@@ -205,7 +208,7 @@ export default function ContactUsPage() {
 
             {/* Message */}
             <div className={style.roh_contact_field}>
-              <label className={style.roh_contact_label}>Message</label>
+              <label className={style.roh_contact_label}>Message <span>*</span></label>
               <textarea
                 name="message"
                 value={form.message}
@@ -215,24 +218,31 @@ export default function ContactUsPage() {
                   errors.message ? style.roh_contact_errorInput : ""
                 }`}
                 placeholder="Type your message..."
-              ></textarea>
+                ></textarea>
               {errors.message && (
                 <span className={style.roh_contact_error}>
                   {errors.message}
                 </span>
               )}
             </div>
-
-            <button
+            
+            <div className={`d-flex align-items-center justify-content-center ${style.roh_redBtns}`}>
+                <div className={`${style.roh_button_custom}`}><button
               type="submit"
               className={style.roh_contact_btn}
               disabled={loading}
-            >
+              >
               {loading ? "Sending..." : "Send Message"}
-            </button>
+            </button></div>
+                <div className={`${style.roh_circl_btn}`}>
+                  <button><Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} /></button>
+                </div>
+              </div>
           </form>
         )}
       </div>
     </div>
+        
+        </>
   );
 }

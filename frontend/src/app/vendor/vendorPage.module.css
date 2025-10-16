@@ -89,11 +89,18 @@ ul.roh_solial_medialink li a img {
 ul.roh_solial_medialink li a {
     text-decoration: none;
     padding: 10px;
+    background: #ffffff;
+    line-height: 0px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 100px;
+    box-shadow: 0 8px 28px rgb(66 66 66 / 10%);
+    transition: all 0.3s ease-in-out;
 }
 
 ul.roh_solial_medialink li a:hover {
-    background-color: #fff;
-    border-radius: 10px;
+    background-color: #f3fcff;
 }
 
 
@@ -114,53 +121,59 @@ ul.roh_solial_medialink li a:hover {
 
 .roh_categoryContent button {
     display: flex;
-    flex-direction: column;
-    text-align: center;    
+    text-align: center;
+    align-items: center;
+    gap: 8px;
     font-family: "DM Sans", sans-serif;
     font-size: 18px;
     line-height: 1em;
-    text-decoration: none;
-    color: #000;
     font-weight: 500;
+    color: #000;
+    text-decoration: none;
 }
 
 .roh_back_circle {
     position: relative;
-    padding: 10px 10px 0px 10px;
     width: 100%;
 }
+
 .roh_back_circle img {
     position: relative;
-    width: 45px;
-    height: 45px;
+    width: 30px;
+    height: 30px;
 }
+
 .roh_back_circle::before {
     content: '';
     position: absolute;
-    top: 5px;
-    left: 0;
+    top: 0px;
+    left: -8px;
     background-color: #FF3600;
     opacity: 10%;
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
     z-index: 0;
     transition: all 0.4s ease-in-out;
 }
-.roh_categoryContent a:hover .roh_back_circle::before{
+
+.roh_categoryContent a:hover .roh_back_circle::before {
     opacity: 40%;
 }
+
 button.roh_categoryBox {
     box-shadow: 0 8px 24px rgba(255, 107, 107, 0.1);
-    padding: 10px;
-    border-radius: 8px;
+    padding: 10px 25px 10px 25px;
+    border-radius: 100px;
     background-color: #fff;
     transition: all 0.3s ease-in-out;
     border: none;
 }
+
 button.roh_categoryBox:hover {
-    transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    background-color: #fffefe;
 }
 
 /* About Us / Business Overview */
@@ -216,22 +229,21 @@ button.roh_categoryBox:hover {
         flex-direction: column;
         padding: 15px;
     }
+
     .roh_img_content_right {
         width: 100%;
     }
+
     .roh_img_wrap_single {
         width: 100%;
     }
+
     .roh_vendorUsername {
         font-size: 20px;
     }
+
     .roh_verifiedbox img {
         width: 28px;
         height: 28px;
     }
 }
-
-
-
-
-/**  */

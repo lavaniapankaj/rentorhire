@@ -332,7 +332,7 @@ export default function Hostingitemslist() {
                 <div className={`${styles.roh_hosting_viewDetails_inner}`}>
 
                   <div className={`${styles.roh_sidebar_pricing}`}>
-                    <h3><sup><span>Starting </span></sup> ₹{selectedItem.price_per_day}<span>/Per Day</span></h3>
+                    <h3><sup><span>Starting from </span></sup> ₹{selectedItem.price_per_day}<span>/Per Day</span></h3>
                     <div className={`${styles.roh_productPrice}`}>
                       <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
                         <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>

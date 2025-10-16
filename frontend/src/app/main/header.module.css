@@ -9,9 +9,11 @@
   max-width: 100px;
   transition: all 0.3s;
 }
-body.sticky_top .header-area .roh_logo_block img.roh_logo {
+
+:global(.roh_scrolled_header_sticky) .roh_logo {
   max-width: 80px;
 }
+
 .roh_is_sticky{
     position: fixed !important;
     left: 0;
@@ -160,6 +162,7 @@ header .roh_navBar .roh_dropdown_menu a.roh_dropdown_item:hover{
   background-color: #EDEDED;
   color: #000;
 }
+
 @media (max-width: 991px) {
   .roh_desktop_headerNav {
     display: none;
