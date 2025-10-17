@@ -54,7 +54,7 @@
 }
 select.reFormF {
   appearance: none;
-  background-image: url(https://webcarelogics.com/lokesh//assets/images/download.svg);
+  background-image: url("/images/assets/download.svg");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 10px 6px;

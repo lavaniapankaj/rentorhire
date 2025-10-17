@@ -240,7 +240,7 @@
 
 .roh_sidebar_pricing h2 {
   font-family: "DM Sans", sans-serif;
-  font-size: 40px ;
+  font-size: 40px;
 }
 
 .roh_sidebar_pricing h2 span {
@@ -279,20 +279,26 @@
   margin-bottom: 10px;
   border: dashed 1px #000;
 }
+
 .roh_productPrice .roh_content_layer {
   margin-bottom: 0px;
 }
-.roh_providerName{
+
+.roh_providerName {
   margin-bottom: 10px;
 }
+
 .roh_providerName h6 {
-  font-size: 16px;font-weight: 600;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 1em;
   font-family: "DM Sans", sans-serif;
 }
+
 .roh_providerName span {
   font-weight: 400;
 }
+
 /*---------------------POP-up Right Inner Content CSS----------------------  */
 .roh_about_list_wrap {
   margin-top: 60px;
@@ -388,7 +394,8 @@
   height: 28px;
 }
 
-.roh_featureList, .roh_premiumFeaturelist {
+.roh_featureList,
+.roh_premiumFeaturelist {
   text-decoration: none;
   padding: 5px 0;
   display: flex;
@@ -403,8 +410,9 @@
   font-weight: 600;
   margin-bottom: 0px;
 }
-.roh_featureList span{
-  font-family:  "DM Sans", sans-serif;
+
+.roh_featureList span {
+  font-family: "DM Sans", sans-serif;
   font-weight: 400;
 }
 
@@ -414,87 +422,37 @@
   flex-direction: column;
   gap: 10px;
 }
+
 .roh_check_list.roh_new_checklist {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
 }
+
 .roh_premiumFeaturelist span {
   font-family: "DM Sans", sans-serif;
   font-size: 19px;
   font-weight: 500;
 }
+
 .roh_premiumFeaturelist img {
   width: 35px;
   height: 35px;
 }
+
 .roh_policy_terms h4 button {
   font-size: 20px;
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
 
 }
-.roh_policy_terms h4 button:focus:not(:focus-visible){
+
+.roh_policy_terms h4 button:focus:not(:focus-visible) {
   box-shadow: none;
 }
-@media (max-width: 991px) {
-  .roh_container {
-    width: 100%;
-    max-width: 100%;
-  }
-  .roh_prouct_hero {
-    padding-top: 50px;
-  }
 
-  .roh_hero_heading h1 {
-    font-size: 30px;
-  }
 
-  .roh_back_circle img {
-    width: 30px;
-    height: 30px;
-  }
-  .roh_check_list li .roh_featureList img, .roh_premiumFeaturelist img {
-    width: 24px;
-    height: 24px;
-  }
-  .roh_premiumFeaturelist span, .roh_featureList h6 {
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .roh_sidebar_pricing h2 {
-    font-size: 35px;
-  }
-  .modalContent {
-    padding: 15px;
-  }
-  .roh_service_banner {
-    margin-block: 24px;
-  }
-
-  .roh_button_custom button {
-    padding: 6px 12px;
-    font-size: 13px;
-  }
-
-  .roh_circl_btn button img,
-  .roh_icon a img {
-    width: 20px;
-    height: 20px;
-  }
-  .roh_back_circle {
-    width: 45px;
-}
-  .roh_check_list.roh_new_checklist {
-    grid-template-columns: repeat(2, 1fr);
-}
-.roh_policy_terms h4 button {
-  font-size: 16px;
-}
-}
-
+/*--------- Images Slider------- */
 
 .roh_policy_terms :global(.accordion-button:not(.collapsed)) {
   background: #FF3600;
@@ -535,7 +493,8 @@
   border-radius: 12px;
   margin-bottom: 20px;
   box-sizing: border-box;
-  padding: 0 30px; /* so image edges are visible */
+  padding: 0 30px;
+  /* so image edges are visible */
 }
 
 /* === TRACK === */
@@ -546,13 +505,15 @@
 
 /* === EACH SLIDE === */
 .roh_slide {
-  flex: 0 0 80%; /* 80% width → 10% edges visible */
+  flex: 0 0 80%;
+  /* 80% width → 10% edges visible */
   margin: 0 10px;
 }
 
 .roh_slide img {
   width: 100%;
   height: auto;
+  aspect-ratio: 1/1;
   max-height: 360px;
   object-fit: cover;
   border-radius: 12px;
@@ -564,30 +525,101 @@
 .roh_slider_controls {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
   margin-top: 10px;
 }
 
 .navBtn {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.9);
   border: none;
   border-radius: 50%;
   width: 38px;
   height: 38px;
   font-size: 20px;
   font-weight: bold;
+  line-height: 1em;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
+.rotateLeft {
+  transform: rotate(180deg);
+}
 .navBtn:hover {
-  background: white;
-  transform: scale(1.1);
+  background: #FF3600;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 768px) {
+/*---------------- Responsive CSS -------- */
+
+@media (max-width: 991px) {
+  .roh_container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .roh_prouct_hero {
+    padding-top: 50px;
+  }
+
+  .roh_hero_heading h1 {
+    font-size: 30px;
+  }
+
+  .roh_back_circle img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .roh_check_list li .roh_featureList img,
+  .roh_premiumFeaturelist img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .roh_premiumFeaturelist span,
+  .roh_featureList h6 {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .roh_sidebar_pricing h2 {
+    font-size: 35px;
+  }
+
+  .modalContent {
+    padding: 15px;
+  }
+
+  .roh_service_banner {
+    margin-block: 24px;
+  }
+
+  .roh_button_custom button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .roh_circl_btn button img,
+  .roh_icon a img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .roh_back_circle {
+    width: 45px;
+  }
+
+  .roh_check_list.roh_new_checklist {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .roh_policy_terms h4 button {
+    font-size: 16px;
+  }
+
+  /* Slider */
   .roh_slide {
     flex: 0 0 90%;
     margin: 0 5px;
@@ -603,3 +635,11 @@
     font-size: 16px;
   }
 }
+@media screen and (max-width: 767px) {
+
+.roh_slider_container{
+  margin-top: 50px;
+}
+}
+
+

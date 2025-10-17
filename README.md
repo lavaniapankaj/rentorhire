@@ -63,3 +63,9 @@
    ```bash
    npm install nodemailer
    ```
+7. **Extra Library:**
+   For Extra Library, install the required packages:
+
+   ```bash
+  npm install concurrently --save-dev
+   ```

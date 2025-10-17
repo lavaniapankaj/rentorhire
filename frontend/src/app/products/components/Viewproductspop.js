@@ -220,28 +220,28 @@ export default function Viewproductspop({ triggerId, onClose }) {
                         <div className={`${styles.roh_left_slide_inner}`}>
                           <div className={`${styles.roh_sidebar_pricing}`}>
                             {/* <h2><sup><span>Starting </span></sup> ₹{item.price_per_day}<span>/Per Day</span></h2> */}
-                            <h2><sup><span>Starting from </span></sup>₹{Number(item.price_per_day || 0) .toLocaleString('en-IN', { maximumFractionDigits: 0 })}
-                            <span>&nbsp;/Per Day</span>
-                          </h2>
+                            <h2><sup><span>Starting from </span></sup>₹{Number(item.price_per_day || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                              <span>&nbsp;/Per Day</span>
+                            </h2>
 
                             <div className={`${styles.roh_productPrice}`}>
-                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
-                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
-                                <span>Per/Week:</span>
+                              <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                                <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                  <span>Per/Week:</span>
+                                </div>
+                                <span className="text-dark fw-medium">₹{Number(item.price_per_week || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
                               </div>
-                              <span className="text-dark fw-medium">₹{Number(item.price_per_week || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
-                            </div>
-                            <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
-                              <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
-                                <span>Per/Month:</span>
+                              <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
+                                <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
+                                  <span>Per/Month:</span>
+                                </div>
+                                <span className="text-dark fw-medium">₹{Number(item.price_per_month || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
                               </div>
-                              <span className="text-dark fw-medium">₹{Number(item.price_per_month || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
-                            </div>
                             </div>
 
                           </div>
                           <div className={`${styles.roh_fleets_single_sidebar_list}`}>
-                           
+
                             <div className={`d-flex justify-content-between text-dark  ${styles.roh_content_layer}`}>
                               <div className={`d-flex align-items-center gap-1 ${styles.roh_feets_data_list}`}>
                                 <Image src="/images/product-popup/car-security-deposit.svg" alt="Door" width={20} height={20} />
@@ -274,7 +274,7 @@ export default function Viewproductspop({ triggerId, onClose }) {
                                   <div className="d-flex align-items-center justify-content-center roh_redBtns">
                                     <div className="roh_button_custom">
                                       <Link href={`tel:${serviceProvider.phone_number}`}>Contact Us
-                                         {/* ({serviceProvider.phone_number}) */}
+                                        {/* ({serviceProvider.phone_number}) */}
                                       </Link>
                                     </div>
                                     <div className="roh_circl_btn">
@@ -373,14 +373,15 @@ export default function Viewproductspop({ triggerId, onClose }) {
                               onClick={handlePrev}
                               aria-label="Previous"
                             >
-                              &lt;
+                              <Image
+                                src="/arrow.svg" width={24} height={24} alt="Previous" className={styles.rotateLeft}/>
                             </button>
                             <button
                               className={`${styles.navBtn} ${styles.nextBtn}`}
                               onClick={handleNext}
                               aria-label="Next"
                             >
-                              &gt;
+                              <Image src="/arrow.svg" width={24} height={24} alt="Next" />
                             </button>
                           </div>
                         </div>
@@ -446,12 +447,12 @@ export default function Viewproductspop({ triggerId, onClose }) {
                               <div className="media-body">
                                 <h5 className={`${styles.roh_media_title}`}>Vendor Rating:</h5>
                                 <p className="global_heading gray_global_heading media_desc pb-0 mb-0">
-                                <Image src="/images/product-popup/star-fill.svg" alt="Rating" width={14} height={14}/>
-                                <Image src="/images/product-popup/star-fill.svg" alt="Rating" width={14} height={14}/>
-                                <Image src="/images/product-popup/star-fill.svg" alt="Rating" width={14} height={14}/>
+                                  <Image src="/images/product-popup/star-fill.svg" alt="Rating" width={14} height={14} />
+                                  <Image src="/images/product-popup/star-fill.svg" alt="Rating" width={14} height={14} />
+                                  <Image src="/images/product-popup/star-fill.svg" alt="Rating" width={14} height={14} />
 
-                                <Image src="/images/product-popup/star-fill-dark.svg" alt="Rating" width={14} height={14}/>
-                                <Image src="/images/product-popup/star-fill-dark.svg" alt="Rating" width={14} height={14}/>                             
+                                  <Image src="/images/product-popup/star-fill-dark.svg" alt="Rating" width={14} height={14} />
+                                  <Image src="/images/product-popup/star-fill-dark.svg" alt="Rating" width={14} height={14} />
                                   (4.8/5 – 120+ Rentals)</p>
                               </div>
                             </div>
@@ -583,179 +584,59 @@ export default function Viewproductspop({ triggerId, onClose }) {
                       {/* Policies and agreement*/}
 
                       <div className={`${styles.roh_general_info_twowrap}`}>
-                              <div className="star_box">
-                                <div className="star_inner d-flex align-items-center gap-1">
-                                  <Image src="/star.svg" alt="Star" width={19} height={17} />
-                                  <span className={`roh_star_title`}>Rental Conditions</span>
-                                </div>
-                              </div>
-                              <h3>Policies and agreement</h3>
-                              <div className={`${styles.roh_policy_terms}`}>
-                                <div className="accordion" id="accordionExample">
-                                  <div className="accordion-item">
-                                    <h4 className="accordion-header">
-                                      <button className={`accordion-button ${styles.roh_accordion_button}`} type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Accessories
-                                      </button>
-                                    </h4>
-                                    <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                      <div className="accordion-body">
-                                        <p>{item.accessories}</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="accordion-item">
-                                    <h4 className="accordion-header">
-                                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Booking Terms
-                                      </button>
-                                    </h4>
-                                    <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                      <div className="accordion-body">
-                                        <p>{item.booking_terms}</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="accordion-item">
-                                    <h4 className="accordion-header">
-                                      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Booking Instructions
-                                      </button>
-                                    </h4>
-                                    <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                                      <div className="accordion-body">
-                                        <p>{item.booking_instructions}</p>
-                                      </div>
-                                    </div>
-                                  </div>
+                        <div className="star_box">
+                          <div className="star_inner d-flex align-items-center gap-1">
+                            <Image src="/star.svg" alt="Star" width={19} height={17} />
+                            <span className={`roh_star_title`}>Rental Conditions</span>
+                          </div>
+                        </div>
+                        <h3>Policies and agreement</h3>
+                        <div className={`${styles.roh_policy_terms}`}>
+                          <div className="accordion" id="accordionExample">
+                            <div className="accordion-item">
+                              <h4 className="accordion-header">
+                                <button className={`accordion-button ${styles.roh_accordion_button}`} type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                  Accessories
+                                </button>
+                              </h4>
+                              <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                <div className="accordion-body">
+                                  <p>{item.accessories}</p>
                                 </div>
                               </div>
                             </div>
+                            <div className="accordion-item">
+                              <h4 className="accordion-header">
+                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  Booking Terms
+                                </button>
+                              </h4>
+                              <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div className="accordion-body">
+                                  <p>{item.booking_terms}</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="accordion-item">
+                              <h4 className="accordion-header">
+                                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                  Booking Instructions
+                                </button>
+                              </h4>
+                              <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div className="accordion-body">
+                                  <p>{item.booking_instructions}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                </section>
+              </section>
 
-              <div className={`mt-5 d-none  ${styles.popupwrap_inner}`}>
-                <div className={styles.detailsGrid}>
-                  <div className="d-flex justify-content-between text-dark  content_layer">
-                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                      <Image
-                        src="/lokesh/assets/images/door.svg" alt="Door Icon" width={40} height={40} />
-                      <span>Doors</span>
-                    </div>
-                    <span className="text-dark fw-medium">4</span>
-                  </div>
-                  <div className="d-flex justify-content-between text-dark  content_layer">
-                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                      <Image src="/lokesh/assets/images/ic_passanger.svg" alt="" width={40} height={40} />
-                      <span>Passengers</span>
-                    </div>
-                    <span className="text-dark fw-medium">5</span>
-                  </div>
-                  <div className="d-flex justify-content-between text-dark   content_layer">
-                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                      <Image src="/lokesh/assets/images/icon-transmission.svg" alt="" width={40} height={40} />
-                      <span>Transmission</span>
-                    </div>
-                    <span className="text-dark fw-medium">Manual</span>
-                  </div>
-                  <div className="d-flex justify-content-between text-dark   content_layer">
-                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                      <Image src="/lokesh/assets/images/icon-age.svg" alt="" width={40} height={40} />
-                      <span>Age</span>
-                    </div>
-                    <span className="text-dark fw-medium">Under 2 years</span>
-                  </div>
-                  <div className="d-flex justify-content-between text-dark   content_layer">
-                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                      <Image src="/lokesh/assets/images/icon-bags.svg" alt="" width={40} height={40} />
-                      <span>Luggage</span>
-                    </div>
-                    <span className="text-dark fw-medium">2 Small Bags</span>
-                  </div>
-                  <div className="d-flex justify-content-between text-dark   content_layer">
-                    <div className="d-flex align-items-center gap-1 feets_data_list">
-                      <Image src="/lokesh/assets/images/icon-transmission.svg" alt="" width={40} height={40} />
-                      <span>Air Condition</span>
-                    </div>
-                    <span className="text-dark fw-medium">Yes</span>
-                  </div>
-                  <p>
-                    <strong>Price/Day:</strong> ₹{item.price_per_day}
-                  </p>
-                  <p>
-                    <strong>Price/Week:</strong> ₹{item.price_per_week}
-                  </p>
-                  <p>
-                    <strong>Price/Month:</strong> ₹{item.price_per_month}
-                  </p>
-                  <p>
-                    <strong>Security Deposit:</strong> ₹{item.security_deposit}
-                  </p>
-                  <p>
-                    <strong>Availability:</strong> {item.availability_status}
-                  </p>
-                  <p>
-                    <strong>Fuel:</strong> {item.engine_type}
-                  </p>
-                  <p>
-                    <strong>Transmission:</strong> {item.transmission_type}
-                  </p>
-                  <p>
-                    <strong>Seats:</strong> {item.seating_capacity}
-                  </p>
-                  <p>
-                    <strong>Color:</strong> {item.color}
-                  </p>
-                  <p>
-                    <strong>Mileage:</strong> {item.mileage ?? "N/A"} kmpl
-                  </p>
-                  <p>
-                    <strong>Condition:</strong> {item.vehicle_condition}
-                  </p>
-                </div>
-                <div className={styles.extraInfo}>
-                <h4>Accessories</h4>
-                <p>{item.accessories}</p>
-
-                <h4>Booking Terms</h4>
-                <p>{item.booking_terms}</p>
-
-                <h4>Booking Instructions</h4>
-                <p>{item.booking_instructions}</p>
-              </div>
-
-              <div className={styles.serProInfo}>
-                {serviceProvider ? (
-                  isAuthenticated ? (
-                    // Valid token → direct contact
-                    <a href={`tel:${serviceProvider.phone_number}`}>
-                      <button>
-                        Contact {serviceProvider.first_name} {serviceProvider.last_name} (
-                        {serviceProvider.phone_number})
-                      </button>
-                    </a>
-                  ) : (
-                    // No/expired token → ask login with redirect
-                    <a
-                      href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}
-                    >
-                      <button>Contact Seller</button>
-                    </a>
-                  )
-                ) : isAuthenticated ? (
-                  <button disabled>Loading contact…</button>
-                ) : (
-                  <a
-                    href={`/login/?redirect=${encodeURIComponent(getCurrentUrl())}`}
-                  >
-                    <button>Contact Seller</button>
-                  </a>
-                )}
-              </div>
-              </div>
-             
             </div>
           )}
         </div>
