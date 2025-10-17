@@ -1,0 +1,301 @@
+/* Hero Section  */
+.roh_post_hero_wrap {
+  margin-top: 86px;
+}
+
+.roh_post_hero_inner {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 96%;
+}
+
+.roh_post_hero {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 46px 46px 46px 46px;
+  padding-top: 130px;
+  padding-bottom: 130px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+}
+
+.roh_post_hero::before {
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  content: '';
+  background-image: linear-gradient(180deg, #0000002e 13.62%, #0000004a 68.99%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 46px 46px 46px 46px;
+}
+
+.roh_Zindex {
+  z-index: 1;
+  position: relative;
+  text-align: left;
+}
+
+.roh_hero_left_content {
+  max-width: 600px;
+  color: #fff;
+  padding: 40px 20px;
+}
+
+.roh_backLink {
+  font-size: 14px;
+  color: #ffffffcc;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.roh_hero_title {
+  font-family: "Epilogue", sans-serif;
+  color: #fff;
+  font-size: 48px;
+  line-height: 1.2em;
+  font-weight: 700;
+  font-optical-sizing: auto;
+  font-style: normal;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.roh_meta {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 12px;
+}
+
+.roh_hero_desc {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #f1f1f1;
+}
+
+.roh_hero_description {
+  margin-top: 19px;
+  color: #fff;
+}
+
+/* Hero Section  CSS END */
+
+.roh_singlePost_innerContainer {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 60px 5%;
+  background: #fff;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  padding: 100px 0;
+  color: #555;
+}
+
+
+
+.roh_blog_content {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 60px;
+  text-align: justify;
+}
+
+.roh_related_section {
+  margin-top: 40px;
+}
+
+.roh_related_section h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #222;
+  text-align: center;
+}
+
+.roh_related_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.roh_related_card {
+  background: #f8f9fb;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.roh_related_card:hover {
+  transform: translateY(-5px);
+}
+
+.roh_related_img {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.roh_img_cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.roh_related_info {
+  padding: 18px;
+}
+
+.roh_related_info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.roh_related_date {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 12px;
+}
+
+.roh_redBtns {
+  gap: 8px;
+}
+
+.roh_redBtns .roh_circl_btn a {
+  background: #FF3600;
+  color: #fff;
+  text-decoration: none;
+}
+
+.roh_button_custom a {
+  width: max-content;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all .4s ease-in-out;
+  color: #FF3600;
+}
+
+.roh_button_custom a:hover {
+  color: #000;
+}
+
+.roh_related_card:hover .roh_button_custom a {
+  color: #000;
+}
+
+.roh_related_card:hover .roh_circl_btn a img {
+  transform: rotate(0deg);
+}
+
+.roh_related_card:hover:hover .roh_circl_btn a {
+  background-color: #000;
+}
+
+.roh_circl_btn a {
+  width: max-content;
+  cursor: pointer;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 4px;
+  text-decoration: none;
+  border-radius: 50px;
+  border: 1px solid transparent;
+  align-items: center;
+  transition: all .3s ease-in-out;
+}
+
+.roh_circl_btn a img {
+  width: 18px;
+  height: 18px;
+  transform: rotate(-30deg);
+  transition: all .3s ease-in-out;
+}
+
+.roh_circl_btn a:hover img,
+.roh_button_custom:hover~.roh_circl_btn a img {
+  transform: rotate(0deg);
+}
+
+.roh_redBtns .roh_circl_btn a:hover,
+.roh_redBtns .roh_button_custom:hover~.roh_circl_btn a {
+  background-color: #000;
+}
+
+.roh_related_card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+}
+
+.roh_related_card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Ripple Base */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  pointer-events: none;
+  width: 120px;
+  height: 120px;
+}
+
+/* Ripple Animation */
+.ripple_effect {
+  animation: rippleDrop 0.6s linear forwards;
+}
+
+@keyframes rippleDrop {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+
+@media screen and (max-width:768px) {
+  .roh_related_grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .roh_hero_title {
+    font-size: 32px;
+  }
+
+}
+@media screen and (max-width:767px) {
+  .roh_related_grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+}
+

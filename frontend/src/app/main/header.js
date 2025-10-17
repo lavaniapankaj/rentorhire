@@ -22,11 +22,11 @@ const Header = () => {
         header.classList.remove('roh_scrolled_header_sticky');
       }
     };
-  
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
+
 
   /** Save user location on page load */
   useEffect(() => {
@@ -110,11 +110,11 @@ const Header = () => {
               <div className={`col-6 col-md-4 col-lg-3 text-end`}>
                 <div className={`d-flex align-items-center ${styles.roh_headerRight_button}`}>
                   <div className={`d-flex align-items-center justify-content-center roh_redBtns`}>
-                <div className="roh_button_custom"><Link href="/become-a-host">List Your Item</Link></div>
-                <div className="roh_circl_btn">
-                  <Link href="/become-a-host"><Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} /></Link>
-                </div>
-              </div>
+                    <div className="roh_button_custom"><Link href="/become-a-host">List Your Item</Link></div>
+                    <div className="roh_circl_btn">
+                      <Link href="/become-a-host"><Image src="/arrow.svg" alt="Arrow Right" width={30} height={30} /></Link>
+                    </div>
+                  </div>
 
                   <div className={`roh_dashboard_profile`}>
                     <div className={`${styles.roh_profile_box}`}>
@@ -143,16 +143,16 @@ const Header = () => {
                                 </li>
                                 {/* Show Login / Logout conditionally */}
                                 {!isLoggedIn ? (
-                                <li>
-                                  <a href="/login">
-                                    <Image src="/log-in.svg" alt="Log-In" width={20} height={20} /> Login </a>
-                                </li>
-                                 ) : (
-                                <li>
-                                  <a onClick={handleLogout} >
-                                    <Image src="/logout.svg" alt="Log-Out" width={20} height={20} /> Logout </a>
-                                </li>
-                                 )}
+                                  <li>
+                                    <a href="/login">
+                                      <Image src="/log-in.svg" alt="Log-In" width={20} height={20} /> Login </a>
+                                  </li>
+                                ) : (
+                                  <li>
+                                    <a onClick={handleLogout} >
+                                      <Image src="/logout.svg" alt="Log-Out" width={20} height={20} /> Logout </a>
+                                  </li>
+                                )}
                               </ul>
                             </div>
                           </div>

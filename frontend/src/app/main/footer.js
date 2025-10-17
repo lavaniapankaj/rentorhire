@@ -67,7 +67,7 @@ export default function Footer() {
             <ul className={styles.roh_list}>
               <li><Link href="#">About Us</Link></li>
               <li><Link href="#">Careers</Link></li>
-              <li><Link href="#">Blog</Link></li>
+              <li><Link href="/blog">Blog</Link></li>
               <li><Link href="#">Press</Link></li>
               <li><Link href="/contact-us">Contact</Link></li>
             </ul>
