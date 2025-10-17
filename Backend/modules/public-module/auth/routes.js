@@ -1,5 +1,5 @@
 const AuthController = require("./controller");
-const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateCreateContactUsEntry, ValidateGetAllContactUsEntries,ValidateViewSingleContactUsEntry,  ValidateGetServiceProviderinfo} = require("./validation");
+const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes, ValidateGetAllActivevehiclesScooters, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateCreateContactUsEntry, ValidateGetAllContactUsEntries,ValidateViewSingleContactUsEntry,  ValidateGetServiceProviderinfo} = require("./validation");
 
 
 /** Api for register user Coded by Raj July 07 2025 */
@@ -105,6 +105,16 @@ app.get(
         AuthController.getActivevehiclesBikes(req, res, next); /** Calling the controller */
     }
 );
+
+/** Get all active vehicles scooters vehicles--scooters page - Coded by Vishnu Oct 16 2025 */
+app.get(
+    "/api/user/getallvehiclesscooters",
+    ValidateGetAllActivevehiclesScooters,
+    (req, res, next) => {
+        AuthController.getActivevehiclesScooters(req, res, next); /** Calling the controller */
+    }
+);
+
 
 /** View single item Coded by Vishnu Aug 30 2025 */
 app.post(

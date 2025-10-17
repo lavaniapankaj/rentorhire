@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 15, 2025 at 09:04 PM
+-- Generation Time: Oct 16, 2025 at 09:23 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -49,7 +49,8 @@ INSERT INTO `roh_brands` (`id`, `brand_name`, `cat_id`, `logo_media_id`, `active
 (3, 'Mahindra', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
 (4, 'Volkswagen', 2, 0, 1, 1, 1, '2025-08-19 14:30:53', '2025-08-19 14:30:53'),
 (5, 'BMW', 3, 1, 1, 1, 1, '2025-08-21 16:27:32', '2025-08-21 16:27:32'),
-(6, 'Hyundai', 2, 1, 1, 1, 1, '2025-08-25 17:19:56', '2025-08-25 17:19:56');
+(6, 'Hyundai', 2, 1, 1, 1, 1, '2025-08-25 17:19:56', '2025-08-25 17:19:56'),
+(7, 'Activa', 8, 1, 1, 1, 1, '2025-08-25 17:19:56', '2025-08-25 17:19:56');
 
 -- --------------------------------------------------------
 
@@ -80,7 +81,8 @@ INSERT INTO `roh_categories` (`id`, `name`, `description`, `slug`, `parent_categ
 (3, 'Bikes', 'Includes motorcycles and bicycles for personal use, from high-speed sports bikes to commuter-friendly models. Ideal for short trips, daily commutes, or adventure riding.', 'bikes', 1, 1, 1, 1, '2025-08-05 17:12:53', '2025-08-05 17:12:53'),
 (4, 'Commercial Vehicles', 'Vehicles designed for business purposes such as trucks, delivery vans, and buses. Used for transporting goods, passengers, or as part of a fleet for logistics and service industries.', 'commercial-vehicles', 1, 1, 1, 1, '2025-08-05 17:13:28', '2025-08-05 17:13:28'),
 (5, 'Luxury Vehicles', 'High-end cars and bikes offering exceptional comfort, performance, and design. Includes premium brands and models meant for those who seek an elite driving experience.', 'luxury-vehicles', 1, 1, 1, 1, '2025-08-05 17:13:51', '2025-08-05 17:13:51'),
-(6, 'Recreational Vehicles', 'Vehicles designed for leisure activities, including motorhomes, campervans, and RVs. Perfect for road trips, outdoor adventures, and extended vacations.', 'recreational-vehicles', 1, 1, 1, 1, '2025-08-05 17:14:11', '2025-08-05 17:14:11');
+(6, 'Recreational Vehicles', 'Vehicles designed for leisure activities, including motorhomes, campervans, and RVs. Perfect for road trips, outdoor adventures, and extended vacations.', 'recreational-vehicles', 1, 1, 1, 1, '2025-08-05 17:14:11', '2025-08-05 17:14:11'),
+(8, 'Scooters', 'A scooter or motor scooter, is a motorcycle with an underbone or step-through frame, a seat, a transmission that shifts without the operator having to operate a clutch lever, a platform for their feet, and with a method of operation that emphasizes comfort and fuel economy.\r\n', 'scooters', 1, 1, 1, 1, '2025-10-16 17:26:18', '2025-10-16 17:26:18');
 
 -- --------------------------------------------------------
 
@@ -280,7 +282,10 @@ INSERT INTO `roh_faqs` (`id`, `title`, `description`, `cate_id`, `add_id`, `edit
 (19, 'Can I rent a luxury car for out-of-city travel?', 'Absolutely! Luxury vehicles can be rented for intercity or long-distance trips. Just inform our team in advance so that we can prepare the required travel documentation and ensure 24-hour assistance coverage throughout your journey.', 5, 1, 1, 1, '2025-10-15 22:11:21', '2025-10-15 22:24:04'),
 (20, 'What documents do I need to rent a recreational vehicle?', 'To rent an RV, you’ll need a valid driver’s license, government-issued ID, and a security deposit. Some rentals may also require proof of insurance or a credit card for verification.', 6, 1, NULL, 1, '2025-10-15 22:12:31', '2025-10-15 22:12:31'),
 (21, 'Are pets allowed in recreational vehicle rentals?', 'Yes, most RV rental companies allow pets with a small additional cleaning fee. However, it’s best to confirm the pet policy in advance, as some vehicles have specific restrictions based on size or breed.', 6, 1, NULL, 1, '2025-10-15 22:12:49', '2025-10-15 22:12:49'),
-(22, 'What is included in the RV rental price?', 'The rental price typically includes the vehicle, standard amenities like a kitchenette, bathroom, and bedding, as well as basic mileage. Additional charges may apply for extra mileage, fuel, or generator usage.', 6, 1, NULL, 1, '2025-10-15 22:13:10', '2025-10-15 22:13:10');
+(22, 'What is included in the RV rental price?', 'The rental price typically includes the vehicle, standard amenities like a kitchenette, bathroom, and bedding, as well as basic mileage. Additional charges may apply for extra mileage, fuel, or generator usage.', 6, 1, NULL, 1, '2025-10-15 22:13:10', '2025-10-15 22:13:10'),
+(23, 'What makes your scooters different from others?', 'Our scooters are designed with next-gen features like smart display, extended battery life, quick charging, and superior comfort — giving you a smooth and reliable ride every time.', 8, 1, NULL, 1, '2025-10-16 23:57:46', '2025-10-16 23:57:46'),
+(24, 'How long does the battery last on a full charge?', 'Depending on the model, our electric scooters can cover up to 90–120 km on a single charge. With fast-charging technology, you can power up in just a few hours and get back on the road quickly.', 8, 1, NULL, 1, '2025-10-16 23:58:03', '2025-10-16 23:58:03'),
+(25, 'Do you provide after-sales service and warranty?', 'Yes! All our scooters come with 1-year standard warranty and dedicated after-sales support. We ensure your scooter stays in top condition with easy maintenance and service availability.', 8, 1, NULL, 1, '2025-10-16 23:58:18', '2025-10-16 23:58:18');
 
 -- --------------------------------------------------------
 
@@ -361,7 +366,12 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 (105, 'furniture-1.webp', '/uploads/media/post/', 'webp', 1, '2025-10-12 15:41:20', '2025-10-12 15:41:20'),
 (106, 'furniture-2.webp', '/uploads/media/post/', 'webp', 1, '2025-10-12 15:41:31', '2025-10-12 15:41:31'),
 (107, 'furniture-3.webp', '/uploads/media/post/', 'webp', 1, '2025-10-12 15:42:10', '2025-10-12 15:42:10'),
-(108, 'furniture-4.webp', '/uploads/media/post/', 'webp', 1, '2025-10-12 15:55:32', '2025-10-12 15:55:32');
+(108, 'furniture-4.webp', '/uploads/media/post/', 'webp', 1, '2025-10-12 15:55:32', '2025-10-12 15:55:32'),
+(109, '2024_Bajaj_Chetak_1739512465382_1739512465730.avif', '/uploads/media/host/items/', 'avif', 1, '2025-10-16 18:18:55', '2025-10-16 18:18:55'),
+(110, '2024_Bajaj_Chetak_1739512465382_1739512465730.avif', '/uploads/media/post/', 'avif', 1, '2025-10-16 18:23:05', '2025-10-16 18:23:05'),
+(111, 'c12i-max68624902204e5.avif', '/uploads/media/post/', 'avif', 1, '2025-10-16 18:24:07', '2025-10-16 18:24:07'),
+(112, 'Screenshot-2025-05-30-172354.webp', '/uploads/media/post/', 'webp', 1, '2025-10-16 18:25:18', '2025-10-16 18:25:18'),
+(113, 'joy-blog-post-images-1-1.png', '/uploads/media/post/', 'png', 1, '2025-10-16 18:26:55', '2025-10-16 18:26:55');
 
 -- --------------------------------------------------------
 
@@ -396,7 +406,8 @@ INSERT INTO `roh_models` (`id`, `model_name`, `brand_id`, `tag_id`, `active`, `a
 (8, 'Taigun', 4, 0, 1, 1, 1, '2025-08-19 14:33:25', '2025-08-19 14:33:25'),
 (9, 'BMW S 1000 RR', 5, 0, 1, 1, 1, '2025-08-22 17:36:50', '2025-08-22 17:36:50'),
 (10, 'G310 RR', 5, 0, 1, 1, 1, '2025-08-22 17:37:39', '2025-08-22 17:37:39'),
-(11, 'i20', 6, 2, 1, 1, 1, '2025-08-25 17:21:03', '2025-08-25 17:21:03');
+(11, 'i20', 6, 2, 1, 1, 1, '2025-08-25 17:21:03', '2025-08-25 17:21:03'),
+(12, 'Activa 6G', 7, 6, 1, 1, 1, '2025-08-25 17:21:03', '2025-08-25 17:21:03');
 
 -- --------------------------------------------------------
 
@@ -472,7 +483,11 @@ INSERT INTO `roh_posts` (`id`, `post_title`, `post_slug`, `description`, `post_e
 (48, 'Travel Packing Checklist', 'travel-packing-checklist', 'Never forget an essential item again! Use this travel checklist before every trip.', 'Your must-have travel packing list.', 'published', 103, 3, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
 (49, 'The Role of AI in Education', 'the-role-of-ai-in-education', 'Artificial Intelligence is transforming how students learn and teachers teach. Discover its impact.', 'AI and the future of education.', 'published', 103, 5, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
 (50, 'Simple Ways to Reduce Plastic Waste', 'simple-ways-to-reduce-plastic-waste', 'Small actions can make a big difference. Learn easy ways to reduce plastic waste at home and office.', 'Reduce plastic waste effortlessly.', 'published', 103, 4, '2025-10-11 16:52:32', '2025-10-11 16:52:32'),
-(51, 'What is SEO?', 'what-is-seo', 'This is my test post', 'This is my first test post', 'draft', 108, 2, '2025-10-12 21:25:32', '2025-10-12 23:01:11');
+(51, 'What is SEO?', 'what-is-seo', 'This is my test post', 'This is my first test post', 'draft', 108, 2, '2025-10-12 21:25:32', '2025-10-12 23:01:11'),
+(52, 'Experience the Freedom with the All-New Urban Ride Scooter', 'experience-the-freedom-with-the-all-new-urban-ride-scooter', 'Discover the perfect balance of power, comfort, and style with the new Urban Ride Scooter — built for modern commuters who want performance with elegance.', 'The Urban Ride Scooter brings together innovation and comfort for your daily travel. Its smooth performance and sleek design make it the perfect choice for city riders looking for a reliable and stylish partner.', 'published', 110, 8, '2025-10-16 23:53:05', '2025-10-16 23:53:05'),
+(53, 'Go Electric, Go Smart — The Future of Scooters Is Here', 'go-electric-go-smart-the-future-of-scooters-is-here', 'Step into the future with our next-gen electric scooters, offering zero emissions, high efficiency, and powerful range for sustainable urban mobility.', 'Eco-friendly yet powerful, our electric scooters redefine city travel. Designed for smart riders, they deliver unmatched performance, quick charging, and effortless rides — all while caring for the planet.', 'published', 111, 8, '2025-10-16 23:54:07', '2025-10-16 23:54:07'),
+(54, 'The Perfect Scooter for Every Journey', 'the-perfect-scooter-for-every-journey', 'Whether it’s a quick city errand or a long weekend cruise, our latest scooter line blends durability, comfort, and modern design — made for every kind of rider.', 'Take your journey to the next level with scooters built for all terrains and all moods. Comfortable seating, sleek looks, and top-notch performance — experience the joy of riding in style.', 'published', 112, 8, '2025-10-16 23:55:18', '2025-10-16 23:55:18'),
+(55, 'Redefine Your Ride — Introducing the Next-Gen Smart Scooter', 'redefine-your-ride-introducing-the-next-gen-smart-scooter', 'Meet the new era of two-wheelers — designed with smart technology, superior mileage, and unmatched comfort for your everyday city commute.', 'Experience the thrill of effortless riding with our next-gen Smart Scooter. From its intelligent dashboard to energy-efficient performance, it’s built to make every journey smooth, smart, and sustainable. Perfect for the modern rider who values both innovation and style.', 'published', 113, 8, '2025-10-16 23:56:55', '2025-10-16 23:56:55');
 
 -- --------------------------------------------------------
 
@@ -614,7 +629,8 @@ INSERT INTO `roh_tags` (`id`, `tag_name`, `cat_id`, `active`, `add_id`, `edit_id
 (2, 'Sedan', 2, 1, 1, 1, '2025-08-19 14:36:36', '2025-08-19 14:36:36'),
 (3, 'Coupe', 2, 1, 1, 1, '2025-08-19 14:36:36', '2025-08-19 14:36:36'),
 (4, 'Hatchback', 2, 1, 1, 1, '2025-08-19 14:36:36', '2025-08-19 14:36:36'),
-(5, 'MPV', 2, 1, 1, 1, '2025-08-19 14:36:36', '2025-08-19 14:36:36');
+(5, 'MPV', 2, 1, 1, 1, '2025-08-19 14:36:36', '2025-08-19 14:36:36'),
+(6, '6G', 8, 1, 1, 1, '2025-08-19 14:36:36', '2025-08-19 14:36:36');
 
 -- --------------------------------------------------------
 
@@ -698,21 +714,7 @@ INSERT INTO `roh_vehicle_attributes` (`id`, `vehicle_id`, `engine_type`, `transm
 (1, 24, 'Diesel', 'Manual', 100.00, 7, 'Z Black', 2, 14.00, 'TR01 AB 1234', '2025-08-25', 'Standard', 'Daily', 'New', 'Stylish Alloy Wheels\r\n\r\nPremium Fog Lamps\r\n\r\nRoof Rails\r\n\r\nDesigner Seat Covers\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nFloor Mats', 'Scorpio Car Rentals', '2nd Floor, MG Road', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery'),
 (2, 25, 'Petrol', 'Manual', 18.00, 5, 'Polar White', 3, 11.00, 'TR02 XY 5678', '2025-08-27', 'Luxury', 'Daily', 'New', 'Alloy Wheels\r\n\r\nTouchscreen Infotainment System\r\n\r\nReverse Parking Camera\r\n\r\nSeat Covers\r\n\r\nFloor Mats\r\n\r\nFog Lamps', 'i20 Car Rentals', 'Ground Floor, HGB Road,', 'Agartala', 'Tripura', 799001, 'Fill in the online booking form\r\n\r\nUpload valid ID proof (Aadhaar/Driving License/Passport)\r\n\r\nPay the booking amount securely online\r\n\r\nOur team will confirm your booking within 24 hours\r\n\r\nVisit the showroom for final payment and delivery'),
 (3, 26, 'Petrol', 'Automatic', 4.00, 2, 'Black', 3, 3.00, 'RJ45DD9892', '2025-08-31', 'Luxury', 'Daily', 'New', 'Helemt', 'Vaishali nagar', 'Plot no.11', 'Rajasthan', 'Jaipur', 302021, 'No booking instructions fro S1000RR '),
-(14, 42, 'Hybrid', 'Automatic', 98.00, 17, 'Ex eveniet tempore', 38, 30.00, '979', '1976-02-22', 'Standard', 'Monthly', 'New', 'Placeat ut vitae al', '157 North Old Court', 'Inventore sint cum n', 'Quos et reprehenderi', 'Ut id qui velit vita', 47, 'Aut sapiente dolorem'),
-(16, 44, 'CNG', 'Manual', 59.00, 67, 'Labore qui nisi rem ', 59, 18.00, '483', '1982-02-22', 'Standard', 'Weekly', 'New', 'Iste non dolore dist', '191 East Hague Lane', 'Aliquip reiciendis s', 'Ratione incidunt ve', 'Vel quia deleniti qu', 38, 'Sit autem anim rem '),
-(17, 45, 'Diesel', 'Automatic', 62.00, 24, 'Doloribus ex nemo ob', 51, 48.00, '66', '2009-08-10', 'Economy', 'Daily', 'New', 'Rem natus libero eos', '926 Green Cowley Road', 'Aperiam enim amet a', 'Repellendus Modi id', 'Voluptatem Voluptat', 23, 'Autem sunt quo vel t'),
-(18, 46, 'CNG', 'Manual', 33.00, 77, 'Lorem dolores labore', 13, 19.00, '330', '1991-11-05', 'Economy', 'Custom', 'Used', 'Proident dolorum su', '33 West Old Freeway', 'A atque error non mi', 'Laborum sint beatae', 'Incidunt officia et', 452000, 'In necessitatibus pr'),
-(19, 47, 'Petrol', 'Manual', 81.00, 16, 'Aliqua Molestias pe', 54, 51.00, '451', '1989-04-16', 'Standard', 'Daily', 'Refurbished', 'Dicta corrupti illu', '815 Old Avenue', 'Cupiditate earum sit', 'Dolor ipsum nostrum', 'Esse commodo qui ani', 35, 'Sequi temporibus non'),
-(20, 48, 'CNG', 'Automatic', 4.00, 59, 'Illo exercitation ir', 4, 97.00, '284', '1987-07-27', 'Economy', 'Daily', 'New', 'Ducimus voluptatem ', '21 East Nobel Extension', 'Minus reiciendis dui', 'Nobis quisquam volup', 'Non est nostrud haru', 332121, 'In labore autem blan'),
-(21, 49, 'Diesel', 'Automatic', 15.00, 56, 'Quo laboris exercita', 10, 17.00, '30', '2017-10-05', 'Standard', 'Monthly', 'New', 'Dignissimos cum veli', '697 Cowley Freeway', 'Itaque amet quo mol', 'Animi est mollit du', 'Illum nemo quis ad ', 132222, 'Voluptatem Dolor pe'),
-(22, 50, 'Hybrid', 'Manual', 17.00, 84, 'Error eaque sint ea', 4, 74.00, '149', '1980-02-02', 'Standard', 'Custom', 'Refurbished', 'Ea eu eveniet verit', '91 Cowley Lane', 'Dolore in cumque nis', 'Nemo accusantium acc', 'Lorem dolores corrup', 294564, 'Numquam dolores et m'),
-(23, 51, 'Hybrid', 'Manual', 84.00, 49, 'Voluptatibus non ist', 5, 54.00, '601', '2019-06-24', 'Economy', 'Daily', 'Refurbished', 'In cupidatat repelle', '80 White Oak Lane', 'Ex occaecat quis in ', 'Ad aspernatur dolore', 'Saepe non itaque est', 482222, 'Iste anim officiis e'),
-(24, 52, 'CNG', 'Manual', 28.00, 32, 'Facilis ad quaerat q', 16, 54.00, '394', '1983-02-20', 'Luxury', 'Weekly', 'Refurbished', 'Voluptates exercitat', '970 East Green New Court', 'Quis qui id consecte', 'Sint iste voluptatu', 'Ut explicabo Dolore', 924444, 'Et in rerum alias ma'),
-(25, 53, 'Diesel', 'Automatic', 40.00, 47, 'Tempore repellendus', 49, 24.00, '53', '1989-08-14', 'Standard', 'Daily', 'Refurbished', 'Dolorum enim sed ill', '59 South White Oak Boulevard', 'Amet reprehenderit', 'Rerum corporis optio', 'Neque officia volupt', 777779, 'Dolores illo volupta'),
-(26, 54, 'Hybrid', 'Manual', 80.00, 12, 'Dicta obcaecati veli', 90, 98.00, '439', '2019-08-11', 'Luxury', 'Daily', 'Used', 'Proident id et rem ', '22 Old Avenue', 'Qui deserunt cupidat', 'Proident magni quo ', 'Et error ut irure in', 222482, 'Sit ipsum dolorum v'),
-(27, 55, 'CNG', 'Automatic', 44.00, 32, 'Non ab laudantium e', 2, 89.00, '11', '1975-06-02', 'Luxury', 'Custom', 'Refurbished', 'Omnis voluptatem atq', '473 First Road', 'Ea quo nostrud saepe', 'Beatae et non volupt', 'Autem quis fugiat o', 333342, 'Temporibus excepteur'),
-(28, 56, 'CNG', 'Automatic', 13.00, 1, 'Excepteur velit ea ', 16, 81.00, '323', '1974-10-13', 'Standard', 'Daily', 'Refurbished', 'Exercitation dolor q', '151 White First Extension', 'Mollit aliquip aut f', 'Obcaecati odit ut se', 'Quae ut deserunt sun', 279022, 'Quibusdam consequatu'),
-(29, 57, 'Electric', 'Manual', 18.00, 39, 'Corporis esse asperi', 41, 26.00, '977', '2018-05-07', 'Economy', 'Monthly', 'New', 'Quasi repudiandae ad', '684 Clarendon Street', 'Voluptatem consectet', 'Et in quisquam et ul', 'Dolor ea commodi in ', 812222, 'Totam sint quas veri');
+(30, 58, 'Petrol', 'Automatic', NULL, NULL, NULL, NULL, NULL, 'AJ 44 SW 2032', NULL, NULL, NULL, 'New', NULL, NULL, NULL, NULL, NULL, NULL, 'This is Booking Instructions (Activa 6G)');
 
 -- --------------------------------------------------------
 
@@ -753,21 +755,7 @@ INSERT INTO `roh_vehicle_details` (`id`, `service_provider_id`, `item_name`, `ve
 (24, 50, 'Mahindra Scorpio – Power Meets Style', 'The Big Daddy SUV – Mahindra Scorpio is known for its bold looks, powerful performance, and unmatched road presence. Whether it’s a city ride or an off-road adventure, the Scorpio is built to conquer every journey with style and comfort.', 1, 2, 2, 3, 5, '[54,55,56,57,58,59]', 2500.00, 15000.00, 45000.00, 120000.00, 1, 1, 0, 9998.00, 'Booking amount: ₹5,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes RTO, insurance, and taxes\r\n\r\nDelivery subject to stock availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:44:58', '2025-09-24 16:33:40'),
 (25, 50, 'Hyundai i20 – Premium Hatchback', 'The Hyundai i20 is a premium hatchback that blends style, comfort, and efficiency. With its modern design, advanced features, and smooth driving experience, the i20 is the perfect choice for city commutes and weekend getaways.', 1, 2, 2, 6, 11, '[60,61,62,63,64]', 1800.00, 11000.00, 32000.00, 69998.00, 1, 1, 0, 7000.00, 'Booking amount: ₹3,000 (non-refundable)\r\n\r\nFinal payment before delivery\r\n\r\nPrice excludes fuel, tolls, RTO, insurance, and taxes\r\n\r\nDelivery subject to availability and clearance\r\n\r\nAccessories charged separately', 'Available', '2025-08-25 22:56:55', '2025-09-24 16:33:42'),
 (26, 50, 'BMW S1000RR', 'The S1000RR is BMW\'s flagship sportsbike that is known for its top-end performance, modern safety electronics and excellent handling abilities. But just like other BMWs, the S1000RR is also expensive to purchase and maintain', 1, 3, 2, 5, 9, '[65,66,67,68]', 1200.00, 8000.00, 25000.00, 45000.00, 1, 1, 0, 596.00, 'No Booking terms for S1000RR. ', 'Available', '2025-08-30 04:38:18', '2025-09-24 16:33:46'),
-(42, 20, 'Elizabeth Michael', 'Et do do dignissimos', 1, NULL, 1, 1, 1, '[69]', 566.00, 455.00, 94.00, 659.00, 1, 1, 0, 37.00, 'Et labore dolore et ', 'Available', '2025-09-04 01:13:26', '2025-09-06 21:58:55'),
-(44, 20, 'Linus Adkins', 'Quae reprehenderit a', 1, NULL, 1, 1, 1, '[71,72,73,74]', 582.00, 602.00, 711.00, 919.00, 1, 1, 0, 8.00, 'Facere aspernatur id', 'Available', '2025-09-04 01:47:19', '2025-09-06 21:58:58'),
-(45, 20, 'Hiram Rivers', 'Veniam nihil quod e', 1, NULL, 1, 1, 1, '[75,76,77,78]', 653.00, 967.00, 5.00, 529.00, 1, 1, 0, 12.00, 'Duis hic id minim au', 'Booked', '2025-09-04 22:19:19', '2025-09-06 21:59:01'),
-(46, 50, 'Chancellor Cain', 'Dolore cum eos nisi', 1, NULL, 1, 1, 1, '[79,80,81,82,83]', 87.00, 597.00, 358.00, 62.00, 1, 1, 0, 56.00, 'Harum deleniti qui d', 'Available', '2025-09-04 22:58:46', '2025-09-10 16:49:47'),
-(47, 50, 'Declan Hester', 'Vel earum ratione te', 1, NULL, 1, 3, 5, '[87]', 532.00, 411.00, 39.00, 533.00, 1, 1, 0, 69.00, 'Illum quisquam elit', 'Available', '2025-09-06 23:15:26', '2025-09-07 20:58:17'),
-(48, 50, 'Clio Garza', 'Excepteur laudantium', 1, NULL, 1, 3, 6, '[88]', 854.00, 850.00, 794.00, 649.00, 1, 1, 0, 40.00, 'Mollit dolor nostrum', 'Booked', '2025-09-07 21:26:33', '2025-09-07 21:32:03'),
-(49, 50, 'Vincent Walker', 'Odit incididunt occa', 1, NULL, 1, 3, 6, '[89,90]', 346.00, 776.00, 945.00, 112.00, 1, 1, 0, 62.00, 'Do et quis a enim qu', 'Booked', '2025-09-10 17:42:52', '2025-09-10 17:42:52'),
-(50, 60, 'Roth Rodriguez', 'Non fugiat libero ul', 1, NULL, 1, 3, 6, '[91]', 290.00, 522.00, 874.00, 763.00, 1, 1, 0, 83.00, 'Placeat laborum sus', 'Available', '2025-09-12 17:15:06', '2025-09-12 17:15:06'),
-(51, 50, 'Price Conner', 'Aspernatur laborum d', 1, NULL, 1, 3, 6, '[92,93]', 937.00, 317.00, 834.00, 414.00, 1, 1, 0, 37.00, 'Aut quam iure ut ali', 'Available', '2025-09-15 17:07:29', '2025-09-15 17:07:29'),
-(52, 50, 'Keegan Castaneda', 'Rerum excepturi corp', 1, NULL, 1, 3, 6, '[95]', 87.00, 731.00, 670.00, 433.00, 1, 1, 0, 87.00, 'Quisquam beatae sapi', 'Unavailable', '2025-09-15 17:22:42', '2025-09-15 17:22:42'),
-(53, 63, 'Elliott Hoffman', 'Illo asperiores aper', 1, NULL, 1, 3, 6, '[98,99]', 713.00, 666.00, 846.00, 69.00, 1, 1, 0, 48.00, 'Quidem enim dolorem ', 'Unavailable', '2025-09-19 12:43:21', '2025-09-19 12:43:21'),
-(54, 50, 'Rudyard Valdez', 'Harum unde quasi fac', 1, NULL, 1, 3, 6, '[100]', 873.00, 117.00, 764.00, 675.00, 1, 1, 0, 53.00, 'Quibusdam doloremque', 'Booked', '2025-09-22 12:05:50', '2025-09-22 12:05:50'),
-(55, 50, 'Ciara Campos', 'Est esse dolor unde', 1, NULL, 1, 3, 6, '[101,102]', 552.00, 539.00, 990.00, 646.00, 1, 1, 0, 85.00, 'Consequatur dolores', 'Available', '2025-09-30 14:59:57', '2025-09-30 14:59:57'),
-(56, 50, 'Maisie Singleton', 'Doloremque corrupti', 1, NULL, 1, 3, 6, '[]', 998.00, 944.00, 91.00, 24.00, 1, 1, 0, 10.00, 'Voluptatem Quae cor', 'Unavailable', '2025-10-01 17:53:27', '2025-10-01 17:53:27'),
-(57, 50, 'Fulton Compton', 'Animi atque odit ut', 1, NULL, 1, 3, 6, '[]', 639.00, 559.00, 63.00, 841.00, 1, 1, 0, 32.00, 'Voluptate do saepe a', 'Booked', '2025-10-01 17:55:27', '2025-10-01 17:55:27');
+(58, 50, 'Activa 6G', 'This Vehicle Description (Activa)', 1, 8, 6, 7, 12, '[109]', 1000.00, 550.00, 2500.00, NULL, 1, 1, 0, 350.00, NULL, 'Available', '2025-10-16 23:48:55', '2025-10-16 23:48:55');
 
 --
 -- Indexes for dumped tables
@@ -882,13 +870,13 @@ ALTER TABLE `roh_vehicle_details`
 -- AUTO_INCREMENT for table `roh_brands`
 --
 ALTER TABLE `roh_brands`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `roh_categories`
 --
 ALTER TABLE `roh_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `roh_cities`
@@ -906,25 +894,25 @@ ALTER TABLE `roh_contact_us`
 -- AUTO_INCREMENT for table `roh_faqs`
 --
 ALTER TABLE `roh_faqs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `roh_media_gallery`
 --
 ALTER TABLE `roh_media_gallery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `roh_models`
 --
 ALTER TABLE `roh_models`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `roh_posts`
 --
 ALTER TABLE `roh_posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `roh_roles`
@@ -948,7 +936,7 @@ ALTER TABLE `roh_states`
 -- AUTO_INCREMENT for table `roh_tags`
 --
 ALTER TABLE `roh_tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `roh_users`
@@ -960,13 +948,13 @@ ALTER TABLE `roh_users`
 -- AUTO_INCREMENT for table `roh_vehicle_attributes`
 --
 ALTER TABLE `roh_vehicle_attributes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `roh_vehicle_details`
 --
 ALTER TABLE `roh_vehicle_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- Constraints for dumped tables

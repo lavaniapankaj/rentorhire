@@ -525,3 +525,81 @@
 .roh_policy_terms h4 button:focus:not(:focus-visible) {
   box-shadow: none;
 }
+
+
+/* === SLIDER WRAPPER === */
+.roh_slider_container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  padding: 0 30px; /* so image edges are visible */
+}
+
+/* === TRACK === */
+.roh_slider_track {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+/* === EACH SLIDE === */
+.roh_slide {
+  flex: 0 0 80%; /* 80% width → 10% edges visible */
+  margin: 0 10px;
+}
+
+.roh_slide img {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  display: block;
+}
+
+/* === CONTROLS BELOW === */
+.roh_slider_controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.navBtn {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.navBtn:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .roh_slide {
+    flex: 0 0 90%;
+    margin: 0 5px;
+  }
+
+  .roh_slide img {
+    max-height: 250px;
+  }
+
+  .navBtn {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+}

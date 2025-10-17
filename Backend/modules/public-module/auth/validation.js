@@ -247,6 +247,17 @@ const ValidateGetAllActivevehiclesBikes = async (req, res, next) => {
 };
 
 
+/** Validate get all active vehicles scooters - Coded by Vishnu Oct 16 2025 */
+const ValidateGetAllActivevehiclesScooters = async (req, res, next) => {
+    try {
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
+
+
 /** Validate get all recent 8 active products - Coded by Vishnu August 29 2025 */
 const ValidateGetAllRecentActiveProducts = async (req, res, next) => {
     try {
@@ -352,4 +363,4 @@ const ValidateGetServiceProviderinfo = async (req, res, next) => {
 };
 
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateCreateContactUsEntry, ValidateGetAllContactUsEntries,ValidateViewSingleContactUsEntry, ValidateGetServiceProviderinfo};
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllActivevehiclesScooters, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateCreateContactUsEntry, ValidateGetAllContactUsEntries,ValidateViewSingleContactUsEntry, ValidateGetServiceProviderinfo};

@@ -125,6 +125,33 @@ export default function Viewproductspop({ triggerId, onClose }) {
     return () => ac.abort();
   }, [triggerId]);
 
+  // === Slider Logic ===
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Move to next image
+  const handleNext = () => {
+    if (!item?.media_gallery) return;
+    setCurrentIndex((prev) => (prev + 1) % item.media_gallery.length);
+  };
+
+  // Move to previous image
+  const handlePrev = () => {
+    if (!item?.media_gallery) return;
+    setCurrentIndex((prev) =>
+      prev === 0 ? item.media_gallery.length - 1 : prev - 1
+    );
+  };
+
+  // Auto-slide every 3.5s
+  useEffect(() => {
+    if (!item?.media_gallery || item.media_gallery.length === 0) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % item.media_gallery.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [item?.media_gallery]);
+
+
   if (!triggerId) return null;
 
   return (
@@ -320,40 +347,46 @@ export default function Viewproductspop({ triggerId, onClose }) {
                       </div>
                     </div>
                     <div className="col-12 col-md-6 col-lg-8">
-                      <div id="mainslider" className="owl-carousel owl-theme owl-loaded owl-drag d-none">
-                        <div className="owl-stage-outer owl-height" style={{ height: '283.422px' }}><div className="owl-stage" style={{ transform: 'translate3d(-1685px, 0px, 0px)', transition: 'linear', width: '3371px' }}><div className="owl-item cloned" style={{ width: '421.328px' }}><div className="item p-1">
-                          <div className="right_slide_imgwrap">
-                            <img src="/lokesh/assets/images/slide3.jpg" />
+                      {/* slider */}
+                      {item?.media_gallery?.length > 0 && (
+                        <div className={styles.roh_slider_container}>
+                          <div
+                            className={styles.roh_slider_track}
+                            style={{
+                              transform: `translateX(-${currentIndex * 85}%)`,
+                            }}
+                          >
+                            {item.media_gallery.map((media, index) => (
+                              <div key={media.id} className={styles.roh_slide}>
+                                <img
+                                  src={`${media.file_path}${media.file_name}`}
+                                  alt={`${item.item_name}-${index}`}
+                                />
+                              </div>
+                            ))}
                           </div>
-                        </div></div><div className="owl-item cloned" style={{ width: '421.328px' }} ><div className="item p-1">
-                          <div className="right_slide_imgwrap">
-                            <img src="/lokesh/assets/images/slide4.jpg" />
+
+                          {/* Move buttons below */}
+                          <div className={styles.roh_slider_controls}>
+                            <button
+                              className={`${styles.navBtn} ${styles.prevBtn}`}
+                              onClick={handlePrev}
+                              aria-label="Previous"
+                            >
+                              &lt;
+                            </button>
+                            <button
+                              className={`${styles.navBtn} ${styles.nextBtn}`}
+                              onClick={handleNext}
+                              aria-label="Next"
+                            >
+                              &gt;
+                            </button>
                           </div>
-                        </div></div><div className="owl-item" style={{ width: '421.328px' }}><div className="item p-1">
-                          <div className="right_slide_imgwrap">
-                            <img src="/lokesh/assets/images/slide1.jpg" />
-                          </div>
-                        </div></div><div className="owl-item" style={{ width: '421.328px' }}><div className="item p-1">
-                          <div className="right_slide_imgwrap">
-                            <img src="/lokesh/assets/images/slide2.jpg" />
-                          </div>
-                        </div></div><div className="owl-item active" style={{ width: '421.328px' }}><div className="item p-1">
-                          <div className="right_slide_imgwrap">
-                            <img src="/lokesh/assets/images/slide3.jpg" />
-                          </div>
-                        </div></div><div className="owl-item active" style={{ width: '421.328px' }}><div className="item p-1">
-                          <div className="right_slide_imgwrap">
-                            <img src="/lokesh/assets/images/slide4.jpg" />
-                          </div>
-                        </div></div><div className="owl-item cloned" style={{ width: '421.328px' }}><div className="item p-1">
-                          <div className="right_slide_imgwrap">
-                            <img src="/lokesh/assets/images/slide1.jpg" />
-                          </div>
-                        </div></div><div className="owl-item cloned" style={{ width: '421.328px' }}><div className="item p-1">
-                          <div className="right_slide_imgwrap">
-                            <img src="/lokesh/assets/images/slide2.jpg" />
-                          </div>
-                        </div></div></div></div><div className="owl-nav disabled"><button type="button" role="presentation" className="owl-prev"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" className="owl-next"><span aria-label="Next">›</span></button></div><div className="owl-dots"><button role="button" className="owl-dot"><span></span></button><button role="button" className="owl-dot active"><span></span></button></div></div>
+                        </div>
+                      )}
+                      {/* slider end */}
+
                       <div className={`${styles.roh_about_list_wrap}`}>
                         <div className="star_box">
                           <div className="star_inner d-flex align-items-center gap-1">
