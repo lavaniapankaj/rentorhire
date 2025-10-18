@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 16, 2025 at 09:23 PM
+-- Generation Time: Oct 18, 2025 at 03:01 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -219,6 +219,8 @@ INSERT INTO `roh_cities` (`city_id`, `city_name`, `city_slug`, `state_id`, `add_
 
 CREATE TABLE `roh_contact_us` (
   `id` int(11) NOT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
   `full_name` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
   `phone` varchar(20) NOT NULL,
@@ -234,13 +236,14 @@ CREATE TABLE `roh_contact_us` (
 -- Dumping data for table `roh_contact_us`
 --
 
-INSERT INTO `roh_contact_us` (`id`, `full_name`, `email`, `phone`, `subject`, `message`, `email_status`, `ip_address`, `created_at`, `updated_at`) VALUES
-(1, 'Vishnu Raj', 'vishnu@example.com', '9876543210', 'Vehicle Rental Support', 'Need assistance with my booking.', 'sent', '203.0.113.45', '2025-10-15 23:10:26', '2025-10-15 23:10:26'),
-(2, 'Carissa Steele', 'boqesoda@mailinator.com', '3533833548', 'Payment or Billing', 'Exercitationem accus', 'sent', '157.48.93.55', '2025-10-16 00:04:43', '2025-10-16 00:04:43'),
-(3, 'Billu ', 'rilujy@mailinator.com', '8095871619', 'Partnership / Business Inquiry', 'Adipisci culpa sit r', 'sent', '157.48.93.55', '2025-10-16 00:14:05', '2025-10-16 00:14:05'),
-(4, 'Omar Goodwin', 'xyke@mailinator.com', '7669891215', 'List My Vehicle', 'Et nisi ad doloremqu', 'sent', '157.48.93.55', '2025-10-16 00:15:46', '2025-10-16 00:15:46'),
-(5, 'David Mitchell', 'qidorile@mailinator.com', '1788027928', 'Payment or Billing', 'Aute adipisicing pos', 'sent', '157.48.93.55', '2025-10-16 00:23:08', '2025-10-16 00:23:08'),
-(6, 'Alana Savage', 'kybitubak@mailinator.com', '1583422936', 'General Inquiry', 'Cupiditate qui eum q', 'sent', '157.48.93.55', '2025-10-16 00:23:54', '2025-10-16 00:23:54');
+INSERT INTO `roh_contact_us` (`id`, `first_name`, `last_name`, `full_name`, `email`, `phone`, `subject`, `message`, `email_status`, `ip_address`, `created_at`, `updated_at`) VALUES
+(1, '', '', 'Vishnu Raj', 'vishnu@example.com', '9876543210', 'Vehicle Rental Support', 'Need assistance with my booking.', 'sent', '203.0.113.45', '2025-10-15 23:10:26', '2025-10-15 23:10:26'),
+(2, '', '', 'Carissa Steele', 'boqesoda@mailinator.com', '3533833548', 'Payment or Billing', 'Exercitationem accus', 'sent', '157.48.93.55', '2025-10-16 00:04:43', '2025-10-16 00:04:43'),
+(3, '', '', 'Billu ', 'rilujy@mailinator.com', '8095871619', 'Partnership / Business Inquiry', 'Adipisci culpa sit r', 'sent', '157.48.93.55', '2025-10-16 00:14:05', '2025-10-16 00:14:05'),
+(4, '', '', 'Omar Goodwin', 'xyke@mailinator.com', '7669891215', 'List My Vehicle', 'Et nisi ad doloremqu', 'sent', '157.48.93.55', '2025-10-16 00:15:46', '2025-10-16 00:15:46'),
+(5, '', '', 'David Mitchell', 'qidorile@mailinator.com', '1788027928', 'Payment or Billing', 'Aute adipisicing pos', 'sent', '157.48.93.55', '2025-10-16 00:23:08', '2025-10-16 00:23:08'),
+(6, '', '', 'Alana Savage', 'kybitubak@mailinator.com', '1583422936', 'General Inquiry', 'Cupiditate qui eum q', 'sent', '157.48.93.55', '2025-10-16 00:23:54', '2025-10-16 00:23:54'),
+(7, NULL, NULL, 'Brody Gilliam', 'hyfuda@mailinator.com', '6117799159', 'Partnership / Business Inquiry', 'Perferendis aut repe', 'sent', '157.48.93.202', '2025-10-18 05:57:35', '2025-10-18 05:57:35');
 
 -- --------------------------------------------------------
 
@@ -317,21 +320,21 @@ INSERT INTO `roh_media_gallery` (`id`, `file_name`, `file_path`, `file_type`, `a
 (18, 'vishnu-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:16:35', '2025-08-02 16:13:15'),
 (19, 'vishnu-2-1.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:16:49', '2025-08-02 16:13:21'),
 (20, 'vishnu-2-2.jpeg', '/media/users/profile/', 'jpeg', 1, '2025-08-01 17:18:25', '2025-08-02 16:13:18'),
-(54, 'scorpio-headshot-1.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
-(55, 'scorpio-headshot-2.webp', '/media/host/items/', 'webp', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
-(56, 'scorpio-headshot-3.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
-(57, 'scorpio-headshot-4.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
-(58, 'scorpio-headshot-5.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
-(59, 'scorpio-headshot-6.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-08-25 17:14:58'),
-(60, 'hyundai-i20-1.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
-(61, 'hyundai-i20-2.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
-(62, 'hyundai-i20-3.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
-(63, 'hyundai-i20-4.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
-(64, 'hyundai-i20-5.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-08-25 17:26:55'),
-(65, 'bmw-s1000rr-headshot-1.jpeg', '/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18'),
-(66, 'bmw-s1000rr-headshot-2.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18'),
-(67, 'bmw-s1000rr-headshot-3.jpg', '/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18'),
-(68, 'bmw-s1000rr-headshot-4.png', '/media/host/items/', 'png', 1, '2025-08-29 23:08:18', '2025-08-29 23:08:18'),
+(54, 'scorpio-headshot-1.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-10-18 00:54:38'),
+(55, 'scorpio-headshot-2.webp', '/uploads/media/host/items/', 'webp', 1, '2025-08-25 17:14:58', '2025-10-18 00:54:41'),
+(56, 'scorpio-headshot-3.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-10-18 00:54:43'),
+(57, 'scorpio-headshot-4.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-10-18 00:54:45'),
+(58, 'scorpio-headshot-5.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-10-18 00:54:47'),
+(59, 'scorpio-headshot-6.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-25 17:14:58', '2025-10-18 00:54:51'),
+(60, 'hyundai-i20-1.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-10-18 00:54:52'),
+(61, 'hyundai-i20-2.jpeg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-10-18 00:54:54'),
+(62, 'hyundai-i20-3.jpeg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-10-18 00:54:56'),
+(63, 'hyundai-i20-4.jpeg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-10-18 00:54:58'),
+(64, 'hyundai-i20-5.jpeg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-25 17:26:55', '2025-10-18 00:55:00'),
+(65, 'bmw-s1000rr-headshot-1.jpeg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-10-18 00:55:03'),
+(66, 'bmw-s1000rr-headshot-2.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-10-18 00:55:05'),
+(67, 'bmw-s1000rr-headshot-3.jpg', '/uploads/media/host/items/', 'jpeg', 1, '2025-08-29 23:08:18', '2025-10-18 00:55:07'),
+(68, 'bmw-s1000rr-headshot-4.png', '/uploads/media/host/items/', 'png', 1, '2025-08-29 23:08:18', '2025-10-18 00:55:09'),
 (69, 'images.png', '/media/host/items/', 'png', 1, '2025-09-03 19:43:26', '2025-09-03 19:43:26'),
 (71, 'car1.jpg', '/media/host/items/', 'jpeg', 1, '2025-09-03 20:17:19', '2025-09-03 20:17:19'),
 (72, 'car2.jpg', '/media/host/items/', 'jpeg', 1, '2025-09-03 20:17:19', '2025-09-03 20:17:19'),
@@ -888,7 +891,7 @@ ALTER TABLE `roh_cities`
 -- AUTO_INCREMENT for table `roh_contact_us`
 --
 ALTER TABLE `roh_contact_us`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `roh_faqs`

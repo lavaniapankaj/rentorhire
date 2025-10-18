@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import styles from './css/latestArticle.module.css';
 import Image from "next/image";
+import Link from "next/link";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
+const WEB_BASE_URL = process.env.NEXT_PUBLIC_WEB_BASE_URL;
 
 export default function LatestArtical({ cate_id }) {
   const [posts, setPosts] = useState([]);
@@ -76,8 +78,13 @@ export default function LatestArtical({ cate_id }) {
                   <div
                     className={`${styles.main_card} ${styles.htiscbox}`}
                     style={{
-                      backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), url('${posts[0].post_image_url || "/images/blog1.jpg"}')`,
+                      backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), url('${
+                        posts[0]?.post_image_url
+                          ? WEB_BASE_URL + posts[0].post_image_url
+                          : "/images/blog1.jpg"
+                      }')`,
                     }}
+
                   >
                     <div className={`${styles.main_carddate} ${styles.thedate}`}>
                       <Image src="/calendar_i.svg" alt="Calendar Icon" width={16} height={16} />{" "}
@@ -105,7 +112,7 @@ export default function LatestArtical({ cate_id }) {
                   <div className={styles.sub_card} key={index}>
                     <div className={`${styles.article_sm_imgbox} ${styles.htiscbox}`}>
                       <img
-                        src={post.post_image_url || "/images/blog1.jpg"}
+                        src={`${WEB_BASE_URL}${post?.post_image_url || "/images/blog1.jpg"}`}
                         alt={post.post_title}
                         width={500}
                         height={300}
@@ -121,12 +128,12 @@ export default function LatestArtical({ cate_id }) {
                         })}
                       </small>
                       <h6>{post.post_title}</h6>
-                      <div className={`${styles.read_link}`}>
+                      <div className={styles.read_link}>
                         Read Story
                         <div className={styles.circl_btn}>
-                          <a className={styles.article_btn}>
+                          <Link href={`/blog/${post.post_slug}`} className={styles.article_btn}>
                             <Image src="/arrow.svg" alt="Arrow" width={18} height={18} />
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>

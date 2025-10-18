@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import Viewproductspop from "../../../products/components/Viewproductspop";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
+const WEB_BASE_URL = process.env.NEXT_PUBLIC_WEB_BASE_URL;
 
 function formatPriceINR(v) {
   return Number(v ?? 0).toLocaleString("en-IN");
@@ -262,10 +263,10 @@ export default function Vehiclesscooters() {
                   {!loading && products.map((p) => (
                     <div key={p.id} className="col-12 col-sm-6 col-lg-3">
                       <div className={`card p-4 ${styles.fleetscard} h-100`}>
-                        <Image
+                        <img
                           src={
                             p?.media_gallery?.[0]
-                              ? p.media_gallery[0].file_path + p.media_gallery[0].file_name
+                              ? `${WEB_BASE_URL}${p.media_gallery[0].file_path}${p.media_gallery[0].file_name}`
                               : "/uploads/media/host/items/placeholder.png"
                           }
                           alt={p?.item_name || "Item image"}

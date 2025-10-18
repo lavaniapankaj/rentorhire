@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
+const WEB_BASE_URL = process.env.NEXT_PUBLIC_WEB_BASE_URL;
 
 export default function Viewproductspop({ triggerId, onClose }) {
   const [loading, setLoading] = useState(false);
@@ -201,8 +202,12 @@ export default function Viewproductspop({ triggerId, onClose }) {
                   item.media_gallery.map((media) => (
                     <img
                       key={media.id}
-                      src={`${media.file_path}${media.file_name}`}
-                      alt={item.item_name}
+                      src={
+                        media?.file_path && media?.file_name
+                          ? `${WEB_BASE_URL}${media.file_path}${media.file_name}`
+                          : "/uploads/media/host/items/placeholder.png"
+                      }
+                      alt={item?.item_name || "Item image"}
                       width={280}
                       height={180}
                       className={styles.itemImg}
@@ -359,8 +364,13 @@ export default function Viewproductspop({ triggerId, onClose }) {
                             {item.media_gallery.map((media, index) => (
                               <div key={media.id} className={styles.roh_slide}>
                                 <img
-                                  src={`${media.file_path}${media.file_name}`}
-                                  alt={`${item.item_name}-${index}`}
+                                  src={
+                                    media?.file_path && media?.file_name
+                                      ? `${WEB_BASE_URL}${media.file_path}${media.file_name}`
+                                      : "/uploads/media/host/items/placeholder.png"
+                                  }
+                                  alt={`${item?.item_name || "Item"}-${index}`}
+                                  className={styles.itemImg}
                                 />
                               </div>
                             ))}

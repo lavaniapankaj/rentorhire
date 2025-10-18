@@ -5,77 +5,53 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_USER_URL;
+const WEB_BASE_URL = process.env.NEXT_PUBLIC_WEB_BASE_URL;
+
 export default function SingleBlogPage() {
   const { slug } = useParams();
   const [blog, setBlog] = useState(null);
   const [relatedBlogs, setRelatedBlogs] = useState([]);
 
   useEffect(() => {
-    const allBlogs = [
-      {
-        id: 1,
-        slug: "future-of-web-development",
-        title: "Exploring the Future of Web Development",
-        date: "October 12, 2025",
-        image: "/images/blog1.jpg",
-        content:
-          "Web development is evolving rapidly with frameworks like Next.js, Astro, and Remix. Developers are now focusing more on performance, accessibility, and SEO-driven architectures. Server-side rendering and static generation have become the new standards for web excellence.",
-      },
-      {
-        id: 2,
-        slug: "wordpress-plugin-tips",
-        title: "10 Tips for WordPress Plugin Developers",
-        date: "October 10, 2025",
-        image: "/images/blog2.jpg",
-        content:
-          "As a WordPress plugin developer, always use hooks effectively, sanitize user input, and keep your plugin lightweight. Proper documentation and security practices are crucial to maintain plugin quality and reputation.",
-      },
-      {
-        id: 3,
-        slug: "nextjs-15-new-features",
-        title: "Next.js 15: What’s New and Exciting",
-        date: "October 8, 2025",
-        image: "/images/blog3.jpg",
-        content:
-          "Next.js 15 introduces faster builds, the React Compiler, Partial Prerendering, and improved edge deployment support. It continues to be the most popular React framework for production-grade apps.",
-      },
-      {
-        id: 4,
-        slug: "build-rest-api-nodejs",
-        title: "Building REST APIs with Node.js and Express",
-        date: "October 6, 2025",
-        image: "/images/blog3.jpg",
-        content:
-          "Learn how to build powerful REST APIs using Node.js and Express. Focus on scalability, error handling, and modular routes to keep your backend clean and maintainable.",
-      },
-    ];
+    if (!slug) return;
 
-    const single = allBlogs.find((b) => b.slug === slug);
-    setBlog(single);
+    const fetchSingleBlog = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/viewsingleblog`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ slug }),
+        });
 
-    const related = allBlogs.filter((b) => b.slug !== slug).slice(0, 3);
-    setRelatedBlogs(related);
+        const result = await res.json();
+
+        if (result.blog) {
+          setBlog(result.blog);
+          setRelatedBlogs(result.related || []);
+        } else {
+          console.error("Blog not found:", result);
+        }
+      } catch (error) {
+        console.error("Error fetching blog:", error);
+      }
+    };
+
+    fetchSingleBlog();
   }, [slug]);
 
-  // ✅ Ripple Click Effect
+  // Ripple Effect
   const createRipple = (e) => {
     const target = e.currentTarget;
     const ripple = document.createElement("span");
     ripple.classList.add(style.ripple);
-
     const rect = target.getBoundingClientRect();
     const x = e.clientX - rect.left - 60;
     const y = e.clientY - rect.top - 60;
-
     ripple.style.left = `${x}px`;
     ripple.style.top = `${y}px`;
-
     target.appendChild(ripple);
-
-    requestAnimationFrame(() => {
-      ripple.classList.add(style.ripple_effect);
-    });
-
+    requestAnimationFrame(() => ripple.classList.add(style.ripple_effect));
     setTimeout(() => ripple.remove(), 700);
   };
 
@@ -83,63 +59,105 @@ export default function SingleBlogPage() {
 
   return (
     <>
-      {/* Hero Section  */}
+      {/* === Hero Section === */}
       <div className={style.roh_post_hero_wrap}>
         <div className={style.roh_post_hero_inner}>
-          <div className={style.roh_post_hero} style={{ backgroundImage: `url(${blog.image})` }}>
-            <div className={`container`}>
+          <div
+            className={style.roh_post_hero}
+            style={{
+              backgroundImage: `url(${WEB_BASE_URL}${blog.file_path + blog.file_name || ""})`,
+            }}
+          >
+            <div className="container">
               <div className={style.roh_Zindex}>
                 <div className={style.roh_hero_left_content}>
-                  <h1 className={style.roh_hero_title}>{blog.title}</h1>
+                  <h1 className={style.roh_hero_title}>{blog.post_title}</h1>
 
                   <div className={style.roh_meta}>
-                    <span>👤 Sarah Johnson</span>
-                    <span>📅 {blog.date}</span>
-                    <span>⏳ 8 min read</span>
+                    <span>
+                      📅{" "}
+                      {new Date(blog.add_date).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
+                    {blog.category_name && (
+                      <span> | 🏷️ {blog.category_name}</span>
+                    )}
+                    <span> ⏳ 8 min read</span>
                   </div>
 
                   <p className={style.roh_hero_desc}>
-                    Navigate the rental market with confidence using our comprehensive guide
-                    designed specifically for first-time renters.
+                    {blog.post_excerpt || "Explore our latest insights and tips."}
                   </p>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <div className={style.roh_singlePost_innerContainer}>
 
+      {/* === Blog Content === */}
+      <div className={style.roh_singlePost_innerContainer}>
         <div className={style.roh_blog_content}>
-          <p>{blog.content}</p>
+          <p>{blog.description}</p>
         </div>
 
-        <div className={style.roh_related_section}>
-          <h2>Related Posts</h2>
-          <div className={style.roh_related_grid}>
-            {relatedBlogs.map((rel) => (
-              <div key={rel.slug} className={style.roh_related_card} onClick={createRipple}>
-                <div className={style.roh_related_img}
-                  onMouseEnter={createRipple}>
-                  <img src={rel.image} alt={rel.title} className={style.roh_img_cover} />
-                </div>
-                <div className={style.roh_related_info}>
-                  <h3>{rel.title}</h3>
-                  <p className={style.roh_related_date}>{rel.date}</p>
+        {/* === Related Blogs === */}
+        {relatedBlogs.length > 0 && (
+          <div className={style.roh_related_section}>
+            <h2>Related Posts</h2>
+            <div className={style.roh_related_grid}>
+              {relatedBlogs.map((rel) => (
+                <div
+                  key={rel.post_slug}
+                  className={style.roh_related_card}
+                  onClick={createRipple}
+                >
+                  <div
+                    className={style.roh_related_img}
+                    onMouseEnter={createRipple}
+                  >
+                    <img
+                      src={`${WEB_BASE_URL}${rel.file_path + rel.file_name || ""}`}
+                      alt={rel.post_title}
+                      className={style.roh_img_cover}
+                    />
+                  </div>
+                  <div className={style.roh_related_info}>
+                    <h3>{rel.post_title}</h3>
+                    <p className={style.roh_related_date}>
+                      {new Date(rel.add_date).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </p>
 
-                  <div className={`d-flex align-items-center justify-content-start ${style.roh_redBtns}`}>
-                    <div className={`${style.roh_button_custom}`}><Link href={`/blog/${rel.slug}`}>Read More</Link></div>
-                    <div className={`${style.roh_circl_btn}`}>
-                      <Link href={`/blog/${rel.slug}`}><Image src="/arrow.svg" alt="Arrow Right" width={18} height={18} /></Link>
+                    <div
+                      className={`d-flex align-items-center justify-content-start ${style.roh_redBtns}`}
+                    >
+                      <div className={style.roh_button_custom}>
+                        <Link href={`/blog/${rel.post_slug}`}>Read More</Link>
+                      </div>
+                      <div className={style.roh_circl_btn}>
+                        <Link href={`/blog/${rel.post_slug}`}>
+                          <Image
+                            src="/arrow.svg"
+                            alt="Arrow Right"
+                            width={18}
+                            height={18}
+                          />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

@@ -363,4 +363,26 @@ const ValidateGetServiceProviderinfo = async (req, res, next) => {
 };
 
 
-module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllActivevehiclesScooters, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateCreateContactUsEntry, ValidateGetAllContactUsEntries,ValidateViewSingleContactUsEntry, ValidateGetServiceProviderinfo};
+/** Validate get all active blogs - Coded by Vishnu Oct 17 2025 */
+const ValidateGetAllActiveBlogs = async (req, res, next) => {
+    try {
+        next();
+    } catch (err) {
+        console.error("Validation error:", err);
+        return GLOBAL_ERROR_RESPONSE("Validation error", { error: err.message || err }, res);
+    }
+};
+
+/** Validate to get single blog - Coded by Vishnu Oct 18 2025 */
+const ValidateViewSingleBlog = async (req, res, next) => {
+  try {
+    const { slug } = req.body;
+    if (!slug) return res.status(400).json({ message: "Slug required" });
+    next();
+  } catch (err) {
+    console.error("Validation error:", err);
+    return res.status(500).json({ message: "Validation error" });
+  }
+};
+
+module.exports = {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin, validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes,  ValidateGetAllActivevehiclesScooters, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateCreateContactUsEntry, ValidateGetAllContactUsEntries,ValidateViewSingleContactUsEntry, ValidateGetServiceProviderinfo, ValidateGetAllActiveBlogs, ValidateViewSingleBlog};

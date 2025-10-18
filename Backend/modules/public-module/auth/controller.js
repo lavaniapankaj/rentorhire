@@ -1149,7 +1149,9 @@ function authApi() {
     /** Api to create a new contact us entry - Coded by Vishnu Oct 14 2025 */
     this.createContactUsEntry = async (req, res) => {
     try {
-        const { full_name, email, phone, subject, message, ip_address } = req.body;
+        const { first_name, last_name, email, phone, subject, message, ip_address } = req.body;
+
+        const full_name = `${first_name} ${last_name}`.trim();
 
         // === Insert into DB ===
         const query = `
@@ -1167,7 +1169,7 @@ function authApi() {
         ip_address || req.ip || "unknown",
         ]);
 
-        // ===Send email to admin ===
+        // === Send email to admin ===
         const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port: Number(process.env.SMTP_PORT),
@@ -1181,7 +1183,8 @@ function authApi() {
         const htmlBody = `
         <div style="font-family: Arial, sans-serif; line-height: 1.6;">
             <h2 style="color: #0073aa;">📩 New Contact Inquiry Received</h2>
-            <p><strong>Full Name:</strong> ${full_name}</p>
+            <p><strong>First Name:</strong> ${first_name}</p>
+            <p><strong>Last Name:</strong> ${last_name}</p>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Phone:</strong> ${phone}</p>
             <p><strong>Subject:</strong> ${subject}</p>
@@ -1201,7 +1204,6 @@ function authApi() {
         html: htmlBody,
         });
 
-        // === Respond to frontend ===
         return res.status(200).json({
         success: true,
         message: "Contact entry created & email sent successfully",
@@ -1215,6 +1217,7 @@ function authApi() {
         });
     }
     };
+
 
 
     /** Api to get contact us all entry - Coded by Vishnu Oct 14 2025 */
@@ -1333,5 +1336,110 @@ function authApi() {
             return res.status(500).json({ message: 'Internal server error' });
         }
     };
+
+    /** Api to get all active blogs - Coded by Vishnu Oct 17 2025 */
+    this.getAllActiveBlogs = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 21;
+        const offset = (page - 1) * limit;
+
+        const [rows] = await pool.query(`
+        SELECT 
+            p.id,
+            p.post_title,
+            p.post_slug,
+            p.post_excerpt,
+            p.post_status,
+            p.add_date,
+            m.file_name,
+            m.file_path,
+            c.name AS category_name,
+            c.slug AS category_slug
+        FROM roh_posts AS p
+        LEFT JOIN roh_media_gallery AS m ON p.post_img_id = m.id
+        LEFT JOIN roh_categories AS c ON p.cate_id = c.id
+        WHERE p.post_status = 'published'
+        ORDER BY p.add_date DESC
+        LIMIT ? OFFSET ?
+        `, [limit, offset]);
+
+        const [[{ total }]] = await pool.query(`
+        SELECT COUNT(*) AS total 
+        FROM roh_posts 
+        WHERE post_status = 'published'
+        `);
+
+        res.status(200).json({ data: rows, total });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+    };
+
+
+    /** APi to get single blog - Coded by Vishnu Oct 18 2025 */
+    this.getSingleBlog = async (req, res) => {
+    try {
+        const { slug } = req.body;
+
+        // 🔹 Fetch main blog details (include cate_id)
+        const [blogRows] = await pool.query(`
+        SELECT 
+            p.id,
+            p.cate_id,
+            p.post_title,
+            p.post_slug,
+            p.post_excerpt,
+            p.description,
+            p.post_status,
+            p.add_date,
+            m.file_name,
+            m.file_path,
+            c.name AS category_name,
+            c.slug AS category_slug
+        FROM roh_posts AS p
+        LEFT JOIN roh_media_gallery AS m ON p.post_img_id = m.id
+        LEFT JOIN roh_categories AS c ON p.cate_id = c.id
+        WHERE p.post_slug = ? 
+            AND p.post_status = 'published'
+        LIMIT 1
+        `, [slug]);
+
+        if (blogRows.length === 0) {
+        return res.status(404).json({ message: "Blog not found" });
+        }
+
+        const blog = blogRows[0];
+
+        // 🔹 Fetch related posts from same category
+        const [relatedRows] = await pool.query(`
+        SELECT 
+            p.id,
+            p.post_title,
+            p.post_slug,
+            p.post_excerpt,
+            p.add_date,
+            m.file_name,
+            m.file_path
+        FROM roh_posts AS p
+        LEFT JOIN roh_media_gallery AS m ON p.post_img_id = m.id
+        WHERE p.cate_id = ?
+            AND p.post_slug != ?
+            AND p.post_status = 'published'
+        ORDER BY p.add_date DESC
+        LIMIT 3
+        `, [blog.cate_id, slug]);
+
+        res.status(200).json({ blog, related: relatedRows });
+    } catch (error) {
+        console.error("Error fetching single blog:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+    };
+
+
+
+
 }
 module.exports = new authApi();

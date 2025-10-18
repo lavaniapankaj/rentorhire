@@ -1,5 +1,5 @@
 const AuthController = require("./controller");
-const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes, ValidateGetAllActivevehiclesScooters, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateCreateContactUsEntry, ValidateGetAllContactUsEntries,ValidateViewSingleContactUsEntry,  ValidateGetServiceProviderinfo} = require("./validation");
+const {validateUserSignUp, validateServiceProviderRegister, validateUserLogin, validateAdminUserLogin,validateAvailabilityCheck, signUpvalidateOTP, validateResendOTP, signInverifyOtp, ValidateGetAllActivevehiclesCars, ValidateGetAllActivevehiclesBikes, ValidateGetAllActivevehiclesScooters, ValidateGetAllRecentActiveProducts, ValidateViewSingleProduct, ValidateGetSingleCategoryRecentPosts, ValidateGetSingleCategoryRecentFaqs, ValidateCreateContactUsEntry, ValidateGetAllContactUsEntries,ValidateViewSingleContactUsEntry,  ValidateGetServiceProviderinfo, ValidateGetAllActiveBlogs, ValidateViewSingleBlog} = require("./validation");
 
 
 /** Api for register user Coded by Raj July 07 2025 */
@@ -180,3 +180,23 @@ app.post(
         AuthController.getServiceProviderDetails(req, res, next); /** Calling the controller */
     }
 );
+
+
+/** Api to get all active blogs - Coded by Vishnu Oct 17 2025 */
+app.get(
+    "/api/user/getallactiveblogs",
+    ValidateGetAllActiveBlogs,
+    (req, res, next) => {
+        AuthController.getAllActiveBlogs(req, res, next); /** Calling the controller */
+    }
+);
+
+/** APi to get single blog - Coded by Vishnu Oct 18 2025 */
+app.post(
+    "/api/user/viewsingleblog", 
+    ValidateViewSingleBlog, 
+    (req, res, next) => {
+    AuthController.getSingleBlog(req, res, next);
+});
+
+
